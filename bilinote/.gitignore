@@ -1,0 +1,58 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+build/
+*.egg
+
+# 注意：dist/ 是前端构建产物（打包版运行必需），不要忽略！
+
+# === 虚拟环境 / 打包 Python（体积巨大，不适合上传） ===
+python310/
+
+# === 依赖运行时 ===
+bin/ffmpeg.exe
+bin/ffplay.exe
+bin/ffprobe.exe
+
+# === 数据文件（含下载的视频/音频） ===
+data/
+*.mp3
+*.mp4
+
+# === 模型文件（体积巨大，需单独下载） ===
+models/
+
+# === 运行时生成的笔记结果 ===
+note_results/
+
+# === 日志 ===
+logs/
+
+# === 截图缓存 ===
+static/screenshots/
+
+# === 数据库 ===
+*.db
+
+# === 环境配置（含 API Key，不要上传！） ===
+.env
+cookies.txt
+
+# === 本仓库本地/分发产物 ===
+BiliNote_win_*_dist/
+BiliNote_dist*/
+*.dist/
+NOTICE.local
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === OS ===
+Thumbs.db
+.DS_Store
+desktop.ini
