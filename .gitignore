@@ -1,12 +1,29 @@
-node_modules/
+# OS / editor
 .DS_Store
 Thumbs.db
+desktop.ini
 *.log
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets & local env
 .env
 .env.local
+.env.*.local
+!.env.example
+!.dev.vars.example
 
-# wrangler files
+# Wrangler / Cloudflare
 .wrangler
 .dev.vars*
-!.dev.vars.example
-!.env.example
+
+# Node (if scripts grow a package.json later)
+node_modules/
+
+# Python caches (any project)
+__pycache__/
+*.py[cod]
+.venv/
+venv/

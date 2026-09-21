@@ -21,8 +21,8 @@ data/
 *.mp3
 *.mp4
 
-# === 模型文件（体积巨大，需单独下载） ===
-models/
+# === 模型文件（体积巨大，需单独下载；仅顶层 Whisper 权重，勿误伤 app/models/） ===
+/models/
 
 # === 运行时生成的笔记结果 ===
 note_results/
@@ -56,3 +56,6 @@ NOTICE.local
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# 本机私密备份（API Key / Cookie / DB），禁止提交
+_private_backup/

@@ -1,0 +1,15 @@
+susu-tools —— 个人 Vibecoding 工具箱
+
+定位：
+1. 收录自己在 vibe coding 过程中个人感觉好用的工具（以在线网页导航形式发布）。
+2. 发布自己创作 / 二次开发的工具（当前主要作品：bilinote/，BiliNote Windows 增强版）。
+
+命名与部署：
+- 本地文件夹现名：susu-tools（由 susu 重命名）
+- GitHub 仓库：https://github.com/sdh0219/susu （远程仍叫 susu，历史连续）
+- 个人网页（Cloudflare Pages）：https://susu-2x9.pages.dev/
+
+结构：
+- index.html / tool.html / css / js  → 工具站页面
+- bilinote/                         → 自研/二开工具：视频转 AI 笔记
+- wrangler.jsonc                    → Cloudflare Pages 配置

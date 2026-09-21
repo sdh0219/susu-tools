@@ -19,8 +19,8 @@
 
 ## 在本仓库中的位置
 
-本项目位于 monorepo 子目录 [susu/bilinote](https://github.com/sdh0219/susu/tree/main/bilinote)。
-克隆后进入该目录再运行打包脚本或 main.py。
+本项目位于 monorepo 子目录 [`projects/bilinote/`](https://github.com/sdh0219/susu-tools/tree/main/projects/bilinote)。
+克隆后进入该目录再运行打包脚本或 `main.py`（或双击 `Windows 运行.bat`）。
 
 ## 快速开始
 
