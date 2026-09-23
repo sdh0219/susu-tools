@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ title }} · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+</head>
+<body{% if embed %} class="embed"{% endif %}>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="返回文章列表">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">{{ title }}</h1>
+  <div class="topbar__actions">
+    <label class="theme-field">
+      <span class="theme-field__label">主题</span>
+      <select id="themeSelect" class="select" aria-label="切换抖音主题">
+        {% for t in themes %}
+        <option value="{{ t }}" {% if t == theme %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <a class="btn btn--primary" href="/edit/{{ article }}">编辑文章</a>
+    <a class="btn" href="/export/{{ article }}">导出</a>
+    <a class="btn" href="/guide">使用指南</a>
+    <a class="btn" href="/preview/{{ article }}/zhihu" target="_blank" rel="noopener">知乎文章</a>
+    <button class="btn btn--kbd" id="paletteBtn" type="button">
+      <span>跳转</span><kbd>⌘K</kbd>
+    </button>
+  </div>
+</header>
+
+<main class="workbench">
+  <aside class="rail reveal" style="--i:0">
+    <div class="rail__head">
+      <span class="label">文章结构</span>
+      <span class="label label--muted">{{ outline|length }} 节</span>
+    </div>
+    <ul class="outline" id="outline">
+      {% for item in outline %}
+      <li>
+        <button class="outline__item" type="button" data-page="{{ item.page }}">
+          <span class="outline__num">{{ "%02d"|format(item.page) }}</span>
+          <span class="outline__text">{{ item.title }}</span>
+        </button>
+      </li>
+      {% else %}
+      <li class="palette__empty">（无二级标题）</li>
+      {% endfor %}
+    </ul>
+    <div class="rail__foot">
+      <span class="label label--muted">← → 翻页 · ⌘K 跳转</span>
+    </div>
+  </aside>
+
+  <section class="stage reveal" style="--i:1">
+    <figure class="canvas">
+      <img id="pageImg" class="canvas__img" src="{{ image_dir }}/01.png"
+           width="1080" height="1440" alt="抖音图文第 1 页">
+    </figure>
+    <div class="controls" role="group" aria-label="翻页">
+      <button class="ctrl" id="prev" type="button" aria-label="上一页" disabled>‹</button>
+      <div class="ctrl__readout">
+        <span class="ctrl__page" id="counter">01 / {{ "%02d"|format(pages) }}</span>
+        <span class="ctrl__kind" id="kind">—</span>
+      </div>
+      <button class="ctrl" id="next" type="button" aria-label="下一页">›</button>
+    </div>
+  </section>
+
+  <aside class="inspector reveal" style="--i:2">
+    <div class="inspector__block">
+      <span class="label">当前页面</span>
+      <dl class="kv">
+        <dt>类型</dt><dd id="inspKind">—</dd>
+        <dt>文件</dt><dd id="inspFile">—</dd>
+        <dt>画布</dt><dd>1080 × 1440</dd>
+      </dl>
+    </div>
+    <div class="inspector__block">
+      <span class="label">主题</span>
+      <p class="inspector__theme"><span class="swatch" aria-hidden="true"></span><code id="inspTheme">{{ theme }}</code></p>
+      <p class="inspector__note">切换主题即时重新生成图集，首次切换需等待数秒；返回默认主题使用已有构建。</p>
+    </div>
+    <div class="inspector__block">
+      <span class="label">输出</span>
+      <a class="btn btn--block" href="{{ image_dir }}/" target="_blank" rel="noopener">图片目录</a>
+      <a class="btn btn--block" href="/preview/{{ article }}/zhihu" target="_blank" rel="noopener">知乎 HTML</a>
+    </div>
+  </aside>
+</main>
+
+<dialog id="palette" class="palette" aria-label="跳转到页面">
+  <div class="palette__search">
+    <span class="palette__kbd"><kbd>⌘K</kbd></span>
+    <input id="paletteInput" class="palette__input" type="text"
+           placeholder="输入标题跳转页面…" autocomplete="off">
+  </div>
+  <ul class="palette__list" id="paletteList" role="listbox"></ul>
+</dialog>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">一次创作，多平台输出 · Markdown 母版 → 知乎 + 抖音</span>
+  <span class="foot__credit">编辑 Markdown 后刷新本页即可看到最新效果</span>
+</footer>
+
+<script>
+(() => {
+  const TOTAL = {{ pages }};
+  const KINDS = {{ pages_kinds | tojson }};
+  const IMG_DIR = {{ image_dir | tojson }};
+  const KIND_LABEL = { cover: "封面", content: "正文", summary: "结尾" };
+  let cur = 1;
+
+  const img = document.getElementById('pageImg');
+  const counter = document.getElementById('counter');
+  const kindEl = document.getElementById('kind');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const outlineItems = [...document.querySelectorAll('.outline__item')];
+  const inspKind = document.getElementById('inspKind');
+  const inspFile = document.getElementById('inspFile');
+
+  const pad = n => String(n).padStart(2, '0');
+
+  function show(n, viaKeyboard) {
+    cur = Math.max(1, Math.min(TOTAL, n));
+    if (TOTAL < 1) { counter.textContent = '—'; return; }
+    const onSwap = () => { img.classList.remove('is-fading'); };
+    img.classList.add('is-fading');
+    setTimeout(() => {
+      img.src = `${IMG_DIR}/${pad(cur)}.png`;
+      img.onload = onSwap;
+      img.onerror = onSwap;
+      img.alt = `抖音图文第 ${cur} 页`;
+    }, 120);
+    counter.textContent = `${pad(cur)} / ${pad(TOTAL)}`;
+    const kind = KINDS[cur - 1] || '';
+    kindEl.textContent = KIND_LABEL[kind] || kind || '—';
+    prevBtn.disabled = cur === 1;
+    nextBtn.disabled = cur === TOTAL;
+    inspKind.textContent = KIND_LABEL[kind] || kind || '—';
+    inspFile.textContent = `${pad(cur)}.png`;
+    outlineItems.forEach(li => {
+      const active = Number(li.dataset.page) === cur;
+      li.classList.toggle('is-active', active);
+      if (active && viaKeyboard && li.scrollIntoView) li.scrollIntoView({ block: 'nearest' });
+    });
+  }
+
+  prevBtn.addEventListener('click', () => show(cur - 1, true));
+  nextBtn.addEventListener('click', () => show(cur + 1, true));
+  outlineItems.forEach(li => li.addEventListener('click', () => show(Number(li.dataset.page), true)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' && !palette.open) show(cur - 1, true);
+    if (e.key === 'ArrowRight' && !palette.open) show(cur + 1, true);
+  });
+
+  // 主题切换
+  document.getElementById('themeSelect').addEventListener('change', e => {
+    location.href = `/preview/{{ article }}?theme=${encodeURIComponent(e.target.value)}`;
+  });
+
+  // ⌘K 命令面板：跳转到任意页面
+  const palette = document.getElementById('palette');
+  const paletteInput = document.getElementById('paletteInput');
+  const paletteList = document.getElementById('paletteList');
+  let rows = [];
+  let activeRow = 0;
+
+  function buildRows(filter) {
+    const q = (filter || '').trim().toLowerCase();
+    const entries = [{ label: '封面', page: 1 }];
+    outlineItems.forEach(li => {
+      const text = li.querySelector('.outline__text');
+      entries.push({ label: text ? text.textContent.trim() : '', page: Number(li.dataset.page) });
+    });
+    if (TOTAL > 1) entries.push({ label: '结尾卡片', page: TOTAL });
+    rows = entries.filter(e => !q || e.label.toLowerCase().includes(q));
+    paletteList.innerHTML = '';
+    if (!rows.length) {
+      const li = document.createElement('li');
+      li.className = 'palette__empty';
+      li.textContent = '没有匹配的页面';
+      paletteList.appendChild(li);
+      return;
+    }
+    rows.forEach((e, i) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'palette__item';
+      btn.setAttribute('role', 'option');
+      btn.dataset.page = e.page;
+      const num = document.createElement('span');
+      num.className = 'outline__num';
+      num.textContent = pad(e.page);
+      const text = document.createElement('span');
+      text.textContent = e.label;
+      btn.append(num, text);
+      li.appendChild(btn);
+      paletteList.appendChild(li);
+    });
+    activeRow = 0;
+    markActive();
+  }
+
+  function markActive() {
+    [...paletteList.children].forEach((li, i) => {
+      const btn = li.querySelector('.palette__item');
+      if (btn) btn.classList.toggle('is-active', i === activeRow);
+    });
+    const active = paletteList.children[activeRow];
+    if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest' });
+  }
+
+  function openPalette() {
+    buildRows(paletteInput.value);
+    palette.showModal();
+    paletteInput.focus();
+  }
+
+  document.getElementById('paletteBtn').addEventListener('click', openPalette);
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      palette.open ? palette.close() : openPalette();
+    }
+  });
+  palette.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { palette.close(); return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); activeRow = Math.min(rows.length - 1, activeRow + 1); markActive(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); activeRow = Math.max(0, activeRow - 1); markActive(); }
+    if (e.key === 'Enter' && rows[activeRow]) {
+      e.preventDefault();
+      show(rows[activeRow].page, true);
+      palette.close();
+    }
+  });
+  paletteInput.addEventListener('input', () => { activeRow = 0; buildRows(paletteInput.value); });
+  paletteList.addEventListener('click', e => {
+    const btn = e.target.closest('.palette__item');
+    if (!btn) return;
+    show(Number(btn.dataset.page), true);
+    palette.close();
+  });
+
+  show(1);
+})();
+</script>
+</body>
+</html>

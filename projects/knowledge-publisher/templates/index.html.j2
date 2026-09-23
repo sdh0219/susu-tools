@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ title }} · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+<style>
+  /* 列表页专属样式（同一令牌系统） */
+  .index {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl) var(--space-3xl);
+    min-width: 0;
+  }
+  .index__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-bottom: var(--space-lg);
+  }
+  .index__meta code {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper-2);
+    color: var(--color-ink-2);
+    white-space: nowrap;
+  }
+  .index__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  .index__lede {
+    margin-top: var(--space-md);
+    max-width: 42ch;
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-ink-2);
+  }
+  .index__counts {
+    margin-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-neutral);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .index__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .article-list {
+    list-style: none;
+    margin: var(--space-3xl) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .article-row { border-bottom: 1px solid var(--color-rule); }
+  .article-row__grid {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-xs);
+    min-width: 0;
+  }
+  .article-row__link {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-md);
+    text-decoration: none;
+    min-width: 0;
+  }
+  .article-row__edit { flex-shrink: 0; }
+  .article-row__num {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-neutral);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .article-row__main { min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+  .article-row__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .article-row__meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-neutral);
+  }
+  .article-row__arrow {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--color-neutral);
+    transition: transform var(--dur-short) var(--ease-out),
+                color var(--dur-micro) var(--ease-out);
+  }
+  .article-row__link:hover .article-row__title { color: var(--color-accent); }
+  .article-row__link:hover .article-row__num { color: var(--color-accent); }
+  .article-row__link:hover .article-row__arrow { transform: translateX(4px); color: var(--color-accent); }
+  .article-row__link:active .article-row__arrow { transform: translateX(1px); }
+
+  .index__empty {
+    margin-top: var(--space-3xl);
+    padding: var(--space-2xl);
+    border: 1px dashed var(--color-rule-2);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--color-neutral);
+    font-size: var(--text-base);
+  }
+  .index__empty code {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper-2);
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Knowledge Publisher 首页">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">文章列表</h1>
+  <div class="topbar__actions">
+    <button class="btn" id="impBtn" type="button">导入文章</button>
+    <button class="btn btn--primary" id="newBtn" type="button">新建文章</button>
+    <a class="btn" href="/guide">使用指南</a>
+  </div>
+</header>
+
+<main class="index">
+  <p class="index__meta reveal" style="--i:0">
+    <code>Markdown 母版</code> → <code>检查</code> → <code>知乎 + 抖音</code>
+  </p>
+  <h1 class="index__title reveal" style="--i:1">Knowledge Publisher</h1>
+  <p class="index__lede reveal" style="--i:2">一次创作，多平台输出。写一份 Markdown 母稿，系统负责检查、渲染、转换——生成知乎发布包与抖音图文图集。选一篇文章开始预览，或直接在线编辑。</p>
+  <p class="index__counts reveal" style="--i:3">{{ articles|length }} 篇文章 · {{ themes|length }} 个主题</p>
+  <div class="index__actions reveal" style="--i:4">
+    <a class="btn btn--primary" href="/edit/{{ articles[0].name if articles else '#' }}">编辑最近的文章</a>
+    <a class="btn" href="/guide">查看使用指南</a>
+  </div>
+
+  <ul class="article-list">
+    {% for a in articles %}
+    <li class="article-row reveal" style="--i:{{ loop.index + 4 }}">
+      <div class="article-row__grid">
+        <a class="article-row__link" href="/preview/{{ a.name }}">
+          <span class="article-row__num">{{ "%02d"|format(loop.index) }}</span>
+          <span class="article-row__main">
+            <span class="article-row__title">{{ a.title }}</span>
+            <span class="article-row__meta">{{ a.category }} · {{ a.name }}.md</span>
+          </span>
+          <span class="article-row__arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--sm article-row__edit" href="/export/{{ a.name }}">导出</a>
+        <a class="btn btn--sm article-row__edit" href="/edit/{{ a.name }}">编辑</a>
+        <button class="btn btn--sm btn--danger article-row__del" type="button" data-name="{{ a.name }}">删除</button>
+      </div>
+    </li>
+    {% else %}
+    <li class="index__empty">
+      还没有文章。点击右上角「新建文章」，或先在终端运行 <code>kp new &lt;name&gt;</code>。
+    </li>
+    {% endfor %}
+  </ul>
+</main>
+
+<dialog id="newModal" class="modal" aria-label="新建文章">
+  <div class="modal__head">
+    <span class="modal__title">新建文章</span>
+    <button class="btn btn--sm" id="newClose" type="button">关闭</button>
+  </div>
+  <form class="modal__body" id="newForm">
+    <div class="field">
+      <label for="newName">文章名（英文/拼音，如 bayes）</label>
+      <input id="newName" name="name" type="text" pattern="[a-z0-9-]+" placeholder="bayes" required autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="newCategory">分类</label>
+      <input id="newCategory" name="category" type="text" list="catList" value="math" placeholder="math" autocomplete="off">
+      <datalist id="catList">
+        {% for c in categories %}<option value="{{ c }}"></option>{% endfor %}
+      </datalist>
+    </div>
+    <p class="modal__err" id="newErr"></p>
+    <button class="btn btn--primary" id="newSubmit" type="submit">创建并开始编辑</button>
+  </form>
+</dialog>
+
+<dialog id="delModal" class="modal" aria-label="删除文章">
+  <div class="modal__head">
+    <span class="modal__title">删除文章</span>
+    <button class="btn btn--sm" id="delClose" type="button">取消</button>
+  </div>
+  <div class="modal__body">
+    <p style="font-size:0.9rem;color:var(--color-ink-2);line-height:1.8">
+      确定要删除 <code id="delName"></code> 吗？它的母版文件和全部生成结果（output 目录）将一起被删除，<strong>无法恢复</strong>。
+    </p>
+    <p class="modal__err" id="delErr"></p>
+    <button class="btn btn--danger" id="delSubmit" type="button">确定删除</button>
+  </div>
+</dialog>
+
+<dialog id="impModal" class="modal" aria-label="导入文章">
+  <div class="modal__head">
+    <span class="modal__title">导入 Markdown 文章</span>
+    <button class="btn btn--sm" id="impClose" type="button">关闭</button>
+  </div>
+  <div class="modal__body">
+    <p style="font-size:0.85rem;color:var(--color-neutral);line-height:1.7;margin-bottom:var(--space-sm)">
+      把其他目录的 .md 文件导入系统统一管理。导入后如果文章引用了图片，请把图片放入 <code>assets/images/</code> 目录。
+    </p>
+    <section class="imp-sec">
+      <span class="label">方式一 · 选择文件上传</span>
+      <div class="field">
+        <label for="impFile">选择 .md 文件</label>
+        <input id="impFile" type="file" accept=".md,.markdown">
+      </div>
+      <div class="field">
+        <label for="impFileCat">分类</label>
+        <input id="impFileCat" list="catList" value="math" autocomplete="off">
+      </div>
+      <button class="btn btn--primary" id="impFileBtn" type="button">上传并导入</button>
+    </section>
+    <hr class="imp-hr">
+    <section class="imp-sec">
+      <span class="label">方式二 · 输入电脑上的文件路径</span>
+      <div class="field">
+        <label for="impPath">文件路径</label>
+        <input id="impPath" placeholder="如 D:\notes\gradient.md" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="impPathCat">分类</label>
+        <input id="impPathCat" list="catList" value="math" autocomplete="off">
+      </div>
+      <button class="btn btn--primary" id="impPathBtn" type="button">路径导入</button>
+    </section>
+    <p class="modal__err" id="impErr"></p>
+  </div>
+</dialog>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">一次创作，多平台输出 · Markdown 母版 → 知乎 + 抖音</span>
+  <span class="foot__credit"><a href="/guide" style="color:var(--color-accent)">使用指南</a></span>
+</footer>
+
+<script>
+(() => {
+  const modal = document.getElementById('newModal');
+  document.getElementById('newBtn').addEventListener('click', () => modal.showModal());
+  document.getElementById('newClose').addEventListener('click', () => modal.close());
+  modal.addEventListener('click', e => { if (e.target === modal) modal.close(); });
+
+  document.getElementById('newForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = document.getElementById('newErr');
+    const submit = document.getElementById('newSubmit');
+    err.textContent = '';
+    submit.disabled = true;
+    submit.textContent = '创建中…';
+    try {
+      const res = await fetch('/api/article/new', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('newName').value.trim(),
+          category: document.getElementById('newCategory').value.trim() || 'math',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || '创建失败');
+      location.href = data.path;
+    } catch (ex) {
+      err.textContent = ex.message;
+      submit.disabled = false;
+      submit.textContent = '创建并开始编辑';
+    }
+  });
+
+  // 导入文章（文件上传 / 本地路径）
+  const impModal = document.getElementById('impModal');
+  const impErr = document.getElementById('impErr');
+  document.getElementById('impBtn').addEventListener('click', () => {
+    impErr.textContent = '';
+    impModal.showModal();
+  });
+  document.getElementById('impClose').addEventListener('click', () => impModal.close());
+  impModal.addEventListener('click', e => { if (e.target === impModal) impModal.close(); });
+
+  function impDone(data, res) {
+    if (!res.ok || !data.ok) throw new Error(data.error || '导入失败');
+    location.href = data.path;
+  }
+  async function impBusy(btn, busy) {
+    btn.disabled = busy;
+    btn.textContent = busy ? '导入中…' : btn.dataset.label;
+  }
+
+  document.getElementById('impFileBtn').addEventListener('click', async () => {
+    const fileInput = document.getElementById('impFile');
+    const btn = document.getElementById('impFileBtn');
+    impErr.textContent = '';
+    if (!fileInput.files || !fileInput.files.length) {
+      impErr.textContent = '请先选择 .md 文件';
+      return;
+    }
+    const fd = new FormData();
+    fd.append('file', fileInput.files[0]);
+    fd.append('category', document.getElementById('impFileCat').value.trim() || 'math');
+    btn.dataset.label = btn.textContent;
+    impBusy(btn, true);
+    try {
+      const res = await fetch('/api/article/import', { method: 'POST', body: fd });
+      const data = await res.json();
+      impDone(data, res);
+    } catch (ex) {
+      impErr.textContent = ex.message;
+      impBusy(btn, false);
+    }
+  });
+
+  document.getElementById('impPathBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('impPathBtn');
+    impErr.textContent = '';
+    const path = document.getElementById('impPath').value.trim();
+    if (!path) {
+      impErr.textContent = '请输入文件路径';
+      return;
+    }
+    btn.dataset.label = btn.textContent;
+    impBusy(btn, true);
+    try {
+      const res = await fetch('/api/article/import-path', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path,
+          category: document.getElementById('impPathCat').value.trim() || 'math',
+        }),
+      });
+      const data = await res.json();
+      impDone(data, res);
+    } catch (ex) {
+      impErr.textContent = ex.message;
+      impBusy(btn, false);
+    }
+  });
+
+  // 删除文章（简单确认：弹窗 → 确定即删）
+  const delModal = document.getElementById('delModal');
+  const delSubmit = document.getElementById('delSubmit');
+  const delErr = document.getElementById('delErr');
+  let delName = null;
+
+  document.querySelectorAll('.article-row__del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      delName = btn.dataset.name;
+      document.getElementById('delName').textContent = delName;
+      delErr.textContent = '';
+      delModal.showModal();
+    });
+  });
+  document.getElementById('delClose').addEventListener('click', () => delModal.close());
+  delModal.addEventListener('click', e => { if (e.target === delModal) delModal.close(); });
+  delSubmit.addEventListener('click', async () => {
+    delSubmit.disabled = true;
+    delSubmit.textContent = '删除中…';
+    try {
+      const res = await fetch(`/api/article/${encodeURIComponent(delName)}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || '删除失败');
+      location.reload();
+    } catch (ex) {
+      delErr.textContent = ex.message;
+      delSubmit.disabled = false;
+      delSubmit.textContent = '确定删除';
+    }
+  });
+})();
+</script>
+</body>
+</html>

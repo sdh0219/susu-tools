@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>文章不存在 · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+<style>
+  .nf {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl) var(--space-3xl);
+    min-width: 0;
+  }
+  .nf__code {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-neutral);
+    margin-bottom: var(--space-sm);
+  }
+  .nf__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+  }
+  .nf__lede {
+    margin-top: var(--space-sm);
+    max-width: 36ch;
+    font-size: var(--text-md);
+    line-height: 1.7;
+    color: var(--color-ink-2);
+  }
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="返回文章列表">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">文章不存在</h1>
+</header>
+
+<main class="nf">
+  <p class="nf__code">404 · {{ name }}</p>
+  <h1 class="nf__title">这篇文章不存在或已被删除</h1>
+  <p class="nf__lede">它可能已经被删除，或者地址有误。回到文章列表继续管理你的内容。</p>
+  <div class="nf__actions">
+    <a class="btn btn--primary" href="/">返回文章列表</a>
+    <a class="btn" href="/guide">使用指南</a>
+  </div>
+</main>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">一次创作，多平台输出</span>
+</footer>
+</body>
+</html>

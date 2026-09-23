@@ -1,0 +1,10 @@
+# 黑金 · 封面页
+colors:
+  background: "#0D0D0F"
+  title: "#F5F0E6"
+  subtitle: "#A89B80"
+  series: "#D4A843"
+  badge_text: "#0D0D0F"
+  author: "#6B6150"
+  accent: "#D4A843"
+  accent_soft: "#201A10"

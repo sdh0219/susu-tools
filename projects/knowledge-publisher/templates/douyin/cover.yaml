@@ -1,0 +1,16 @@
+# 封面页样式
+colors:
+  background: "#FAFBFD"
+  title: "#101828"
+  subtitle: "#5A6B82"
+  series: "#1667D9"
+  badge_text: "#FFFFFF"      # 系列徽章上的文字颜色
+  author: "#8FA0B8"
+  accent: "#1667D9"
+  accent_soft: "#E8F1FE"
+fonts:
+  title: 80
+  subtitle: 40
+  series: 30
+  author: 28
+  tag: 26                     # 标签胶囊字号

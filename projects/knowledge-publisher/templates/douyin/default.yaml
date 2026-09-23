@@ -1,0 +1,48 @@
+# 抖音图文默认模板（1080×1440，3:4，PNG）
+# 设计目标：可直接发布的图文卡片——大字号、强层次、微冷底色、卡片化分块。
+# 修改这里的值即可换风格，无需改代码。
+canvas:
+  width: 1080
+  height: 1440
+
+padding:
+  top: 120
+  bottom: 120
+  left: 88
+  right: 88
+
+colors:
+  background: "#FAFBFD"          # 微冷白，避免纯白的生硬感
+  text: "#1B2430"
+  text_secondary: "#5A6B82"
+  accent: "#1667D9"
+  accent_soft: "#E8F1FE"
+  divider: "#E3E9F2"
+  footer: "#8FA0B8"
+  footer_chip: "#EDF3FC"         # 页脚页码胶囊底色
+  code_background: "#F2F4F8"
+  code_text: "#2B3648"
+  quote_background: "#EFF4FC"
+  table_header_background: "#1667D9"
+  table_header_text: "#FFFFFF"
+  table_alt_background: "#F4F7FB"
+  formula_panel: "#E8F1FE"
+  formula_text: "#101828"
+
+fonts:
+  title: 72
+  heading: 54
+  sub_heading: 42
+  body: 38
+  small: 28
+  formula: 52
+  code: 28
+
+code_padding:
+  x: 34
+  y: 28
+
+spacing:
+  block_gap: 24
+  section_gap: 60
+  line_factor: 1.58

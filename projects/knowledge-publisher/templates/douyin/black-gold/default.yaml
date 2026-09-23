@@ -1,0 +1,17 @@
+# 黑金主题（黑底 + 金色点缀）。只需覆盖与全局默认不同的部分。
+colors:
+  background: "#0D0D0F"
+  text: "#F5F0E6"
+  text_secondary: "#A89B80"
+  accent: "#D4A843"
+  accent_soft: "#201A10"
+  divider: "#2A251B"
+  footer: "#6B6150"
+  code_background: "#161310"
+  code_text: "#EDE4D0"
+  quote_background: "#161310"
+  table_header_background: "#D4A843"
+  table_header_text: "#0D0D0F"
+  table_alt_background: "#12100B"
+  formula_panel: "#201A10"
+  formula_text: "#F7EFDC"

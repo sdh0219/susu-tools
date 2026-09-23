@@ -1,0 +1,85 @@
+/* ============================================================
+ * Knowledge Publisher · design tokens（Hallmark / Cobalt）
+ * 主题：Cobalt —— 冷白工程纸 + 单一电光蓝信号 + 发丝线结构
+ * 展示字：Space Grotesk · 正文字：Inter · 等宽字：JetBrains Mono
+ * 所有组件样式必须通过 var(--token) 引用，禁止内联颜色。
+ * ============================================================ */
+:root {
+  /* ---- 纸面（冷色，偏蓝 250°，非纯白） ---- */
+  --color-paper:        oklch(98.5% 0.004 250);
+  --color-paper-2:      oklch(96%   0.006 250);
+  --color-rule:         oklch(91%   0.008 250);
+  --color-rule-2:       oklch(84%   0.010 250);
+
+  /* ---- 中性墨色（冷炭灰，非纯黑） ---- */
+  --color-neutral:      oklch(58%   0.014 252);
+  --color-muted:        oklch(44%   0.016 254);
+  --color-ink-2:        oklch(34%   0.018 257);
+  --color-ink:          oklch(24%   0.020 258);
+
+  /* ---- 信号色（电光蓝，全页唯一强调，<5% 视口） ---- */
+  --color-accent:       oklch(58%   0.200 256);
+  --color-accent-ink:   oklch(98.5% 0.004 250);
+  --color-focus:        oklch(58%   0.200 256);
+
+  /* ---- 危险操作（删除） ---- */
+  --color-danger:       oklch(52%   0.17 25);
+  --color-danger-rule:  oklch(78%   0.09 25);
+
+  /* ---- 石墨区（全页唯一深色带：画布工作区） ---- */
+  --color-graphite:       oklch(22% 0.016 260);
+  --color-graphite-2:     oklch(27% 0.018 260);
+  --color-graphite-rule:  oklch(34% 0.020 260);
+  --color-on-graphite:    oklch(92% 0.006 250);
+  --color-on-graphite-mu: oklch(66% 0.022 252);
+
+  /* ---- 字体 ---- */
+  --font-display: "Space Grotesk", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body:    "Inter", "PingFang SC", "Microsoft YaHei", ui-sans-serif, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- 字号（大调三度 1.25，16px 基准） ---- */
+  --text-xs:   0.64rem;
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-3xl:  3.0518rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+
+  /* ---- 间距（4pt 进制） ---- */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* ---- 圆角（标尺感：按钮 6px，画布/代码卡 10px） ---- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* ---- 动效 ---- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  /* ---- 层级 ---- */
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}

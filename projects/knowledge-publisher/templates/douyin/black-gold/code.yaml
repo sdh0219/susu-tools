@@ -1,0 +1,6 @@
+# 黑金 · 代码卡片（暖黑底，配 monokai 高亮）
+colors:
+  code_background: "#17130C"
+  code_text: "#EFE6D2"
+  code_header_text: "#8C7C5E"
+pygments_style: monokai

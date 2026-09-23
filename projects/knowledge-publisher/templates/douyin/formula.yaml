@@ -1,0 +1,4 @@
+# 公式块样式：独立公式放在浅色面板中
+colors:
+  formula_panel: "#EAF2FE"
+  formula_text: "#101828"

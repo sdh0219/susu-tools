@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>编辑 {{ title }} · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/highlight.min.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+  options: { ignoreHtmlClass: 'tex2jax_ignore' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  /* 实时渲染面板（知乎 / 抖音长文 风格） */
+  .live {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-lg) var(--space-xl);
+    background: var(--color-paper);
+    color: var(--color-ink-2);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.9;
+    min-height: 40vh;
+  }
+  .live h1 { font-family: var(--font-display); font-size: 1.75em; margin: 0 0 .4em; color: var(--color-ink); letter-spacing: -0.01em; }
+  .live h2 { font-family: var(--font-display); font-size: 1.35em; margin: 1.8em 0 .5em; padding-left: 12px; border-left: 4px solid var(--color-accent); color: var(--color-ink); }
+  .live h3 { font-size: 1.12em; margin: 1.4em 0 .4em; color: var(--color-ink); }
+  .live p { margin: .9em 0; }
+  .live blockquote { margin: 1em 0; padding: 10px 16px; background: var(--color-paper-2); border-left: 4px solid var(--color-accent); color: var(--color-muted); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+  .live pre { background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: var(--radius-md); padding: 12px 14px; overflow-x: auto; font-size: .88em; line-height: 1.6; }
+  .live code { font-family: var(--font-mono); font-size: .9em; }
+  .live p code, .live li code { background: var(--color-paper-2); border: 1px solid var(--color-rule); padding: 1px 5px; border-radius: var(--radius-sm); }
+  .live table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: .92em; }
+  .live th, .live td { border: 1px solid var(--color-rule-2); padding: 8px 12px; text-align: left; }
+  .live th { background: var(--color-accent); color: var(--color-accent-ink); }
+  .live tr:nth-child(even) td { background: var(--color-paper-2); }
+  .live img { max-width: 100%; border-radius: var(--radius-md); }
+  .live hr { border: none; border-top: 1px solid var(--color-rule); margin: 2em 0; }
+  .live ul, .live ol { padding-left: 1.4em; }
+  .live a { color: var(--color-accent); }
+  .live .live__fallback { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); white-space: pre-wrap; }
+  .live__math { overflow-x: auto; text-align: center; }
+  @media (min-width: 60rem) {
+    .live, .editor__render iframe { min-height: 70vh; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="返回文章列表">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">编辑 · {{ title }}</h1>
+  <div class="topbar__actions">
+    <button class="btn" id="saveOnly" type="button">仅保存</button>
+    <button class="btn btn--primary" id="savePreview" type="button">保存并预览</button>
+    <a class="btn" href="/preview/{{ article }}">返回预览</a>
+    <a class="btn" href="/guide">使用指南</a>
+  </div>
+</header>
+
+<main class="editor">
+  <section class="editor__pane editor__source" aria-label="Markdown 源码">
+    <div class="editor__head">
+      <span class="label">Markdown 母版</span>
+      <span class="label label--muted">{{ article }}.md</span>
+    </div>
+    <textarea id="source" class="editor__textarea" spellcheck="false"
+              aria-label="Markdown 内容">{{ content }}</textarea>
+    <div class="editor__hint">
+      <kbd>Ctrl</kbd> + <kbd>S</kbd> 保存并预览 · 右侧实时渲染无需保存 · 块公式 <code>$$ … $$</code> · 行内公式 <code>$…$</code> ·
+      图片放 <code>assets/images/</code> 后写 <code>![说明](assets/images/xxx.png)</code>
+    </div>
+  </section>
+  <section class="editor__pane editor__render" aria-label="实时渲染">
+    <div class="editor__head editor__tabs">
+      <div class="seg" role="tablist" aria-label="预览方式">
+        <button class="seg__btn is-active" id="tabZhihu" type="button" role="tab" aria-selected="true">知乎渲染</button>
+        <button class="seg__btn" id="tabArticle" type="button" role="tab" aria-selected="false">抖音长文</button>
+        <button class="seg__btn" id="tabDouyin" type="button" role="tab" aria-selected="false">抖音图文</button>
+      </div>
+      <span class="label label--muted" id="liveHint">实时渲染 · 无需保存</span>
+      <label class="theme-field" id="themeWrap" style="display:none">
+        <span class="theme-field__label">主题</span>
+        <select id="editTheme" class="select" aria-label="抖音主题">
+          {% for t in themes %}
+          <option value="{{ t }}">{{ t }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div id="live" class="live" role="region" aria-label="实时渲染内容"></div>
+    <iframe id="render" hidden title="抖音图文预览"></iframe>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">保存 = 检查 + 重新生成知乎与抖音图集 · 右侧实时渲染无需保存</span>
+  <span class="foot__credit"><a href="/guide" style="color:var(--color-accent)">使用指南</a></span>
+</footer>
+
+<script>
+(() => {
+  const source = document.getElementById('source');
+  const liveEl = document.getElementById('live');
+  const frame = document.getElementById('render');
+  const saveOnly = document.getElementById('saveOnly');
+  const savePreview = document.getElementById('savePreview');
+  const tabZhihu = document.getElementById('tabZhihu');
+  const tabArticle = document.getElementById('tabArticle');
+  const tabDouyin = document.getElementById('tabDouyin');
+  const themeWrap = document.getElementById('themeWrap');
+  const editTheme = document.getElementById('editTheme');
+  const liveHint = document.getElementById('liveHint');
+  let mode = 'zhihu';
+
+  function currentTheme() { return editTheme.value || 'default'; }
+
+  // ---------- 实时渲染（marked + MathJax，打字即见） ----------
+  const FM_RE = /^---\s*\n[\s\S]*?\n---\s*\n?/;
+  const MATH_RE = /\$\$[\s\S]*?\$\$|\$[^$\n]+?\$/g;
+
+  function stripFrontmatter(text) { return text.replace(FM_RE, ''); }
+
+  function protectMath(text) {
+    const map = [];
+    const out = text.replace(MATH_RE, m => {
+      map.push(m);
+      return `\u0000MATH${map.length - 1}\u0000`;
+    });
+    return { out, map };
+  }
+
+  function restoreMath(html, map) {
+    return html.replace(/\u0000MATH(\d+)\u0000/g, (_, i) => map[+i]);
+  }
+
+  function renderLive() {
+    const text = stripFrontmatter(source.value);
+    if (!window.marked) {
+      liveEl.innerHTML = '<pre class="live__fallback"></pre>';
+      liveEl.firstChild.textContent = text || '（等待输入…）';
+      return;
+    }
+    const { out, map } = protectMath(text);
+    let html;
+    try {
+      html = window.marked.parse(out, { gfm: true, breaks: false });
+    } catch (e) {
+      html = `<p>渲染出错：${String(e && e.message || e)}</p>`;
+    }
+    liveEl.innerHTML = restoreMath(html, map);
+    liveEl.querySelectorAll('pre code').forEach(el => {
+      if (window.hljs) { try { window.hljs.highlightElement(el); } catch (e) {} }
+    });
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([liveEl]).catch(() => {});
+    }
+  }
+
+  let liveTimer = null;
+  source.addEventListener('input', () => {
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(renderLive, 350);
+  });
+
+  // ---------- 视图切换 ----------
+  function switchMode(next) {
+    mode = next;
+    const zhihu = next === 'zhihu';
+    const article = next === 'article';
+    const douyin = next === 'douyin';
+    tabZhihu.classList.toggle('is-active', zhihu);
+    tabArticle.classList.toggle('is-active', article);
+    tabDouyin.classList.toggle('is-active', douyin);
+    tabZhihu.setAttribute('aria-selected', String(zhihu));
+    tabArticle.setAttribute('aria-selected', String(article));
+    tabDouyin.setAttribute('aria-selected', String(douyin));
+    themeWrap.style.display = douyin ? 'inline-flex' : 'none';
+    liveHint.textContent = douyin ? '图文效果在保存后更新' : '实时渲染 · 无需保存';
+    liveEl.hidden = douyin;
+    frame.hidden = !douyin;
+    if (douyin) {
+      frame.src = `/preview/{{ article }}?theme=${currentTheme()}&embed=1`;
+    } else {
+      renderLive();
+    }
+  }
+
+  tabZhihu.addEventListener('click', () => switchMode('zhihu'));
+  tabArticle.addEventListener('click', () => switchMode('article'));
+  tabDouyin.addEventListener('click', () => switchMode('douyin'));
+  editTheme.addEventListener('change', () => { if (mode === 'douyin') switchMode('douyin'); });
+
+  // ---------- 保存 ----------
+  async function save(goPreview) {
+    const btn = goPreview ? savePreview : saveOnly;
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = goPreview ? '正在生成，请稍候…' : '保存中…';
+    try {
+      const res = await fetch(`/api/article/{{ article }}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: source.value }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || '保存失败');
+      if (goPreview) {
+        location.href = `/preview/{{ article }}?saved=1`;
+      } else if (mode === 'douyin') {
+        frame.src = `/preview/{{ article }}?theme=${currentTheme()}&embed=1&t=${Date.now()}`;
+      }
+      btn.disabled = false;
+      btn.textContent = old;
+    } catch (ex) {
+      alert('保存失败：' + ex.message);
+      btn.disabled = false;
+      btn.textContent = old;
+    }
+  }
+
+  saveOnly.addEventListener('click', () => save(false));
+  savePreview.addEventListener('click', () => save(true));
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      save(true);
+    }
+  });
+
+  // 初始渲染
+  renderLive();
+})();
+</script>
+</body>
+</html>

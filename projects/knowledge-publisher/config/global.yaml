@@ -1,0 +1,14 @@
+# Knowledge Publisher 全局配置
+project:
+  name: Knowledge Publisher
+  version: 1.0.0
+  default_author: "芝士土豆"
+
+content:
+  max_paragraph_chars: 350   # 超过则 check 警告「段落过长」
+  max_section_chars: 950     # 一个知识点（标题组）文字密度上限
+  max_table_columns: 6
+
+preview:
+  host: 127.0.0.1
+  port: 8765

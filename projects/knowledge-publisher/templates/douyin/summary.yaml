@@ -1,0 +1,15 @@
+# 结尾卡片样式
+colors:
+  background: "#F4F7FC"
+  title: "#101828"
+  body: "#475467"
+  accent: "#1667D9"
+  accent_soft: "#E8F1FE"
+  chip: "#FFFFFF"            # 点赞/收藏/转发 标签底色
+fonts:
+  thanks: 64
+  body: 34
+texts:
+  thanks: "谢谢观看"
+  follow: "关注我，持续更新数学与计算机知识"
+  tips: ["点赞", "收藏", "转发"]

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>导出 {{ title }} · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+<style>
+  .export {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl) var(--space-3xl);
+    min-width: 0;
+  }
+  .export__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+  }
+  .export__lede { margin-top: var(--space-sm); color: var(--color-ink-2); font-size: var(--text-md); }
+
+  .panel {
+    margin-top: var(--space-2xl);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-lg);
+    background: var(--color-paper);
+    overflow: hidden;
+  }
+  .panel__head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-rule);
+    background: var(--color-paper-2);
+  }
+  .panel__title { font-family: var(--font-display); font-size: var(--text-md); font-weight: 600; }
+  .panel__sub { font-size: var(--text-sm); color: var(--color-neutral); }
+  .panel__head .btn { margin-left: auto; }
+  .panel__body { padding: var(--space-lg); }
+
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: var(--space-md);
+  }
+  .thumb { min-width: 0; }
+  .thumb img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    background: var(--color-graphite-2);
+  }
+  .thumb figcaption {
+    margin-top: var(--space-2xs);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-neutral);
+    text-align: center;
+  }
+  .export__steps { margin-top: var(--space-lg); }
+  .export__steps li { font-size: var(--text-sm); line-height: 1.8; color: var(--color-ink-2); margin-block: var(--space-2xs); }
+  .export__steps code {
+    padding: 0.125rem 0.375rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper-2);
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+  .mdbox {
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    background: var(--color-paper-2);
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+  .mdbox .fname { font-weight: 600; }
+  .mdbox .fpath { color: var(--color-neutral); }
+  .mdbox .spacer { flex: 1; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="返回文章列表">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">导出 · {{ title }}</h1>
+  <div class="topbar__actions">
+    <a class="btn" href="/edit/{{ article }}">编辑</a>
+    <a class="btn" href="/preview/{{ article }}">预览</a>
+    <a class="btn" href="/guide">使用指南</a>
+  </div>
+</header>
+
+<main class="export">
+  <h1 class="export__title">{{ title }}</h1>
+  <p class="export__lede">把渲染好的成品下载下来，按对应平台的方式发布。模板内容不变，三个主题可以各下载一套。</p>
+
+  <section class="panel">
+    <div class="panel__head">
+      <span class="panel__title">抖音长文（推荐）</span>
+      <span class="panel__sub">公式已转图片 · 全选复制粘贴即可发布</span>
+    </div>
+    <div class="panel__body">
+      <div class="mdbox">
+        <span class="fname">article.html（自包含）</span>
+        <span class="fpath">output/{{ article }}/douyin-article/article.html</span>
+        <span class="spacer"></span>
+        <a class="btn" href="/preview/{{ article }}/douyin-article" target="_blank" rel="noopener">打开文章页面</a>
+        <a class="btn btn--primary" href="/api/export/{{ article }}/douyin-article.zip" download>下载完整包 (ZIP)</a>
+      </div>
+      <ul class="export__steps">
+        <li>抖音文章编辑器不支持 LaTeX，系统已把每个公式渲染成图片：打开「文章页面」→ 浏览器里 <code>Ctrl+A</code> 全选 → <code>Ctrl+C</code> 复制 → 粘贴到抖音文章编辑器，文字与公式图片一起带过去</li>
+        <li>手机端或想手动插入图片：下载 ZIP（含 <code>article.md</code> + <code>formulas/</code> 公式图 + <code>images/</code> 配图），按文中顺序插入</li>
+        <li>电脑端：抖音创作者服务平台 → 发布 → 文章 → 粘贴</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel__head">
+      <span class="panel__title">抖音图文</span>
+      <span class="panel__sub">1080 × 1440 · 3:4 · 按 01、02、03 顺序上传，第一张为封面</span>
+      <label class="theme-field">
+        <span class="theme-field__label">主题</span>
+        <select id="dlTheme" class="select" aria-label="导出主题">
+          {% for t in themes %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+        </select>
+      </label>
+    </div>
+    <div class="panel__body">
+      <div class="thumbs" id="thumbs"></div>
+      <ul class="export__steps">
+        <li>点「下载全部 (ZIP)」打包当前主题的全部页面，解压后按文件名顺序上传</li>
+        <li>手机发布：抖音 App → 发布 → <code>图文</code> → 按顺序选图 → 填标题 → 发布（无需裁剪）</li>
+        <li>电脑发布：抖音创作者服务平台 → 内容发布 → 图文 → 上传图片</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel__head">
+      <span class="panel__title">知乎文章</span>
+      <span class="panel__sub">Markdown 格式，公式保留 $…$，知乎编辑器原生渲染</span>
+    </div>
+    <div class="panel__body">
+      <div class="mdbox">
+        <span class="fname">{{ article }}-zhihu.md</span>
+        <span class="fpath">output/{{ article }}/zhihu/article.md</span>
+        <span class="spacer"></span>
+        <button class="btn" id="copyMd" type="button">复制全文</button>
+        <a class="btn btn--primary" href="/api/export/{{ article }}/zhihu.md" download>下载 Markdown</a>
+      </div>
+      <ul class="export__steps">
+        <li>打开知乎 → 写文章 → 直接粘贴（知乎支持 Markdown 粘贴）→ 按顺序插入 <code>assets/</code> 里的图片 → 发布</li>
+        <li>想先看排版？预览页顶栏「知乎文章」按钮可打开渲染好的 HTML</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">一次创作，多平台输出</span>
+  <span class="foot__credit"><a href="/guide" style="color:var(--color-accent)">使用指南</a></span>
+</footer>
+
+<script>
+(() => {
+  const ARTICLE = {{ article | tojson }};
+  const IMAGE_DIR = {{ image_dir_map | tojson }};
+  const THEME_PAGES = {{ theme_pages | tojson }};
+  const thumbs = document.getElementById('thumbs');
+  const dlTheme = document.getElementById('dlTheme');
+  const zipHref = t => `/api/export/${ARTICLE}/douyin.zip?theme=${encodeURIComponent(t)}`;
+
+  function renderThumbs() {
+    const t = dlTheme.value;
+    const pages = THEME_PAGES[t] || [];
+    thumbs.innerHTML = '';
+    pages.forEach(name => {
+      const fig = document.createElement('figure');
+      fig.className = 'thumb';
+      const img = document.createElement('img');
+      img.src = `${IMAGE_DIR[t]}/${name}`;
+      img.alt = name;
+      img.loading = 'lazy';
+      const cap = document.createElement('figcaption');
+      cap.textContent = name;
+      fig.append(img, cap);
+      thumbs.appendChild(fig);
+    });
+    const a = document.createElement('a');
+    a.className = 'btn btn--primary';
+    a.id = 'dlZip';
+    a.href = zipHref(t);
+    a.download = '';
+    a.textContent = '下载全部 (ZIP)';
+    document.querySelector('.panel__head .btn')?.remove();
+    const head = document.querySelector('.panel__head');
+    head.insertBefore(a, document.querySelector('.panel__head .theme-field'));
+  }
+  dlTheme.addEventListener('change', renderThumbs);
+
+  // 复制知乎 Markdown（静默成功：按钮文字短暂变为「已复制」）
+  document.getElementById('copyMd').addEventListener('click', async () => {
+    const btn = document.getElementById('copyMd');
+    try {
+      const res = await fetch(`/api/export/${ARTICLE}/zhihu.md`);
+      const text = await res.text();
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '已复制 ✓';
+      setTimeout(() => { btn.textContent = '复制全文'; }, 2500);
+    } catch (ex) {
+      btn.textContent = '复制失败';
+      setTimeout(() => { btn.textContent = '复制全文'; }, 2500);
+    }
+  });
+
+  renderThumbs();
+})();
+</script>
+</body>
+</html>

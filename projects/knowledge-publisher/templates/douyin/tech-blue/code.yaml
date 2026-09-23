@@ -1,0 +1,6 @@
+# 科技蓝 · 代码卡片（深色，配 monokai 高亮）
+colors:
+  code_background: "#0A1424"
+  code_text: "#DCE6F5"
+  code_header_text: "#6E86A8"
+pygments_style: monokai

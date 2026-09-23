@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>使用指南 · Knowledge Publisher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tokens.css">
+<link rel="stylesheet" href="/static/kp.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="返回文章列表">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Knowledge&nbsp;Publisher</span>
+  </a>
+  <h1 class="topbar__title">使用指南</h1>
+  <div class="topbar__actions">
+    <a class="btn btn--primary" href="/">返回文章列表</a>
+  </div>
+</header>
+
+<main class="guide">
+  <h1 class="guide__title">怎么用 Knowledge Publisher</h1>
+  <p class="guide__lede">核心只有一句话：<strong>你写一份 Markdown 母稿，系统自动生成知乎文章和抖音图文图集。</strong>母稿不针对任何平台，写一次，到处发。</p>
+
+  <div class="guide__flow">
+    <span class="guide__step"><b>1</b> 写母版</span>
+    <span class="guide__arrow">→</span>
+    <span class="guide__step"><b>2</b> 保存（自动检查并生成）</span>
+    <span class="guide__arrow">→</span>
+    <span class="guide__step"><b>3</b> 预览效果</span>
+    <span class="guide__arrow">→</span>
+    <span class="guide__step"><b>4</b> 复制/下载去发布</span>
+  </div>
+
+  <section>
+    <h2>方式一：直接在浏览器里写（推荐）</h2>
+    <p>首页点击文章右侧的「编辑」，或点右上角「新建文章」创建一篇新文章，然后就能像写文档一样在线编辑 Markdown：</p>
+    <ul>
+      <li>左边写内容，右边实时显示渲染效果（公式、代码、表格都会渲染）</li>
+      <li>点「保存并预览」或按 <kbd>Ctrl</kbd>+<kbd>S</kbd>——系统会先检查内容（公式能不能渲染、图片在不在），然后重新生成知乎文章和抖音图集，并跳到预览页</li>
+      <li>「仅保存」只写文件不重新生成，适合写一半先存一下</li>
+    </ul>
+    <p>支持的元素：标题、段落、粗体、斜体、列表、引用、代码、公式、图片、表格、分割线、链接。公式写法：</p>
+    <pre><code>行内公式：$\theta_{t+1}=\theta_t-\eta\nabla J(\theta_t)$
+
+块公式：
+$$
+J(\theta)=\frac{1}{n}\sum_{i=1}^{n}(f_\theta(x_i)-y_i)^2
+$$</code></pre>
+    <p>图片放在项目 <code>assets/images/</code> 目录，然后写 <code>![示意图](assets/images/xxx.png)</code>，系统会自动找到它。</p>
+  </section>
+
+  <section>
+    <h2>方式二：在本地编辑器里写（Typora / VS Code）</h2>
+    <p>所有文章就是 <code>articles/</code> 目录里的普通 <code>.md</code> 文件，用任何编辑器打开就能写。也可以在终端用命令操作：</p>
+    <pre><code>conda activate kp
+kp new bayes -c math -s "机器学习基础"   # 新建文章模板
+kp check bayes                          # 只检查不生成
+kp build bayes --all                    # 生成知乎 + 抖音
+kp preview bayes                        # 打开本地预览</code></pre>
+    <p>写完后回到浏览器刷新预览页就能看到最新效果（也可以直接用「上传」方式：把 <code>.md</code> 文件放进 <code>articles/</code> 目录即可，系统自动识别）。</p>
+    <p><strong>从其他目录导入</strong>：首页右上角「导入文章」——支持选择文件上传，或直接输入电脑上的文件路径（如 <code>D:\notes\梯度下降.md</code>），导入后与现有文章统一管理。</p>
+  </section>
+
+  <section>
+    <h2>导出与发布</h2>
+    <p>首页每篇文章的「导出」按钮（或预览页顶栏「导出」）打开导出页，一键拿到成品：</p>
+    <ul>
+      <li><strong>抖音</strong>：选主题 → 点「下载全部 (ZIP)」打包全部页面 → 解压后按 01、02、03 顺序上传（第一张即封面）</li>
+      <li><strong>知乎</strong>：「复制全文」或「下载 Markdown」→ 粘贴进知乎编辑器（公式自动渲染）→ 按顺序插入图片</li>
+    </ul>
+    <table>
+      <tr><th>平台</th><th>发布什么</th><th>怎么发</th></tr>
+      <tr>
+        <td><strong>抖音（长文，推荐）</strong></td>
+        <td>导出页的「抖音长文」——自包含 HTML（公式已转图片）</td>
+        <td>打开「文章页面」→ 浏览器 <code>Ctrl+A</code> 全选 → <code>Ctrl+C</code> 复制 → 粘贴到抖音文章编辑器（文字与公式图片一起带过去）。或下载 ZIP 手动插入图片。</td>
+      </tr>
+      <tr>
+        <td><strong>抖音（图文）</strong></td>
+        <td>导出页下载的 ZIP / <code>output/&lt;文章名&gt;/douyin/01.png …</code></td>
+        <td>抖音 App → 发布 → 选「图文」→ 按 01、02、03 顺序选图（第一张自动成为封面）→ 填标题 → 发布。图是 3:4 标准尺寸，不用裁剪。</td>
+      </tr>
+      <tr>
+        <td><strong>知乎</strong></td>
+        <td>导出页复制的 Markdown / <code>output/&lt;文章名&gt;/zhihu/article.md</code></td>
+        <td>打开知乎编辑器 → 粘贴（知乎原生支持 Markdown，公式自动渲染）→ 按顺序插入 <code>assets/</code> 里的图片 → 发布。</td>
+      </tr>
+      <tr>
+        <td><strong>小红书 / 公众号</strong></td>
+        <td>同一套 PNG 或 Markdown</td>
+        <td>小红书图文发布方式与抖音图文相同；公众号可以粘贴 Markdown 富文本。后续版本会做专门渲染器。</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>常见问题</h2>
+    <ul>
+      <li><strong>公式显示不出来？</strong> 检查有没有用 <code>$…$</code> 包裹、花括号是否成对。保存时系统会自动拦截有问题的公式并提示。</li>
+      <li><strong>图片不显示？</strong> 确认图片在 <code>assets/images/</code> 里，且路径写对了。检查时会提示「图片不存在」。</li>
+      <li><strong>想换风格？</strong> 预览页顶栏「主题」下拉框，一键切换三个主题并自动重新生成。</li>
+      <li><strong>写完忘了在哪？</strong> 所有内容都在 <code>articles/</code> 和 <code>output/</code> 两个目录里，随时可以手动打开。</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="foot__brand">Knowledge Publisher</span>
+  <span class="foot__tag">一次创作，多平台输出</span>
+  <span class="foot__credit"><a href="/" style="color:var(--color-accent)">返回文章列表</a></span>
+</footer>
+</body>
+</html>

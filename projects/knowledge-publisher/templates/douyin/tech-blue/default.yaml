@@ -1,0 +1,17 @@
+# 科技蓝主题（深蓝 + 亮蓝）。只需覆盖与全局默认不同的部分。
+colors:
+  background: "#0B1220"
+  text: "#F2F6FC"
+  text_secondary: "#9FB0CC"
+  accent: "#2F9BFF"
+  accent_soft: "#132442"
+  divider: "#1E2F4A"
+  footer: "#5E7290"
+  code_background: "#101B2E"
+  code_text: "#DCE6F5"
+  quote_background: "#101B2E"
+  table_header_background: "#2F9BFF"
+  table_header_text: "#0B1220"
+  table_alt_background: "#0E1A2E"
+  formula_panel: "#132442"
+  formula_text: "#EAF4FF"

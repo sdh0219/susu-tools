@@ -1,0 +1,7 @@
+# 代码块样式：深色代码卡片
+colors:
+  code_background: "#0F172A"
+  code_text: "#E2E8F0"
+  code_header_text: "#94A3B8"
+fonts:
+  code: 28
