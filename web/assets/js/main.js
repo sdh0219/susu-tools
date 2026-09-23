@@ -97,3 +97,19 @@
     mailBtn.href = 'mailto:' + addr;
     mailBtn.textContent = '📮 ' + addr;
   }
+
+  // 主题切换：暗色为默认，选择记忆在 localStorage
+  const themeBtn = document.getElementById('themeToggle');
+  if (themeBtn) {
+    const root = document.documentElement;
+    const syncIcon = () => {
+      themeBtn.textContent = root.getAttribute('data-theme') === 'light' ? '🌙' : '☀️';
+    };
+    syncIcon();
+    themeBtn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('susu-theme', next); } catch (e) { /* 隐私模式忽略 */ }
+      syncIcon();
+    });
+  }

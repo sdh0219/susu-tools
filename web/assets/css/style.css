@@ -24,6 +24,8 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-bg-scrolled: rgba(10, 10, 11, 0.85);
+  --text-soft: #c9c9d3;
 }
 
 * {
@@ -98,7 +100,7 @@ img {
 }
 
 .nav.scrolled {
-  background: rgba(10, 10, 11, 0.85);
+  background: var(--nav-bg-scrolled);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(42, 42, 48, 0.5);
@@ -1215,7 +1217,7 @@ img {
 }
 
 .essay-body p {
-  color: #c9c9d3;
+  color: var(--text-soft);
   font-size: 0.95rem;
   line-height: 1.9;
   margin-bottom: 14px;
@@ -1237,4 +1239,60 @@ img {
   .essay-head {
     gap: 14px;
   }
+}
+
+/* ─────────── 主题切换 / Theme ─────────── */
+body {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f3efe9;
+  --bg-secondary: #ebe6dd;
+  --bg-card: #faf8f4;
+  --bg-card-hover: #f1ece3;
+  --border-color: #ddd5c8;
+  --text-primary: #3f3a33;
+  --text-secondary: #7d766b;
+  --text-muted: #a89e8f;
+  --text-soft: #5f594f;
+  --nav-bg-scrolled: rgba(243, 239, 233, 0.88);
+  --accent-purple: #7b6fa6;
+  --accent-blue: #5f86b5;
+  --accent-pink: #b98b8b;
+  --accent-cyan: #5b9ea3;
+  --accent-green: #7fa183;
+  --accent-orange: #bd8f5c;
+  --gradient-primary: linear-gradient(135deg, #7b6fa6, #5f86b5);
+  --gradient-warm: linear-gradient(135deg, #b98b8b, #bd8f5c);
+  --gradient-cool: linear-gradient(135deg, #5b9ea3, #7b6fa6);
+  --shadow-sm: 0 2px 8px rgba(63, 58, 51, 0.08);
+  --shadow-md: 0 4px 16px rgba(63, 58, 51, 0.1);
+  --shadow-lg: 0 8px 32px rgba(63, 58, 51, 0.14);
 }
