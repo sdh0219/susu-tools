@@ -776,6 +776,14 @@ img {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
 }
 
+.about-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
 .about-visual .avatar-placeholder {
   width: 200px;
   height: 200px;
