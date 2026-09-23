@@ -3,9 +3,9 @@
 [![site](https://img.shields.io/badge/site-susu--2x9.pages.dev-8b5cf6)](https://susu-2x9.pages.dev/)
 [![repo](https://img.shields.io/badge/GitHub-sdh0219%2Fsusu--tools-181717?logo=github)](https://github.com/sdh0219/susu-tools)
 
-**Personal Vibecoding Toolkit Monorepo.**
+**二次元主题的个人工具站 Monorepo。**
 
-收录 vibe coding 过程中亲测好用的工具，并发布自己创作 / 二次开发的工具。
+自己做工具，也写使用心得——站点只放两类东西：亲手做的开源作品，和用过之后写下的随笔。
 
 - **Live site:** https://susu-2x9.pages.dev/
 - **Repository:** https://github.com/sdh0219/susu-tools
@@ -14,94 +14,52 @@
 
 | Track | Meaning | Where |
 |-------|---------|-------|
-| **Collect** | 精选第三方工具，数据驱动的在线目录 | [`collections/`](./collections/) → [`web/`](./web/) |
-| **Ship** | 自研 / 二开作品，可独立运行与分发 | [`projects/`](./projects/) |
-| **Publish** | Cloudflare Pages 静态站点 | [`web/`](./web/) + [`wrangler.jsonc`](./wrangler.jsonc) |
+| **Ship** | 自研 / 二开作品，唯一开发与发布地 | [`projects/`](./projects/) |
+| **随笔** | 工具使用理解与复盘，精品安利 | [`web/blog.html`](./web/blog.html) |
+| **Publish** | Cloudflare Pages 二次元主题站点 | [`web/`](./web/) + [`wrangler.jsonc`](./wrangler.jsonc) |
 
 ## Repository layout
 
 ```text
 susu-tools/
-├── web/                 # Public site (Cloudflare Pages asset root)
-│   ├── index.html       # Landing (+ own-projects showcase)
-│   ├── tools.html       # Tool directory UI
-│   ├── blog.html        # 工具随笔 (essays on tool craft)
-│   └── assets/          # css / js / data / img
-├── collections/         # Curated third-party tools (canonical JSON)
-│   └── tools.json
-├── projects/            # First-party & forked tools
-│   ├── bilinote/        # BiliNote Windows enhanced
-│   ├── knowledge-publisher/  # One Markdown → Zhihu / Douyin publisher
-│   ├── ppt-doctor/      # AI-powered medical PPT generator (Electron)
-│   ├── qing-tong/       # 千瞳: 2D video → interactive 3D scene (Three.js + Depth Anything V2)
-│   └── bg-skin/         # VS Code editor background wallpaper extension
-├── docs/                # Charter, architecture
-├── scripts/             # Utility scripts (catalog sync, …)
-├── wrangler.jsonc       # Cloudflare Pages assets → web/
-└── README.md
+├── web/                       # Public site (Cloudflare Pages asset root)
+│   ├── index.html             # Landing（我的作品 + 关于 + 联系）
+│   ├── blog.html              # 工具随笔
+│   ├── 404.html               # 品牌化 404
+│   └── assets/                # css / js / img / data / voice / models
+├── projects/                  # First-party works（唯一开发地）
+│   ├── bilinote/
+│   ├── knowledge-publisher/
+│   ├── ppt-doctor/
+│   ├── qing-tong/
+│   └── bg-skin/
+├── docs/                      # Charter + architecture
+└── scripts/                   # secrets_scan / live2d 模型与语音脚本
 ```
-
-Design rationale: see [`docs/architecture.md`](./docs/architecture.md).
 
 ## Quick start
 
-### Browse the tool directory locally
+本地预览站点：
 
 ```powershell
 cd web
 python -m http.server 5173
-# open http://127.0.0.1:5173/tools.html
+# open http://127.0.0.1:5173
 ```
 
-Or double-click `web/index.html` (catalog is inlined via `assets/js/catalog-data.js`).
-
-### Add a curated tool
-
-1. Edit [`collections/tools.json`](./collections/tools.json)（新增一条，含 `id/name/url/desc/category/tags`）
-2. Sync deploy artifacts:
-
-   ```powershell
-   powershell -File scripts/sync-catalog.ps1
-   ```
-
-3. Commit & push；Cloudflare Pages 按 `web/` 发布
-
-### Run a published project
+看板娘资源再生成（一般用不到）：
 
 ```powershell
-cd projects\bilinote
-# see projects/bilinote/README.md
-.\Windows 运行.bat
+projects\bilinote\python310\python.exe scripts\fetch_live2d_models.py   # 拉取模型
+projects\bilinote\python310\python.exe scripts\gen_live2d_voice.py      # 生成语音包
 ```
 
-```powershell
-cd projects\knowledge-publisher
-# see projects/knowledge-publisher/README.md
-.\首次安装.bat   # 首次使用
-.\启动系统.bat   # 日常启动
-```
+## Site features
 
-```powershell
-cd projects\ppt-doctor
-# see projects/ppt-doctor/README.md
-npm install
-npm run build
-npm start        # 或 npm run package 打包 Windows 安装包
-```
-
-```powershell
-cd projects\qing-tong
-# see projects/qing-tong/README.md
-.\scripts\setup.ps1   # 首次初始化
-.\scripts\start.ps1   # 启动前后端
-```
-
-```powershell
-cd projects\bg-skin
-# see projects/bg-skin/README.md & INSTALL.md
-# 开发：VS Code 打开目录后按 F5 运行扩展开发宿主
-# 打包：npx vsce package  →  得到可安装的 .vsix
-```
+- 暗色主题：星空闪烁 + 四芒星落 + 长尾流星 + 紫色鼠标轨迹
+- 浅色主题（莫兰迪暖燕麦）：樱花飘落 + 粉色鼠标轨迹
+- Live2D 看板娘（右下角）：点击说话，预录甜美语音（`assets/voice/`），库与模型全部自托管
+- 自定义 404 / meta+OG / robots / sitemap / RSS
 
 ## Published projects
 
@@ -120,24 +78,15 @@ cd projects\bg-skin
 | Git repo | `sdh0219/susu-tools` |
 | Pages project | `susu` → https://susu-2x9.pages.dev/ |
 | Asset / output directory | **`web`** |
-| Wrangler assets.directory | `web` |
 
-> 仓库由 `susu` 改名为 `susu-tools` 后：域名不变。若 Pages 不再触发部署，在 CF 控制台重新连接仓库，并确认输出目录为 `web`。
-
-## Naming
-
-| Surface | Name |
-|---------|------|
-| Local folder | `susu-tools` |
-| GitHub | [sdh0219/susu-tools](https://github.com/sdh0219/susu-tools) |
-| Site | [susu-2x9.pages.dev](https://susu-2x9.pages.dev/) |
+> 仓库改名 / Pages 不触发部署时：CF 控制台重新连接仓库，确认输出目录为 `web`。
 
 ## Security
 
 - Never commit API keys, cookies, `*.db`, personal notes
-- Project runtimes (`python310/`, Whisper `models/`, `.env`) stay local — see `projects/bilinote/.gitignore`
+- Project runtimes (`python310/`, Whisper `models/`, `node_modules/`, `.venv/`) stay local
 
 ## License
 
-- Site content & catalog: © Susu
+- Site content & own projects: © Susu（各项目目录内含各自 LICENSE）
 - `projects/bilinote/`: Apache-2.0 (modifications) + upstream MIT — see `projects/bilinote/NOTICE`

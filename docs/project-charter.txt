@@ -1,21 +1,26 @@
-susu-tools —— 个人 Vibecoding 工具箱
+susu-tools —— 二次元主题的个人工具站
 
-定位（2026-09 修订）：
-1. Collect：精选自己在 vibe coding 中亲测好用的第三方工具，发布为在线导航（collections/ → web/）。
-2. Ship：自研 / 二开工具的唯一开发与发布地（projects/，当前 5 个：
+定位（2026-09 二次修订）：
+1. Ship：自研 / 二开工具的唯一开发与发布地（projects/，5 个：
    bilinote、knowledge-publisher、ppt-doctor、qing-tong、bg-skin）。
-3. Publish：Cloudflare Pages 静态站点（web/ → susu-2x9.pages.dev）。
+2. 随笔：工具使用理解与复盘（blog.html），精品安利以随笔形式承载。
+3. 站点：Cloudflare Pages（web/ → susu-2x9.pages.dev），二次元主题。
+   （原「收录第三方工具」的目录已下架：同质化高、无个人特色。）
+
+风格设定（紧扣二次元）：
+- 暗色主题：星空闪烁 + 四芒星落 + 长尾流星 + 紫色鼠标轨迹
+- 浅色主题：莫兰迪暖燕麦 + 樱花飘落 + 粉色鼠标轨迹
+- 看板娘：右下角 Live2D（Hiyori / 智乃 / 仙狐 / 小晴），
+  点击说话 = 气泡 + 预录甜美语音（assets/voice/，Xiaoyi 神经语音）
 
 仓库治理规则：
-- 单一事实源：所有自研工具只在 susu-tools 内开发维护；
-  原独立仓库（knowledge-publisher / ppt_doctor / QingTong / bg-skin）已迁移归档，不再回改。
-- 新工具默认进 projects/（kebab-case 命名），先孵化后毕业：
-  长大到需要独立身份 / 独立发版 / 有外部用户时，再迁出独立仓库（用 git filter-repo 保留历史）。
-- 版本发布统一用 tag + GitHub Release，命名 <project>-v<semver>（如 bg-skin-v0.5.1）。
-- 安全红线：API key / cookie / *.db / 运行时（python310、models、node_modules）一律不入库；
-  提交前跑 scripts/secrets_scan.py 确认干净。
+- 单一事实源：自研工具只在 susu-tools 开发；已迁移归档的原独立仓库不再回改。
+- 新工具默认进 projects/（kebab-case），孵化-毕业模式：
+  需要独立身份时迁出（git filter-repo 保留历史）。
+- 发版：<project>-v<semver> tag + GitHub Release（如 bg-skin-v0.5.1）。
+- 不做泛工具目录：第三方工具只安利二次元相关精品，且以随笔形式承载。
+- 安全红线：密钥 / cookie / 运行时 / 模型权重不入库；提交前跑 scripts/secrets_scan.py。
 
 命名与部署：
-- 本地文件夹：susu-tools
-- GitHub 仓库：https://github.com/sdh0219/susu-tools
-- 个人站点：https://susu-2x9.pages.dev/（Cloudflare Pages 项目 susu，输出目录 web）
+- GitHub：https://github.com/sdh0219/susu-tools
+- 站点：https://susu-2x9.pages.dev/（Cloudflare Pages 项目 susu，输出目录 web）

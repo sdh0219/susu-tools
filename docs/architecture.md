@@ -2,33 +2,33 @@
 
 ## Why this layout
 
-`susu-tools` is a **personal vibecoding toolkit monorepo** with two product tracks:
+`susu-tools` 是一个**二次元主题的个人工具站 monorepo**，两类内容：
 
-1. **Collect** — curated third-party tools published as a static directory site
-2. **Ship** — first-party / forked tools that run locally and can be distributed
+1. **Ship** — 自研 / 二开工具，`projects/` 是唯一开发与发布地
+2. **随笔** — 工具使用理解与复盘，`web/blog.html`
 
-Separating *catalog data*, *web surface*, and *shipped projects* keeps each concern
-independently reviewable — the way a CS-oriented repo should read at a glance.
+站点本身（`web/`）部署在 Cloudflare Pages。第三方工具目录已于 2026-09 下架：
+同质化高、无个人特色；精品安利改由随笔承载。
 
 ```text
-collections/tools.json  ──sync──►  web/assets  ──Cloudflare──►  susu-2x9.pages.dev
-        ▲                                │
-        │ edit                           │ link / mention
-        │                                ▼
-   (human curation)               projects/*  (run on laptop / package for others)
+projects/*  ──link/mention──►  web/index.html  ──Cloudflare──►  susu-2x9.pages.dev
+                                    │
+                                    ▼
+                            blog.html（随笔）
 ```
 
 ## Directory contracts
 
 | Path | Contract |
 |------|----------|
-| `collections/` | **Source of truth** for curated tools. JSON only; no site chrome. |
 | `web/` | **Deployable static site.** Only files needed by the browser. Cloudflare Pages asset root. |
-| `web/assets/js/catalog-data.js` | Generated from `collections/tools.json` via `scripts/sync-catalog.ps1`. Do not hand-edit. |
-| `web/assets/data/tools.json` | Same catalog copy for `fetch()` consumers. |
-| `projects/` | **Shippable tools.** Each subproject has its own README, license notes, and runtime rules. |
-| `docs/` | Charter + architecture; no runtime secrets. |
-| `scripts/` | Repo utilities; PowerShell-first (Windows dev machine). |
+| `web/assets/js/oml2d.min.js` + `web/assets/models/` | Live2D 看板娘自托管资源（库 + 4 个模型），勿手改 |
+| `web/assets/voice/` | 看板娘预录语音包（p0~p8.mp3），缺失时只出气泡不出声 |
+| `web/assets/js/live2d.js` | 看板娘加载器：位置 / 模型列表 / 交互与语音逻辑 |
+| `web/assets/js/starfield.js` | 氛围层：暗色星空流星 / 浅色樱花，单帧异常不终止循环 |
+| `projects/` | **Shippable tools.** 每个子项目自带 README、LICENSE、运行时规则 |
+| `docs/` | Charter + architecture；no runtime secrets |
+| `scripts/` | secrets_scan / live2d 模型下载 / 语音生成 |
 | `wrangler.jsonc` | Pages config; `assets.directory` **must** stay `web`. |
 
 ## Project registry
@@ -50,43 +50,19 @@ collections/tools.json  ──sync──►  web/assets  ──Cloudflare──�
   promote to a standalone repo only when it needs its own identity / release channel / user base,
   carrying history via `git filter-repo`.
 - **Releases**: tag + GitHub Release, named `<project>-v<semver>` (e.g. `bg-skin-v0.5.1`).
+- **No generic tool directory**: 第三方工具不做目录收录；精品安利写进随笔。
 - **Secrets**: never commit keys / cookies / `*.db` / runtimes; run `scripts/secrets_scan.py`
   before committing.
 
-## Catalog schema
-
-Each entry in `collections/tools.json` → `tools[]`:
-
-| Field | Type | Notes |
-|-------|------|-------|
-| `id` | string | kebab-case, unique |
-| `name` | string | display name |
-| `url` | string | absolute https URL |
-| `desc` | string | one-line Chinese description |
-| `icon` | string | emoji / glyph |
-| `category` | enum | `ai` \| `dev` \| `design` \| `efficiency` \| `resource` \| `media` |
-| `tags` | string[] | search keywords |
-| `pricing` | enum | `free` \| `freemium` \| `paid` |
-| `status` | enum | `active` \| `deprecated` |
-
 ## Change workflows
-
-### Curate a tool
-
-```text
-edit collections/tools.json
-  → powershell -File scripts/sync-catalog.ps1
-  → commit web/assets/js/catalog-data.js + web/assets/data/tools.json
-  → push → Pages deploys
-```
 
 ### Publish a new project
 
 ```text
-mkdir projects/<name>
+mkdir projects/<kebab-name>
   → add README.md (purpose, run, deps, license)
-  → optional: wire a card into collections/ or web later
-  → keep secrets/runtime out of git
+  → index.html 的「我的作品」加一张卡片
+  → keep secrets & runtimes out of git
 ```
 
 ### Deploy topology
@@ -102,5 +78,6 @@ If rename breaks Git integration: CF Dashboard → project → Settings → Buil
 
 ## Non-goals
 
-- Not a package registry monorepo (no forced shared `package.json` workspace yet)
+- Not a package registry monorepo (no forced shared `package.json` workspace)
 - Not committing multi-hundred-MB runtimes; those stay gitignored under each project
+- 不重建第三方工具目录；不收录与二次元主题无关的泛推荐内容
