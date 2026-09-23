@@ -8,18 +8,23 @@
       position: 'right',
       models: [
         {
-          path: 'https://model.hacxy.cn/HK416-1-normal/model.json',
-          scale: 0.12,
-          position: [0, 60]
-        },
-        {
-          path: 'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json',
+          path: 'https://model.hacxy.cn/Hiyori/Hiyori.model3.json',
           scale: 0.08,
           position: [0, 60]
         },
         {
-          path: 'https://model.hacxy.cn/cat-black/model.json',
+          path: 'https://model.hacxy.cn/chino/model.json',
+          scale: 0.15,
+          position: [0, 60]
+        },
+        {
+          path: 'https://model.hacxy.cn/Senko_Normals/senko.model3.json',
           scale: 0.1,
+          position: [0, 60]
+        },
+        {
+          path: 'https://model.hacxy.cn/koharu/model.json',
+          scale: 0.15,
           position: [0, 60]
         }
       ]
