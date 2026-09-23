@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具随笔 - Susu</title>
+    <link>https://susu-2x9.pages.dev/blog.html</link>
+    <description>不写榜单、不追新闻。每一篇都来自亲手做过的项目与踩过的坑——关于工具的理解与复盘。</description>
+    <language>zh-CN</language>
+    <atom:link href="https://susu-2x9.pages.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>工具的第一美德是可预测</title>
+      <link>https://susu-2x9.pages.dev/blog.html#essay-1</link>
+      <guid>https://susu-2x9.pages.dev/blog.html#essay-1</guid>
+      <pubDate>Tue, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description>同样输入永远同样输出——做 Knowledge Publisher 时，公式渲染我选了笨但确定的那种。</description>
+    </item>
+    <item>
+      <title>改别人的东西，要进得去、退得回</title>
+      <link>https://susu-2x9.pages.dev/blog.html#essay-2</link>
+      <guid>https://susu-2x9.pages.dev/blog.html#essay-2</guid>
+      <pubDate>Tue, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description>bg-skin 修改 VS Code 核心文件的三条规矩：先备份、修校验和、可还原。</description>
+    </item>
+    <item>
+      <title>浏览器记得你，这件事突然值钱了</title>
+      <link>https://susu-2x9.pages.dev/blog.html#essay-3</link>
+      <guid>https://susu-2x9.pages.dev/blog.html#essay-3</guid>
+      <pubDate>Tue, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Agent 浏览器把你已有的登录态变成 AI 的能力——不需要任何 API 接入。</description>
+    </item>
+    <item>
+      <title>收藏夹里的 34 个工具，每天打开的不超过 5 个</title>
+      <link>https://susu-2x9.pages.dev/blog.html#essay-4</link>
+      <guid>https://susu-2x9.pages.dev/blog.html#essay-4</guid>
+      <pubDate>Tue, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description>工具检索的本质是场景检索——按「你现在想干什么」分类，而不是按工具多酷排序。</description>
+    </item>
+    <item>
+      <title>vibe coding 之后，稀缺的不再是实现</title>
+      <link>https://susu-2x9.pages.dev/blog.html#essay-5</link>
+      <guid>https://susu-2x9.pages.dev/blog.html#essay-5</guid>
+      <pubDate>Tue, 23 Sep 2026 00:00:00 GMT</pubDate>
+      <description>AI 会把你想要的任何东西做出来——唯一重要的问题变成：你到底想要什么？</description>
+    </item>
+  </channel>
+</rss>

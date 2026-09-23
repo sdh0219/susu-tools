@@ -88,3 +88,12 @@
     });
   });
 })();
+
+  // 联系邮箱：静态 HTML 中不出现完整地址，运行时拼装，降低爬虫抓取
+  const mailBtn = document.getElementById('mail-btn');
+  if (mailBtn) {
+    const parts = ['2388647455', '@', 'qq', '.', 'com'];
+    const addr = parts.join('');
+    mailBtn.href = 'mailto:' + addr;
+    mailBtn.textContent = '📮 ' + addr;
+  }
