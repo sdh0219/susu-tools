@@ -1,4 +1,4 @@
-/* Generated from collections/tools.json by scripts/sync-catalog.ps1 - do not hand-edit. */
+/* Auto-generated from collections/tools.json 鈥?do not edit by hand. Run scripts/sync-catalog.ps1 */
 window.SUSU_CATALOG = {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "susu-tools-catalog",
@@ -367,6 +367,17 @@ window.SUSU_CATALOG = {
       "icon": "🖼️",
       "category": "media",
       "tags": ["图片压缩", "在线", "Google"],
+      "pricing": "free",
+      "status": "active"
+    },
+    {
+      "id": "tabbit",
+      "name": "Tabbit",
+      "url": "https://www.tabbit-ai.com",
+      "desc": "美团光年之外出品的 AI 原生浏览器，内置 DeepSeek、GLM 等多款模型免费畅用，Agent 模式自动完成填表、调研等网页任务，支持智能标签分组。",
+      "icon": "🐰",
+      "category": "ai",
+      "tags": ["AI浏览器", "Agent", "美团"],
       "pricing": "free",
       "status": "active"
     }
