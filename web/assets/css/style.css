@@ -1107,3 +1107,13 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─────────── CTA actions ─────────── */
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
