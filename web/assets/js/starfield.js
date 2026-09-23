@@ -1,4 +1,4 @@
-/* 星空 + 流星 + 鼠标轨迹：单块 Canvas，仅暗色主题显示，尊重系统减动效设置 */
+/* 主题化氛围层：暗色=星空流星+鼠标轨迹，浅色=樱花飘落。尊重系统减动效设置 */
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -10,7 +10,9 @@
   Object.assign(c.style, { position: 'fixed', inset: '0', zIndex: '-1', pointerEvents: 'none' });
   document.body.prepend(c);
 
-  // 背景星星：缓慢闪烁
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+  // 暗色：闪烁星星
   const stars = Array.from({ length: 140 }, () => ({
     x: Math.random(),
     y: Math.random(),
@@ -19,12 +21,23 @@
     sp: Math.random() * 0.02 + 0.005
   }));
 
+  // 浅色：樱花花瓣
+  const petals = Array.from({ length: 16 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    s: Math.random() * 3 + 4,
+    rot: Math.random() * Math.PI * 2,
+    rs: (Math.random() - 0.5) * 0.03,
+    vy: Math.random() * 0.6 + 0.35,
+    sway: Math.random() * 1.4 + 0.4,
+    ph: Math.random() * Math.PI * 2
+  }));
+
   let meteors = [];
   let trail = [];
   let nextMeteor = 2000 + Math.random() * 3000;
   let last = 0;
 
-  // 鼠标轨迹：淡出的紫色小光点
   addEventListener('mousemove', (e) => {
     trail.push({ x: e.clientX, y: e.clientY, life: 1 });
     if (trail.length > 50) trail.shift();
@@ -33,11 +46,38 @@
   function frame(now) {
     const dt = Math.min(now - last || 16, 50);
     last = now;
-    const light = document.documentElement.getAttribute('data-theme') === 'light';
-    c.style.opacity = light ? '0' : '1';   // 浅色主题下隐藏星空
+    const light = isLight();
     ctx.clearRect(0, 0, c.width, c.height);
 
-    if (!light) {
+    if (light) {
+      // 樱花花瓣：飘落 + 左右摇摆
+      for (const p of petals) {
+        p.y += (p.vy * dt) / 16;
+        p.x += Math.sin(now / 1000 * p.sway + p.ph) * 0.4;
+        p.rot += p.rs;
+        if (p.y * c.height > c.height + 10) { p.y = -0.02; p.x = Math.random(); }
+        if (p.x * c.width > c.width + 10) p.x = -0.02;
+        ctx.save();
+        ctx.translate(p.x * c.width, p.y * c.height);
+        ctx.rotate(p.rot);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.s, p.s * 0.55, 0, 0, 7);
+        ctx.fillStyle = 'rgba(233, 156, 180, 0.5)';
+        ctx.fill();
+        ctx.restore();
+      }
+      // 浅色：粉色鼠标轨迹
+      trail = trail.filter((p) => p.life > 0);
+      for (const p of trail) {
+        p.life -= 0.03;
+        p.y -= 0.3;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.life * 2.2, 0, 7);
+        ctx.fillStyle = `rgba(214, 130, 160, ${p.life * 0.4})`;
+        ctx.fill();
+      }
+    } else {
+      // 暗色：星空
       for (const s of stars) {
         s.tw += s.sp;
         const a = 0.22 + Math.abs(Math.sin(s.tw)) * 0.5;
@@ -46,8 +86,7 @@
         ctx.fillStyle = `rgba(224, 226, 240, ${a})`;
         ctx.fill();
       }
-
-      // 流星：随机间隔从上方划过
+      // 暗色：流星
       nextMeteor -= dt;
       if (nextMeteor <= 0) {
         nextMeteor = 3000 + Math.random() * 5000;
@@ -75,8 +114,7 @@
         ctx.lineTo(m.x - m.vx * tail, m.y - m.vy * tail);
         ctx.stroke();
       }
-
-      // 鼠标轨迹
+      // 暗色：紫色鼠标轨迹
       trail = trail.filter((p) => p.life > 0);
       for (const p of trail) {
         p.life -= 0.03;
