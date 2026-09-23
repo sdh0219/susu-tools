@@ -113,3 +113,24 @@
       syncIcon();
     });
   }
+
+  // Hero 背景视频：主题联动（暗=夜樱 / 浅=白日樱吹雪），load 后再加载
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    const applyHeroSrc = () => {
+      const want = document.documentElement.getAttribute('data-theme') === 'light'
+        ? 'hero-day.mp4' : 'hero-night.mp4';
+      if (!heroVideo.src.endsWith(want)) {
+        heroVideo.src = 'assets/video/' + want;
+        heroVideo.play().catch(() => { /* 自动播放被拦截时保持静帧 */ });
+      }
+    };
+    const startHero = () => {
+      applyHeroSrc();
+      new MutationObserver(applyHeroSrc).observe(
+        document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }
+      );
+    };
+    if (document.readyState === 'complete') setTimeout(startHero, 600);
+    else window.addEventListener('load', () => setTimeout(startHero, 600));
+  }
