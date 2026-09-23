@@ -23,9 +23,10 @@
 ```text
 susu-tools/
 ├── web/                 # Public site (Cloudflare Pages asset root)
-│   ├── index.html       # Landing
+│   ├── index.html       # Landing (+ own-projects showcase)
 │   ├── tools.html       # Tool directory UI
-│   └── assets/          # css / js / data
+│   ├── blog.html        # 工具随笔 (essays on tool craft)
+│   └── assets/          # css / js / data / img
 ├── collections/         # Curated third-party tools (canonical JSON)
 │   └── tools.json
 ├── projects/            # First-party & forked tools
