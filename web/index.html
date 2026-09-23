@@ -14,6 +14,7 @@
       <a href="index.html" class="nav-logo">Susu</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">首页</a></li>
+        <li><a href="index.html#projects">作品</a></li>
         <li><a href="tools.html">工具</a></li>
         <li><a href="#about">关于</a></li>
         <li><a href="#contact">联系</a></li>
@@ -45,12 +46,12 @@
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item fade-in">
-          <div class="stat-number" data-count="20">0</div>
-          <div class="stat-label">免费工具</div>
+          <div class="stat-number" data-count="33">0</div>
+          <div class="stat-label">收录工具</div>
         </div>
         <div class="stat-item fade-in">
-          <div class="stat-number" data-count="6">0</div>
-          <div class="stat-label">工具分类</div>
+          <div class="stat-number" data-count="5">0</div>
+          <div class="stat-label">自研作品</div>
         </div>
         <div class="stat-item fade-in">
           <div class="stat-number" data-count="100">0</div>
@@ -60,6 +61,92 @@
           <div class="stat-number" data-count="0">0</div>
           <div class="stat-label">付费门槛</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">✦ 我的作品</div>
+        <h2 class="section-title">亲手打造的开源工具</h2>
+        <p class="section-desc">从创意、开发到发布全程独立完成，源码全部开放。点击卡片查看源码与使用文档。</p>
+      </div>
+      <div class="projects-grid">
+        <a class="project-card fade-in" href="https://github.com/sdh0219/susu-tools/tree/main/projects/bilinote" target="_blank" rel="noopener"
+           style="--card-accent: linear-gradient(135deg, #ec4899, #f59e0b); --card-accent-soft: rgba(236, 72, 153, 0.3);">
+          <div class="project-top">
+            <div class="project-icon" style="background: rgba(236, 72, 153, 0.12);">🎬</div>
+            <span class="project-badge released">已发布</span>
+          </div>
+          <h3>BiliNote 增强版</h3>
+          <p class="project-desc">视频链接一键转 AI 结构化笔记，Windows 离线运行，Whisper + 大模型中文字幕总结。</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Whisper</span>
+          </div>
+          <span class="project-link">查看源码 →</span>
+        </a>
+        <a class="project-card fade-in" href="https://github.com/sdh0219/susu-tools/tree/main/projects/knowledge-publisher" target="_blank" rel="noopener"
+           style="--card-accent: linear-gradient(135deg, #8b5cf6, #3b82f6); --card-accent-soft: rgba(139, 92, 246, 0.3);">
+          <div class="project-top">
+            <div class="project-icon" style="background: rgba(139, 92, 246, 0.12);">✍️</div>
+            <span class="project-badge released">已发布</span>
+          </div>
+          <h3>Knowledge Publisher</h3>
+          <p class="project-desc">一次创作多平台输出：Markdown 母稿自动生成知乎文章与抖音图文，公式确定性渲染。</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">markdown-it</span>
+            <span class="project-tag">matplotlib</span>
+          </div>
+          <span class="project-link">查看源码 →</span>
+        </a>
+        <a class="project-card fade-in" href="https://github.com/sdh0219/susu-tools/tree/main/projects/ppt-doctor" target="_blank" rel="noopener"
+           style="--card-accent: linear-gradient(135deg, #3b82f6, #06b6d4); --card-accent-soft: rgba(59, 130, 246, 0.3);">
+          <div class="project-top">
+            <div class="project-icon" style="background: rgba(59, 130, 246, 0.12);">📊</div>
+            <span class="project-badge released">已发布</span>
+          </div>
+          <h3>PPT医生</h3>
+          <p class="project-desc">面向医生的 AI 演示工具：一句话主题生成医学 PPT 大纲，实时预览并导出 .pptx。</p>
+          <div class="project-tags">
+            <span class="project-tag">Electron</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">TypeScript</span>
+          </div>
+          <span class="project-link">查看源码 →</span>
+        </a>
+        <a class="project-card fade-in" href="https://github.com/sdh0219/susu-tools/tree/main/projects/qing-tong" target="_blank" rel="noopener"
+           style="--card-accent: linear-gradient(135deg, #06b6d4, #8b5cf6); --card-accent-soft: rgba(6, 182, 212, 0.3);">
+          <div class="project-top">
+            <div class="project-icon" style="background: rgba(6, 182, 212, 0.12);">👁️</div>
+            <span class="project-badge incubating">孵化中</span>
+          </div>
+          <h3>千瞳</h3>
+          <p class="project-desc">把普通 2D 视频变成可自由切换视角的 3D 场景，深度估计 + 实时网格渲染。</p>
+          <div class="project-tags">
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Three.js</span>
+            <span class="project-tag">Depth Anything</span>
+          </div>
+          <span class="project-link">查看源码 →</span>
+        </a>
+        <a class="project-card fade-in" href="https://github.com/sdh0219/susu-tools/tree/main/projects/bg-skin" target="_blank" rel="noopener"
+           style="--card-accent: linear-gradient(135deg, #10b981, #06b6d4); --card-accent-soft: rgba(16, 185, 129, 0.3);">
+          <div class="project-top">
+            <div class="project-icon" style="background: rgba(16, 185, 129, 0.12);">🖼️</div>
+            <span class="project-badge released">已发布</span>
+          </div>
+          <h3>bg-skin</h3>
+          <p class="project-desc">把本地图片变成 VS Code 编辑器背景壁纸，支持透明度/模糊调节与自动校验和还原。</p>
+          <div class="project-tags">
+            <span class="project-tag">VS Code 扩展</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <span class="project-link">查看源码 →</span>
+        </a>
       </div>
     </div>
   </section>
