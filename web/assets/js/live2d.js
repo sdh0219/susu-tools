@@ -1,29 +1,27 @@
-/* Live2D 看板娘：动态注入 oh-my-live2d，CDN 不可达时静默降级，不影响主站 */
+/* Live2D 看板娘：库与模型全部自托管（同源 + Cloudflare CDN），页面加载完后再启动，不抢首屏带宽 */
 (function () {
-  var LIB = 'https://fastly.jsdelivr.net/npm/oh-my-live2d@0.19.3/dist/index.min.js';
-
   function boot() {
     if (!window.OML2D || typeof window.OML2D.loadOml2d !== 'function') return;
     window.OML2D.loadOml2d({
       position: 'right',
       models: [
         {
-          path: 'https://model.hacxy.cn/Hiyori/Hiyori.model3.json',
+          path: '/assets/models/Hiyori/Hiyori.model3.json',
           scale: 0.08,
           position: [0, 60]
         },
         {
-          path: 'https://model.hacxy.cn/chino/model.json',
+          path: '/assets/models/chino/model.json',
           scale: 0.15,
           position: [0, 60]
         },
         {
-          path: 'https://model.hacxy.cn/Senko_Normals/senko.model3.json',
+          path: '/assets/models/Senko_Normals/senko.model3.json',
           scale: 0.1,
           position: [0, 60]
         },
         {
-          path: 'https://model.hacxy.cn/koharu/model.json',
+          path: '/assets/models/koharu/model.json',
           scale: 0.15,
           position: [0, 60]
         }
@@ -31,9 +29,18 @@
     });
   }
 
-  var s = document.createElement('script');
-  s.src = LIB;
-  s.onload = boot;
-  s.onerror = function () { /* CDN 不可达：看板娘缺席，主站不受影响 */ };
-  document.head.appendChild(s);
+  function start() {
+    const s = document.createElement('script');
+    s.src = '/assets/js/oml2d.min.js';
+    s.onload = boot;
+    s.onerror = function () { /* 加载失败：看板娘缺席，主站不受影响 */ };
+    document.head.appendChild(s);
+  }
+
+  // 首屏渲染完成后再启动，延迟 600ms 完全错开关键资源
+  if (document.readyState === 'complete') {
+    setTimeout(start, 600);
+  } else {
+    window.addEventListener('load', () => setTimeout(start, 600));
+  }
 })();
