@@ -32,7 +32,8 @@ susu-tools/
 │   ├── bilinote/        # BiliNote Windows enhanced
 │   ├── knowledge-publisher/  # One Markdown → Zhihu / Douyin publisher
 │   ├── ppt-doctor/      # AI-powered medical PPT generator (Electron)
-│   └── qing-tong/       # 千瞳: 2D video → interactive 3D scene (Three.js + Depth Anything V2)
+│   ├── qing-tong/       # 千瞳: 2D video → interactive 3D scene (Three.js + Depth Anything V2)
+│   └── bg-skin/         # VS Code editor background wallpaper extension
 ├── docs/                # Charter, architecture
 ├── scripts/             # Utility scripts (catalog sync, …)
 ├── wrangler.jsonc       # Cloudflare Pages assets → web/
@@ -94,6 +95,13 @@ cd projects\qing-tong
 .\scripts\start.ps1   # 启动前后端
 ```
 
+```powershell
+cd projects\bg-skin
+# see projects/bg-skin/README.md & INSTALL.md
+# 开发：VS Code 打开目录后按 F5 运行扩展开发宿主
+# 打包：npx vsce package  →  得到可安装的 .vsix
+```
+
 ## Published projects
 
 | Project | Description | Docs |
@@ -102,6 +110,7 @@ cd projects\qing-tong
 | [knowledge-publisher](./projects/knowledge-publisher/) | 一次创作多平台输出：Markdown 母稿 → 知乎文章 / 抖音长文 / 抖音图文 PNG 图集 | [README](./projects/knowledge-publisher/README.md) |
 | [ppt-doctor](./projects/ppt-doctor/) | PPT医生：面向医生的 AI PPT 生成器，一句话主题 → 大纲 → 实时预览 → .pptx（Electron + 云端大模型） | [README](./projects/ppt-doctor/README.md) |
 | [qing-tong](./projects/qing-tong/) | 千瞳：2D 视频 → 可交互 3D 场景，深度估计 + Three.js 自由视角（FastAPI + Depth Anything V2） | [README](./projects/qing-tong/README.md) |
+| [bg-skin](./projects/bg-skin/) | VS Code 编辑器背景壁纸扩展：透明度/模糊/位置调节，按时段自动换预设，校验和修复 + 卸载还原 | [README](./projects/bg-skin/README.md) |
 
 ## Deploy (Cloudflare Pages)
 

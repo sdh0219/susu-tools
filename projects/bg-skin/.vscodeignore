@@ -1,0 +1,10 @@
+.vscode/**
+.vscode-test/**
+scripts/**
+test/**
+assets/**
+promo/**
+PROJECT_BRIEF.md
+.gitignore
+*.vsix
+node_modules/**
