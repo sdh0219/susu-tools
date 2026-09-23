@@ -31,6 +31,28 @@ collections/tools.json  ──sync──►  web/assets  ──Cloudflare──�
 | `scripts/` | Repo utilities; PowerShell-first (Windows dev machine). |
 | `wrangler.jsonc` | Pages config; `assets.directory` **must** stay `web`. |
 
+## Project registry
+
+| Project | What | Stack | Status |
+|---------|------|-------|--------|
+| `projects/bilinote/` | BiliNote Windows 增强版：视频 → Whisper → LLM 中文笔记 | Python + FastAPI | shipped |
+| `projects/knowledge-publisher/` | Markdown 母稿 → 知乎 / 抖音多平台发布包 | Python + markdown-it | shipped |
+| `projects/ppt-doctor/` | 医生 AI PPT 生成器：主题 → 大纲 → .pptx | Electron + React + TS | shipped |
+| `projects/qing-tong/` | 千瞳：2D 视频 → 可交互 3D 场景 | FastAPI + Three.js | incubating |
+| `projects/bg-skin/` | VS Code 编辑器背景壁纸扩展 | VS Code Extension (JS) | shipped |
+
+## Governance
+
+- **Single source of truth**: all first-party tools are developed *inside* this monorepo.
+  Former standalone repos (knowledge-publisher, ppt_doctor, QingTong, bg-skin) are retired;
+  never edit a retired copy. Full-history backups live as git bundles outside the repo.
+- **Default home for new tools**: `projects/<kebab-case-name>/`. Incubate first, graduate later —
+  promote to a standalone repo only when it needs its own identity / release channel / user base,
+  carrying history via `git filter-repo`.
+- **Releases**: tag + GitHub Release, named `<project>-v<semver>` (e.g. `bg-skin-v0.5.1`).
+- **Secrets**: never commit keys / cookies / `*.db` / runtimes; run `scripts/secrets_scan.py`
+  before committing.
+
 ## Catalog schema
 
 Each entry in `collections/tools.json` → `tools[]`:

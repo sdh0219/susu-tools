@@ -1,15 +1,21 @@
 susu-tools —— 个人 Vibecoding 工具箱
 
-定位：
-1. 收录自己在 vibe coding 过程中个人感觉好用的工具（以在线网页导航形式发布）。
-2. 发布自己创作 / 二次开发的工具（当前主要作品：bilinote/，BiliNote Windows 增强版）。
+定位（2026-09 修订）：
+1. Collect：精选自己在 vibe coding 中亲测好用的第三方工具，发布为在线导航（collections/ → web/）。
+2. Ship：自研 / 二开工具的唯一开发与发布地（projects/，当前 5 个：
+   bilinote、knowledge-publisher、ppt-doctor、qing-tong、bg-skin）。
+3. Publish：Cloudflare Pages 静态站点（web/ → susu-2x9.pages.dev）。
+
+仓库治理规则：
+- 单一事实源：所有自研工具只在 susu-tools 内开发维护；
+  原独立仓库（knowledge-publisher / ppt_doctor / QingTong / bg-skin）已迁移归档，不再回改。
+- 新工具默认进 projects/（kebab-case 命名），先孵化后毕业：
+  长大到需要独立身份 / 独立发版 / 有外部用户时，再迁出独立仓库（用 git filter-repo 保留历史）。
+- 版本发布统一用 tag + GitHub Release，命名 <project>-v<semver>（如 bg-skin-v0.5.1）。
+- 安全红线：API key / cookie / *.db / 运行时（python310、models、node_modules）一律不入库；
+  提交前跑 scripts/secrets_scan.py 确认干净。
 
 命名与部署：
-- 本地文件夹现名：susu-tools（由 susu 重命名）
-- GitHub 仓库：https://github.com/sdh0219/susu （远程仍叫 susu，历史连续）
-- 个人网页（Cloudflare Pages）：https://susu-2x9.pages.dev/
-
-结构：
-- index.html / tool.html / css / js  → 工具站页面
-- bilinote/                         → 自研/二开工具：视频转 AI 笔记
-- wrangler.jsonc                    → Cloudflare Pages 配置
+- 本地文件夹：susu-tools
+- GitHub 仓库：https://github.com/sdh0219/susu-tools
+- 个人站点：https://susu-2x9.pages.dev/（Cloudflare Pages 项目 susu，输出目录 web）
