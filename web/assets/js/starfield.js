@@ -23,16 +23,19 @@
   // 暗色：从上往下掉的四芒小星星
   const fall = [];
 
-  // 浅色：樱花花瓣
-  const petals = Array.from({ length: 24 }, () => ({
+  // 浅色：樱花花瓣（大而慢，带翻转）
+  const petals = Array.from({ length: 18 }, () => ({
     x: Math.random(),
     y: Math.random(),
-    s: Math.random() * 3.5 + 4.5,
+    r: Math.random() * 8 + 9,
     rot: Math.random() * Math.PI * 2,
-    rs: (Math.random() - 0.5) * 0.03,
-    vy: Math.random() * 0.7 + 0.4,
-    sway: Math.random() * 1.4 + 0.4,
-    ph: Math.random() * Math.PI * 2
+    rs: (Math.random() - 0.5) * 0.04,
+    vy: Math.random() * 0.35 + 0.15,
+    swayA: Math.random() * 30 + 15,
+    swayS: Math.random() * 0.8 + 0.4,
+    ph: Math.random() * Math.PI * 2,
+    fs: Math.random() * 1.2 + 0.6,
+    fp: Math.random() * Math.PI * 2
   }));
 
   // 暗色：偶发长尾大流星
@@ -81,22 +84,32 @@
       const dt = Math.min(now - last || 16, 50);
       last = now;
       const light = isLight();
+      c.style.zIndex = light ? '30' : '-1';
       ctx.clearRect(0, 0, c.width, c.height);
 
       if (light) {
-        // 樱花花瓣
+        // 樱花花瓣：带缺口的心形樱瓣，翻转飘落
         for (const p of petals) {
           p.y += (p.vy * dt) / 16;
-          p.x += Math.sin(now / 1000 * p.sway + p.ph) * 0.5;
           p.rot += p.rs;
-          if (p.y * c.height > c.height + 12) { p.y = -0.02; p.x = Math.random(); }
-          if (p.x * c.width > c.width + 12) p.x = -0.02;
+          if (p.y * c.height > c.height + 24) { p.y = -0.04; p.x = Math.random(); }
+          const x = p.x * c.width + Math.sin(now / 1000 * p.swayS + p.ph) * p.swayA;
+          const y = p.y * c.height;
+          const flip = 0.35 + 0.65 * Math.abs(Math.sin(now / 1000 * p.fs + p.fp));
           ctx.save();
-          ctx.translate(p.x * c.width, p.y * c.height);
+          ctx.translate(x, y);
           ctx.rotate(p.rot);
+          ctx.scale(flip, 1);
+          const g = ctx.createLinearGradient(0, -p.r, 0, p.r);
+          g.addColorStop(0, 'rgba(252, 214, 226, 0.9)');
+          g.addColorStop(1, 'rgba(247, 158, 190, 0.78)');
+          ctx.fillStyle = g;
           ctx.beginPath();
-          ctx.ellipse(0, 0, p.s, p.s * 0.55, 0, 0, 7);
-          ctx.fillStyle = 'rgba(240, 150, 180, 0.65)';
+          ctx.moveTo(0, p.r);
+          ctx.bezierCurveTo(-p.r * 1.15, p.r * 0.55, -p.r * 1.05, -p.r * 0.55, -p.r * 0.22, -p.r * 0.8);
+          ctx.quadraticCurveTo(0, -p.r * 0.55, p.r * 0.22, -p.r * 0.8);
+          ctx.bezierCurveTo(p.r * 1.05, -p.r * 0.55, p.r * 1.15, p.r * 0.55, 0, p.r);
+          ctx.closePath();
           ctx.fill();
           ctx.restore();
         }
