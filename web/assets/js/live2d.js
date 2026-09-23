@@ -5,15 +5,21 @@
   function boot() {
     if (!window.OML2D || typeof window.OML2D.loadOml2d !== 'function') return;
     window.OML2D.loadOml2d({
+      position: 'right',
       models: [
         {
-          path: 'https://model.hacxy.cn/cat-black/model.json',
-          scale: 0.1,
+          path: 'https://model.hacxy.cn/HK416-1-normal/model.json',
+          scale: 0.12,
           position: [0, 60]
         },
         {
-          path: 'https://model.oml2d.com/HK416-1-normal/v1.1/model.json',
-          scale: 0.12,
+          path: 'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json',
+          scale: 0.08,
+          position: [0, 60]
+        },
+        {
+          path: 'https://model.hacxy.cn/cat-black/model.json',
+          scale: 0.1,
           position: [0, 60]
         }
       ]
