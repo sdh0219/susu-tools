@@ -1359,3 +1359,90 @@ input, textarea {
 [data-theme="light"] .hero-video {
   opacity: 0.28;
 }
+
+/* ─────────── 一言 / 运势 / 音乐盒 ─────────── */
+.footer-extras {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.fortune-btn, .music-btn {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: url('/assets/img/cursor-heart.png') 13 11, pointer;
+  transition: var(--transition);
+}
+
+.fortune-btn:hover, .music-btn:hover {
+  color: var(--accent-pink);
+  border-color: rgba(248, 158, 192, 0.5);
+}
+
+.hitokoto {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.fortune-card {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(480px, 88vw);
+  height: fit-content;
+  background: linear-gradient(160deg, #fff5f8, #fdeef4);
+  border: 2px solid rgba(247, 158, 190, 0.7);
+  border-radius: 24px;
+  padding: 42px 36px;
+  text-align: center;
+  z-index: 200;
+  box-shadow: 0 20px 60px rgba(214, 100, 145, 0.35);
+  animation: fortune-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fortune-card .fortune-close {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.fortune-title {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #d6557f;
+  margin-bottom: 18px;
+}
+
+.fortune-msg {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #4a3f45;
+  margin-bottom: 14px;
+}
+
+.fortune-item {
+  font-size: 0.9rem;
+  color: #b06a8c;
+}
+
+.fortune-tip {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@keyframes fortune-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
