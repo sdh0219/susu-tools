@@ -1,4 +1,4 @@
-/* 主题化氛围层：暗色=星空流星+鼠标轨迹，浅色=樱花飘落。尊重系统减动效设置 */
+/* 主题化氛围层：暗色=星空+流星雨+鼠标轨迹，浅色=樱花飘落。尊重系统减动效设置 */
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -12,7 +12,7 @@
 
   const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
 
-  // 暗色：闪烁星星
+  // 暗色：闪烁背景星
   const stars = Array.from({ length: 140 }, () => ({
     x: Math.random(),
     y: Math.random(),
@@ -20,6 +20,9 @@
     tw: Math.random() * Math.PI * 2,
     sp: Math.random() * 0.02 + 0.005
   }));
+
+  // 暗色：从上往下落的四芒小星星
+  const fall = [];
 
   // 浅色：樱花花瓣
   const petals = Array.from({ length: 16 }, () => ({
@@ -33,10 +36,24 @@
     ph: Math.random() * Math.PI * 2
   }));
 
+  // 暗色：偶发的大流星（带长尾巴）
   let meteors = [];
+  let nextMeteor = 1500 + Math.random() * 3000;
+
   let trail = [];
-  let nextMeteor = 2000 + Math.random() * 3000;
   let last = 0;
+
+  // 四芒星光
+  function sparkle(x, y, r, a) {
+    ctx.beginPath();
+    ctx.moveTo(x, y - r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.quadraticCurveTo(x, y, x, y + r);
+    ctx.quadraticCurveTo(x, y, x - r, y);
+    ctx.quadraticCurveTo(x, y, x, y - r);
+    ctx.fillStyle = `rgba(228, 232, 252, ${a})`;
+    ctx.fill();
+  }
 
   addEventListener('mousemove', (e) => {
     trail.push({ x: e.clientX, y: e.clientY, life: 1 });
@@ -50,7 +67,7 @@
     ctx.clearRect(0, 0, c.width, c.height);
 
     if (light) {
-      // 樱花花瓣：飘落 + 左右摇摆
+      // 浅色：樱花花瓣
       for (const p of petals) {
         p.y += (p.vy * dt) / 16;
         p.x += Math.sin(now / 1000 * p.sway + p.ph) * 0.4;
@@ -66,7 +83,6 @@
         ctx.fill();
         ctx.restore();
       }
-      // 浅色：粉色鼠标轨迹
       trail = trail.filter((p) => p.life > 0);
       for (const p of trail) {
         p.life -= 0.03;
@@ -77,7 +93,7 @@
         ctx.fill();
       }
     } else {
-      // 暗色：星空
+      // 背景星星闪烁
       for (const s of stars) {
         s.tw += s.sp;
         const a = 0.22 + Math.abs(Math.sin(s.tw)) * 0.5;
@@ -86,10 +102,31 @@
         ctx.fillStyle = `rgba(224, 226, 240, ${a})`;
         ctx.fill();
       }
-      // 暗色：流星
+
+      // 星落：小星星持续从顶部掉下来
+      if (fall.length < 22 && Math.random() < 0.1) {
+        fall.push({
+          x: Math.random() * c.width,
+          y: -8,
+          vy: (Math.random() * 1.1 + 0.6) * (dt / 16),
+          ph: Math.random() * 6,
+          sway: 6 + Math.random() * 14,
+          r: Math.random() * 2.4 + 1.6
+        });
+      }
+      for (let i = fall.length - 1; i >= 0; i--) {
+        const f = fall[i];
+        f.y += f.vy;
+        f.ph += 0.03;
+        if (f.y > c.height + 12) { fall.splice(i, 1); continue; }
+        const x = f.x + Math.sin(f.ph) * f.sway;
+        sparkle(x, f.y, f.r * 2, 0.5 + Math.abs(Math.sin(f.ph * 2)) * 0.4);
+      }
+
+      // 大流星：偶发划过
       nextMeteor -= dt;
       if (nextMeteor <= 0) {
-        nextMeteor = 3000 + Math.random() * 5000;
+        nextMeteor = 2500 + Math.random() * 4000;
         meteors.push({
           x: Math.random() * c.width * 0.85,
           y: -20,
@@ -114,7 +151,8 @@
         ctx.lineTo(m.x - m.vx * tail, m.y - m.vy * tail);
         ctx.stroke();
       }
-      // 暗色：紫色鼠标轨迹
+
+      // 鼠标轨迹：紫色光点
       trail = trail.filter((p) => p.life > 0);
       for (const p of trail) {
         p.life -= 0.03;
