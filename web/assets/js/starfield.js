@@ -3,6 +3,7 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const c = document.createElement('canvas');
+  c.id = 'starfield';
   const ctx = c.getContext('2d');
   function size() { c.width = innerWidth; c.height = innerHeight; }
   size();

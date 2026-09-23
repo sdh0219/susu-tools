@@ -86,9 +86,10 @@
       say(text);
     }
     document.addEventListener('click', (e) => {
-      // 只响应点击模型本体；状态栏、菜单按钮不触发
+      // 只响应点击模型画布本体；星空画布、按钮、菜单不触发
+      if (e.target.tagName !== 'CANVAS' || e.target.id === 'starfield') return;
       if (e.target.closest('button') || e.target.closest('[class*="status"]')) return;
-      if (e.target.closest('[class*="oml2d"] canvas')) interact();
+      interact();
     });
 
     // ---- 开场问候（只出气泡不发声，避免打扰）----
