@@ -42,8 +42,9 @@
   let meteors = [];
   let nextMeteor = 1000 + Math.random() * 2500;
 
-  // 鼠标轨迹
+  // 鼠标轨迹 + 点击爆裂
   let trail = [];
+  let bursts = [];
   let lastMx = null, lastMy = null;
 
   let last = 0;
@@ -59,6 +60,19 @@
     ctx.fillStyle = 'rgba(232, 236, 255, ' + a + ')';
     ctx.fill();
   }
+
+  // 点击爆裂：浅色=爱心，暗色=星光
+  addEventListener('click', (e) => {
+    for (let i = 0; i < 12; i++) {
+      const ang = (i / 12) * Math.PI * 2 + Math.random() * 0.5;
+      const sp = 1.5 + Math.random() * 2;
+      bursts.push({
+        x: e.clientX, y: e.clientY,
+        vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 0.6,
+        life: 1, heart: isLight()
+      });
+    }
+  });
 
   addEventListener('mousemove', (e) => {
     // 在上一点与当前点之间插值，保证轨迹连续
@@ -192,6 +206,25 @@
           ctx.arc(p.x, p.y, p.life * 3, 0, 7);
           ctx.fillStyle = 'rgba(150, 115, 225, ' + p.life * 0.6 + ')';
           ctx.fill();
+        }
+      }
+
+      // 点击爆裂粒子（爱心 / 星光）
+      bursts = bursts.filter((p) => p.life > 0);
+      for (const p of bursts) {
+        p.life -= 0.02;
+        p.x += (p.vx * dt) / 16;
+        p.y += (p.vy * dt) / 16;
+        p.vy += 0.04;
+        if (p.heart) {
+          ctx.fillStyle = 'rgba(240, 110, 160, ' + p.life * 0.85 + ')';
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y + p.life * 5);
+          ctx.bezierCurveTo(p.x - p.life * 7, p.y - p.life, p.x - p.life * 2.5, p.y - p.life * 6, p.x, p.y - p.life * 2);
+          ctx.bezierCurveTo(p.x + p.life * 2.5, p.y - p.life * 6, p.x + p.life * 7, p.y - p.life, p.x, p.y + p.life * 5);
+          ctx.fill();
+        } else {
+          sparkle(p.x, p.y, p.life * 5, p.life * 0.9);
         }
       }
     } catch (e) { /* 单帧异常不终止动画循环 */ }
