@@ -3,7 +3,7 @@
   function boot() {
     if (!window.OML2D || typeof window.OML2D.loadOml2d !== 'function') return;
     window.OML2D.loadOml2d({
-      position: 'right',
+      dockedPosition: 'right',
       models: [
         {
           path: '/assets/models/Hiyori/Hiyori.model3.json',
