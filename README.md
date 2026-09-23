@@ -29,7 +29,10 @@ susu-tools/
 ├── collections/         # Curated third-party tools (canonical JSON)
 │   └── tools.json
 ├── projects/            # First-party & forked tools
-│   └── bilinote/        # BiliNote Windows enhanced
+│   ├── bilinote/        # BiliNote Windows enhanced
+│   ├── knowledge-publisher/  # One Markdown → Zhihu / Douyin publisher
+│   ├── ppt-doctor/      # AI-powered medical PPT generator (Electron)
+│   └── qing-tong/       # 千瞳: 2D video → interactive 3D scene (Three.js + Depth Anything V2)
 ├── docs/                # Charter, architecture
 ├── scripts/             # Utility scripts (catalog sync, …)
 ├── wrangler.jsonc       # Cloudflare Pages assets → web/
@@ -69,11 +72,36 @@ cd projects\bilinote
 .\Windows 运行.bat
 ```
 
+```powershell
+cd projects\knowledge-publisher
+# see projects/knowledge-publisher/README.md
+.\首次安装.bat   # 首次使用
+.\启动系统.bat   # 日常启动
+```
+
+```powershell
+cd projects\ppt-doctor
+# see projects/ppt-doctor/README.md
+npm install
+npm run build
+npm start        # 或 npm run package 打包 Windows 安装包
+```
+
+```powershell
+cd projects\qing-tong
+# see projects/qing-tong/README.md
+.\scripts\setup.ps1   # 首次初始化
+.\scripts\start.ps1   # 启动前后端
+```
+
 ## Published projects
 
 | Project | Description | Docs |
 |---------|-------------|------|
 | [bilinote](./projects/bilinote/) | BiliNote Windows 增强版：视频 → Whisper → LLM 中文 Markdown 笔记 | [README](./projects/bilinote/README.md) |
+| [knowledge-publisher](./projects/knowledge-publisher/) | 一次创作多平台输出：Markdown 母稿 → 知乎文章 / 抖音长文 / 抖音图文 PNG 图集 | [README](./projects/knowledge-publisher/README.md) |
+| [ppt-doctor](./projects/ppt-doctor/) | PPT医生：面向医生的 AI PPT 生成器，一句话主题 → 大纲 → 实时预览 → .pptx（Electron + 云端大模型） | [README](./projects/ppt-doctor/README.md) |
+| [qing-tong](./projects/qing-tong/) | 千瞳：2D 视频 → 可交互 3D 场景，深度估计 + Three.js 自由视角（FastAPI + Depth Anything V2） | [README](./projects/qing-tong/README.md) |
 
 ## Deploy (Cloudflare Pages)
 
