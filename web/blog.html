@@ -23,6 +23,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">首页</a></li>
         <li><a href="index.html#projects">作品</a></li>
+        <li><a href="gallery.html">画廊</a></li>
         <li><a href="blog.html" class="active">随笔</a></li>
         <li><a href="index.html#about">关于</a></li>
         <li><a href="index.html#contact">联系</a></li>
@@ -156,7 +157,8 @@
       <p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p>
       <div class="footer-extras">
         <button class="fortune-btn" id="fortuneBtn">🎟️ 抽个今日运势</button>
-        <button class="music-btn" id="musicBtn">🔇</button>
+        <button class="music-btn" id="musicBtn" title="BGM（双击切歌）">🔇</button>
+        <span class="streak-chip" id="streakChip">📅 连续打卡 1 天</span>
       </div>
       <p class="hitokoto" id="hitokoto">「一言加载中...」</p>
 
@@ -167,6 +169,10 @@
   <script defer src="assets/js/live2d.js"></script>
   <script defer src="assets/js/starfield.js"></script>
   <script defer src="assets/js/danmaku.js"></script>
+  <div class="danmaku-input">
+    <input id="dmInput" maxlength="30" placeholder="发条弹幕试试…">
+    <button id="dmSend">发送</button>
+  </div>
   <script defer src="assets/js/extras.js"></script>
 </body>
 </html>

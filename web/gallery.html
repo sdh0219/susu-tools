@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画廊 - Susu</title>
+  <meta name="description" content="Susu 的二次元立绘画廊：AI 生成的动漫插画，持续更新。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Susu - 画廊">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/gallery.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Susu</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="index.html#projects">作品</a></li>
+        <li><a href="gallery.html" class="active">画廊</a></li>
+        <li><a href="blog.html">随笔</a></li>
+        <li><a href="index.html#about">关于</a></li>
+        <li><a href="index.html#contact">联系</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">立绘画廊</div>
+        <h1 class="section-title">次元画框</h1>
+        <p class="section-desc">AI 生成的动漫插画，持续更新。点击图片放大欣赏。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="essays">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <p id="galleryEmpty" class="gallery-empty" style="display:none">画廊布置中，敬请期待～</p>
+    </div>
+  </section>
+
+  <div class="g-lightbox" id="lightbox">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script defer src="assets/js/live2d.js"></script>
+  <script defer src="assets/js/starfield.js"></script>
+  <script defer src="assets/js/danmaku.js"></script>
+  <script defer src="assets/js/extras.js"></script>
+  <script defer src="assets/js/gallery.js"></script>
+</body>
+</html>

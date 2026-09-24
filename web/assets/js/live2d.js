@@ -87,11 +87,24 @@
       interact();
     });
 
-    // ---- 开场问候（只出气泡不发声，避免打扰）----
+    // ---- 开场问候：按时段选语音（greet-morning/noon/afternoon/evening/night.mp3）----
+    const h = new Date().getHours();
+    const period = (h >= 5 && h < 11) ? 'morning' : (h < 14) ? 'noon' : (h < 18) ? 'afternoon' : (h < 23) ? 'evening' : 'night';
+    const GREET_TEXT = {
+      morning: '早上好呀主人！新的一天也要元气满满哦！',
+      noon: '中午啦，记得吃饭，不要久坐哦！',
+      afternoon: '下午容易犯困呢，来杯咖啡陪陪我嘛！',
+      evening: '晚上好呀，今天辛苦啦！',
+      night: '这么晚还不睡吗？早点休息，晚安喵～'
+    }[period];
     setTimeout(() => {
-      if (oml2d && typeof oml2d.tipsMessage === 'function') oml2d.tipsMessage(GREETING, 5000, 3);
-      playVoiceFile(0);   // 对应 assets/voice/p0.mp3（可选）
+      if (oml2d && typeof oml2d.tipsMessage === 'function') oml2d.tipsMessage(GREET_TEXT, 5000, 3);
+      playVoiceFile('greet-' + period);
     }, 2600);
+    // Konami 彩蛋气泡
+    addEventListener('susu-konami', () => {
+      if (oml2d && typeof oml2d.tipsMessage === 'function') oml2d.tipsMessage('秘技解锁！你就是传说中的欧皇！', 5000, 3);
+    });
   }
 
   function start() {

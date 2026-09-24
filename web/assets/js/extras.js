@@ -46,7 +46,13 @@
   // ---------- 音乐盒（BGM 开关，状态记忆）----------
   const musicBtn = document.getElementById('musicBtn');
   if (musicBtn && !document.getElementById('bgm-audio')) {
-    const audio = new Audio('/assets/audio/bgm-loop.mp3');
+    const TRACKS = [
+      { file: '/assets/audio/bgm-loop.mp3', name: '治愈·星夜' },
+      { file: '/assets/audio/bgm-battle.mp3', name: '战斗·像素' },
+      { file: '/assets/audio/bgm-pixel.mp3', name: '跳跃·8bit' },
+    ];
+    let trackIdx = parseInt(localStorage.getItem('susu-track') || '0', 10) % TRACKS.length;
+    const audio = new Audio(TRACKS[trackIdx].file);
     audio.loop = true;
     audio.volume = 0.35;
     const setIcon = (on) => { musicBtn.textContent = on ? '🔊' : '🔇'; };
@@ -54,11 +60,32 @@
     setIcon(saved);
     if (saved) audio.play().catch(() => {});
     musicBtn.addEventListener('click', () => {
-      const on = musicBtn.textContent.trim() === '🔇';
-      if (on) audio.play().catch(() => {});
-      else audio.pause();
-      localStorage.setItem('susu-bgm', on ? 'on' : 'off');
-      setIcon(on);
+      const on = musicBtn.textContent.trim() === '🔊';
+      if (on) audio.pause();
+      else audio.play().catch(() => {});
+      localStorage.setItem('susu-bgm', on ? 'off' : 'on');
+      setIcon(!on);
     });
+    // 点歌：长按/双击切下一首
+    musicBtn.addEventListener('dblclick', () => {
+      trackIdx = (trackIdx + 1) % TRACKS.length;
+      localStorage.setItem('susu-track', String(trackIdx));
+      audio.src = TRACKS[trackIdx].file;
+      musicBtn.title = 'BGM：' + TRACKS[trackIdx].name;
+      if (localStorage.getItem('susu-bgm') === 'on') audio.play().catch(() => {});
+    });
+    musicBtn.title = 'BGM：' + TRACKS[trackIdx].name + '（双击切歌）';
+    // 连续打卡
+    const today = new Date().toDateString();
+    const yest = new Date(Date.now() - 864e5).toDateString();
+    const last = localStorage.getItem('susu-lastday');
+    let streak = parseInt(localStorage.getItem('susu-streak') || '0', 10);
+    if (last !== today) {
+      streak = (last === yest) ? streak + 1 : 1;
+      localStorage.setItem('susu-streak', String(streak));
+      localStorage.setItem('susu-lastday', today);
+    }
+    const chip = document.getElementById('streakChip');
+    if (chip) chip.textContent = '📅 连续打卡 ' + Math.max(streak, 1) + ' 天';
   }
 })();

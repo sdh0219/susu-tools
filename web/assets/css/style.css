@@ -1446,3 +1446,176 @@ input, textarea {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* ─────────── 点赞 chip / 打卡 chip ─────────── */
+.like-chip {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 60;
+  background: rgba(22, 22, 26, 0.85);
+  color: rgba(242, 242, 248, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+}
+
+.like-chip.pop {
+  animation: like-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes like-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); border-color: rgba(248, 158, 192, 0.7); }
+  100% { transform: scale(1); }
+}
+
+[data-theme="light"] .like-chip {
+  background: rgba(250, 248, 244, 0.9);
+  color: rgba(63, 58, 51, 0.9);
+}
+
+.streak-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--accent-green);
+  background: rgba(129, 230, 176, 0.1);
+  border: 1px solid rgba(129, 230, 176, 0.35);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+/* ─────────── 金色弹幕 / 弹幕输入条 ─────────── */
+.danmaku.gold {
+  color: rgba(255, 214, 130, 0.95);
+  text-shadow: 0 1px 6px rgba(180, 120, 20, 0.6);
+  font-weight: 700;
+}
+
+[data-theme="light"] .danmaku.gold {
+  color: rgba(200, 120, 30, 0.95);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+}
+
+.danmaku-input {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  display: flex;
+  gap: 8px;
+  width: min(420px, calc(100vw - 32px));
+}
+
+.danmaku-input input {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  outline: none;
+  backdrop-filter: blur(8px);
+}
+
+.danmaku-input input:focus {
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.danmaku-input button {
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: url('/assets/img/cursor-heart.png') 13 11, pointer;
+}
+
+/* ─────────── 画廊 ─────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.g-card {
+  margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: url('/assets/img/cursor-heart.png') 13 11, pointer;
+  transition: var(--transition);
+}
+
+.g-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.g-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.g-card figcaption {
+  padding: 16px 18px;
+}
+
+.g-card strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.g-card span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.gallery-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 60px 0;
+}
+
+.g-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.92);
+  z-index: 300;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.g-lightbox.open {
+  display: flex;
+}
+
+.g-lightbox img {
+  max-width: min(86vw, 900px);
+  max-height: 78vh;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.g-lightbox p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}

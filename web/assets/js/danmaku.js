@@ -18,17 +18,40 @@
   layer.className = 'danmaku-layer';
   document.body.appendChild(layer);
 
-  function spawn() {
+  function spawn(text, gold) {
     if (layer.children.length >= 7) return;
     const el = document.createElement('span');
     el.className = 'danmaku';
-    el.textContent = MSGS[Math.floor(Math.random() * MSGS.length)];
+    if (gold) el.classList.add('gold');
+    el.textContent = text || MSGS[Math.floor(Math.random() * MSGS.length)];
     el.style.top = (8 + Math.random() * 55) + '%';
     el.style.fontSize = (13 + Math.random() * 7) + 'px';
     el.style.animationDuration = (9 + Math.random() * 8) + 's';
     el.addEventListener('animationend', () => el.remove());
     layer.appendChild(el);
   }
+  // 弹幕发射台（随笔页输入框调用）
+  window.susuDanmaku = { send: (text) => spawn(text, true) };
+  // 弹幕输入条（随笔页）
+  const dmInput = document.getElementById('dmInput');
+  const dmSend = document.getElementById('dmSend');
+  if (dmInput && dmSend) {
+    const doSend = () => {
+      const t = dmInput.value.trim();
+      if (t) { window.susuDanmaku.send(t); dmInput.value = ''; }
+    };
+    dmSend.addEventListener('click', doSend);
+    dmInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSend(); });
+  }
+  // Konami 彩蛋：彩虹弹幕雨
+  addEventListener('susu-rainbow', () => {
+    const rainbowMsgs = ['秘技解锁！！', '你就是欧皇吧！', '✧ 彩虹弹幕雨 ✧', '隐藏要素 GET☆', '竟然真的有人会输这个'];
+    let n = 0;
+    const iv = setInterval(() => {
+      spawn(rainbowMsgs[n % rainbowMsgs.length], true);
+      if (++n >= 8) clearInterval(iv);
+    }, 350);
+  });
 
   spawn();
   setTimeout(spawn, 2000);

@@ -134,3 +134,32 @@
     if (document.readyState === 'complete') setTimeout(startHero, 600);
     else window.addEventListener('load', () => setTimeout(startHero, 600));
   }
+
+
+  // ---- Konami 秘技彩蛋：↑↑↓↓←→←→BA ----
+  const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let kIdx = 0;
+  addEventListener('keydown', (e) => {
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    kIdx = (k === KONAMI[kIdx]) ? kIdx + 1 : (k === KONAMI[0] ? 1 : 0);
+    if (kIdx === KONAMI.length) {
+      kIdx = 0;
+      window.dispatchEvent(new CustomEvent('susu-rainbow'));
+      window.dispatchEvent(new CustomEvent('susu-konami'));
+    }
+  });
+
+  // ---- 双击点赞：全站计数 ----
+  let siteLikes = parseInt(localStorage.getItem('susu-likes') || '0', 10);
+  const likeChip = document.createElement('div');
+  likeChip.className = 'like-chip';
+  likeChip.textContent = '💕 已被摸 ' + siteLikes + ' 次';
+  document.body.appendChild(likeChip);
+  addEventListener('dblclick', (e) => {
+    siteLikes++;
+    localStorage.setItem('susu-likes', String(siteLikes));
+    likeChip.textContent = '💕 已被摸 ' + siteLikes + ' 次';
+    likeChip.classList.remove('pop');
+    void likeChip.offsetWidth;
+    likeChip.classList.add('pop');
+  });
