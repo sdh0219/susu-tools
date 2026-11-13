@@ -1646,6 +1646,53 @@ input, textarea {
   animation: fadeInUp 0.5s ease backwards;
 }
 
+/* 按课程分组：每门课一个区块，标题 + 学期 + 数量，下面挂该课的资料卡片 */
+.course-groups {
+  padding-bottom: 90px;
+}
+
+.course-group + .course-group {
+  margin-top: 54px;
+}
+
+.course-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-left: 16px;
+  border-left: 3px solid var(--accent-purple);
+}
+
+.course-head h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.course-semester {
+  padding: 2px 10px;
+  border-radius: 100px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.course-group .tool-grid {
+  padding-bottom: 0;
+}
+
 .study-card--plain {
   cursor: default;
 }

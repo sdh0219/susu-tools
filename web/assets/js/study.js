@@ -1,11 +1,11 @@
-/* 自习室：读取 study.json 渲染卡片 + 搜索/筛选 */
+/* 自习室：读取 study.json，按课程分组渲染卡片 + 搜索/筛选 */
 (function () {
-  const grid = document.getElementById('studyGrid');
+  const groupsEl = document.getElementById('studyGroups');
   const empty = document.getElementById('studyEmpty');
   const countEl = document.getElementById('studyCount');
   const searchInput = document.getElementById('studySearch');
   const filterBar = document.getElementById('studyFilters');
-  if (!grid) return;
+  if (!groupsEl) return;
 
   const TYPES = {
     material: { label: '复习资料', icon: '📄', cls: 'study-material', arrow: '↓' },
@@ -65,17 +65,38 @@
     return hay.includes(keyword);
   }
 
+  // 按课程分组：items 已按日期倒序，Map 的插入顺序即「最近有更新的课程在前」
+  function groupOf(list) {
+    const map = new Map();
+    list.forEach((it) => {
+      const key = it.course || '未分类';
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(it);
+    });
+    return Array.from(map.entries());
+  }
+
+  function groupMeta(list) {
+    return Object.keys(TYPES)
+      .map((k) => [TYPES[k].label, list.filter((it) => it.type === k).length])
+      .filter(([, n]) => n > 0)
+      .map(([label, n]) => `${n} 份${label}`)
+      .join(' · ');
+  }
+
   function render() {
     const list = items.filter(match);
+    const groups = groupOf(list);
 
     if (countEl) {
       if (!items.length) countEl.textContent = '';
-      else if (list.length === items.length) countEl.textContent = `共 ${items.length} 份`;
-      else countEl.textContent = `${list.length} / ${items.length} 份`;
+      else if (list.length === items.length) {
+        countEl.textContent = `共 ${items.length} 份 · ${groups.length} 门课`;
+      } else countEl.textContent = `${list.length} / ${items.length} 份`;
     }
 
     if (!list.length) {
-      grid.innerHTML = '';
+      groupsEl.innerHTML = '';
       if (empty) {
         empty.classList.add('show');
         const h3 = empty.querySelector('h3');
@@ -92,7 +113,20 @@
     }
 
     if (empty) empty.classList.remove('show');
-    grid.innerHTML = list.map(card).join('');
+    groupsEl.innerHTML = groups.map(([course, group]) => {
+      const semester = group.find((it) => it.semester);
+      return `
+      <section class="course-group">
+        <div class="course-head">
+          <h2>${esc(course)}</h2>
+          <div class="course-meta">
+            ${semester ? `<span class="course-semester">${esc(semester.semester)}</span>` : ''}
+            <span>${groupMeta(group)}</span>
+          </div>
+        </div>
+        <div class="tool-grid">${group.map(card).join('')}</div>
+      </section>`;
+    }).join('');
   }
 
   function card(it, i) {
@@ -104,7 +138,6 @@
       ? (href.startsWith('http') ? ` href="${esc(href)}" target="_blank" rel="noopener"` : ` href="${esc(href)}"`)
       : '';
     const plain = href ? '' : ' study-card--plain';
-    const subtitle = [it.course, it.semester].filter(Boolean).map(esc).join(' · ');
     const tags = [it.format, it.size].concat(it.tags || [], it.date ? [it.date] : [])
       .filter(Boolean)
       .map((t) => `<span class="tool-tag">${esc(t)}</span>`)
@@ -116,7 +149,6 @@
           <div class="tool-icon">${meta.icon}</div>
           <div class="tool-card-info">
             <h3>${esc(it.title)} <span class="study-badge">${meta.label}</span></h3>
-            ${subtitle ? `<div class="tool-url">${subtitle}</div>` : ''}
           </div>
         </div>
         <p>${esc(it.desc || '')}</p>

@@ -30,3 +30,4 @@ venv/
 
 # Tooling artifacts
 .mimosa/
+.trae-html-share-packages/
