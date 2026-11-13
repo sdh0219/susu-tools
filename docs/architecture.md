@@ -2,10 +2,11 @@
 
 ## Why this layout
 
-`susu-tools` 是一个**二次元主题的个人工具站 monorepo**，两类内容：
+`susu-tools` 是一个**二次元主题的个人工具站 monorepo**，三类内容：
 
 1. **Ship** — 自研 / 二开工具，`projects/` 是唯一开发与发布地
-2. **随笔** — 工具使用理解与复盘，`web/blog.html`
+2. **自习室** — 课业产出：复习资料 / 课程笔记 / 开源作业，`web/study.html`
+3. **随笔** — 工具使用理解与复盘，`web/blog.html`
 
 站点本身（`web/`）部署在 Cloudflare Pages。第三方工具目录已于 2026-09 下架：
 同质化高、无个人特色；精品安利改由随笔承载。
@@ -13,8 +14,8 @@
 ```text
 projects/*  ──link/mention──►  web/index.html  ──Cloudflare──►  susu-2x9.pages.dev
                                     │
-                                    ▼
-                            blog.html（随笔）
+                                    ├──► blog.html（随笔）
+                                    └──► study.html（自习室）
 ```
 
 ## Directory contracts
@@ -26,6 +27,13 @@ projects/*  ──link/mention──►  web/index.html  ──Cloudflare──�
 | `web/assets/voice/` | 看板娘预录语音包（p0~p8.mp3），缺失时只出气泡不出声 |
 | `web/assets/js/live2d.js` | 看板娘加载器：位置 / 模型列表 / 交互与语音逻辑 |
 | `web/assets/js/starfield.js` | 氛围层：暗色星空流星 / 浅色樱花，单帧异常不终止循环 |
+| `web/study.html` + `web/assets/js/study.js` | 自习室页面：读取 manifest 渲染卡片，支持搜索 / 类型筛选 |
+| `web/assets/data/study.json` | 自习室唯一数据源；新增资料只改这里，不动 HTML |
+| `web/notes/` | 自习室图文笔记页（生成产物）。源 md 在仓库外 `1_learning/rivew-应大/`，由 `scripts/build_notes.py` 生成，勿手改 HTML |
+| `web/mindmap.html` + `web/assets/js/mindmap.js` | 交互思维导图页：markmap 渲染，课程 tab + fit/缩放/展开收起 |
+| `web/assets/js/markmap-bundle.js` | markmap-lib + markmap-view + d3 自托管打包（esbuild IIFE），勿手改 |
+| `web/assets/mindmaps/` + `web/assets/data/mindmaps.json` | 导图数据源（已剥 mermaid 块）+ 清单 |
+| `web/assets/files/` | 小体积课业资料（单个 < 10MB）；大文件走 GitHub Releases，卡片填完整 URL |
 | `projects/` | **Shippable tools.** 每个子项目自带 README、LICENSE、运行时规则 |
 | `docs/` | Charter + architecture；no runtime secrets |
 | `scripts/` | secrets_scan / live2d 模型下载 / 语音生成 |
@@ -51,6 +59,10 @@ projects/*  ──link/mention──►  web/index.html  ──Cloudflare──�
   carrying history via `git filter-repo`.
 - **Releases**: tag + GitHub Release, named `<project>-v<semver>` (e.g. `bg-skin-v0.5.1`).
 - **No generic tool directory**: 第三方工具不做目录收录；精品安利写进随笔。
+- **自习室边界**: 只放自己整理的资料与本人作业；老师课件 / 教材 PDF / 真题原卷不上传。
+  作业开源前确认课程规定，并清除学号、姓名、教师评语等个人信息。
+  作业走「孵化-毕业」：小作业留在自习室，完整的课程设计晋级进 `projects/`。
+  学习资料源 md 统一放仓库外 `1_learning/rivew-应大/`，仓库只收生成产物。
 - **Secrets**: never commit keys / cookies / `*.db` / runtimes; run `scripts/secrets_scan.py`
   before committing.
 

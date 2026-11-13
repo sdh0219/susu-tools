@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>追番墙 - Susu</title>
+  <meta name="description" content="Susu 的追番收藏墙：来自 Bangumi 的动画收藏，想看 / 在看 / 看过一目了然。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Susu - 追番墙">
+  <meta property="og:description" content="来自 Bangumi 的动画收藏墙。">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/bangumi.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/bangumi.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <style>
+    .bgm-setup {
+      max-width: 520px; margin: 24px auto 0; text-align: center;
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 24px;
+    }
+    .bgm-setup p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 14px; line-height: 1.7; }
+    .bgm-setup .row { display: flex; gap: 10px; }
+    .bgm-setup input {
+      flex: 1; padding: 10px 16px; background: var(--bg-secondary);
+      border: 1px solid var(--border-color); border-radius: 100px;
+      color: var(--text-primary); font-family: inherit; outline: none;
+    }
+    .bgm-setup input:focus { border-color: var(--accent-purple); }
+    .bgm-status { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 18px; min-height: 1.4em; }
+    .bgm-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 18px; padding-bottom: 80px;
+    }
+    .bgm-card {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden;
+      transition: var(--transition); cursor: pointer; position: relative;
+    }
+    .bgm-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(139, 92, 246, 0.3); }
+    .bgm-card img { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; display: block; }
+    .bgm-card .info { padding: 10px 12px 12px; }
+    .bgm-card .name {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
+      overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; min-height: 2.8em;
+    }
+    .bgm-card .meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 6px; font-size: 0.72rem; color: var(--text-muted);
+    }
+    .bgm-card .score { color: #f59e0b; font-weight: 700; }
+    .bgm-card .state-chip {
+      position: absolute; top: 8px; left: 8px; font-size: 0.68rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 100px;
+      background: rgba(139, 92, 246, 0.85); color: #fff;
+    }
+    .bgm-empty { text-align: center; color: var(--text-muted); padding: 50px 0; }
+    @media (max-width: 480px) { .bgm-grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Susu</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="index.html#projects">作品</a></li>
+        <li><a href="study.html">自习室</a></li>
+        <li><a href="bangumi.html" class="active">追番墙</a></li>
+        <li><a href="gallery.html">画廊</a></li>
+        <li><a href="blog.html">随笔</a></li>
+        <li><a href="index.html#contact">联系</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">番剧收藏</div>
+        <h1 class="section-title">追番墙</h1>
+        <p class="section-desc">我的追番记录，数据来自 Bangumi 开放 API，实时同步。</p>
+      </div>
+      <div class="bgm-setup" id="bgmSetup">
+        <p>第一次来？填入你的 <strong>bgm.tv 用户 ID 或用户名</strong>（个人主页地址里那串），<br>追番记录就会自动铺满这面墙。</p>
+        <div class="row">
+          <input id="bgmUid" placeholder="例如：sai 或 1" aria-label="Bangumi 用户 ID">
+          <button class="btn btn-primary" id="bgmLoad" type="button">开始追番 →</button>
+        </div>
+      </div>
+      <div class="tool-filters" id="bgmFilters" role="group" aria-label="按收藏状态筛选" style="display:none">
+        <button class="filter-btn active" data-type="0" aria-pressed="true">全部</button>
+        <button class="filter-btn" data-type="3" aria-pressed="false">在看</button>
+        <button class="filter-btn" data-type="1" aria-pressed="false">想看</button>
+        <button class="filter-btn" data-type="2" aria-pressed="false">看过</button>
+      </div>
+      <p class="bgm-status" id="bgmStatus"></p>
+    </div>
+  </section>
+
+  <section class="essays">
+    <div class="container">
+      <h2 class="visually-hidden">动画收藏列表</h2>
+      <div class="bgm-grid" id="bgmGrid"></div>
+      <p class="bgm-empty" id="bgmEmpty" style="display:none">这里还空着～填个 UID 让墙亮起来。</p>
+      <noscript><p class="bgm-empty">追番墙由 Bangumi API 动态渲染，需要启用 JavaScript。</p></noscript>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p>
+      <p class="hitokoto">数据来源：bgm.tv Bangumi API · 封面版权归原作方所有</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script defer src="assets/js/live2d.js"></script>
+  <script defer src="assets/js/starfield.js"></script>
+  <script defer src="assets/js/extras.js"></script>
+  <script defer src="assets/js/anime-ui.js"></script>
+  <script>
+    (function () {
+      const grid = document.getElementById('bgmGrid');
+      const empty = document.getElementById('bgmEmpty');
+      const status = document.getElementById('bgmStatus');
+      const setup = document.getElementById('bgmSetup');
+      const filters = document.getElementById('bgmFilters');
+      const uidInput = document.getElementById('bgmUid');
+      const loadBtn = document.getElementById('bgmLoad');
+      const STATES = { 1: '想看', 2: '看过', 3: '在看', 4: '搁置', 5: '抛弃' };
+      let items = [];
+      let stateFilter = 0;
+
+      function uidFromUrl() {
+        const m = location.search.match(/[?&]uid=([^&]+)/);
+        return m ? decodeURIComponent(m[1]) : null;
+      }
+      function savedUid() {
+        try { return localStorage.getItem('bgm-uid') || ''; } catch (e) { return ''; }
+      }
+      function saveUid(uid) {
+        try { localStorage.setItem('bgm-uid', uid); } catch (e) { /* 隐私模式忽略 */ }
+      }
+
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+      }
+
+      function render() {
+        const list = stateFilter ? items.filter((it) => it.type === stateFilter) : items;
+        if (!list.length) {
+          grid.innerHTML = '';
+          empty.style.display = 'block';
+          empty.textContent = '这个分类下还没有收藏～';
+          return;
+        }
+        empty.style.display = 'none';
+        grid.innerHTML = list.map((it) => {
+          const s = it.subject || {};
+          const img = (s.images && (s.images.common || s.images.large || s.images.medium)) || '';
+          const score = s.rating && s.rating.score ? s.rating.score.toFixed(1) : '';
+          const name = s.name_cn || s.name || ('#' + it.subject_id);
+          return `
+            <a class="bgm-card" href="https://bgm.tv/subject/${it.subject_id}" target="_blank" rel="noopener">
+              ${STATES[it.type] ? `<span class="state-chip">${STATES[it.type]}</span>` : ''}
+              <img src="${esc(img)}" alt="${esc(name)} 封面" loading="lazy">
+              <div class="info">
+                <div class="name">${esc(name)}</div>
+                <div class="meta"><span>${esc(String(s.date || '').slice(0, 10))}</span><span class="score">${score ? '★ ' + score : ''}</span></div>
+              </div>
+            </a>`;
+        }).join('');
+      }
+
+      async function load(uid, type) {
+        status.textContent = '正在从 Bangumi 拉取收藏…';
+        empty.style.display = 'none';
+        try {
+          const res = await fetch(`https://api.bgm.tv/v0/users/${encodeURIComponent(uid)}/collections?subject_type=2&type=${type}&limit=100`,
+            { headers: { Accept: 'application/json' } });
+          if (res.status === 404) throw new Error('没有找到这个用户，检查一下 UID？');
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          items = (data.data || []).slice().sort((a, b) => String(b.updated_at || '').localeCompare(String(a.updated_at || '')));
+          setup.style.display = 'none';
+          filters.style.display = 'flex';
+          status.textContent = `共 ${items.length} 部动画收藏`;
+          render();
+        } catch (err) {
+          status.textContent = '拉取失败：' + err.message + '（Bangumi 偶尔抽风，稍后再试）';
+        }
+      }
+
+      filters.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        stateFilter = Number(btn.dataset.type) || 0;
+        filters.querySelectorAll('.filter-btn').forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        render();
+      });
+
+      loadBtn.addEventListener('click', () => {
+        const uid = uidInput.value.trim();
+        if (!uid) { status.textContent = '先填个 UID 呀～'; return; }
+        saveUid(uid);
+        history.replaceState(null, '', '?uid=' + encodeURIComponent(uid));
+        load(uid, stateFilter || 2);
+      });
+      uidInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadBtn.click(); });
+
+      const fromUrl = uidFromUrl();
+      const uid = fromUrl || savedUid();
+      if (uid) {
+        uidInput.value = uid;
+        load(uid, 2);
+      }
+    })();
+  </script>
+</body>
+</html>

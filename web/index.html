@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Susu - 二次元工具宅</title>
-  <meta name="description" content="Susu 的二次元工具站：5 个自研开源作品、工具使用随笔，暗夜星空与白日落樱两套主题。全部免费，无广告。">
+  <meta name="description" content="Susu 的二次元工具站：5 个自研开源作品、期末复习资料与开源作业、工具使用随笔，暗夜星空与白日落樱两套主题。全部免费，无广告。">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Susu - 二次元工具宅">
-  <meta property="og:description" content="Susu 的二次元工具站：5 个自研开源作品、工具使用随笔，暗夜星空与白日落樱两套主题。全部免费，无广告。">
+  <meta property="og:description" content="Susu 的二次元工具站：5 个自研开源作品、期末复习资料与开源作业、工具使用随笔，暗夜星空与白日落樱两套主题。全部免费，无广告。">
   <meta property="og:url" content="https://susu-2x9.pages.dev/">
   <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 </head>
@@ -23,6 +25,8 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">首页</a></li>
         <li><a href="#projects">作品</a></li>
+        <li><a href="study.html">自习室</a></li>
+        <li><a href="bangumi.html">追番墙</a></li>
         <li><a href="gallery.html">画廊</a></li>
         <li><a href="blog.html">随笔</a></li>
         <li><a href="#about">关于</a></li>
@@ -30,11 +34,11 @@
       </ul>
       <div class="nav-right">
         <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </div>
   </nav>
@@ -44,12 +48,13 @@
     <div class="hero-content">
       <div class="hero-badge">
         <span class="dot"></span>
-        不追热点，只收常用的
+        不追热点，只做有用的
       </div>
       <h1>欢迎来到<br><span class="gradient-text">我的二次元工具间</span></h1>
       <p>写代码，也看番。这里放我亲手做的开源作品、一些使用心得，还有一只看板娘。全部免费，随便用。</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">看看作品 →</a>
+        <a href="study.html" class="btn btn-secondary">逛逛自习室 →</a>
         <a href="blog.html" class="btn btn-secondary">读读随笔 →</a>
       </div>
     </div>
@@ -170,7 +175,7 @@
         <div class="about-text fade-in">
           <h2>你好，我是 <span class="gradient-text">Susu</span></h2>
           <p>写代码的。好工具就该免费开放，道理简单，我照着做。</p>
-          <p>站里推荐的东西我都在用。要是哪天我把哪个工具用崩了，也会回来写篇随笔认错。</p>
+          <p>站里的东西都是我亲手做的，随笔都是我亲手写的。要是哪天我把哪个工具用崩了，也会回来写篇随笔认错。</p>
           <p>欢迎常来。</p>
           <a href="blog.html" class="btn btn-primary" style="margin-top: 20px;">读读随笔 →</a>
         </div>
@@ -185,7 +190,7 @@
     <div class="container">
       <div class="cta-box fade-in">
         <h2>想聊点什么？</h2>
-        <p>报告页面 bug、推荐心中的精品工具，或者单纯想聊二次元和代码，邮箱就在下面。</p>
+        <p>报告页面 bug、聊聊作品和自习室，或者单纯想聊二次元和代码，邮箱就在下面。</p>
         <div class="cta-actions">
           <a href="blog.html" class="btn btn-primary">读读随笔 →</a>
           <a href="#" class="btn btn-secondary" id="mail-btn">📮 联系邮箱</a>
@@ -200,6 +205,7 @@
       <div class="footer-extras">
         <button class="fortune-btn" id="fortuneBtn">🎟️ 抽个今日运势</button>
         <button class="music-btn" id="musicBtn" title="BGM（双击切歌）">🔇</button>
+        <button class="fortune-btn" id="sfxToggle" aria-pressed="true">🔊 音效</button>
         <span class="streak-chip" id="streakChip">📅 连续打卡 1 天</span>
       </div>
       <p class="hitokoto" id="hitokoto">「一言加载中...」</p>
@@ -211,6 +217,7 @@
   <script defer src="assets/js/live2d.js"></script>
   <script defer src="assets/js/starfield.js"></script>
   <script defer src="assets/js/danmaku.js"></script>
+  <script defer src="assets/js/anime-ui.js"></script>
   <script defer src="assets/js/extras.js"></script>
 </body>
 </html>

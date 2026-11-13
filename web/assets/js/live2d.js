@@ -55,7 +55,9 @@
     const audioCache = {};
     function playVoiceFile(index) {
       return new Promise((resolve) => {
-        const file = '/assets/voice/p' + index + '.mp3';
+        // 纯数字 → p1..p8.mp3（点击台词）；'greet-noon' 这类字符串 → 原名文件（时段问候）
+        const name = /^\d+$/.test(String(index)) ? 'p' + index + '.mp3' : index + '.mp3';
+        const file = '/assets/voice/' + name;
         if (audioCache[index] !== undefined) {
           const a = audioCache[index].cloneNode();
           a.onended = () => resolve(true);

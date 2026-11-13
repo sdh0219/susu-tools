@@ -53,7 +53,10 @@
     }, 350);
   });
 
-  spawn();
-  setTimeout(spawn, 2000);
-  setInterval(spawn, 3500 + Math.random() * 2000);
+  // 尊重系统「减弱动态效果」：不自动发射；手动发送、彩蛋仍可用
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    spawn();
+    setTimeout(spawn, 2000);
+    setInterval(spawn, 3500 + Math.random() * 2000);
+  }
 })();

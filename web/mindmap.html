@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>思维导图 - Susu</title>
+  <meta name="description" content="Susu 的交互式思维导图：一图看懂一门课。点击节点折叠/展开，滚轮缩放，拖拽平移。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Susu - 思维导图">
+  <meta property="og:description" content="一图看懂一门课：点击节点折叠/展开，滚轮缩放，拖拽平移。">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/mindmap.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/mindmap.html">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <style>
+    /* 思维导图画布 */
+    .mm-stage {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: opacity 0.2s ease;
+    }
+    .mm-stage.mm-loading { opacity: 0.45; }
+    #mm { width: 100%; height: 70vh; display: block; }
+    @media (max-width: 768px) { #mm { height: 60vh; } }
+    /* 主题适配：文字色跟随站点主题；连线/circle 保持 markmap 默认多彩调色板 */
+    .markmap-node text { fill: var(--text-primary); }
+    #mm .markmap-foreign { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Susu</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="index.html#projects">作品</a></li>
+        <li><a href="study.html" class="active">自习室</a></li>
+        <li><a href="bangumi.html">追番墙</a></li>
+        <li><a href="gallery.html">画廊</a></li>
+        <li><a href="blog.html">随笔</a></li>
+        <li><a href="index.html#about">关于</a></li>
+        <li><a href="index.html#contact">联系</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">思维导图</div>
+        <h1 class="section-title">一图看懂一门课</h1>
+        <p class="section-desc">点击节点折叠 / 展开，滚轮缩放，拖拽平移。星级 = 考点热度。</p>
+      </div>
+      <div class="tool-filters" id="mapTabs" role="group" aria-label="选择课程导图"></div>
+      <div class="tool-filters" id="mmToolbar" role="group" aria-label="导图工具条">
+        <button type="button" class="filter-btn" id="mmFit">🎯 适应屏幕</button>
+        <button type="button" class="filter-btn" id="mmZoomIn">＋ 放大</button>
+        <button type="button" class="filter-btn" id="mmZoomOut">－ 缩小</button>
+        <button type="button" class="filter-btn" id="mmExpandAll">🌳 展开全部</button>
+        <button type="button" class="filter-btn" id="mmCollapseAll">🏳️ 收起</button>
+      </div>
+      <p class="study-count" id="mmStatus" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="mindmap-section">
+    <div class="container">
+      <div class="mm-stage" id="mmStage">
+        <svg id="mm" role="img" aria-label="课程思维导图"></svg>
+      </div>
+      <noscript>
+        <p class="gallery-empty">思维导图由 Markdown 动态渲染，需要启用 JavaScript；导图源文件见 <a href="/assets/data/mindmaps.json">mindmaps.json</a>。</p>
+      </noscript>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p>
+      <div class="footer-extras">
+        <button class="fortune-btn" id="fortuneBtn">🎟️ 抽个今日运势</button>
+        <button class="music-btn" id="musicBtn" title="BGM（双击切歌）">🔇</button>
+        <button class="fortune-btn" id="sfxToggle" aria-pressed="true">🔊 音效</button>
+        <span class="streak-chip" id="streakChip">📅 连续打卡 1 天</span>
+      </div>
+      <p class="hitokoto" id="hitokoto">「一言加载中...」</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script defer src="assets/js/live2d.js"></script>
+  <script defer src="assets/js/starfield.js"></script>
+  <script defer src="assets/js/anime-ui.js"></script>
+  <script defer src="assets/js/extras.js"></script>
+  <script defer src="assets/js/markmap-bundle.js"></script>
+  <script defer src="assets/js/mindmap.js"></script>
+</body>
+</html>

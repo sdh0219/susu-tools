@@ -1,0 +1,18 @@
+{
+  "maps": [
+    {
+      "id": "numerical-computing",
+      "course": "数值计算实验与数学建模",
+      "title": "数值计算 · 复习思维导图",
+      "desc": "题型口径、误差/插值/方程求解全章节考点，星级=考点热度",
+      "file": "/assets/mindmaps/numerical-computing.md"
+    },
+    {
+      "id": "academic-writing",
+      "course": "论文写作与学术道德",
+      "title": "论文写作 · 课程思维导图",
+      "desc": "5 讲全覆盖：论文结构、文献检索、学术道德，星级=考点热度",
+      "file": "/assets/mindmaps/academic-writing.md"
+    }
+  ]
+}

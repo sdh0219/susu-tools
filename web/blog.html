@@ -12,6 +12,8 @@
   <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/blog.html">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 </head>
@@ -23,6 +25,8 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">首页</a></li>
         <li><a href="index.html#projects">作品</a></li>
+        <li><a href="study.html">自习室</a></li>
+        <li><a href="bangumi.html">追番墙</a></li>
         <li><a href="gallery.html">画廊</a></li>
         <li><a href="blog.html" class="active">随笔</a></li>
         <li><a href="index.html#about">关于</a></li>
@@ -30,11 +34,11 @@
       </ul>
       <div class="nav-right">
         <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </div>
   </nav>
@@ -158,6 +162,7 @@
       <div class="footer-extras">
         <button class="fortune-btn" id="fortuneBtn">🎟️ 抽个今日运势</button>
         <button class="music-btn" id="musicBtn" title="BGM（双击切歌）">🔇</button>
+        <button class="fortune-btn" id="sfxToggle" aria-pressed="true">🔊 音效</button>
         <span class="streak-chip" id="streakChip">📅 连续打卡 1 天</span>
       </div>
       <p class="hitokoto" id="hitokoto">「一言加载中...」</p>
@@ -173,6 +178,7 @@
     <input id="dmInput" maxlength="30" placeholder="发条弹幕试试…">
     <button id="dmSend">发送</button>
   </div>
+  <script defer src="assets/js/anime-ui.js"></script>
   <script defer src="assets/js/extras.js"></script>
 </body>
 </html>

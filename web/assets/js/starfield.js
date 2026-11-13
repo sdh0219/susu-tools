@@ -3,6 +3,8 @@
    浅色：季节粒子(春樱花/夏萤火虫/秋红叶/冬雪) + 粉色轨迹
    支持 susu-rainbow 事件：20 秒彩虹星雨（Konami 彩蛋） */
 (function () {
+  // 尊重系统「减弱动态效果」：整个氛围层不启动
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const c = document.createElement('canvas');
   c.id = 'starfield';
   const ctx = c.getContext('2d');

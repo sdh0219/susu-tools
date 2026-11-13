@@ -12,15 +12,22 @@
   });
 
   if (navToggle && navLinks) {
+    const syncNavAria = () => {
+      const open = navLinks.classList.contains('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+    };
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('active');
       navLinks.classList.toggle('open');
+      syncNavAria();
     });
 
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navLinks.classList.remove('open');
+        syncNavAria();
       });
     });
   }
@@ -83,7 +90,12 @@
       const targetEl = document.querySelector(targetId);
       if (targetEl) {
         e.preventDefault();
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // 尊重系统"减弱动态效果"：reduce 时瞬时跳转，与 style.css 的 CSS 降级保持一致
+        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        // 滚动后把键盘焦点移到目标（WCAG 2.4.3）；非交互元素运行时补 tabindex（已有时不动，避免移出 Tab 序列）
+        if (!targetEl.hasAttribute('tabindex')) targetEl.setAttribute('tabindex', '-1');
+        targetEl.scrollIntoView({ behavior: behavior, block: 'start' });
+        targetEl.focus({ preventScroll: true });
       }
     });
   });

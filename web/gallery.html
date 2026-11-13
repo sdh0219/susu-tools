@@ -10,6 +10,7 @@
   <meta property="og:url" content="https://susu-2x9.pages.dev/gallery.html">
   <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/gallery.html">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 </head>
@@ -21,6 +22,8 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">首页</a></li>
         <li><a href="index.html#projects">作品</a></li>
+        <li><a href="study.html">自习室</a></li>
+        <li><a href="bangumi.html">追番墙</a></li>
         <li><a href="gallery.html" class="active">画廊</a></li>
         <li><a href="blog.html">随笔</a></li>
         <li><a href="index.html#about">关于</a></li>
@@ -28,11 +31,11 @@
       </ul>
       <div class="nav-right">
         <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </div>
   </nav>
@@ -49,15 +52,14 @@
 
   <section class="essays">
     <div class="container">
+      <h2 class="visually-hidden">插画列表</h2>
       <div class="gallery-grid" id="galleryGrid"></div>
       <p id="galleryEmpty" class="gallery-empty" style="display:none">画廊布置中，敬请期待～</p>
+      <noscript>
+        <p class="gallery-empty">画廊由 JSON 动态渲染，需要启用 JavaScript；也可以直接打开 <a href="/assets/gallery/manifest.json">manifest.json</a> 查看。</p>
+      </noscript>
     </div>
   </section>
-
-  <div class="g-lightbox" id="lightbox">
-    <img id="lightboxImg" src="" alt="">
-    <p id="lightboxCaption"></p>
-  </div>
 
   <footer class="footer">
     <div class="container">
@@ -69,6 +71,7 @@
   <script defer src="assets/js/live2d.js"></script>
   <script defer src="assets/js/starfield.js"></script>
   <script defer src="assets/js/danmaku.js"></script>
+  <script defer src="assets/js/anime-ui.js"></script>
   <script defer src="assets/js/extras.js"></script>
   <script defer src="assets/js/gallery.js"></script>
 </body>

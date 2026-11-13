@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数值计算实验与数学建模 · 练习题详细答案解析 - 自习室 - Susu</title>
+  <meta name="description" content="数值计算实验与数学建模复习笔记：数值计算实验与数学建模 · 练习题详细答案解析。由 Susu 整理，考完也不删。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="数值计算实验与数学建模 · 练习题详细答案解析 - Susu 自习室">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/notes/numerical-computing-exercises.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/notes/numerical-computing-exercises.html">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <style>
+    .note-toc { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 22px; margin: 20px 0 26px; }
+    .note-toc-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+    .note-toc ul { list-style: none; margin: 0; padding: 0; }
+    .note-toc ul ul { padding-left: 1.3em; margin-top: 4px; }
+    .note-toc li { margin-bottom: 5px; font-size: .92rem; }
+    .note-toc a { color: var(--text-secondary); }
+    .note-toc a:hover { color: var(--accent-purple); }
+    .note-toc .toc-l1 > a { color: var(--text-primary); font-weight: 600; }
+    .essay-body h2 { margin: 30px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+    .essay-body h3 { margin: 24px 0 10px; }
+    .essay-body h4 { margin: 18px 0 8px; }
+    .essay-body ul, .essay-body ol { margin: 0 0 14px 1.6em; }
+    .essay-body li { margin-bottom: 6px; color: var(--text-soft); font-size: .95rem; line-height: 1.85; }
+    .essay-body a { color: var(--accent-blue); }
+    .essay-body a:hover { text-decoration: underline; }
+    .essay-body strong { color: var(--text-primary); }
+    .essay-body blockquote { margin: 0 0 16px; padding: 10px 16px; border-left: 3px solid var(--accent-purple); background: var(--bg-secondary); border-radius: 0 8px 8px 0; color: var(--text-secondary); }
+    .essay-body blockquote p { font-size: .92rem; margin-bottom: 6px; }
+    .essay-body hr { border: 0; border-top: 1px solid var(--border-color); margin: 26px 0; }
+    .essay-body code { font-family: Consolas, 'JetBrains Mono', Menlo, monospace; font-size: .88em; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 1px 6px; color: var(--accent-orange); }
+    .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
+    .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
+    .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
+    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
+    .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
+    @media (max-width: 768px) { .essay-body h2 { margin: 24px 0 12px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav"><div class="container">
+    <a href="/index.html" class="nav-logo">Susu</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">首页</a></li>
+      <li><a href="/index.html#projects">作品</a></li>
+      <li><a href="/study.html" class="active">自习室</a></li>
+      <li><a href="/bangumi.html">追番墙</a></li>
+      <li><a href="/gallery.html">画廊</a></li>
+      <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/index.html#about">关于</a></li>
+      <li><a href="/index.html#contact">联系</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    </div>
+  </div></nav>
+
+  <section class="blog-hero"><div class="container"><div class="section-header">
+    <div class="section-tag">课程笔记</div>
+    <h1 class="section-title">数值计算实验与数学建模 · 练习题详细答案解析</h1>
+    <p class="section-desc">数值计算实验与数学建模 · 2026 秋 · <a href="/notes/numerical-computing-exercises.md">下载 Markdown</a> · <a href="/study.html">← 返回自习室</a></p>
+  </div></div></section>
+
+  <section class="essays"><div class="container">
+    <article class="essay note-page">
+      <div class="essay-head">
+        <span class="essay-num">📖</span>
+        <div class="essay-title-wrap"><h2>数值计算实验与数学建模 · 练习题详细答案解析</h2>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 42 分钟</span></div></div>
+      </div>
+      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title">📑 本页目录</div><ul><li class="toc-l1"><a href="#_2">练习题（一）</a><ul><li><a href="#_3">一、选择题</a><ul><li><a href="#1">第 1 题（有效数字）</a></li><li><a href="#2-jacobi">第 2 题（Jacobi 迭代收敛条件）</a></li><li><a href="#3-newton">第 3 题（Newton 法收敛阶）</a></li><li><a href="#4-runge">第 4 题（Runge 现象）</a></li><li><a href="#5">第 5 题（复化梯形误差阶）</a></li><li><a href="#6">第 6 题（改进欧拉法精度）</a></li></ul></li><li><a href="#_4">二、判断题</a><ul><li><a href="#1_1">第 1 题</a></li><li><a href="#2">第 2 题</a></li><li><a href="#3">第 3 题</a></li><li><a href="#4">第 4 题</a></li><li><a href="#5_1">第 5 题</a></li><li><a href="#6_1">第 6 题</a></li><li><a href="#7">第 7 题</a></li><li><a href="#8">第 8 题</a></li><li><a href="#9">第 9 题</a></li><li><a href="#10">第 10 题</a></li></ul></li><li><a href="#_5">三、计算题</a><ul><li><a href="#1-newton">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_1">第 3 题（牛顿差商插值）</a></li><li><a href="#4_1">第 4 题（复化辛普森公式）</a></li><li><a href="#5_2">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_6">四、综合辨析题</a><ul><li><a href="#1_2">第 1 题</a></li><li><a href="#2_1">第 2 题</a></li><li><a href="#3_2">第 3 题</a></li></ul></li><li><a href="#newtonraphson">五、算法纠错题（Newton–Raphson）</a><ul><li><a href="#1-89">缺陷 1：近零判断位置颠倒（第 8、9 行）</a></li><li><a href="#2-continue-10">缺陷 2：近零时 continue 空转（第 10 行）</a></li><li><a href="#3-6">缺陷 3：收敛判据与健壮性不足（第 6 行）</a></li><li><a href="#_7">参考修正代码</a></li></ul></li><li><a href="#-">---</a></li></ul></li><li class="toc-l1"><a href="#_8">练习题（二）</a><ul><li><a href="#_9">一、选择题</a><ul><li><a href="#1_3">第 1 题（有效数字）</a></li><li><a href="#2-doolittle_1">第 2 题（Doolittle 分解条件）</a></li><li><a href="#3_3">第 3 题（弦截法收敛阶）</a></li><li><a href="#4_2">第 4 题（列主元目的）</a></li><li><a href="#5-simpson">第 5 题（Simpson 代数精度）</a></li><li><a href="#6_2">第 6 题（改进欧拉调用次数）</a></li></ul></li><li><a href="#_10">二、判断题</a><ul><li><a href="#1_4">第 1 题</a></li><li><a href="#2_2">第 2 题</a></li><li><a href="#3_4">第 3 题</a></li><li><a href="#4_3">第 4 题</a></li><li><a href="#5_3">第 5 题</a></li><li><a href="#6_3">第 6 题</a></li><li><a href="#7_1">第 7 题</a></li><li><a href="#8_1">第 8 题</a></li><li><a href="#9_1">第 9 题</a></li><li><a href="#10_1">第 10 题</a></li></ul></li><li><a href="#_11">三、计算题</a><ul><li><a href="#1-newton_1">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle_2">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_5">第 3 题（牛顿差商插值）</a></li><li><a href="#4_4">第 4 题（复化辛普森公式）</a></li><li><a href="#5_4">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_12">四、综合辨析题</a><ul><li><a href="#1_5">第 1 题</a></li><li><a href="#2_3">第 2 题</a></li><li><a href="#3_6">第 3 题</a></li></ul></li><li><a href="#simpson">五、算法纠错题（复化 Simpson）</a><ul><li><a href="#1-69">缺陷 1：奇偶系数写反（第 6–9 行）</a></li><li><a href="#2-4">缺陷 2：求和范围混入端点（第 4 行）</a></li><li><a href="#3-11">缺陷 3：求积系数错误（第 11 行）</a></li><li><a href="#_13">参考修正代码</a></li></ul></li><li><a href="#_14">附：两套卷答案速查表</a><ul><li><a href="#_15">练习题（一）</a></li><li><a href="#_16">练习题（二）</a></li></ul></li></ul></li></ul></nav>
+      <div class="essay-body"><h1 id="_1">数值计算实验与数学建模 · 练习题详细答案解析</h1>
+<blockquote>
+<p>配套文件：<code>练习题.pdf</code>（练习题一、练习题二）。每题按 <strong>题目 → 答案 → 解析 → 知识点</strong> 编排；计算题给出完整分步演算，数值均已复核。
+计算题只考 5 个方法：牛顿迭代法、LU（Doolittle）分解法、牛顿插值法、复化辛普森法、改进欧拉法；其余题型为选择 / 判断 / 辨析。</p>
+</blockquote>
+<hr />
+<h1 id="_2">练习题（一）</h1>
+<h2 id="_3">一、选择题</h2>
+<h3 id="1">第 1 题（有效数字）</h3>
+<p><strong>题目</strong>：若分别用 3.1416 和 3.141 作为 π≈3.1415926… 的近似值，根据有效数字判定规则，下列说法正确的是（ ）</p>
+<ul>
+<li>A. 3.1416 有 4 位，3.141 有 3 位</li>
+<li>B. 3.1416 有 5 位，3.141 有 4 位</li>
+<li>C. 3.1416 有 5 位，3.141 有 3 位</li>
+<li>D. 3.1416 有 4 位，3.141 有 4 位</li>
+</ul>
+<p><strong>答案：C</strong></p>
+<p><strong>解析</strong>：
+有效数字判定：近似值第一位非零数字在个位（即 10⁰ 位，记 m=1），若绝对误差满足 |x−x*| ≤ 0.5×10^(m−n)，则有 n 位有效数字。</p>
+<ul>
+<li>3.1416：误差 |3.1416−3.14159265| ≈ 7.35×10⁻⁶。判 n=5：阈值 0.5×10^(1−5)=5×10⁻⁵，7.35×10⁻⁶ ≤ 5×10⁻⁵，成立 → <strong>5 位</strong>。</li>
+<li>3.141：误差 |3.141−3.14159265| ≈ 5.93×10⁻⁴。判 n=3：阈值 0.5×10^(1−3)=5×10⁻³，成立；判 n=4：阈值 5×10⁻⁴，5.93×10⁻⁴ &gt; 5×10⁻⁴，不成立 → <strong>3 位</strong>。</li>
+</ul>
+<p><strong>知识点</strong>：有效数字位数由"误差限所在数位"决定，不是看写出了几个数字；3.1416 虽写 5 位，但能否算 5 位有效数字要由误差是否落在第 5 位的半个单位内来定。</p>
+<hr />
+<h3 id="2-jacobi">第 2 题（Jacobi 迭代收敛条件）</h3>
+<p><strong>题目</strong>：求解线性方程组 Ax=b 时，Jacobi 迭代法收敛的一个充分条件是（ ）</p>
+<ul>
+<li>A. A 为对称正定矩阵　B. A 严格对角占优　C. A 的行列式不为零　D. A 为三对角矩阵</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：系数矩阵<strong>严格对角占优</strong>时，Jacobi 与 Gauss-Seidel 迭代都收敛，这是最常用的充分条件。
+- A 错：对称正定只保证 <strong>Gauss-Seidel</strong> 收敛，<strong>不保证 Jacobi 收敛</strong>，二者不要混；
+- C 错：行列式非零只说明方程组有唯一解，与迭代是否收敛无关；
+- D 错：三对角矩阵本身不保证收敛。</p>
+<p><strong>知识点</strong>：迭代收敛判据分两类——充分条件（严格对角占优、对称正定对 GS）与充要条件（迭代矩阵谱半径 ρ(M)&lt;1）。</p>
+<hr />
+<h3 id="3-newton">第 3 题（Newton 法收敛阶）</h3>
+<p><strong>题目</strong>：关于 Newton 迭代法求单根，下列说法正确的是（ ）</p>
+<ul>
+<li>A. 局部线性收敛　B. 局部至少平方收敛　C. 全局收敛且与初值无关　D. 每次迭代只需计算一次函数值</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：单根附近 Newton 法<strong>局部至少平方收敛</strong>（二阶）。
+- A 错：不是线性收敛；
+- C 错：Newton 法是<strong>局部</strong>收敛，对初值有要求，初值离根太远可能发散；
+- D 错：每步要算 <strong>f(x) 和 f′(x) 两个量</strong>，不是只算一次函数值。</p>
+<p><strong>知识点</strong>：单根 → Newton 平方收敛；重根 → 退化为线性收敛（需改用带重数的修正格式）。</p>
+<hr />
+<h3 id="4-runge">第 4 题（Runge 现象）</h3>
+<p><strong>题目</strong>：Runge 现象说明（ ）</p>
+<ul>
+<li>A. 节点越多插值越精确</li>
+<li>B. 高次等距节点插值可能出现剧烈振荡，宜采用分段低次插值</li>
+<li>C. 样条插值不可靠</li>
+<li>D. 插值多项式次数越高误差越小</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：等距节点加密时，高次多项式在区间两端会剧烈振荡（Runge 现象），误差反而增大。因此工程上多用<strong>分段低次插值</strong>或样条插值，而不是一味升高次数。A、D 与事实相反，C 无依据。</p>
+<p><strong>知识点</strong>：高次插值≠高精度；噪声数据更不能靠高次多项式去"逐点穿过"。</p>
+<hr />
+<h3 id="5">第 5 题（复化梯形误差阶）</h3>
+<p><strong>题目</strong>：复化梯形公式的步长减半后，其截断误差约为原来的（ ）</p>
+<ul>
+<li>A. 1/2　B. 1/4　C. 1/8　D. 1/16</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：复化梯形误差阶 <strong>O(h²)</strong>。步长 h 减半后，误差按 h² 缩小，约为原来的 (1/2)² = <strong>1/4</strong>。
+对比：复化辛普森 O(h⁴)，步长减半误差约降为 <strong>1/16</strong>。</p>
+<p><strong>知识点</strong>：梯形 O(h²)→1/4；辛普森 O(h⁴)→1/16，两组倍数要记牢。</p>
+<hr />
+<h3 id="6">第 6 题（改进欧拉法精度）</h3>
+<p><strong>题目</strong>：改进 Euler 法（预估-校正格式）求解初值问题 y′=f(x,y)，其整体截断误差为（ ）</p>
+<ul>
+<li>A. O(h)　B. O(h²)　C. O(h³)　D. O(h⁴)</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：改进欧拉（预估-校正）是<strong>二阶</strong>方法，整体截断误差 <strong>O(h²)</strong>。
+- 显式欧拉是一阶 O(h)；
+- 经典四阶龙格-库塔 RK4 是四阶 O(h⁴)。</p>
+<p><strong>知识点</strong>：方法阶数 → 整体误差阶；改进欧拉每步调用右端函数 2 次（预估一次、校正一次）。</p>
+<hr />
+<h2 id="_4">二、判断题</h2>
+<h3 id="1_1">第 1 题</h3>
+<p><strong>题目</strong>：在数值计算中，两个相近的数相减会损失有效数字，应尽量避免。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：两个相近数相减，有效数字大量抵消（"吃尾数"），是数值不稳定的典型来源。实际中应改用等价变换（如有理化、换公式）避免相近数相减。</p>
+<p><strong>知识点</strong>：数值稳定技巧——避免相近数相减、避免除以绝对值很小的数、防止大数吃小数。</p>
+<hr />
+<h3 id="2">第 2 题</h3>
+<p><strong>题目</strong>：若条件数 cond(A) 很小，则称方程组 Ax=b 是病态的。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：说反了。<strong>条件数很大</strong>才是病态（输入微小扰动会被放大）；cond(A) 很小是<strong>良态</strong>。条件数越接近 1 越好。</p>
+<p><strong>知识点</strong>：cond(A)=‖A‖·‖A⁻¹‖，越大病态越重；病态方程组对舍入误差敏感。</p>
+<hr />
+<h3 id="3">第 3 题</h3>
+<p><strong>题目</strong>：若迭代函数 g(x) 在不动点附近满足 |g′(x)| ≤ L &lt; 1，则不动点迭代 x_{k+1}=g(x_k) 局部收敛。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：压缩映射条件 |g′(x)| ≤ L &lt; 1（L 为李普希茨常数）是不动点迭代<strong>局部收敛</strong>的充分条件；L 越小收敛越快。</p>
+<p><strong>知识点</strong>：不动点迭代收敛条件；先验估计（用初值差）与事后估计（用相邻两次差）判断精度。</p>
+<hr />
+<h3 id="4">第 4 题</h3>
+<p><strong>题目</strong>：Gauss 消去法只要行列式不为零就可以不作任何处理地顺利执行完毕，误差一定很小。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：行列式非零只保证有唯一解，<strong>不保证数值过程稳定</strong>。若出现小主元，不作选主元处理会使舍入误差被放大；实际需用<strong>列主元 Gauss 消去</strong>。"误差一定很小"也不成立。</p>
+<p><strong>知识点</strong>：高斯消去 vs 列主元消去；选主元是为避免小主元放大误差，不是为减少运算量。</p>
+<hr />
+<h3 id="5_1">第 5 题</h3>
+<p><strong>题目</strong>：拉格朗日插值基函数满足 l_i(x_j)=δ_ij（节点处取 1，其余节点取 0）。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：这是拉格朗日基函数的定义性质：第 i 个基函数在 x_i 处为 1，在其他节点 x_j（j≠i）处为 0。克罗内克符号 δ_ij：i=j 取 1，否则取 0。</p>
+<p><strong>知识点</strong>：拉格朗日插值多项式由基函数线性组合而成；基函数只与节点有关。</p>
+<hr />
+<h3 id="6_1">第 6 题</h3>
+<p><strong>题目</strong>：n 次代数精度的求积公式，对一切次数不超过 n 的多项式都能精确成立。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：这是代数精度的定义：公式对所有次数 ≤ m 的多项式精确成立、对 m+1 次不精确，则代数精度为 m。题干表述正是定义的核心部分。</p>
+<p><strong>知识点</strong>：代数精度判定——依次取 1, x, x², … 逐项检验，第一次不精确的幂次减一即为精度。</p>
+<hr />
+<h3 id="7">第 7 题</h3>
+<p><strong>题目</strong>：对任何被积函数，复化 Simpson 公式的结果一定比相同步长的复化梯形公式精确。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：不能一概而论。辛普森精度阶更高（O(h⁴) vs O(h²)），但实际精度还依赖<strong>函数光滑性</strong>；被积函数不够光滑或高阶导数不存在时，结论不成立。</p>
+<p><strong>知识点</strong>：方法的理论误差阶 ≠ 对任意函数都更准；选方法要看函数条件。</p>
+<hr />
+<h3 id="8">第 8 题</h3>
+<p><strong>题目</strong>：显式欧拉格式是无条件稳定的，可以取任意大步长计算刚性微分方程。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：显式欧拉是<strong>条件稳定</strong>的，步长受稳定域限制；解刚性方程时若步长过大，数值解会发散。刚性问题应选隐式格式（如隐式欧拉，A-稳定）。</p>
+<p><strong>知识点</strong>：显式 vs 隐式；A-稳定（隐式欧拉、梯形法）对刚性方程稳定性好。</p>
+<hr />
+<h3 id="9">第 9 题</h3>
+<p><strong>题目</strong>：二分法要求 f(x) 在 [a,b] 上连续且 f(a)f(b)&lt;0，其误差以 (b−a)/2^(n+1) 的速度减小。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：二分法每迭代一次含根区间长度减半；n 次后区间长度（误差界）按 (b−a)/2^n 量级压缩，教材常写成 (b−a)/2^(n+1)。前提是 f 连续、端点异号。</p>
+<p><strong>知识点</strong>：二分法只要求连续 + 异号，收敛稳妥但速度慢（线性），不能求复根/偶重根。</p>
+<hr />
+<h3 id="10">第 10 题</h3>
+<p><strong>题目</strong>：弦截法（割线法）在单根附近是二阶收敛的方法。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：弦截法（割线法）在单根附近收敛阶约为 <strong>1.618</strong>（黄金分割比），不是二阶；二阶是 <strong>Newton 法</strong>（单根）。弦截法用差商代替导数，免去求导。</p>
+<p><strong>知识点</strong>：收敛阶对比——二分 1 阶（线性）、弦截 1.618、牛顿 2 阶（单根）。</p>
+<hr />
+<h2 id="_5">三、计算题</h2>
+<h3 id="1-newton">第 1 题（Newton 迭代法）</h3>
+<p><strong>题目</strong>：求 f(x)=x³−4x+1=0 在 [1,2] 内的根。取初值 x₀=2，用 Newton 迭代法求两次迭代 x₁、x₂（保留 4 位小数），并估计近似根的有效数字位数。</p>
+<p><strong>迭代格式</strong>：</p>
+<div class="math-block">$$x_{k+1}=x_k-\frac{f(x_k)}{f&#x27;(x_k)},\quad f&#x27;(x)=3x^2-4$$</div>
+<p><strong>第 1 次迭代</strong>（x₀=2）：</p>
+<ul>
+<li>f(2)=2³−4×2+1=1</li>
+<li>f′(2)=3×2²−4=8</li>
+<li>x₁ = 2 − 1/8 = <strong>1.8750</strong></li>
+</ul>
+<p><strong>第 2 次迭代</strong>（x₁=1.875）：</p>
+<ul>
+<li>f(1.875)=1.875³−4×1.875+1≈0.0917969</li>
+<li>f′(1.875)=3×1.875²−4≈6.546875</li>
+<li>x₂ = 1.875 − 0.0917969/6.546875 ≈ <strong>1.8610</strong></li>
+</ul>
+<p><strong>有效数字估计</strong>：区间内真实根 ≈ 1.860806，误差 |x₂−根| ≈ 1.73×10⁻⁴。
+- 判 4 位：阈值 0.5×10^(1−4)=5×10⁻⁴，1.73×10⁻⁴ ≤ 5×10⁻⁴，成立；
+- 判 5 位：阈值 5×10⁻⁵，不成立。</p>
+<p><strong>答案</strong>：x₁≈1.8750，x₂≈1.8610，近似根有 <strong>4 位有效数字</strong>。</p>
+<p><strong>知识点</strong>：Newton 法每步算 f 与 f′；先判导数近零再做除法；单根局部平方收敛；有效数字按误差限所在数位判定。</p>
+<hr />
+<h3 id="2-doolittle">第 2 题（Doolittle 分解法）</h3>
+<p><strong>题目</strong>：解刚度方程</p>
+<pre><code>2x1 +  x2 +  x3 = 5
+2x1 + 4x2 + 3x3 = 13
+4x1 −  x2 + 4x3 = 6
+</code></pre>
+<p>用 Doolittle 分解法求 A=LU 并解出 x₁, x₂, x₃。</p>
+<p><strong>系数矩阵</strong>：</p>
+<pre><code>A = [ 2  1  1 ]
+    [ 2  4  3 ]
+    [ 4 −1  4 ],  b = [5, 13, 6]ᵀ
+</code></pre>
+<p><strong>第一步：A=LU 分解</strong>（L 为单位下三角，U 为上三角）</p>
+<ul>
+<li>U 第一行 = A 第一行：u₁₁=2, u₁₂=1, u₁₃=1</li>
+<li>l₂₁=a₂₁/u₁₁=2/2=1；l₃₁=a₃₁/u₁₁=4/2=2</li>
+<li>u₂₂=a₂₂−l₂₁u₁₂=4−1×1=3；u₂₃=a₂₃−l₂₁u₁₃=3−1×1=2</li>
+<li>l₃₂=(a₃₂−l₃₁u₁₂)/u₂₂=(−1−2×1)/3=−1</li>
+<li>u₃₃=a₃₃−l₃₁u₁₃−l₃₂u₂₃=4−2×1−(−1)×2=4</li>
+</ul>
+<pre><code>L = [ 1  0  0 ]        U = [ 2  1  1 ]
+    [ 1  1  0 ]            [ 0  3  2 ]
+    [ 2 −1  1 ]            [ 0  0  4 ]
+</code></pre>
+<p><strong>第二步：Ly=b 前代求 y</strong></p>
+<ul>
+<li>y₁=5</li>
+<li>y₂=13−l₂₁y₁=13−1×5=8</li>
+<li>y₃=6−l₃₁y₁−l₃₂y₂=6−2×5−(−1)×8=4</li>
+</ul>
+<p><strong>第三步：Ux=y 回代</strong></p>
+<ul>
+<li>4x₃=4 → x₃=1</li>
+<li>3x₂+2x₃=8 → 3x₂=6 → x₂=2</li>
+<li>2x₁+x₂+x₃=5 → 2x₁+2+1=5 → x₁=1</li>
+</ul>
+<p><strong>答案</strong>：<strong>x₁=1，x₂=2，x₃=1</strong>。</p>
+<p><strong>核验</strong>：代入原方程 2+2+1=5 ✓；2+8+3=13 ✓；4−2+4=6 ✓。</p>
+<p><strong>知识点</strong>：Doolittle 分解 L 单位下三角、U 上三角；分解一次后可对多个右端向量反复前代回代；分解可行的充分条件是各阶顺序主子式非零。</p>
+<hr />
+<h3 id="3_1">第 3 题（牛顿差商插值）</h3>
+<p><strong>题目</strong>：沉降监测数据</p>
+<table>
+<thead>
+<tr>
+<th>t（月）</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w（mm）</td>
+<td>3</td>
+<td>5</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>（1）用 Newton 差商公式构造过三点的二次插值多项式；（2）求 t=1.5 月时沉降量近似值。</p>
+<p><strong>第一步：构造差商表</strong></p>
+<table>
+<thead>
+<tr>
+<th>t</th>
+<th>w</th>
+<th>一阶差商</th>
+<th>二阶差商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(5−3)/(1−0)=2</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td></td>
+<td>(4−2)/(2−0)=1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(9−5)/(2−1)=4</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>9</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二步：Newton 二次插值多项式</strong></p>
+<div class="math-block">$$N_2(t)=w_0+w[0,1](t-0)+w[0,1,2](t-0)(t-1)$$</div>
+<div class="math-block">$$N_2(t)=3+2t+t(t-1)=t^2+t+3$$</div>
+<p><strong>第三步：代入 t=1.5</strong></p>
+<div class="math-block">$$N_2(1.5)=1.5^2+1.5+3=2.25+1.5+3=\mathbf{6.75}$$</div>
+<p><strong>答案</strong>：插值多项式 <strong>N₂(t)=t²+t+3</strong>；t=1.5 时沉降量近似 <strong>6.75 mm</strong>。</p>
+<p><strong>核验</strong>：N₂(0)=3 ✓，N₂(1)=5 ✓，N₂(2)=9 ✓。</p>
+<p><strong>知识点</strong>：差商具有对称性；Newton 插值新增节点时只需在末尾加一项，便于递推；等距节点可改用向前/向后差分。</p>
+<hr />
+<h3 id="4_1">第 4 题（复化辛普森公式）</h3>
+<p><strong>题目</strong>：计算 I=∫₀¹ 1/(1+x²) dx。将区间 [0,1] 四等分（2 个 Simpson 单元），用复化 Simpson 公式计算近似值（保留 5 位小数），并与精确值 π/4 比较绝对误差。</p>
+<p><strong>第一步：步长与节点</strong></p>
+<p>4 等分为偶数份，共 5 个节点；h=(1−0)/4=0.25。</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>0</th>
+<th>0.25</th>
+<th>0.5</th>
+<th>0.75</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f(x)=1/(1+x²)</td>
+<td>1</td>
+<td>0.94117647</td>
+<td>0.8</td>
+<td>0.64</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二步：按系数加权</strong>（端点 1、奇数点 4、偶数点 2）</p>
+<div class="math-block">\begin{aligned}
+S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
+&amp;=\frac{0.25}{3}\big[1+0.5+4(0.94117647+0.64)+2\times0.8\big]\\
+&amp;\approx 0.78539216
+\end{aligned}</div>
+<p><strong>第三步：与精确值比较</strong></p>
+<ul>
+<li>近似值（保留 5 位）：<strong>0.78539</strong></li>
+<li>精确值 π/4≈0.78539816</li>
+<li>绝对误差 |S−π/4| ≈ <strong>6.0×10⁻⁶</strong></li>
+</ul>
+<p><strong>答案</strong>：I≈<strong>0.78539</strong>，绝对误差约 6.0×10⁻⁶。</p>
+<p><strong>知识点</strong>：必须偶数等分（2n+1 节点）；奇数点系数 4、偶数点系数 2；整体乘 h/3；误差阶 O(h⁴)，步长减半误差约降为 1/16。</p>
+<hr />
+<h3 id="5_2">第 5 题（改进欧拉法）</h3>
+<p><strong>题目</strong>：炉温满足 dT/dt=−0.5(T−25)，T(0)=100。取步长 h=0.1，用改进欧拉法计算 T(0.2) 的近似值（保留 4 位小数），并与精确解 T(t)=25+75e^(−0.5t) 比较。</p>
+<p><strong>预估-校正格式</strong>：</p>
+<pre><code>预估：T̂_{n+1}=T_n + h·f(t_n, T_n)
+校正：T_{n+1}=T_n + h/2·[f(t_n,T_n)+f(t_{n+1},T̂_{n+1})]
+</code></pre>
+<p>其中 f(t,T)=−0.5(T−25)。</p>
+<p><strong>第 1 步</strong>（t₀=0，T₀=100）：</p>
+<ul>
+<li>f₀=−0.5(100−25)=−37.5</li>
+<li>预估 T̂₁=100+0.1×(−37.5)=96.25</li>
+<li>f(T̂₁)=−0.5(96.25−25)=−35.625</li>
+<li>校正 T₁=100+0.05×(−37.5−35.625)=<strong>96.34375</strong></li>
+</ul>
+<p><strong>第 2 步</strong>（t₁=0.1，T₁=96.34375）：</p>
+<ul>
+<li>f₁=−0.5(96.34375−25)=−35.671875</li>
+<li>预估 T̂₂=96.34375+0.1×(−35.671875)=92.7765625</li>
+<li>f(T̂₂)=−0.5(92.7765625−25)=−33.88828125</li>
+<li>校正 T₂=96.34375+0.05×(−35.671875−33.88828125)=<strong>92.8657</strong></li>
+</ul>
+<p><strong>与精确解比较</strong>：</p>
+<ul>
+<li>T(0.2)=25+75e^(−0.1)≈<strong>92.8628</strong></li>
+<li>绝对误差 |92.8657−92.8628| ≈ <strong>2.94×10⁻³</strong></li>
+</ul>
+<p><strong>答案</strong>：T(0.2)≈<strong>92.8657 ℃</strong>；精确值 92.8628 ℃，误差约 2.94×10⁻³。</p>
+<p><strong>知识点</strong>：改进欧拉 = 预估（显式欧拉）+ 校正（梯形思想），二阶 O(h²)；每步 2 次右端函数计算；先算预估再代入校正。</p>
+<hr />
+<h2 id="_6">四、综合辨析题</h2>
+<h3 id="1_2">第 1 题</h3>
+<p><strong>场景</strong>：岩土工程有 21 个含噪声的监测点，为"精确通过每个点"，采用 21 次 Lagrange 多项式插值。</p>
+<p><strong>结论：不恰当。</strong></p>
+<p><strong>理由</strong>：监测点含随机噪声，高次插值会把噪声也当成信号逐点拟合，引发 Runge 振荡，误差反而增大。应采用<strong>分段低次插值 / 样条插值</strong>，或做曲线拟合（最小二乘）只逼近趋势，不要求逐点穿过。</p>
+<p><strong>知识点</strong>：高次插值≠高精度；含噪声数据宜拟合不宜插值。</p>
+<hr />
+<h3 id="2_1">第 2 题</h3>
+<p><strong>场景</strong>：结构抗震分析需对同一刚度矩阵、上百种工况反复求解不同载荷向量，宜先做 LU 分解再多次前代回代。</p>
+<p><strong>结论：恰当。</strong></p>
+<p><strong>理由</strong>：系数矩阵 A 不变、右端 b 有上百个。先一次性完成 A=LU 分解，之后每个工况只需做前代（Ly=b）+ 回代（Ux=y），避免每次重新消元，显著节省计算量。</p>
+<p><strong>知识点</strong>：LU 分解的最大优势就是"分解一次、回代多次"，适合多右端向量问题。</p>
+<hr />
+<h3 id="3_2">第 3 题</h3>
+<p><strong>场景</strong>：已知被积函数光滑但只能取到离散测值，用复化 Simpson 公式近似计算其定积分。</p>
+<p><strong>结论：恰当。</strong></p>
+<p><strong>理由</strong>：函数光滑、节点等距时，复化辛普森 O(h⁴) 精度高、求积系数全正、数值稳定，是缺省首选。前提是偶数等分；若函数有奇点或高阶导数不存在，则应改用变步长、分段处理或高斯求积。</p>
+<p><strong>知识点</strong>：方法选用——光滑离散测值用复化辛普森；高精度且光滑用龙贝格；函数求值昂贵用高斯求积。</p>
+<hr />
+<h2 id="newtonraphson">五、算法纠错题（Newton–Raphson）</h2>
+<p><strong>题目</strong>：下面 Python 代码意图实现 Newton 迭代法求 f(x)=0 的实根，含三处缺陷，标出缺陷行号、说明原因并改正。</p>
+<pre><code class="language-python">1  def newton(f, df, x0, tol, max_iter = 30):
+2      x = x0
+3      for k in range(max_iter):
+4          fx = f(x)
+5          dfx = df(x)
+6          if abs(fx) &lt; tol:
+7              break
+8          x = x - fx / dfx
+9          if abs(dfx) &lt; 1e-12:
+10             continue
+11     return x
+12     # End of Newton iteration
+</code></pre>
+<h3 id="1-89">缺陷 1：近零判断位置颠倒（第 8、9 行）</h3>
+<ul>
+<li><strong>原因</strong>：第 8 行先做了 <code>fx/dfx</code> 除法，第 9 行才判断 <code>|dfx|</code> 是否近零。若导数近零，除法早已触发除零/溢出。</li>
+<li><strong>改正</strong>：<strong>先判断导数是否近零，近零则终止或报错，再做除法</strong>。</li>
+</ul>
+<h3 id="2-continue-10">缺陷 2：近零时 <code>continue</code> 空转（第 10 行）</h3>
+<ul>
+<li><strong>原因</strong>：导数近零时用 <code>continue</code> 跳过本次循环，x 不更新，会一直空转到 <code>max_iter</code>，既不收敛也不报错。</li>
+<li><strong>改正</strong>：近零应<strong>终止迭代并提示</strong>（抛出异常或返回失败状态），不能 <code>continue</code>。</li>
+</ul>
+<h3 id="3-6">缺陷 3：收敛判据与健壮性不足（第 6 行）</h3>
+<ul>
+<li><strong>原因</strong>：只以 <code>|fx|&lt;tol</code> 判收敛，缺少<strong>相邻迭代值之差</strong> <code>|x_new−x|&lt;tol</code> 这一常用判据；也没有超步数保护、未返回迭代次数与成功/失败状态。</li>
+<li><strong>改正</strong>：记录上一步 x，用残差 + 步长双判据；达到 <code>max_iter</code> 应给出失败标记。</li>
+</ul>
+<h3 id="_7">参考修正代码</h3>
+<pre><code class="language-python">def newton(f, df, x0, tol, max_iter=30):
+    x = x0
+    for k in range(max_iter):
+        fx = f(x)
+        dfx = df(x)
+        if abs(dfx) &lt; 1e-12:                 # 先判除零，再除法
+            raise ZeroDivisionError(&quot;导数近零，迭代终止&quot;)
+        x_new = x - fx / dfx
+        if abs(x_new - x) &lt; tol:             # 相邻迭代差判据
+            return x_new, k + 1
+        x = x_new
+    return x, max_iter                       # 超步数保护并返回次数
+</code></pre>
+<p><strong>知识点</strong>：迭代类代码通用检查项——除法前先判除数近零；设最大步数上限；浮点比较用 <code>abs(a−b)&lt;tol</code>；返回迭代次数与收敛状态。</p>
+<h2 id="-">---</h2>
+<h1 id="_8">练习题（二）</h1>
+<h2 id="_9">一、选择题</h2>
+<h3 id="1_3">第 1 题（有效数字）</h3>
+<p><strong>题目</strong>：若分别用 0.6931 和 0.693 作为 ln2≈0.693147180… 的近似值，根据有效数字判定规则，下列说法正确的是（ ）</p>
+<ul>
+<li>A. 0.6931 有 3 位，0.693 有 3 位</li>
+<li>B. 0.6931 有 4 位，0.693 有 3 位</li>
+<li>C. 0.6931 有 4 位，0.693 有 4 位</li>
+<li>D. 0.6931 有 5 位，0.693 有 4 位</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：首位非零数字在十分位（m=0）。</p>
+<ul>
+<li>0.6931：误差 |0.6931−0.69314718|≈4.72×10⁻⁵。判 n=4：阈值 0.5×10^(0−4)=5×10⁻⁵，成立；判 n=5：阈值 5×10⁻⁶，不成立 → <strong>4 位</strong>。</li>
+<li>0.693：误差 |0.693−0.69314718|≈1.47×10⁻⁴。判 n=3：阈值 5×10⁻⁴，成立；判 n=4：阈值 5×10⁻⁵，不成立 → <strong>3 位</strong>。</li>
+</ul>
+<p><strong>知识点</strong>：纯小数有效数字从第一个非零数字算起；判定仍以误差限为准。</p>
+<hr />
+<h3 id="2-doolittle_1">第 2 题（Doolittle 分解条件）</h3>
+<p><strong>题目</strong>：矩阵能进行 Doolittle 分解 A=LU（不选主元）的一个充分条件是（ ）</p>
+<ul>
+<li>A. A 各阶顺序主子式均不为零　B. A 对称　C. A 为单位矩阵的倍数　D. A 的元素全为正</li>
+</ul>
+<p><strong>答案：A</strong></p>
+<p><strong>解析</strong>：不选主元的 Doolittle 分解可行的充分条件是<strong>各阶顺序主子式均非零</strong>。对称、元素全正都不保证分解可行；单位矩阵倍数是特殊情形，不是一般条件。</p>
+<p><strong>知识点</strong>：顺序主子式非零 ↔ 顺序 Gauss 消元不出现零主元 ↔ 可做不选主元 LU 分解。</p>
+<hr />
+<h3 id="3_3">第 3 题（弦截法收敛阶）</h3>
+<p><strong>题目</strong>：割线法（弦截法）在单根附近的收敛阶约为（ ）</p>
+<ul>
+<li>A. 1　B. 1.618　C. 2　D. 2.618</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：弦截法收敛阶 ≈ <strong>1.618</strong>（黄金分割比）。线性收敛对应阶 1；平方收敛对应阶 2（Newton 法单根）。</p>
+<p><strong>知识点</strong>：收敛阶：二分 1 &lt; 弦截 1.618 &lt; 牛顿 2。</p>
+<hr />
+<h3 id="4_2">第 4 题（列主元目的）</h3>
+<p><strong>题目</strong>：用 Gauss 消去法解线性方程组时选取列主元，其主要目的是（ ）</p>
+<ul>
+<li>A. 减少乘除法运算次数　B. 避免小主元导致误差放大</li>
+<li>C. 使系数矩阵变为对称　D. 提高系数矩阵的条件数</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：列主元消去通过选取当前列绝对值最大的元素作主元，<strong>避免小主元把舍入误差放大</strong>。
+- A 错：选主元不减少（反而略增）运算量；
+- C 错：不会改变矩阵的对称性；
+- D 错：条件数由矩阵本身决定，选主元不能提高条件数。</p>
+<p><strong>知识点</strong>：选主元是数值稳定措施，不是效率或矩阵结构改造手段。</p>
+<hr />
+<h3 id="5-simpson">第 5 题（Simpson 代数精度）</h3>
+<p><strong>题目</strong>：Simpson 求积公式 [f(a)+4f((a+b)/2)+f(b)]·(b−a)/6 的代数精度为（ ）</p>
+<ul>
+<li>A. 1 次　B. 2 次　C. 3 次　D. 4 次</li>
+</ul>
+<p><strong>答案：C</strong></p>
+<p><strong>解析</strong>：辛普森公式用 3 个点，却对<strong>不超过 3 次</strong>的多项式精确成立，代数精度为 <strong>3</strong>。对称公式的精度常为奇数（高一次误差项自动抵消）。对比：梯形精度 1，柯特斯精度 5。</p>
+<p><strong>知识点</strong>：Newton-Cotes 精度——梯形 n=1→1；辛普森 n=2→3；柯特斯 n=4→5。</p>
+<hr />
+<h3 id="6_2">第 6 题（改进欧拉调用次数）</h3>
+<p><strong>题目</strong>：用改进 Euler 法（预估-校正）每推进一个步长，需要调用右端函数 f(x,y) 的次数为（ ）</p>
+<ul>
+<li>A. 1 次　B. 2 次　C. 3 次　D. 4 次</li>
+</ul>
+<p><strong>答案：B</strong></p>
+<p><strong>解析</strong>：预估步算一次 f，校正步再算一次 f（在预估值处），共 <strong>2 次</strong>。对比：经典 RK4 每步 4 次。</p>
+<p><strong>知识点</strong>：方法精度与函数调用次数权衡；改进欧拉用 2 次调用换二阶精度。</p>
+<hr />
+<h2 id="_10">二、判断题</h2>
+<h3 id="1_4">第 1 题</h3>
+<p><strong>题目</strong>：在浮点数值计算中，如果除数的绝对值非常小，容易放大原有输入扰动与舍入误差，因此算法设计时应尽量避免除以绝对值很小的数。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：除以小数等价于放大，会把输入扰动和舍入误差成倍放大，是数值不稳定来源；应避免，必要时选主元或改用稳定算法。</p>
+<p><strong>知识点</strong>：与"避免相近数相减"并列的数值稳定准则。</p>
+<hr />
+<h3 id="2_2">第 2 题</h3>
+<p><strong>题目</strong>：对于线性方程组 Ax=b，只要系数矩阵 A 的条件数大于 1，就代表这个方程组一定是病态方程组，数值求解必然不稳定。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：病态要看条件数<strong>是否远大于 1</strong>（相对量级），不是只要 &gt;1 就病态；条件数接近 1 属良态。且"必然不稳定"说法绝对，求解策略（选主元、精度）也影响结果。</p>
+<p><strong>知识点</strong>：cond(A) 越大病态越重；&gt;1 本身不是病态判据。</p>
+<hr />
+<h3 id="3_4">第 3 题</h3>
+<p><strong>题目</strong>：如果对方程的重根不做任何修改，直接使用标准 Newton 迭代求解，迭代格式依旧可以保持平方收敛的收敛速度。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：<strong>重根</strong>处标准 Newton 法退化为<strong>线性收敛</strong>；要恢复高阶收敛需改用带重数 m 的修正格式 x−m·f/f′。</p>
+<p><strong>知识点</strong>：Newton 平方收敛的前提是单根；重根、复根要单独处理。</p>
+<hr />
+<h3 id="4_3">第 4 题</h3>
+<p><strong>题目</strong>：只要给出 n+1 个插值节点，不管节点是否重合，都一定存在唯一的、次数不超过 n 的多项式精确经过全部节点。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：插值节点必须<strong>互异</strong>；若节点重合，普通拉格朗日插值不成立，需要在重合节点补充导数条件，用 Hermite 插值处理。</p>
+<p><strong>知识点</strong>：n+1 个互异节点 ↔ 唯一存在次数 ≤n 的插值多项式；节点重合涉及导数约束。</p>
+<hr />
+<h3 id="5_3">第 5 题</h3>
+<p><strong>题目</strong>：梯形求积公式可以对所有次数不超过二次的多项式做到精确积分，因此它的代数精度等于 2。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：梯形公式代数精度为 <strong>1</strong>（对一次及以下精确，对二次不精确）。说它精度 2 是错的。</p>
+<p><strong>知识点</strong>：梯形精度 1、辛普森精度 3、柯特斯精度 5，勿记混。</p>
+<hr />
+<h3 id="6_3">第 6 题</h3>
+<p><strong>题目</strong>：隐式 Euler 格式具备 A-稳定特性，在求解刚性常微分初值问题时，不会像显式格式那样被稳定性强行限制步长，对刚性方程有良好的稳定性表现。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：隐式欧拉是 <strong>A-稳定</strong>方法，稳定域大，解刚性方程时步长主要由精度决定，不受显式格式那样的稳定性条件强行限制；代价是每步需求解隐式方程。</p>
+<p><strong>知识点</strong>：A-稳定方法（隐式欧拉、梯形法）适合刚性问题；显式格式受稳定域约束。</p>
+<hr />
+<h3 id="7_1">第 7 题</h3>
+<p><strong>题目</strong>：两点三次 Hermite 插值，在两个互异节点上同时匹配函数值与一阶导数值，一共四条插值约束，因此得到的插值多项式最高是四次多项式。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：四条约束对应次数 ≤ <strong>2n+1=3</strong> 的多项式（n=2 个节点），是<strong>三次</strong>多项式，不是四次。</p>
+<p><strong>知识点</strong>：Hermite 插值同时匹配函数值与导数；两点三次 Hermite 为三次。</p>
+<hr />
+<h3 id="8_1">第 8 题</h3>
+<p><strong>题目</strong>：二分法依靠不断压缩含根区间来逼近根，它的收敛速度只依赖迭代次数，和初始含根区间的选取没有任何关系。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：误差界含初始区间长度 (b−a)，初始区间越大，达到同一精度所需迭代次数越多，与初始区间<strong>有关</strong>；压缩倍率（每次减半）只依赖迭代次数。</p>
+<p><strong>知识点</strong>：二分法误差界 (b−a)/2^n 量级；初值区间影响初始误差基数。</p>
+<hr />
+<h3 id="9_1">第 9 题</h3>
+<p><strong>题目</strong>：任何一个求积公式都能够找到对应的插值多项式，因此所有求积公式都属于插值型求积公式。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><strong>解析</strong>：判断插值型与否，只看求积系数是否由插值基函数积分而来。高斯求积的系数 A_k=∫l_k(x)dx 正是由高斯节点对应的插值基函数积分得到，因此它<strong>正是插值型求积公式</strong>（代数精度可达 2n−1），它不是 Newton-Cotes 公式只因节点不等距。并非所有求积公式都是插值型——例如按经验直接指定权重的求积公式，其系数不来自基函数积分，就不是插值型。</p>
+<p><strong>知识点</strong>：插值型求积公式的判定看系数是否来自基函数积分；高斯求积靠正交多项式选节点。</p>
+<hr />
+<h3 id="10_1">第 10 题</h3>
+<p><strong>题目</strong>：用迭代法解线性方程组时，迭代矩阵谱半径 ρ(M)&lt;1 是迭代收敛的充分必要条件。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><strong>解析</strong>：迭代格式 x_{k+1}=Mx_k+d 收敛的<strong>充要条件</strong>就是迭代矩阵谱半径 ρ(M)&lt;1；严格对角占优、对称正定等只是便于验证的充分条件。</p>
+<p><strong>知识点</strong>：谱半径越小收敛越快；充分条件用于快速判断，充要条件是理论判据。</p>
+<hr />
+<h2 id="_11">三、计算题</h2>
+<h3 id="1-newton_1">第 1 题（Newton 迭代法）</h3>
+<p><strong>题目</strong>：解方程 f(x)=x³−6x²+11x−6=0，已知在 [3,4] 内有根。取 x₀=4，用 Newton 法迭代两次求 x₁、x₂（保留 4 位小数）。</p>
+<p><strong>迭代格式</strong>：f′(x)=3x²−12x+11。</p>
+<p><strong>第 1 次迭代</strong>（x₀=4）：</p>
+<ul>
+<li>f(4)=64−96+44−6=6</li>
+<li>f′(4)=48−48+11=11</li>
+<li>x₁=4−6/11≈<strong>3.4545</strong></li>
+</ul>
+<p><strong>第 2 次迭代</strong>（x₁=3.4545）：</p>
+<ul>
+<li>f(3.4545)≈1.6228；f′(3.4545)≈5.3471</li>
+<li>x₂=3.4545−1.6228/5.3471≈<strong>3.1510</strong></li>
+</ul>
+<p><strong>答案</strong>：x₁≈<strong>3.4545</strong>，x₂≈<strong>3.1510</strong>。</p>
+<p><strong>说明</strong>：该方程真实根为 1, 2, 3，区间内根为 3；两次迭代后 x₂=3.1510 仍在向 3 逼近，继续迭代会收敛到 3。</p>
+<p><strong>知识点</strong>：Newton 格式 x−f/f′；迭代前确认单根与初值邻域；本题只要求两次迭代结果。</p>
+<hr />
+<h3 id="2-doolittle_2">第 2 题（Doolittle 分解法）</h3>
+<p><strong>题目</strong>：解刚度方程</p>
+<pre><code> t1 + 2t2 + 3t3 = 14
+2t1 + 5t2 + 2t3 = 18
+3t1 +  t2 + 6t3 = 23
+</code></pre>
+<p>用 Doolittle 分解法对系数矩阵做 A=LU 分解并解出 t₁, t₂, t₃。</p>
+<p><strong>系数矩阵</strong>：</p>
+<pre><code>A = [1 2 3]      b = [14, 18, 23]ᵀ
+    [2 5 2]
+    [3 1 6]
+</code></pre>
+<p><strong>第一步：A=LU 分解</strong></p>
+<ul>
+<li>U 第一行：u₁₁=1, u₁₂=2, u₁₃=3</li>
+<li>l₂₁=2/1=2；l₃₁=3/1=3</li>
+<li>u₂₂=5−2×2=1；u₂₃=2−2×3=−4</li>
+<li>l₃₂=(1−3×2)/1=−5</li>
+<li>u₃₃=6−3×3−(−5)×(−4)=−23</li>
+</ul>
+<pre><code>L = [1  0  0]        U = [1  2   3]
+    [2  1  0]            [0  1  −4]
+    [3 −5  1]            [0  0 −23]
+</code></pre>
+<p><strong>第二步：Ly=b 前代</strong></p>
+<ul>
+<li>y₁=14</li>
+<li>y₂=18−2×14=−10</li>
+<li>y₃=23−3×14−(−5)×(−10)=−69</li>
+</ul>
+<p><strong>第三步：Ux=y 回代</strong></p>
+<ul>
+<li>−23t₃=−69 → t₃=3</li>
+<li>t₂−4t₃=−10 → t₂−12=−10 → t₂=2</li>
+<li>t₁+2t₂+3t₃=14 → t₁+4+9=14 → t₁=1</li>
+</ul>
+<p><strong>答案</strong>：<strong>t₁=1，t₂=2，t₃=3</strong>。</p>
+<p><strong>核验</strong>：1+4+9=14 ✓；2+10+6=18 ✓；3+2+18=23 ✓。</p>
+<p><strong>知识点</strong>：Doolittle 分解两步走（前代 + 回代）；主元为负不影响分解，只看顺序主子式是否非零。</p>
+<hr />
+<h3 id="3_5">第 3 题（牛顿差商插值）</h3>
+<p><strong>题目</strong>：监测数据</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>y</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>（1）用 Newton 差商公式构造二次插值多项式；（2）求 x=1.5 处渗压指标近似值。</p>
+<p><strong>差商表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>y</th>
+<th>一阶差商</th>
+<th>二阶差商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(4−2)/1=2</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>4</td>
+<td></td>
+<td>(4−2)/2=1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(8−4)/1=4</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>8</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Newton 二次插值多项式</strong>：</p>
+<div class="math-block">$$N_2(x)=2+2x+x(x-1)=x^2+x+2$$</div>
+<p><strong>代入 x=1.5</strong>：</p>
+<div class="math-block">$$N_2(1.5)=1.5^2+1.5+2=2.25+1.5+2=\mathbf{5.75}$$</div>
+<p><strong>答案</strong>：插值多项式 <strong>N₂(x)=x²+x+2</strong>；x=1.5 处近似 <strong>5.75</strong>。</p>
+<p><strong>核验</strong>：N₂(0)=2 ✓，N₂(1)=4 ✓，N₂(2)=8 ✓。</p>
+<p><strong>知识点</strong>：差商表计算顺序；Newton 插值形式便于新增节点递推。</p>
+<hr />
+<h3 id="4_4">第 4 题（复化辛普森公式）</h3>
+<p><strong>题目</strong>：估算 I=∫₀¹ 1/(1+x) dx。将区间 [0,1] 四等分（2 个 Simpson 单元），用复化 Simpson 公式计算近似值（保留 5 位小数），并与精确值 ln2≈0.69315 比较绝对误差。</p>
+<p><strong>步长与节点</strong>：h=0.25。</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>0</th>
+<th>0.25</th>
+<th>0.5</th>
+<th>0.75</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f(x)=1/(1+x)</td>
+<td>1</td>
+<td>0.8</td>
+<td>0.66666667</td>
+<td>0.57142857</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>节点为 0, 0.25, 0.5, 0.75, 1；f(0.25)=1/1.25=0.8。</p>
+</blockquote>
+<p><strong>加权计算</strong>：</p>
+<div class="math-block">\begin{aligned}
+S&amp;=\frac{0.25}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
+&amp;=\frac{0.25}{3}\big[1+0.5+4(0.8+0.57142857)+2\times0.66666667\big]\\
+&amp;\approx 0.69325397
+\end{aligned}</div>
+<p><strong>与精确值比较</strong>：</p>
+<ul>
+<li>近似值（保留 5 位）：<strong>0.69325</strong></li>
+<li>精确值 ln2≈0.69314718</li>
+<li>绝对误差 |S−ln2| ≈ <strong>1.07×10⁻⁴</strong></li>
+</ul>
+<p><strong>答案</strong>：I≈<strong>0.69325</strong>，绝对误差约 1.07×10⁻⁴。</p>
+<p><strong>知识点</strong>：辛普森奇偶系数与 h/3 系数；本题被积函数光滑，误差量级符合 O(h⁴)。</p>
+<hr />
+<h3 id="5_4">第 5 题（改进欧拉法）</h3>
+<p><strong>题目</strong>：产物浓度满足 dV/dt=0.5−0.25V，V(0)=0。取步长 h=0.1，用改进欧拉法计算 V(0.2)（保留 4 位小数），并与精确解 V(t)=2(1−e^(−0.25t)) 比较。</p>
+<p>f(t,V)=0.5−0.25V。</p>
+<p><strong>第 1 步</strong>（V₀=0）：</p>
+<ul>
+<li>f₀=0.5−0=0.5</li>
+<li>预估 V̂₁=0+0.1×0.5=0.05</li>
+<li>f(V̂₁)=0.5−0.25×0.05=0.4875</li>
+<li>校正 V₁=0+0.05×(0.5+0.4875)=<strong>0.049375</strong></li>
+</ul>
+<p><strong>第 2 步</strong>（V₁=0.049375）：</p>
+<ul>
+<li>f₁=0.5−0.25×0.049375=0.48765625</li>
+<li>预估 V̂₂=0.049375+0.1×0.48765625=0.098140625</li>
+<li>f(V̂₂)=0.5−0.25×0.098140625=0.47546484</li>
+<li>校正 V₂=0.049375+0.05×(0.48765625+0.47546484)=<strong>0.0975</strong></li>
+</ul>
+<p><strong>与精确解比较</strong>：</p>
+<ul>
+<li>V(0.2)=2(1−e^(−0.05))≈<strong>0.09754</strong></li>
+<li>绝对误差 |0.0975−0.09754| ≈ <strong>1.01×10⁻⁵</strong></li>
+</ul>
+<p><strong>答案</strong>：V(0.2)≈<strong>0.0975 mol/L</strong>；精确值 0.09754，误差约 1.01×10⁻⁵。</p>
+<p><strong>知识点</strong>：自治方程 f 不显含 t；改进欧拉预估-校正两步；本题精度与二阶方法吻合。</p>
+<hr />
+<h2 id="_12">四、综合辨析题</h2>
+<h3 id="1_5">第 1 题</h3>
+<p><strong>场景</strong>：某边坡监测有 50 个含随机噪声的数据点，工程上要求拟合趋势曲线，采用 49 次 Lagrange 插值精确通过每个点。</p>
+<p><strong>结论：不恰当。</strong></p>
+<p><strong>理由</strong>：含噪声的 50 个点做 49 次插值，会把随机噪声全部拟合进去，高次多项式剧烈振荡，趋势反而失真。应采用最小二乘拟合或分段低次/样条插值，追求整体逼近而非逐点穿过。</p>
+<p><strong>知识点</strong>：插值 vs 拟合——数据无误差且要过点用插值；含噪声要趋势用拟合。</p>
+<hr />
+<h3 id="2_3">第 2 题</h3>
+<p><strong>场景</strong>：水力计算需对同一管网系数矩阵反复求解多个工况的右端向量，先做 LU 分解再多次前代回代。</p>
+<p><strong>结论：恰当。</strong></p>
+<p><strong>理由</strong>：矩阵不变、右端多变，LU 分解一次完成，后续每个工况只需前代回代，避免重复消元，计算效率高。</p>
+<p><strong>知识点</strong>：LU 分解适配多右端向量场景。</p>
+<hr />
+<h3 id="3_6">第 3 题</h3>
+<p><strong>场景</strong>：对刚性常微分方程，为节省计算时间采用大步长的显式 Euler 法。</p>
+<p><strong>结论：不恰当。</strong></p>
+<p><strong>理由</strong>：显式 Euler 条件稳定，刚性方程固有快衰减分量，大步长会越过稳定域导致数值解发散。刚性问题应选隐式、A-稳定格式；不能为省时间盲目放大显式方法步长。</p>
+<p><strong>知识点</strong>：刚性方程 → 隐式/A-稳定方法；显式大步长是常见错误。</p>
+<hr />
+<h2 id="simpson">五、算法纠错题（复化 Simpson）</h2>
+<p><strong>题目</strong>：下面 Python 代码意图实现复化 Simpson 求积公式，参数 m 为 Simpson 单元个数，每个单元含两个等距子区间。代码存在恰好三处关键逻辑缺陷，标出缺陷行号、说明原因并写出修正语句。</p>
+<pre><code class="language-python">1  def composite_simpson(f, a, b, m):
+2      h = (b - a) / (2 * m)
+3      s = f(a)
+4      for k in range(1, 2 * m + 1):
+5          xk = a + k * h
+6          if k % 2 == 0:
+7              s += 4 * f(xk)
+8          else:
+9              s += 2 * f(xk)
+10     s += f(b)
+11     res = s * h / 6
+12     return res
+</code></pre>
+<h3 id="1-69">缺陷 1：奇偶系数写反（第 6–9 行）</h3>
+<ul>
+<li><strong>原因</strong>：内部<strong>奇数号</strong>点系数应为 <strong>4</strong>，<strong>偶数号</strong>点系数应为 <strong>2</strong>；代码把偶数点给 4、奇数点给 2，正好相反。</li>
+<li><strong>改正</strong>：<code>k%2==1</code>（奇数点）加 4，<code>else</code>（偶数点）加 2。</li>
+</ul>
+<h3 id="2-4">缺陷 2：求和范围混入端点（第 4 行）</h3>
+<ul>
+<li><strong>原因</strong>：循环 <code>range(1, 2*m+1)</code> 包含 k=2m（即 x=b），而第 10 行又单独 <code>s += f(b)</code>，<strong>端点 f(b) 被重复计入</strong>。</li>
+<li><strong>改正</strong>：内部点循环应到 2m−1，即 <code>range(1, 2*m)</code>。</li>
+</ul>
+<h3 id="3-11">缺陷 3：求积系数错误（第 11 行）</h3>
+<ul>
+<li><strong>原因</strong>：总和应乘 <strong>h/3</strong>，代码写成 h/6（h/6 是单段辛普森系数，复化后应为 h/3）。</li>
+<li><strong>改正</strong>：<code>res = s * h / 3</code>。</li>
+</ul>
+<h3 id="_13">参考修正代码</h3>
+<pre><code class="language-python">def composite_simpson(f, a, b, m):
+    h = (b - a) / (2 * m)
+    s = f(a)
+    for k in range(1, 2 * m):        # 内部点到 2m-1，不含端点 b
+        xk = a + k * h
+        if k % 2 == 1:               # 奇数点系数 4
+            s += 4 * f(xk)
+        else:                        # 偶数点系数 2
+            s += 2 * f(xk)
+    s += f(b)
+    return s * h / 3                 # 整体乘 h/3
+</code></pre>
+<p><strong>知识点</strong>：复化辛普森三要点——偶数等分（2m 子区间、2m+1 节点）、奇 4 偶 2、系数 h/3；端点单独计入，不进内部求和循环。</p>
+<hr />
+<h2 id="_14">附：两套卷答案速查表</h2>
+<h3 id="_15">练习题（一）</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择</td>
+<td>1.C　2.B　3.B　4.B　5.B　6.B</td>
+</tr>
+<tr>
+<td>判断</td>
+<td>1.√　2.×　3.√　4.×　5.√　6.√　7.×　8.×　9.√　10.×</td>
+</tr>
+<tr>
+<td>计算 1</td>
+<td>x₁=1.8750，x₂=1.8610，4 位有效数字</td>
+</tr>
+<tr>
+<td>计算 2</td>
+<td>x₁=1，x₂=2，x₃=1</td>
+</tr>
+<tr>
+<td>计算 3</td>
+<td>N₂(t)=t²+t+3，N(1.5)=6.75</td>
+</tr>
+<tr>
+<td>计算 4</td>
+<td>I≈0.78539，误差 6.0×10⁻⁶</td>
+</tr>
+<tr>
+<td>计算 5</td>
+<td>T(0.2)≈92.8657，精确 92.8628</td>
+</tr>
+<tr>
+<td>辨析</td>
+<td>1.不恰当　2.恰当　3.恰当</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_16">练习题（二）</h3>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择</td>
+<td>1.B　2.A　3.B　4.B　5.C　6.B</td>
+</tr>
+<tr>
+<td>判断</td>
+<td>1.√　2.×　3.×　4.×　5.×　6.√　7.×　8.×　9.×　10.√</td>
+</tr>
+<tr>
+<td>计算 1</td>
+<td>x₁=3.4545，x₂=3.1510</td>
+</tr>
+<tr>
+<td>计算 2</td>
+<td>t₁=1，t₂=2，t₃=3</td>
+</tr>
+<tr>
+<td>计算 3</td>
+<td>N₂(x)=x²+x+2，N(1.5)=5.75</td>
+</tr>
+<tr>
+<td>计算 4</td>
+<td>I≈0.69325，误差 1.07×10⁻⁴</td>
+</tr>
+<tr>
+<td>计算 5</td>
+<td>V(0.2)≈0.0975，精确 0.09754</td>
+</tr>
+<tr>
+<td>辨析</td>
+<td>1.不恰当　2.恰当　3.不恰当</td>
+</tr>
+</tbody>
+</table></div>
+    </article>
+  </div></section>
+
+  <footer class="footer"><div class="container"><p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p></div></footer>
+
+  <script src="/assets/js/main.js"></script>
+  <script defer src="/assets/js/live2d.js"></script>
+  <script defer src="/assets/js/starfield.js"></script>
+  <script defer src="/assets/js/anime-ui.js"></script>
+  <script defer src="/assets/js/extras.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.renderMathInElement) return;
+      renderMathInElement(document.body, {
+        throwOnError: false,
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\begin{aligned}', right: '\\end{aligned}', display: true }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

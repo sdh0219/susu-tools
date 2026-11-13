@@ -1,0 +1,81 @@
+{
+  "items": [
+    {
+      "type": "material",
+      "course": "新时代中国特色社会主义理论与实践",
+      "semester": "2026 秋",
+      "title": "一周冲刺复习计划",
+      "desc": "考情速览 + 大纲 8 专题↔教材章节对照 + 7 天滚动进度表，论述题通用答题框架。",
+      "file": "/notes/socialism-theory-sprint.html",
+      "format": "图文讲义",
+      "date": "2026-11-07",
+      "tags": ["论述题", "7 天计划"]
+    },
+    {
+      "type": "material",
+      "course": "新时代中国特色社会主义理论与实践",
+      "semester": "2026 秋",
+      "title": "以题代练题库",
+      "desc": "背诵自查 + 论述提纲双轨题库，按 8 专题分组，带答案要点与每日三步用法。",
+      "file": "/notes/socialism-theory-question-bank.html",
+      "format": "图文讲义",
+      "date": "2026-11-07",
+      "tags": ["题库", "背诵"]
+    },
+    {
+      "type": "material",
+      "course": "研究生综合英语",
+      "semester": "2026 秋",
+      "title": "期末复习大纲",
+      "desc": "U1–U6 考点优先级 + 词汇总表 + 阅读技能 + 段落匹配 + 翻译写作框架。",
+      "file": "/notes/comprehensive-english-outline.html",
+      "format": "图文讲义",
+      "date": "2026-11-08",
+      "tags": ["词汇", "阅读技能"]
+    },
+    {
+      "type": "material",
+      "course": "数值计算实验与数学建模",
+      "semester": "2026 秋",
+      "title": "练习题详细答案解析",
+      "desc": "每题按题目 → 答案 → 解析 → 知识点编排，5 个必考计算方法完整分步演算。",
+      "file": "/notes/numerical-computing-exercises.html",
+      "format": "图文讲义",
+      "date": "2026-11-12",
+      "tags": ["答案解析", "计算题"]
+    },
+    {
+      "type": "notes",
+      "course": "数值计算实验与数学建模",
+      "semester": "2026 秋",
+      "title": "复习思维导图（交互）",
+      "desc": "全章节考点导图：点击节点折叠展开、滚轮缩放；星级 = 考点热度。",
+      "file": "/mindmap.html?m=numerical-computing",
+      "format": "交互导图",
+      "date": "2026-11-12",
+      "tags": ["思维导图", "考点星级"]
+    },
+    {
+      "type": "notes",
+      "course": "论文写作与学术道德",
+      "semester": "2026 秋",
+      "title": "复习总结：5 讲全框架",
+      "desc": "每讲核心框架 + 名词解释速查 + 数字速记卡 + 法规时间线 + 易混对比自测。",
+      "file": "/notes/academic-writing-summary.html",
+      "format": "图文讲义",
+      "date": "2026-11-11",
+      "tags": ["名词解释", "易混对比"]
+    },
+    {
+      "type": "notes",
+      "course": "论文写作与学术道德",
+      "semester": "2026 秋",
+      "title": "课程思维导图（交互）",
+      "desc": "5 讲全覆盖考点导图，从基本概念到学术不端，可直接照图背诵。",
+      "file": "/mindmap.html?m=academic-writing",
+      "format": "交互导图",
+      "date": "2026-11-11",
+      "tags": ["思维导图", "全覆盖"]
+    }
+  ]
+}
