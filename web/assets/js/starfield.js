@@ -40,12 +40,12 @@
     p.x = Math.random(); p.y = Math.random();
     p.r = p.kind === 'snow' ? Math.random() * 2 + 1.2 : Math.random() * 8 + 9;
     p.rot = Math.random() * 6.28;
-    p.rs = (Math.random() - 0.5) * 0.04;
-    p.vy = Math.random() * 0.35 + 0.15;
+    p.rs = (Math.random() - 0.5) * 0.02;
+    p.vy = Math.random() * 0.1 + 0.06;   // 放慢下落：一整屏约 6~16 秒
     p.swayA = Math.random() * 30 + 12;
-    p.swayS = Math.random() * 0.8 + 0.4;
+    p.swayS = Math.random() * 0.35 + 0.25; // 摆动频率也放慢
     p.ph = Math.random() * 6.28;
-    p.fs = Math.random() * 1.2 + 0.6;
+    p.fs = Math.random() * 0.5 + 0.35;
   }
   // 夏季萤火虫
   const flies = Array.from({ length: 14 }, () => ({
@@ -55,6 +55,7 @@
   }));
 
   let meteors = [];
+  let fall = []; // 暗色四芒星落粒子（原来漏声明，春/夏暗色主题会每帧抛错导致流星和轨迹不渲染）
   let nextMeteor = 1000 + Math.random() * 2500;
   let trail = [], bursts = [];
   let lastMx = null, lastMy = null;
