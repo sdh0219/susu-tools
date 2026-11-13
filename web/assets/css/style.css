@@ -1,9 +1,9 @@
 :root {
-  --bg-primary: #0a0a0b;
-  --bg-secondary: #111113;
-  --bg-card: #16161a;
-  --bg-card-hover: #1c1c22;
-  --border-color: #2a2a30;
+  --bg-primary: #101018;
+  --bg-secondary: #16161d;
+  --bg-card: #1a1a22;
+  --bg-card-hover: #212129;
+  --border-color: #2e2e3a;
   --text-primary: #e8e8ed;
   --text-secondary: #9898a0;
   --text-muted: #7c7c88;
@@ -24,7 +24,7 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --nav-bg-scrolled: rgba(10, 10, 11, 0.85);
+  --nav-bg-scrolled: rgba(16, 16, 24, 0.85);
   --text-soft: #c9c9d3;
 }
 
@@ -1369,6 +1369,47 @@ input, textarea {
   justify-content: center;
   gap: 16px;
   margin-top: 22px;
+}
+
+/* 小玩意折叠区：运势/BGM/音效/打卡/氛围/弹幕收进一个胶囊里 */
+.mini-games {
+  margin-top: 22px;
+}
+
+.mini-games > summary {
+  list-style: none;
+  display: inline-block;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+}
+
+.mini-games > summary::-webkit-details-marker {
+  display: none;
+}
+
+.mini-games > summary:hover {
+  color: var(--accent-pink);
+  border-color: rgba(248, 158, 192, 0.5);
+}
+
+.mini-games[open] > summary {
+  color: var(--accent-pink);
+}
+
+.mini-games-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
 }
 
 .fortune-btn, .music-btn {

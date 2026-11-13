@@ -31,11 +31,11 @@
     tw: Math.random() * Math.PI * 2, sp: Math.random() * 0.02 + 0.005
   }));
 
-  // 季节粒子（冬季雪 / 春樱花 / 秋红叶）
+  // 季节粒子（冬季雪 / 春樱花 / 秋红叶）——数量减半，克制一点
   const seasonParts = [];
-  if (SEASON === 'winter') { for (let i = 0; i < 70; i++) seasonParts.push({ kind: 'snow' }); }
-  else if (SEASON === 'spring') { for (let i = 0; i < 18; i++) seasonParts.push({ kind: 'petal' }); }
-  else if (SEASON === 'autumn') { for (let i = 0; i < 18; i++) seasonParts.push({ kind: 'leaf' }); }
+  if (SEASON === 'winter') { for (let i = 0; i < 35; i++) seasonParts.push({ kind: 'snow' }); }
+  else if (SEASON === 'spring') { for (let i = 0; i < 9; i++) seasonParts.push({ kind: 'petal' }); }
+  else if (SEASON === 'autumn') { for (let i = 0; i < 9; i++) seasonParts.push({ kind: 'leaf' }); }
   for (const p of seasonParts) {
     p.x = Math.random(); p.y = Math.random();
     p.r = p.kind === 'snow' ? Math.random() * 2 + 1.2 : Math.random() * 8 + 9;
@@ -56,11 +56,17 @@
 
   let meteors = [];
   let fall = []; // 暗色四芒星落粒子（原来漏声明，春/夏暗色主题会每帧抛错导致流星和轨迹不渲染）
-  let nextMeteor = 1000 + Math.random() * 2500;
+  let nextMeteor = 8000 + Math.random() * 15000; // 流星变稀有：8~23 秒一颗
   let trail = [], bursts = [];
   let lastMx = null, lastMy = null;
   let last = 0;
   let rainbowHue = 0;
+
+  // 「氛围」开关：鼠标轨迹 + 点击爆裂默认关，页脚小玩意里可开
+  const fxOn = () => {
+    try { return localStorage.getItem('susu-fx') === 'on'; } catch (e) { return false; }
+  };
+  addEventListener('susu-fx-changed', () => { trail = []; bursts = []; lastMx = null; });
 
   function sparkle(x, y, r, color, a) {
     ctx.beginPath();
@@ -88,6 +94,7 @@
   }
 
   addEventListener('mousemove', (e) => {
+    if (!fxOn()) { lastMx = e.clientX; lastMy = e.clientY; return; }
     if (lastMx !== null) {
       const dx = e.clientX - lastMx, dy = e.clientY - lastMy;
       const steps = Math.min(Math.ceil(Math.hypot(dx, dy) / 8), 12);
@@ -100,6 +107,7 @@
   });
 
   addEventListener('click', (e) => {
+    if (!fxOn()) return;
     if (e.target.id === 'starfield') return;
     if (e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) return;
     if (!e.target.closest('.hero') && e.target.tagName !== 'CANVAS' && !e.target.closest('body > .danmaku-layer')) {
@@ -140,11 +148,11 @@
           } else if (p.kind === 'petal') {
             const x = p.x * c.width + sway * p.swayA;
             const flip = 0.35 + 0.65 * Math.abs(Math.sin(now / 1000 * p.fs + p.ph));
-            petalShape(x, p.y * c.height, p.r, p.rot, ['rgba(252,214,226,0.9)', 'rgba(247,158,190,0.78)'], flip);
+            petalShape(x, p.y * c.height, p.r, p.rot, ['rgba(252,214,226,0.55)', 'rgba(247,158,190,0.45)'], flip);
           } else {
             const x = p.x * c.width + sway * p.swayA;
             const flip = 0.4 + 0.6 * Math.abs(Math.sin(now / 1000 * p.fs + p.ph));
-            petalShape(x, p.y * c.height, p.r * 0.8, p.rot, ['rgba(250,190,120,0.9)', 'rgba(225,110,60,0.85)'], flip);
+            petalShape(x, p.y * c.height, p.r * 0.8, p.rot, ['rgba(250,190,120,0.55)', 'rgba(225,110,60,0.5)'], flip);
           }
         }
         trail = trail.filter((p) => p.life > 0);
@@ -223,7 +231,7 @@
         }
         nextMeteor -= dt;
         if (nextMeteor <= 0) {
-          nextMeteor = 1200 + Math.random() * 2500;
+          nextMeteor = 8000 + Math.random() * 15000;
           meteors.push({ x: Math.random() * c.width * 0.85, y: -20, vx: 4 + Math.random() * 3, vy: 2.5 + Math.random() * 2, life: 1 });
         }
         meteors = meteors.filter((m) => m.life > 0 && m.y < c.height + 40);

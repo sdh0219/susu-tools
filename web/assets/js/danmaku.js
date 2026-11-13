@@ -53,10 +53,24 @@
     }, 350);
   });
 
-  // 尊重系统「减弱动态效果」：不自动发射；手动发送、彩蛋仍可用
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // 弹幕自动循环默认关（防眼花），页脚小玩意里可开；手动发送/彩蛋随时可用
+  const autoOn = () => {
+    try { return localStorage.getItem('susu-danmaku') === 'on'; } catch (e) { return false; }
+  };
+  let autoTimer = null;
+  function startAuto() {
+    if (autoTimer || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     spawn();
     setTimeout(spawn, 2000);
-    setInterval(spawn, 3500 + Math.random() * 2000);
+    autoTimer = setInterval(spawn, 3500 + Math.random() * 2000);
   }
+  function stopAuto() {
+    clearInterval(autoTimer);
+    autoTimer = null;
+    layer.innerHTML = '';
+  }
+  addEventListener('susu-danmaku-changed', () => {
+    if (autoOn()) startAuto(); else stopAuto();
+  });
+  if (autoOn()) startAuto();
 })();

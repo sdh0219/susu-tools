@@ -88,4 +88,43 @@
     const chip = document.getElementById('streakChip');
     if (chip) chip.textContent = '📅 连续打卡 ' + Math.max(streak, 1) + ' 天';
   }
+
+  // ---------- 页脚小玩意折叠 + 氛围/弹幕开关 ----------
+  // 原 .footer-extras 平铺 4 个控件太吵，收成一颗「🎏 小玩意」胶囊；
+  // 氛围（鼠标轨迹/点击爆裂/拟声词）与弹幕自动循环默认关，这里可开。
+  const footerExtras = document.querySelector('.footer-extras');
+  if (footerExtras && !footerExtras.closest('details')) {
+    const details = document.createElement('details');
+    details.className = 'mini-games';
+    details.innerHTML = '<summary>🎏 小玩意</summary>';
+    const body = document.createElement('div');
+    body.className = 'mini-games-body';
+    while (footerExtras.firstChild) body.appendChild(footerExtras.firstChild);
+    details.appendChild(body);
+    footerExtras.appendChild(details);
+
+    const mkToggle = (id, label, key, eventName) => {
+      const btn = document.createElement('button');
+      btn.className = 'fortune-btn';
+      btn.id = id;
+      const getOn = () => {
+        try { return localStorage.getItem(key) === 'on'; } catch (e) { return false; }
+      };
+      const sync = () => {
+        const on = getOn();
+        btn.textContent = label + (on ? '开' : '关');
+        btn.setAttribute('aria-pressed', String(on));
+      };
+      btn.addEventListener('click', () => {
+        try { localStorage.setItem(key, getOn() ? 'off' : 'on'); } catch (e) { /* 隐私模式忽略 */ }
+        sync();
+        window.dispatchEvent(new CustomEvent(eventName));
+      });
+      sync();
+      return btn;
+    };
+
+    body.appendChild(mkToggle('fxToggle', '✨ 氛围', 'susu-fx', 'susu-fx-changed'));
+    body.appendChild(mkToggle('dmToggle', '💬 弹幕', 'susu-danmaku', 'susu-danmaku-changed'));
+  }
 })();

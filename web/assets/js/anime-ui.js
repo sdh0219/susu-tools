@@ -73,6 +73,11 @@
     play,
   };
 
+  // 氛围开关：拟声词气泡 + 点击花瓣爆开默认关，页脚小玩意里可开（音效仍由独立开关控制）
+  const fxOn = () => {
+    try { return localStorage.getItem('susu-fx') === 'on'; } catch (e) { return false; }
+  };
+
   // ---------- 拟声词气泡 ----------
   const WORDS = ['ドン！', 'ヨシ！', 'ナイス！', 'すごい！', '最高！', 'オッケー！', 'ウレシイ♪', 'ファイト〜'];
   const bubble = document.createElement('div');
@@ -95,7 +100,7 @@
 
   const HOVER_SEL = '.btn, .filter-btn, .project-card, .study-card, .tool-card, .fortune-btn';
   document.addEventListener('mouseover', (e) => {
-    if (reducedMotion) return;
+    if (reducedMotion || !fxOn()) return;
     const el = e.target.closest(HOVER_SEL);
     if (el) showBubble(e.clientX, e.clientY);
   });
@@ -111,7 +116,7 @@
 
   // ---------- 花瓣爆开（主按钮专属，庆祝感）----------
   function burst(x, y) {
-    if (reducedMotion) return;
+    if (reducedMotion || !fxOn()) return;
     for (let i = 0; i < 6; i++) {
       const p = document.createElement('span');
       p.className = 'sfx-petal';
