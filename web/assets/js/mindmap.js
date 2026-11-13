@@ -130,6 +130,142 @@
     };
   }
 
+  // ---------- 全屏 ----------
+  // 原生全屏在某些环境（预览 webview / 无 fullscreen 权限的 iframe）会被拒绝且静默失败，
+  // 因此统一兜底成「页面内全屏」：stage 固定铺满视口，Esc 退出。
+  let fauxFull = false;
+
+  function syncFullLabel() {
+    const btn = document.getElementById('mmFull');
+    if (!btn) return;
+    const on = fauxFull || document.fullscreenElement === stage;
+    btn.textContent = on ? '✕ 退出全屏' : '⛶ 全屏';
+    btn.setAttribute('aria-pressed', String(on));
+  }
+
+  function setFauxFull(on) {
+    if (!stage) return;
+    fauxFull = on;
+    stage.classList.toggle('mm-faux-full', on);
+    document.documentElement.classList.toggle('mm-faux-lock', on);
+    syncFullLabel();
+    // 页面内全屏遮住了工具条，给一个悬浮退出按钮
+    let exitBtn = document.getElementById('mmFauxExit');
+    if (on && !exitBtn) {
+      exitBtn = document.createElement('button');
+      exitBtn.id = 'mmFauxExit';
+      exitBtn.type = 'button';
+      exitBtn.className = 'mm-faux-exit';
+      exitBtn.textContent = '✕ 退出全屏';
+      exitBtn.addEventListener('click', () => setFauxFull(false));
+      document.body.appendChild(exitBtn);
+    } else if (!on && exitBtn) {
+      exitBtn.remove();
+    }
+    setTimeout(() => { if (mm) mm.fit(); }, 150); // 画布尺寸变了，重新适应
+  }
+
+  function toggleFullscreen() {
+    if (!stage) return;
+    if (fauxFull) { setFauxFull(false); return; }
+    if (document.fullscreenElement) { document.exitFullscreen(); return; }
+
+    const req = stage.requestFullscreen || stage.webkitRequestFullscreen || stage.msRequestFullscreen;
+    if (!req) { setFauxFull(true); return; }
+
+    // 部分环境里 requestFullscreen 既不 resolve 也不 reject（权限策略直接吞掉），
+    // 所以不只靠 promise，再加一个 350ms 看门狗：没真正进全屏就切页面内全屏。
+    const fallback = () => {
+      if (document.fullscreenElement !== stage && !fauxFull) {
+        setFauxFull(true);
+        setStatus('浏览器不允许原生全屏，已切换为页面内全屏（Esc 退出）');
+      }
+    };
+    setTimeout(fallback, 350);
+    try {
+      const p = req.call(stage);
+      if (p && typeof p.catch === 'function') p.catch(fallback);
+    } catch (err) {
+      fallback();
+    }
+  }
+
+  // ---------- 导出 PDF ----------
+  // 克隆画布里的 SVG（保留当前展开状态），清掉平移/缩放，按内容原始尺寸生成打印视图：
+  // 在系统打印对话框里选「另存为 PDF」即可。不引额外依赖，文字仍是矢量，放大不糊。
+  // 用隐藏 iframe 而不是新窗口，绕开弹窗拦截。
+  function exportPdf() {
+    if (!svg || !mm) return;
+    const meta = maps.find((m) => m.id === currentId);
+    const title = (meta ? meta.title : '思维导图').replace(/[<>]/g, '');
+
+    const clone = svg.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.removeAttribute('style');
+    clone.classList.remove('markmap-dark'); // 导出统一浅色，打印和分享都更清楚
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+
+    // 内容包围盒取自当前节点布局（getBBox 不受平移缩放影响）
+    let box = { x: 0, y: 0, width: 1200, height: 800 };
+    const srcG = Array.from(svg.children).find((el) => el.tagName.toLowerCase() === 'g');
+    if (srcG && typeof srcG.getBBox === 'function') {
+      const b = srcG.getBBox();
+      if (b.width > 0 && b.height > 0) box = b;
+    }
+    const pad = 48;
+    const x = box.x - pad;
+    const y = box.y - pad;
+    const w = box.width + pad * 2;
+    const h = box.height + pad * 2;
+
+    Array.from(clone.children).forEach((el) => {
+      if (el.tagName.toLowerCase() === 'g') el.removeAttribute('transform');
+    });
+    clone.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
+
+    // 1 CSS px = 0.75pt：PDF 里的字号与屏幕 100% 时一致
+    const wPt = Math.round(w * 0.75);
+    const hPt = Math.round(h * 0.75);
+
+    const html = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<title>${title}</title>
+<style>
+  @page { size: ${wPt}pt ${hPt}pt; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  svg { display: block; width: ${wPt}pt; height: ${hPt}pt; background: #fff; }
+  .markmap-node text, .markmap-foreign { fill: #1b1b1b; color: #1b1b1b; }
+  .markmap-foreign * { color: inherit; }
+</style></head><body>${clone.outerHTML}</body></html>`;
+
+    const old = document.getElementById('mmPrintFrame');
+    if (old) old.remove();
+    const frame = document.createElement('iframe');
+    frame.id = 'mmPrintFrame';
+    frame.setAttribute('aria-hidden', 'true');
+    frame.style.cssText = 'position:fixed;left:-10000px;top:0;width:1200px;height:900px;border:0;';
+    document.body.appendChild(frame);
+
+    let printed = false;
+    frame.addEventListener('load', () => {
+      if (printed) return;
+      printed = true;
+      setTimeout(() => {
+        try {
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+          setStatus('打印对话框已打开：选「另存为 PDF」即可保存');
+        } catch (err) {
+          setStatus(`导出失败：${err.message}`);
+        }
+      }, 300);
+    });
+
+    const doc = frame.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+  }
+
   function bindToolbar() {
     const actions = {
       mmFit: () => { if (mm) mm.fit(); },
@@ -142,6 +278,19 @@
     Object.keys(actions).forEach((id) => {
       const btn = document.getElementById(id);
       if (btn) btn.addEventListener('click', guard(actions[id]));
+    });
+    // 全屏 / 导出不走渲染互斥，必须同步响应点击（弹窗需要用户手势）
+    const fullBtn = document.getElementById('mmFull');
+    if (fullBtn) fullBtn.addEventListener('click', toggleFullscreen);
+    const pdfBtn = document.getElementById('mmPdf');
+    if (pdfBtn) pdfBtn.addEventListener('click', exportPdf);
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement === stage && fauxFull) setFauxFull(false); // 原生全屏生效，撤掉兜底样式
+      syncFullLabel();
+      setTimeout(() => { if (mm) mm.fit(); }, 150); // 画布尺寸变了，重新适应
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && fauxFull) setFauxFull(false);
     });
   }
 

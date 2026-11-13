@@ -17,7 +17,17 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
   <style>
-    /* 思维导图画布 */
+    /* 思维导图页：压缩头部留白，把画布让给导图 */
+    .blog-hero { padding: 128px 0 4px; }
+    .blog-hero .tool-filters { margin: 20px 0 14px; }
+    .mindmap-section { padding: 0 0 48px; }
+
+    /* 画布：脱离 1200px 主容器，宽屏吃满，高度跟随视口 */
+    .mm-wide {
+      width: min(1720px, 96vw);
+      margin: 0 auto;
+      padding: 0 8px;
+    }
     .mm-stage {
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
@@ -26,8 +36,48 @@
       transition: opacity 0.2s ease;
     }
     .mm-stage.mm-loading { opacity: 0.45; }
-    #mm { width: 100%; height: 70vh; display: block; }
-    @media (max-width: 768px) { #mm { height: 60vh; } }
+    #mm {
+      width: 100%;
+      height: clamp(460px, calc(100vh - 300px), 1200px);
+      display: block;
+    }
+    /* 全屏：画布铺满视口 */
+    .mm-stage:fullscreen { border-radius: 0; border: 0; }
+    .mm-stage:fullscreen #mm { height: 100vh; }
+    /* 原生全屏被浏览器策略拦住时的兜底：页面内全屏 */
+    .mm-stage.mm-faux-full {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      border: 0;
+      border-radius: 0;
+      background: var(--bg-secondary);
+    }
+    .mm-stage.mm-faux-full #mm { height: 100vh; }
+    html.mm-faux-lock, html.mm-faux-lock body { overflow: hidden; }
+    /* 页面内全屏时工具栏被盖住，给一个悬浮退出按钮 */
+    .mm-faux-exit {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 2100;
+      padding: 8px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    }
+    .mm-faux-exit:hover { background: var(--bg-card-hover); }
+    @media (max-width: 768px) {
+      .blog-hero { padding-top: 112px; }
+      .mm-wide { width: 100%; padding: 0; }
+      .mm-stage { border-radius: 0; border-left: 0; border-right: 0; }
+      #mm { height: 64vh; }
+    }
     /* 主题适配：文字色跟随站点主题；连线/circle 保持 markmap 默认多彩调色板 */
     .markmap-node text { fill: var(--text-primary); }
     #mm .markmap-foreign { color: var(--text-primary); }
@@ -64,7 +114,7 @@
       <div class="section-header">
         <div class="section-tag">思维导图</div>
         <h1 class="section-title">一图看懂一门课</h1>
-        <p class="section-desc">点击节点折叠 / 展开，滚轮缩放，拖拽平移。星级 = 考点热度。</p>
+        <p class="section-desc">点击节点折叠 / 展开，滚轮缩放，拖拽平移。星级 = 考点热度，支持全屏与导出 PDF。</p>
       </div>
       <div class="tool-filters" id="mapTabs" role="group" aria-label="选择课程导图"></div>
       <div class="tool-filters" id="mmToolbar" role="group" aria-label="导图工具条">
@@ -73,13 +123,15 @@
         <button type="button" class="filter-btn" id="mmZoomOut">－ 缩小</button>
         <button type="button" class="filter-btn" id="mmExpandAll">🌳 展开全部</button>
         <button type="button" class="filter-btn" id="mmCollapseAll">🏳️ 收起</button>
+        <button type="button" class="filter-btn" id="mmFull" title="全屏查看（Esc 退出）">⛶ 全屏</button>
+        <button type="button" class="filter-btn" id="mmPdf" title="按当前展开状态导出矢量 PDF">📄 导出 PDF</button>
       </div>
       <p class="study-count" id="mmStatus" aria-live="polite"></p>
     </div>
   </section>
 
   <section class="mindmap-section">
-    <div class="container">
+    <div class="mm-wide">
       <div class="mm-stage" id="mmStage">
         <svg id="mm" role="img" aria-label="课程思维导图"></svg>
       </div>
