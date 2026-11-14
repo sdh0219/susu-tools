@@ -41,11 +41,23 @@
     p.r = p.kind === 'snow' ? Math.random() * 2 + 1.2 : Math.random() * 8 + 9;
     p.rot = Math.random() * 6.28;
     p.rs = (Math.random() - 0.5) * 0.02;
-    p.vy = Math.random() * 0.02 + 0.01; // 一慢再慢：约降到此前速度的一半，飘落更悠然
-    p.swayA = Math.random() * 30 + 12;
-    p.swayS = Math.random() * 0.25 + 0.15; // 摆动频率也放慢
+    // 真实慢速：vy 是"每帧归一化位移"，0.0004~0.0012 → 一整屏约 14~42 秒（之前的注释把单位算错了）
+    p.vy = Math.random() * 0.0008 + 0.0004;
+    // 阵风：每片花瓣的落速随时间在 0.55x~1.3x 间缓慢起伏，忽缓忽急更有机
+    p.gustP = Math.random() * 6.28;
+    p.gustS = Math.random() * 0.22 + 0.08;
+    // 水平漂移：给每片一个固定的横向速度，落在画面里左右慢慢散开
+    p.vx = (Math.random() - 0.5) * 0.005;
+    p.swayA = Math.random() * 44 + 8;
+    p.swayS = Math.random() * 0.35 + 0.08;
     p.ph = Math.random() * 6.28;
     p.fs = Math.random() * 0.35 + 0.25;
+  }
+
+  // 单帧纵向步长：基础速度 × 阵风系数（0.55~1.3 随时间起伏）
+  function yStep(p, now, dt) {
+    const gust = 0.55 + 0.75 * (0.5 + 0.5 * Math.sin(now / 1000 * p.gustS + p.gustP));
+    return ((p.vy * gust) * dt) / 16;
   }
   // 夏季萤火虫
   const flies = Array.from({ length: 14 }, () => ({
@@ -135,7 +147,7 @@
 
       if (light) {
         for (const p of seasonParts) {
-          p.y += (p.vy * dt) / 16;
+          p.y += yStep(p, now, dt); p.x += (p.vx * dt) / 16; if (p.x < -0.05) p.x = 1.05; else if (p.x > 1.05) p.x = -0.05;
           const sway = Math.sin(now / 1000 * p.swayS + p.ph);
           p.rot += p.rs;
           if (p.y * c.height > c.height + 24) { p.y = -0.04; p.x = Math.random(); }
@@ -174,7 +186,7 @@
         }
         if (SEASON === 'winter') {
           for (const p of seasonParts) {
-            p.y += (p.vy * dt) / 16;
+            p.y += yStep(p, now, dt); p.x += (p.vx * dt) / 16; if (p.x < -0.05) p.x = 1.05; else if (p.x > 1.05) p.x = -0.05;
             const sway = Math.sin(now / 1000 * p.swayS + p.ph);
             if (p.y * c.height > c.height + 12) { p.y = -0.02; p.x = Math.random(); }
             const x = p.x * c.width + sway * 14;
@@ -185,7 +197,7 @@
           }
         } else if (SEASON === 'autumn') {
           for (const p of seasonParts) {
-            p.y += (p.vy * dt) / 16;
+            p.y += yStep(p, now, dt); p.x += (p.vx * dt) / 16; if (p.x < -0.05) p.x = 1.05; else if (p.x > 1.05) p.x = -0.05;
             p.rot += p.rs;
             const sway = Math.sin(now / 1000 * p.swayS + p.ph);
             if (p.y * c.height > c.height + 24) { p.y = -0.04; p.x = Math.random(); }

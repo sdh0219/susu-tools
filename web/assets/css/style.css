@@ -1864,3 +1864,91 @@ input, textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─────────── 原神风 UI 皮肤（2026-11-14）─────────── */
+/* 提多莫（Teyvat）金：暗色板 + 金色描边 + 菱形角饰。只动按钮/卡片/标签的观感，不动布局。 */
+:root {
+  --genshin-gold: #d3bc8e;
+  --genshin-gold-bright: #ecdcb4;
+  --genshin-gold-dim: rgba(211, 188, 142, 0.35);
+}
+
+[data-theme="light"] {
+  --genshin-gold: #a08a5c;
+  --genshin-gold-bright: #6f5c33;
+  --genshin-gold-dim: rgba(154, 127, 78, 0.45);
+}
+
+/* 按钮：提瓦特式深蓝底 + 双层金描边 + 起浮 */
+.btn, .filter-btn {
+  border-radius: 6px;
+  border: 1px solid var(--genshin-gold-dim);
+  background: linear-gradient(180deg, rgba(46, 58, 84, 0.92), rgba(24, 32, 50, 0.92));
+  color: var(--genshin-gold-bright);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 142, 0.22), 0 2px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.btn:hover, .filter-btn:hover {
+  border-color: var(--genshin-gold);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 142, 0.45), 0 6px 20px rgba(211, 188, 142, 0.22);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, rgba(126, 102, 56, 0.95), rgba(78, 62, 32, 0.95));
+  border-color: var(--genshin-gold);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, rgba(158, 128, 70, 0.98), rgba(104, 82, 42, 0.98));
+}
+
+.filter-btn.active {
+  background: linear-gradient(180deg, rgba(126, 102, 56, 0.95), rgba(78, 62, 32, 0.95));
+  border-color: var(--genshin-gold);
+  color: #fff;
+}
+
+/* 主按钮菱形角饰 */
+.btn-primary::before {
+  content: '◆';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  color: rgba(236, 220, 180, 0.75);
+  pointer-events: none;
+}
+
+/* 卡片：金色发丝边 + 右上角菱形角饰 */
+.project-card, .study-card, .tool-card, .essay, .feature-card {
+  position: relative;
+  border-color: rgba(211, 188, 142, 0.22);
+}
+
+.project-card::after, .study-card::after, .tool-card::after, .essay::after, .feature-card::after {
+  content: '◆';
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 9px;
+  color: rgba(211, 188, 142, 0.5);
+  pointer-events: none;
+}
+
+/* 分区标签：金框小铭牌 */
+.section-tag {
+  background: rgba(211, 188, 142, 0.08);
+  border: 1px solid rgba(211, 188, 142, 0.45);
+  color: var(--genshin-gold-bright);
+  border-radius: 4px;
+}
+
+/* 导航激活下划线：金 */
+.nav-links a::after {
+  background: linear-gradient(90deg, transparent, var(--genshin-gold), transparent);
+}
