@@ -1,13 +1,13 @@
 {
   "items": [
     { "file": "portrait.webp", "title": "站长立绘", "desc": "AI 生成 · 白发少年" },
-    { "file": "genshin-01.webp", "title": "甘雨", "desc": "AI 生成 · 麒麟角的月海明珠" },
-    { "file": "genshin-02.webp", "title": "刻晴", "desc": "AI 生成 · 玉衡星 · 雷光疾行" },
-    { "file": "genshin-03.webp", "title": "胡桃", "desc": "AI 生成 · 往生堂七十七代堂主" },
-    { "file": "genshin-04.webp", "title": "雷电将军", "desc": "AI 生成 · 雷霆永恒的影" },
-    { "file": "genshin-05.webp", "title": "神里绫华", "desc": "AI 生成 · 白鹭霜华" },
-    { "file": "genshin-06.webp", "title": "纳西妲", "desc": "AI 生成 · 小吉祥草王" },
-    { "file": "genshin-07.webp", "title": "芙宁娜", "desc": "AI 生成 · 众水之国的女皇" },
-    { "file": "genshin-08.webp", "title": "八重神子", "desc": "AI 生成 · 鸣神大社的宫司大人" }
+    { "file": "hok-01-diaochan.webp", "title": "貂蝉", "desc": "AI 生成 · 绝世舞姬" },
+    { "file": "hok-02-zhaojun.webp", "title": "王昭君", "desc": "AI 生成 · 冰雪之华" },
+    { "file": "hok-03-xiaoqiao.webp", "title": "小乔", "desc": "AI 生成 · 恋之微风" },
+    { "file": "hok-04-daqiao.webp", "title": "大乔", "desc": "AI 生成 · 沧海之曜" },
+    { "file": "hok-05-gongsunli.webp", "title": "公孙离", "desc": "AI 生成 · 幻舞玲珑" },
+    { "file": "hok-06-yao.webp", "title": "瑶", "desc": "AI 生成 · 鹿灵守心" },
+    { "file": "hok-07-yuhuan.webp", "title": "杨玉环", "desc": "AI 生成 · 霓裳风华" },
+    { "file": "hok-08-change.webp", "title": "嫦娥", "desc": "AI 生成 · 寒月公主" }
   ]
 }
