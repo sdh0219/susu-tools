@@ -125,7 +125,6 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       <li><a href="/index.html">首页</a></li>
       <li><a href="/index.html#projects">作品</a></li>
       <li><a href="/study.html" class="active">自习室</a></li>
-      <li><a href="/bangumi.html">追番墙</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
       <li><a href="/index.html#about">关于</a></li>
