@@ -41,11 +41,11 @@
     p.r = p.kind === 'snow' ? Math.random() * 2 + 1.2 : Math.random() * 8 + 9;
     p.rot = Math.random() * 6.28;
     p.rs = (Math.random() - 0.5) * 0.02;
-    p.vy = Math.random() * 0.1 + 0.06;   // 放慢下落：一整屏约 6~16 秒
+    p.vy = Math.random() * 0.045 + 0.025; // 再放慢：一整屏约 12~40 秒
     p.swayA = Math.random() * 30 + 12;
-    p.swayS = Math.random() * 0.35 + 0.25; // 摆动频率也放慢
+    p.swayS = Math.random() * 0.25 + 0.15; // 摆动频率也放慢
     p.ph = Math.random() * 6.28;
-    p.fs = Math.random() * 0.5 + 0.35;
+    p.fs = Math.random() * 0.35 + 0.25;
   }
   // 夏季萤火虫
   const flies = Array.from({ length: 14 }, () => ({

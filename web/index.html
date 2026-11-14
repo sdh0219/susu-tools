@@ -21,12 +21,14 @@
 
   <nav class="nav" id="nav">
     <div class="container">
-      <a href="index.html" class="nav-logo">Susu</a>
+      <a href="index.html" class="nav-logo">
+        <img class="nav-avatar" src="assets/img/about-portrait.webp" alt="Susu 的看板形象">
+        Susu
+      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">首页</a></li>
         <li><a href="#projects">作品</a></li>
         <li><a href="study.html">自习室</a></li>
-        <li><a href="bangumi.html">追番墙</a></li>
         <li><a href="gallery.html">画廊</a></li>
         <li><a href="blog.html">随笔</a></li>
         <li><a href="#about">关于</a></li>
@@ -44,18 +46,25 @@
   </nav>
 
   <section class="hero">
-    <video class="hero-video" muted loop playsinline preload="none" poster="assets/img/og-cover.jpg"></video>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        不追热点，只做有用的
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          不追热点，只做有用的
+        </div>
+        <h1>欢迎来到<br><span class="gradient-text">我的二次元工具间</span></h1>
+        <p>写代码，也看番。这里放我亲手做的开源作品、一些使用心得，还有一只看板娘。全部免费，随便用。</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">看看作品 →</a>
+          <a href="study.html" class="btn btn-secondary">逛逛自习室 →</a>
+          <a href="blog.html" class="btn btn-secondary">读读随笔 →</a>
+        </div>
       </div>
-      <h1>欢迎来到<br><span class="gradient-text">我的二次元工具间</span></h1>
-      <p>写代码，也看番。这里放我亲手做的开源作品、一些使用心得，还有一只看板娘。全部免费，随便用。</p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">看看作品 →</a>
-        <a href="study.html" class="btn btn-secondary">逛逛自习室 →</a>
-        <a href="blog.html" class="btn btn-secondary">读读随笔 →</a>
+      <div class="hero-portrait">
+        <div class="portrait-frame">
+          <img src="assets/img/about-portrait.webp" alt="Susu 的看板形象：白发蓝瞳少年" fetchpriority="high">
+        </div>
+        <div class="portrait-caption">白发少年 · 本站看板</div>
       </div>
     </div>
   </section>
