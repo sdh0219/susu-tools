@@ -17,12 +17,26 @@
     .nf-wrap h1 { font-size: 1.4rem; margin: 12px 0 8px; }
     .nf-wrap p { color: var(--text-secondary); margin-bottom: 28px; }
     .nf-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+    /* 二次元看板少女：回眸的姿态恰好在找路，呼应"这一页去哪了" */
+    .nf-girl {
+      width: min(150px, 34vw);
+      margin: 0 auto 6px;
+      border-radius: 22px;
+      padding: 6px;
+      background: linear-gradient(160deg, #ffffff, #eef4fb);
+      box-shadow: 0 16px 40px rgba(124, 196, 255, 0.22), 0 0 0 1px rgba(124, 196, 255, 0.3);
+      animation: nfFloat 6s ease-in-out infinite;
+    }
+    .nf-girl img { display: block; width: 100%; border-radius: 17px; }
+    @keyframes nfFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @media (prefers-reduced-motion: reduce) { .nf-girl { animation: none; } }
   </style>
   <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 </head>
 <body>
   <div class="nf-wrap">
     <div>
+      <div class="nf-girl" aria-hidden="true"><img src="/assets/gallery/anime-06.webp" alt="" loading="eager"></div>
       <div class="nf-num">404</div>
       <h1>这一页去哪了？</h1>
       <p>地址可能打错了，或者页面已经搬家。别烦，作品、自习室、画廊和随笔都在首页。</p>
