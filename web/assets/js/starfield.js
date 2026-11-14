@@ -41,7 +41,7 @@
     p.r = p.kind === 'snow' ? Math.random() * 2 + 1.2 : Math.random() * 8 + 9;
     p.rot = Math.random() * 6.28;
     p.rs = (Math.random() - 0.5) * 0.02;
-    p.vy = Math.random() * 0.045 + 0.025; // 再放慢：一整屏约 12~40 秒
+    p.vy = Math.random() * 0.02 + 0.01; // 一慢再慢：约降到此前速度的一半，飘落更悠然
     p.swayA = Math.random() * 30 + 12;
     p.swayS = Math.random() * 0.25 + 0.15; // 摆动频率也放慢
     p.ph = Math.random() * 6.28;

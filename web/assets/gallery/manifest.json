@@ -1,5 +1,10 @@
 {
   "items": [
-    { "file": "portrait.webp", "title": "站长立绘", "desc": "AI 生成 · 白发少年" }
+    { "file": "portrait.webp", "title": "站长立绘", "desc": "AI 生成 · 白发少年" },
+    { "file": "anime-01.webp", "title": "樱夜紫", "desc": "AI 生成 · 银发少女与流星夜" },
+    { "file": "anime-02.webp", "title": "花信和服", "desc": "AI 生成 · 樱花树下的白衣少女" },
+    { "file": "anime-03.webp", "title": "窗夜 Lo-Fi", "desc": "AI 生成 · 戴耳机喝可可的夜晚" },
+    { "file": "anime-04.webp", "title": "星之魔法少女", "desc": "AI 生成 · 冰蓝双马尾 key visual" },
+    { "file": "anime-05.webp", "title": "雨窗可可", "desc": "AI 生成 · 雨天窗边的治愈日常" }
   ]
 }

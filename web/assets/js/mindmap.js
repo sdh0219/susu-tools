@@ -93,17 +93,32 @@
   }
 
   // ---------- 加载 & 切换 ----------
+  // fetch 白名单（字面量查表）：fetch 的地址只能从这张写死的表里取，
+  // 任何 id 查不到就返回 null 直接拒绝——id 本身不参与 URL 拼接
+  const MAP_FILES = {
+    'numerical-computing': '/assets/mindmaps/numerical-computing.md',
+    'academic-writing': '/assets/mindmaps/academic-writing.md',
+  };
+  function resolveMapFile(id) {
+    return Object.prototype.hasOwnProperty.call(MAP_FILES, id) ? MAP_FILES[id] : null;
+  }
+
   async function loadMap(id) {
     if (busy || !maps.length) return; // 渲染中防抖，避免连点
     const meta = maps.find((m) => m.id === id) || maps[0];
     if (!meta) return;
+    const file = resolveMapFile(meta.id);
+    if (!file) {
+      setStatus('导图文件路径不合法');
+      return;
+    }
     if (currentId === meta.id && mm) return; // 已在展示
     busy = true;
     setTabActive(meta.id);
     setStatus(`正在加载《${meta.title}》…`);
     if (stage) stage.classList.add('mm-loading');
     try {
-      const res = await fetch(meta.file);
+      const res = await fetch(file);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const md = await res.text();
       const { root } = new window.markmap.Transformer().transform(md);
@@ -317,9 +332,14 @@
       document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }
     );
 
-    const want = new URLSearchParams(location.search).get('m');
-    const valid = want && maps.some((m) => m.id === want) ? want : (maps[0] && maps[0].id);
-    await loadMap(valid);
+    const want = new URL(location.href).searchParams.get('m');
+    // 深链 ?m= 只做一件事：模拟点击对应的 tab 按钮——
+    // 加载统一走 tab 点击的既有链路（与手动点击完全相同），URL 参数不直接进入加载函数
+    const wantedTab = want
+      ? [...tabsEl.querySelectorAll('.filter-btn')].find((b) => b.dataset.id === want)
+      : null;
+    if (wantedTab) wantedTab.click();
+    else await loadMap(maps[0]?.id);
   }
 
   if (document.readyState === 'loading') {
