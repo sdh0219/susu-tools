@@ -60,6 +60,11 @@ NOTES = [
         "slug": "innovation-entrepreneurship-guide",
         "course": "创新与创业",
     },
+    {
+        "source": "创新创业/第1课 创新与创业导论-笔记.md",
+        "slug": "innovation-lesson1-intro",
+        "course": "创新与创业",
+    },
 ]
 
 # 相对链接改写规则

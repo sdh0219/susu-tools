@@ -1,6 +1,17 @@
 {
   "items": [
     {
+      "type": "notes",
+      "course": "创新与创业",
+      "semester": "2026 秋",
+      "title": "第1课 导论 · 笔记",
+      "desc": "考核权重 30/50/20、小论文 5000 字与查重红线、创新与创业核心概念、死亡之谷与大疆案例。",
+      "file": "/notes/innovation-lesson1-intro.html",
+      "format": "图文讲义",
+      "date": "2026-11-15",
+      "tags": ["导论", "考核", "拜杜法案"]
+    },
+    {
       "type": "material",
       "course": "创新与创业",
       "semester": "2026 秋",
