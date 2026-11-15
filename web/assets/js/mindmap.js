@@ -8,6 +8,20 @@
   const statusEl = document.getElementById('mmStatus');
   if (!svg || !tabsEl) return;
 
+  // 点击节点文字也触发折叠/展开（markmap 默认只认圆点）。
+  // 做法：文字点击 → 取该节点的数据 → 调 markmap 的公开方法 toggleNode；
+  // 节点内的链接（<a>）不劫持，保留跳转。
+  svg.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const fo = e.target.closest('foreignObject');
+    if (!fo) return;
+    const g = fo.closest('g.markmap-node');
+    if (g && g.__data__ && mm) {
+      mm.toggleNode(g.__data__);
+      e.preventDefault();
+    }
+  });
+
   // 默认展开到第 2 层（章节级）：导图全文有数百节点，展开太深会被 fit() 缩成看不清的地缝；
   // 章节级首屏干净，逐层点开阅读。「展开全部」后不自动 fit，保持当前可读缩放
   const DEFAULT_EXPAND_LEVEL = 2;
@@ -47,6 +61,7 @@
     if (!mm) {
       // Markmap.create 内部 setData 后会自动 fit
       mm = window.markmap.Markmap.create(svg, opts, root);
+      window.__mm = mm; // 调试/自动化测试用：暴露实例以便检查内部状态
     } else {
       mm.setData(root, opts);
       if (autoFit) mm.fit(); // 展开全部后不 fit：保持当前可读缩放，避免几百节点缩成一屏

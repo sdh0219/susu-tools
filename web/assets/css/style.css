@@ -2085,3 +2085,61 @@ input, textarea {
 .nav-logo {
   color: var(--genshin-gold-bright);
 }
+
+/* ── 原神化深化 III：浅色主题按钮清晰度 + 七元素徽章 ── */
+[data-theme="light"] .btn,
+[data-theme="light"] .filter-btn {
+  background: linear-gradient(180deg, rgba(255, 252, 244, 0.95), rgba(246, 239, 224, 0.95));
+  color: #4a3f28;
+  border-color: rgba(154, 127, 78, 0.55);
+  font-weight: 600;
+}
+
+[data-theme="light"] .btn:hover,
+[data-theme="light"] .filter-btn:hover {
+  background: linear-gradient(180deg, #fdf9ee, #f3ecda);
+  color: #2e2617;
+  border-color: rgba(154, 127, 78, 0.9);
+}
+
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .filter-btn.active {
+  background: linear-gradient(180deg, #b99a52, #9a7f4e);
+  color: #fff;
+  border-color: #8a7340;
+}
+
+[data-theme="light"] .section-tag {
+  border-color: rgba(154, 127, 78, 0.6);
+  color: #6f5c33;
+}
+
+[data-theme="light"] .tool-search input {
+  background: rgba(255, 253, 248, 0.9);
+}
+
+/* 七元素徽章行（hero 装饰） */
+.genshin-elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 20px;
+}
+
+.hero-content .genshin-elements {
+  justify-content: flex-start;
+}
+
+.genshin-elements .el {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.genshin-elements .el i {
+  font-style: normal;
+  color: var(--el, var(--genshin-gold));
+  font-size: 0.72rem;
+}
