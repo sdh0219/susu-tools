@@ -56,12 +56,12 @@ NOTES = [
         "course": "数值计算实验与数学建模",
     },
     {
-        "source": "创新创业/课程报告与小论文指南.md",
+        "source": "创新与创业/课程报告与小论文指南.md",
         "slug": "innovation-entrepreneurship-guide",
         "course": "创新与创业",
     },
     {
-        "source": "创新创业/第1课 创新与创业导论-笔记.md",
+        "source": "创新与创业/第1课 创新与创业导论-笔记.md",
         "slug": "innovation-lesson1-intro",
         "course": "创新与创业",
     },
