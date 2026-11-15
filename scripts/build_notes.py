@@ -119,6 +119,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主内容</a>
   <nav class="nav" id="nav"><div class="container">
     <a href="/index.html" class="nav-logo">Susu</a>
     <ul class="nav-links" id="navLinks">
@@ -136,6 +137,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     </div>
   </div></nav>
 
+  <main id="main">
   <section class="blog-hero"><div class="container"><div class="section-header">
     <div class="section-tag">课程笔记</div>
     <h1 class="section-title">{{TITLE}}</h1>
@@ -153,6 +155,8 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       <div class="essay-body">{{BODY}}</div>
     </article>
   </div></section>
+
+  </main>
 
   <footer class="footer"><div class="container"><p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p></div></footer>
 

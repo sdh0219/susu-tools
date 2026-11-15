@@ -287,7 +287,7 @@
       mmZoomIn: () => { if (mm) mm.rescale(1.25); },
       mmZoomOut: () => { if (mm) mm.rescale(0.8); },
       // -1 = 全展开；不 fit 保持可读缩放（几百节点 fit 会缩成一屏），用户拖拽平移看细节
-      mmExpandAll: () => { expandLevel = -1; renderMap(false); setStatus('已全部展开：拖拽平移查看细节，点「适应屏幕」可看全貌'); },
+      mmExpandAll: () => { expandLevel = -1; renderMap(false); setStatus('已全部展开：用上方按钮缩放或收起，点「适应屏幕」看全貌'); },
       mmCollapseAll: () => { expandLevel = 1; renderMap(); }, // 1 = 只留一级
     };
     Object.keys(actions).forEach((id) => {

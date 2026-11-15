@@ -1952,3 +1952,89 @@ input, textarea {
 .nav-links a::after {
   background: linear-gradient(90deg, transparent, var(--genshin-gold), transparent);
 }
+
+/* 跳转主内容链接：平时隐藏，键盘聚焦时浮现 */
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 14px;
+  z-index: 2000;
+  padding: 10px 18px;
+  border-radius: 6px;
+  background: var(--genshin-gold);
+  color: #141a28;
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+  outline: 2px solid #fff;
+}
+
+/* ─────────── 原神化深化 ─────────── */
+/* 渐变标题：紫蓝 → 提瓦特金 */
+.gradient-text,
+.hero h1 .gradient-text,
+.section-header .gradient-text {
+  background-image: linear-gradient(135deg, #f4ead0 0%, #d3bc8e 45%, #b99a52 70%, #ecdcb4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .gradient-text,
+[data-theme="light"] .hero h1 .gradient-text {
+  background-image: linear-gradient(135deg, #8a6d2f 0%, #b99a52 50%, #8a6d2f 100%);
+}
+
+/* 分区标题下的金色装饰线 */
+.section-header .section-title::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 2px;
+  margin: 16px auto 0;
+  background: linear-gradient(90deg, transparent, var(--genshin-gold), transparent);
+}
+
+/* hero 徽章：金框金点 */
+.hero-badge {
+  background: rgba(211, 188, 142, 0.08);
+  border: 1px solid rgba(211, 188, 142, 0.4);
+}
+
+.hero-badge .dot {
+  background: var(--genshin-gold);
+}
+
+/* hero 立绘相框：冰蓝 → 白金 */
+.portrait-frame {
+  background: linear-gradient(160deg, #f7f1e3, #e9dcc0);
+  box-shadow: 0 24px 60px rgba(211, 188, 142, 0.26), 0 0 0 1px rgba(211, 188, 142, 0.4), 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* 404 数字 / 统计数字：金渐变（用 background-image，避免重置 background-clip） */
+.nf-num {
+  background-image: linear-gradient(180deg, #ecdcb4, #b99a52);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-number {
+  background-image: linear-gradient(180deg, #ecdcb4, #b99a52);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 暗色底色整体再往提瓦特深蓝靠（浅色主题不受影响） */
+:root:not([data-theme="light"]) {
+  --bg-primary: #0f1420;
+  --bg-secondary: #151b28;
+  --bg-card: #171e2c;
+  --bg-card-hover: #1d2536;
+  --border-color: #2c3446;
+  --nav-bg-scrolled: rgba(15, 20, 32, 0.85);
+}
