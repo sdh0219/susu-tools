@@ -2038,3 +2038,50 @@ input, textarea {
   --border-color: #2c3446;
   --nav-bg-scrolled: rgba(15, 20, 32, 0.85);
 }
+
+/* ── 原神化深化 II：角括号 + 标签金色统一 ── */
+/* 卡片左上角金角括号（原神对话框式） */
+.project-card::before, .study-card::before, .tool-card::before, .essay::before, .feature-card::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid rgba(211, 188, 142, 0.55);
+  border-left: 2px solid rgba(211, 188, 142, 0.55);
+  border-top-left-radius: 8px;
+  pointer-events: none;
+}
+
+/* 随笔编号：金渐变 */
+.essay-num {
+  background-image: linear-gradient(180deg, #ecdcb4, #b99a52);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 随笔来源 chip：金 */
+.essay-src {
+  color: var(--genshin-gold-bright);
+  background: rgba(211, 188, 142, 0.1);
+}
+
+/* 自习室类型徽章：统一金色 */
+.study-material .study-badge,
+.study-notes .study-badge,
+.study-homework .study-badge {
+  background: rgba(211, 188, 142, 0.14);
+  color: var(--genshin-gold-bright);
+}
+
+/* 页脚顶部金色发丝线 */
+.footer {
+  border-top-color: rgba(211, 188, 142, 0.22);
+}
+
+/* 导航 Logo：奶油金字 */
+.nav-logo {
+  color: var(--genshin-gold-bright);
+}
