@@ -33,37 +33,37 @@ NOTES = [
     {
         "source": "习思想/一周复习冲刺文档.md",
         "slug": "socialism-theory-sprint",
-        "course": "新时代中国特色社会主义理论与实践",
+        "course": "Y_新时代中国特色社会主义理论与实践",
     },
     {
         "source": "习思想/以题代练题库.md",
         "slug": "socialism-theory-question-bank",
-        "course": "新时代中国特色社会主义理论与实践",
+        "course": "Y_新时代中国特色社会主义理论与实践",
     },
     {
         "source": "综合英语/综合英语期末复习大纲.md",
         "slug": "comprehensive-english-outline",
-        "course": "研究生综合英语",
+        "course": "Y_研究生综合英语",
     },
     {
         "source": "论文写作道德/论文写作与学术道德规范-复习总结.md",
         "slug": "academic-writing-summary",
-        "course": "论文写作与学术道德",
+        "course": "Y_论文写作与学术道德规范",
     },
     {
         "source": "数值计算实验与数学建模/练习题-详细答案解析.md",
         "slug": "numerical-computing-exercises",
-        "course": "数值计算实验与数学建模",
+        "course": "Y_数值计算实验与数学建模",
     },
     {
         "source": "创新与创业/课程报告与小论文指南.md",
         "slug": "innovation-entrepreneurship-guide",
-        "course": "创新与创业",
+        "course": "Y_*创新与创业",
     },
     {
         "source": "创新与创业/第1课 创新与创业导论-笔记.md",
         "slug": "innovation-lesson1-intro",
-        "course": "创新与创业",
+        "course": "Y_*创新与创业",
     },
 ]
 
