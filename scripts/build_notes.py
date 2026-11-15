@@ -55,6 +55,11 @@ NOTES = [
         "slug": "numerical-computing-exercises",
         "course": "数值计算实验与数学建模",
     },
+    {
+        "source": "创新创业/课程报告与小论文指南.md",
+        "slug": "innovation-entrepreneurship-guide",
+        "course": "创新与创业",
+    },
 ]
 
 # 相对链接改写规则

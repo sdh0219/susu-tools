@@ -2,6 +2,17 @@
   "items": [
     {
       "type": "material",
+      "course": "创新与创业",
+      "semester": "2026 秋",
+      "title": "小组报告与小论文选题指南",
+      "desc": "案例分析报告规则 + 5 大类 30+ 选题清单 + 小论文选题范围，应急方向标 ⭐。",
+      "file": "/notes/innovation-entrepreneurship-guide.html",
+      "format": "图文讲义",
+      "date": "2026-11-15",
+      "tags": ["案例分析", "小论文", "选题"]
+    },
+    {
+      "type": "material",
       "course": "新时代中国特色社会主义理论与实践",
       "semester": "2026 秋",
       "title": "一周冲刺复习计划",
