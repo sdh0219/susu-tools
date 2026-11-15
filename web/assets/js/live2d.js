@@ -16,6 +16,9 @@
     if (!window.OML2D || typeof window.OML2D.loadOml2d !== 'function') return;
     const oml2d = window.OML2D.loadOml2d({
       dockedPosition: 'right',
+      // 移动端不加载看板娘：模型宽约占屏 2/3 会挡内容（库默认即 false，靠 UA 判定，
+      // 这里显式声明防止库升级后默认值变化）
+      mobileDisplay: false,
       models: [
         {
           path: '/assets/models/Hiyori/Hiyori.model3.json',

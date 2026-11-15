@@ -40,6 +40,12 @@
       width: 100%;
       height: clamp(460px, calc(100vh - 300px), 1200px);
       display: block;
+      /* 触屏手势交给 d3-zoom：单指拖平移、双指捏合缩放。
+         touch-action:auto 时浏览器会把 touchmove 拿去滚页面，手势收不到完整事件流 */
+      touch-action: none;
+      /* 长按节点弹出文字选择菜单会打断拖拽，导图文字不需要选中复制 */
+      -webkit-user-select: none;
+      user-select: none;
     }
     /* 全屏：画布铺满视口 */
     .mm-stage:fullscreen { border-radius: 0; border: 0; }
