@@ -65,6 +65,19 @@ NOTES = [
         "slug": "innovation-lesson1-intro",
         "course": "Y_*创新与创业",
     },
+    {
+        "source": "创新与创业/小组案例分析报告-辰安科技.md",
+        "slug": "chenan-case-report",
+        "course": "Y_*创新与创业",
+        "kind": "小组作业",
+        "tag": "小组案例分析",
+        # 发到公网前隐去个人信息（红线：作业开源前清除个人信息），源文件不改
+        "redact": [("（联系电话 18437861754）", "")],
+        "downloads": [
+            ("逐页讲稿", "/assets/files/小组案例分析报告-演讲稿.md"),
+            ("汇报 PPT（9 页）", "/assets/files/小组案例分析报告-辰安科技.pptx"),
+        ],
+    },
 ]
 
 # 相对链接改写规则
@@ -85,12 +98,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{TITLE}} - 自习室 - Susu</title>
-  <meta name="description" content="{{COURSE}}复习笔记：{{TITLE}}。由 Susu 整理，考完也不删。">
+  <meta name="description" content="{{COURSE}} · {{KIND}}：{{TITLE}}。由 Susu 整理，考完也不删。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="{{TITLE}} - Susu 自习室">
   <meta property="og:url" content="https://susu-2x9.pages.dev/notes/{{SLUG}}.html">
   <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
-  <meta property="og:description" content="{{COURSE}}复习笔记：{{TITLE}}。由 Susu 整理，考完也不删。">
+  <meta property="og:description" content="{{COURSE}} · {{KIND}}：{{TITLE}}。由 Susu 整理，考完也不删。">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://susu-2x9.pages.dev/notes/{{SLUG}}.html">
   <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
@@ -149,9 +162,9 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
   <main id="main">
   <section class="blog-hero"><div class="container"><div class="section-header">
-    <div class="section-tag">课程笔记</div>
+    <div class="section-tag">{{TAG}}</div>
     <h1 class="section-title">{{TITLE}}</h1>
-    <p class="section-desc">{{COURSE}} · 2026 秋 · <a href="/notes/{{SLUG}}.md">下载 Markdown</a> · <a href="/study.html">← 返回自习室</a></p>
+    <p class="section-desc">{{COURSE}} · 2026 秋 · <a href="/notes/{{SLUG}}.md">下载 Markdown</a>{{EXTRA_LINKS}} · <a href="/study.html">← 返回自习室</a></p>
   </div></div></section>
 
   <section class="essays"><div class="container">
@@ -289,6 +302,13 @@ def build_one(note: dict, source_dir: Path, out_dir: Path, stats: dict) -> dict:
     src = source_dir / note["source"]
     text = src.read_text(encoding="utf-8")
 
+    # 发布前隐去个人信息；命中失败直接报错，避免带着手机号上线
+    for old, new in note.get("redact", []):
+        if old not in text:
+            raise RuntimeError(f"{note['slug']}: 待隐去的片段未命中: {old}")
+        text = text.replace(old, new)
+    publish_md = text  # 隐去个人信息后的发布版（下载副本用它）
+
     title = doc_title(text) or src.stem
     course = note["course"]
     slug = note["slug"]
@@ -311,10 +331,17 @@ def build_one(note: dict, source_dir: Path, out_dir: Path, stats: dict) -> dict:
     body = rewrite_anchors(body, stats)
 
     head_extra = KATEX_HEAD_EXTRA if math_stash else ""
+    extra_links = "".join(
+        f' · <a href="{html.escape(href)}">{html.escape(label)}</a>'
+        for label, href in note.get("downloads", [])
+    )
     page = PAGE_TEMPLATE
     for key, value in {
         "TITLE": html.escape(title),
         "COURSE": html.escape(course),
+        "KIND": html.escape(note.get("kind", "复习笔记")),
+        "TAG": html.escape(note.get("tag", "课程笔记")),
+        "EXTRA_LINKS": extra_links,
         "SLUG": slug,
         "MINUTES": str(minutes),
         "TOC": toc_html,
@@ -329,7 +356,11 @@ def build_one(note: dict, source_dir: Path, out_dir: Path, stats: dict) -> dict:
     html_path = out_dir / f"{slug}.html"
     html_path.write_text(page, encoding="utf-8")
     md_path = out_dir / f"{slug}.md"
-    shutil.copyfile(src, md_path)  # 原样拷贝, 供"下载 Markdown"
+    if note.get("redact"):
+        # 有隐去规则时不能直拷源文件，否则下载副本会把个人信息带出去
+        md_path.write_text(publish_md, encoding="utf-8", newline="")
+    else:
+        shutil.copyfile(src, md_path)  # 原样拷贝, 供"下载 Markdown"
 
     return {"html": html_path, "md": md_path, "minutes": minutes}
 
