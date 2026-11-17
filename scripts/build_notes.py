@@ -74,8 +74,20 @@ NOTES = [
         # 发到公网前隐去个人信息（红线：作业开源前清除个人信息），源文件不改
         "redact": [("（联系电话 18437861754）", "")],
         "downloads": [
-            ("逐页讲稿", "/assets/files/小组案例分析报告-演讲稿.md"),
-            ("汇报 PPT（9 页）", "/assets/files/小组案例分析报告-辰安科技.pptx"),
+            ("逐页讲稿", "/notes/chenan-case-script.html"),
+            ("PPT 幻灯片", "/notes/chenan-case-slides.html"),
+            ("下载 PPT", "/assets/files/小组案例分析报告-辰安科技.pptx"),
+        ],
+    },
+    {
+        "source": "创新与创业/小组案例分析报告-演讲稿.md",
+        "slug": "chenan-case-script",
+        "course": "Y_*创新与创业",
+        "kind": "小组作业",
+        "tag": "小组案例分析 · 讲稿",
+        "downloads": [
+            ("阅读正文", "/notes/chenan-case-report.html"),
+            ("PPT 幻灯片", "/notes/chenan-case-slides.html"),
         ],
     },
 ]
