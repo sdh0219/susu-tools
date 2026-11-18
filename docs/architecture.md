@@ -60,7 +60,7 @@ projects/*  ──link/mention──►  web/index.html  ──Cloudflare──�
 - **Releases**: tag + GitHub Release, named `<project>-v<semver>` (e.g. `bg-skin-v0.5.1`).
 - **No generic tool directory**: 第三方工具不做目录收录；精品安利写进随笔。
 - **自习室边界**: 只放自己整理的资料与本人作业；老师课件 / 教材 PDF / 真题原卷不上传。
-  作业开源前确认课程规定，并清除学号、姓名、教师评语等个人信息。
+  作业开源前确认课程规定，并清除学号、姓名、电话、教师评语等个人信息。
   作业走「孵化-毕业」：小作业留在自习室，完整的课程设计晋级进 `projects/`。
   学习资料源 md 统一放仓库外 `1_learning/rivew-应大/`，仓库只收生成产物。
 - **Secrets**: never commit keys / cookies / `*.db` / runtimes; run `scripts/secrets_scan.py`
@@ -76,6 +76,23 @@ mkdir projects/<kebab-name>
   → index.html 的「我的作品」加一张卡片
   → keep secrets & runtimes out of git
 ```
+
+### Publish study-room notes / coursework（自习室笔记与作业发布）
+
+```text
+1_learning/rivew-应大/<课程>/<作业>.md        ← 源稿（仓库外，含个人信息）
+  → scripts/build_notes.py                    ← 生成 notes/<slug>.html + study.json 卡片
+  → 公开版 redact 规则写在 NOTES 配置里        ← 电话/学号等红线信息只留本地源稿
+  → 下载件（pptx/md 副本）进 web/assets/files/
+  → web/sitemap.xml 登记新页
+  → python scripts/check_site.py              ← 门禁：全站本地引用可达
+```
+
+案例作业专题页示例（2026-11）：`notes/chenan-case-report.html`（报告）+
+`notes/chenan-case-slides.html`（PPT 在线翻页查看器，9 页 jpg 来自
+`assets/img/case-slides/`）+ `notes/chenan-case-script.html`（逐页讲稿），
+三页互链；生成的 PPT 成品在仓库外 `1_learning/rivew-应大/创新与创业/`，
+生成脚本基线归档在同目录 `ppt-src/`（README 记录版本差异）。
 
 ### Deploy topology
 
