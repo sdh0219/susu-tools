@@ -31,12 +31,12 @@ DEFAULT_OUT = REPO_ROOT / "web" / "notes"
 # slug / 课程名 —— 见任务说明
 NOTES = [
     {
-        "source": "习思想/一周复习冲刺文档.md",
+        "source": "新时代中国特色社会主义理论与实践研究/一周复习冲刺文档.md",
         "slug": "socialism-theory-sprint",
         "course": "Y_新时代中国特色社会主义理论与实践",
     },
     {
-        "source": "习思想/以题代练题库.md",
+        "source": "新时代中国特色社会主义理论与实践研究/以题代练题库.md",
         "slug": "socialism-theory-question-bank",
         "course": "Y_新时代中国特色社会主义理论与实践",
     },
@@ -46,13 +46,18 @@ NOTES = [
         "course": "Y_研究生综合英语",
     },
     {
-        "source": "论文写作道德/论文写作与学术道德规范-复习总结.md",
+        "source": "论文写作与学术道德规范/论文写作与学术道德规范-复习总结.md",
         "slug": "academic-writing-summary",
         "course": "Y_论文写作与学术道德规范",
     },
     {
         "source": "数值计算实验与数学建模/练习题-详细答案解析.md",
         "slug": "numerical-computing-exercises",
+        "course": "Y_数值计算实验与数学建模",
+    },
+    {
+        "source": "数值计算实验与数学建模/数值计算-复习速查手册.md",
+        "slug": "numerical-computing-quickref",
         "course": "Y_数值计算实验与数学建模",
     },
     {

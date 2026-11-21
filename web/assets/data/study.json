@@ -70,6 +70,17 @@
       "type": "notes",
       "course": "Y_数值计算实验与数学建模",
       "semester": "2026 秋",
+      "title": "复习速查手册",
+      "desc": "六部分导航：两类方法关注点、收敛判据与收敛阶、余项误差阶、五个计算题模板与真题演算、其他题型归并、一句话速记。",
+      "file": "/notes/numerical-computing-quickref.html",
+      "format": "图文讲义",
+      "date": "2026-11-20",
+      "tags": ["速查", "收敛阶", "公式"]
+    },
+    {
+      "type": "notes",
+      "course": "Y_数值计算实验与数学建模",
+      "semester": "2026 秋",
       "title": "复习思维导图（交互）",
       "desc": "全章节考点导图：点击节点折叠展开、滚轮缩放；星级 = 考点热度。",
       "file": "/mindmap.html?m=numerical-computing",
