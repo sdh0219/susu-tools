@@ -1528,7 +1528,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <td>二分</td>
 <td><code>while (b - a) / 2 &gt; tol</code></td>
 <td><code>while b - a &gt; tol</code></td>
-<td>判据宽了一倍，同样 tol 少迭代一轮</td>
+<td>漏掉 <code>/2</code>：判据<strong>严了一倍</strong>（误差界由 tol 收紧到 tol/2），同样 tol 会<strong>多</strong>迭代一轮，结果数值略有不同</td>
 </tr>
 <tr>
 <td>二分</td>
