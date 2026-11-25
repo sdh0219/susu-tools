@@ -450,7 +450,7 @@ img {
 
 /* ========== SECTION ========== */
 .section {
-  padding: 100px 0;
+  padding: 88px 0;
 }
 
 .section-header {
@@ -928,15 +928,26 @@ img {
 }
 
 /* ========== ANIMATIONS ========== */
+/* 渐进增强：默认可见；只有 JS 可用（html.js）才启用"滚动淡入"，
+   避免脚本失效/被拦截时作品卡片永久空白 */
 .fade-in {
+  opacity: 1;
+  transform: none;
+}
+
+.js .fade-in {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.fade-in.visible {
+.js .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .fade-in { opacity: 1; transform: none; transition: none; }
 }
 
 /* ========== NO RESULTS ========== */
@@ -1148,6 +1159,11 @@ img {
 .project-badge.incubating {
   color: var(--accent-orange);
   background: rgba(245, 158, 11, 0.12);
+}
+
+.project-badge.open {
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.14);
 }
 
 .project-card h3 {
@@ -1799,7 +1815,32 @@ input, textarea {
 }
 
 .course-group .tool-grid {
+  /* 弹性 + 居中：每组卡片数量不等（1~4 张），flex 让最后一行自动居中，
+     避免 grid 布局留下悬空的空位 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding-bottom: 0;
+}
+
+.course-group .tool-grid > .study-card {
+  flex: 1 1 320px;
+  max-width: calc((100% - 40px) / 3);
+}
+
+@media (max-width: 900px) {
+  .course-group .tool-grid > .study-card {
+    flex-basis: calc((100% - 20px) / 2);
+    max-width: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .course-group .tool-grid > .study-card {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
 
 .study-card--plain {

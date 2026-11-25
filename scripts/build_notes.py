@@ -126,7 +126,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
-  <script>(function(){try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <script>(function(){document.documentElement.className+=' js';try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
   <style>
     .note-toc { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 22px; margin: 20px 0 26px; }
     .note-toc-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
@@ -239,7 +239,6 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <footer class="footer"><div class="container"><p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p></div></footer>
 
   <script src="/assets/js/main.js"></script>
-  <script defer src="/assets/js/live2d.js"></script>
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>

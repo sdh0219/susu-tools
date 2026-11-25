@@ -125,6 +125,9 @@
     };
 
     body.appendChild(mkToggle('fxToggle', '✨ 氛围', 'susu-fx', 'susu-fx-changed'));
-    body.appendChild(mkToggle('dmToggle', '💬 弹幕', 'susu-danmaku', 'susu-danmaku-changed'));
+    /* 弹幕开关只在本页真的加载了弹幕（有输入框）时出现，避免阅读页出现无效开关 */
+    if (document.querySelector('.danmaku-input')) {
+      body.appendChild(mkToggle('dmToggle', '💬 弹幕', 'susu-danmaku', 'susu-danmaku-changed'));
+    }
   }
 })();
