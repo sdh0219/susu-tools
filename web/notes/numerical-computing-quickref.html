@@ -78,7 +78,7 @@
       <div class="essay-head">
         <span class="essay-num" aria-hidden="true">📖</span>
         <div class="essay-title-wrap"><h2>数值计算复习速查手册</h2>
-        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 56 分钟</span></div></div>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 62 分钟</span></div></div>
       </div>
       <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li><a href="#_2">一、两类方法各自关注什么</a></li><li><a href="#_3">二、求解方程类：收敛判据 + 收敛阶</a><ul><li><a href="#a-1">表 A-1 非线性方程求根</a></li><li><a href="#a-2">表 A-2 线性方程组迭代法</a></li><li><a href="#a-3">表 A-3 常微分方程数值解</a></li><li><a href="#p">收敛阶 p 怎么求</a></li></ul></li><li><a href="#_4">三、逼近函数类：余项 / 误差阶 / 精度</a><ul><li><a href="#b-1">表 B-1 插值与拟合</a></li><li><a href="#b-2">表 B-2 数值积分</a></li><li><a href="#_5">误差与精度怎么了解（通用口径）</a></li></ul></li><li><a href="#_6">四、五个计算题的做题模板 + 真题演练</a><ul><li><a href="#0">0. 考场通用答题规范</a></li><li><a href="#1-newton">1. 牛顿迭代法（Newton）</a></li><li><a href="#2-ludoolittle">2. LU（Doolittle）分解法</a></li></ul></li><li><a href="#u3323">&amp;gt; 注：本题 u₃₃=−23 是负主元，分解照样成立，不必怀疑算错。</a><ul><li><a href="#3">3. 牛顿插值法（差商）</a></li><li><a href="#4">4. 复化辛普森法</a></li></ul></li><li><a href="#h025">&amp;gt; 同型题的差别只在被积函数，四等分与 h=0.25 完全一样，可直接照模板套。</a><ul><li><a href="#5-">5. 改进欧拉法（预估-校正）</a></li><li><a href="#6-60">6. 五方法通用检查清单（交卷前 60 秒）</a></li></ul></li><li><a href="#_7">五、选择题 / 判断题 / 辨析题 / 纠错题 · 两套卷归并</a><ul><li><a href="#1-12">1. 选择题（12 题，按考点合并）</a></li><li><a href="#2-20">2. 判断题（20 题，按章归并）</a></li><li><a href="#3-6">3. 综合辨析题（6 题，两套高度同型）</a></li><li><a href="#4-2">4. 算法纠错题（2 题，均为课件代码同型）</a></li><li><a href="#5">5. 两套卷答案速查（自测对答案用）</a></li><li><a href="#6-5">6. 四类题型的通用打法（前 5 节怎么用）</a></li></ul></li><li><a href="#_8">六、一句话速记</a></li></ul></nav>
       <div class="essay-body"><h2 id="_1">数值计算复习速查手册</h2>
@@ -1870,6 +1870,190 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </tbody>
 </table>
 <p>用法：<strong>题里若附了运行结果，先对这张表锁定 1–2 处，剩下按 6.4 的四查逐行比原写法；题里没附结果，就直接按 6.4 走。</strong> 纠错题本质不是审代码，是「比原写法 + 认症状」。</p>
+<h5 id="46">4.6 二分法纠错专项（课件原码 + 两套卷格式）</h5>
+<blockquote>
+<p>出处：《第二章 非线性方程求根01》第 3 页给了二分法原码；《核心章节必会知识点梳理》第 7 页给了误差界与迭代次数公式；《总结-复习》第 4 页给了 Step1–4 与例题。「五、算法纠错题」在两套卷里都是 <strong>6 分、恰好三处缺陷、要求行号 + 原因 + 修正语句</strong>。</p>
+</blockquote>
+<h6 id="461">4.6.1 课件原版（考试对照基准，务必逐行记住）</h6>
+<pre><code class="language-python">1  def bisection(f, a, b, tol=1e-6):
+2      if f(a) * f(b) &gt;= 0:
+3          raise ValueError(&quot;端点需异号&quot;)
+4      while (b - a) / 2 &gt; tol:
+5          c = (a + b) / 2
+6          if f(a) * f(c) &lt; 0:
+7              b = c
+8          else:
+9              a = c
+10     return (a + b) / 2
+</code></pre>
+<p>每行对应的公式：</p>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2–3</td>
+<td>前提：连续 + 端点异号 $f(a)f(b)&lt;0$，不满足直接报错（教材写 <code>&gt;= 0</code> 才严谨）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>停机判据用<strong>中点误差界</strong> $\frac{b-a}{2}$，与理论界 $\lvert x_n-x^*\rvert\le\frac{b-a}{2^{n+1}}$ 一致</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Step 1：取中点</td>
+</tr>
+<tr>
+<td>6–7</td>
+<td>Step 3：$f(a)f(c)&lt;0$ ⇒ 根在 $[a,c]$ ⇒ <strong>$b=c$</strong></td>
+</tr>
+<tr>
+<td>8–9</td>
+<td>Step 4：否则根在 $[c,b]$ ⇒ <strong>$a=c$</strong></td>
+</tr>
+<tr>
+<td>10</td>
+<td>返回<strong>中点</strong>，误差界才是上面那个 $2^{n+1}$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>课件这版的短板</strong>：只有 <code>while</code>、没有 <code>max_iter</code>，也不返回迭代次数与收敛状态 → 属 4.4.2 的「缺失型」。</p>
+<h6 id="462-a6">4.6.2 模拟题 A（6 分，仿卷一：逻辑与健壮型）</h6>
+<blockquote>
+<p>下面 Python 代码意图实现二分法求 $f(x)=0$ 的实根，含三处缺陷，覆盖收敛判据、区间更新逻辑与前提检查。请标出缺陷行号、说明原因并写出修正语句。</p>
+</blockquote>
+<pre><code class="language-python">1  def bisection(f, a, b, tol=1e-6):
+2      if f(a) * f(b) &gt; 0:
+3          raise ValueError(&quot;端点需异号&quot;)
+4      while b - a &gt; tol:
+5          c = (a + b) / 2
+6          if f(a) * f(c) &gt; 0:
+7              b = c
+8          else:
+9              a = c
+10     return (a + b) / 2
+</code></pre>
+<p><strong>标准答案</strong></p>
+<table>
+<thead>
+<tr>
+<th>行号</th>
+<th>错误</th>
+<th>原因</th>
+<th>修正语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><code>&gt;</code> 应为 <code>&gt;=</code></td>
+<td>前提是「必须严格异号」。写成 <code>&gt;</code> 时，端点恰为根（$f(a)f(b)=0$）不报错，程序仍在根已被排除的区间里二分</td>
+<td><code>if f(a) * f(b) &gt;= 0:</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>漏 <code>/ 2</code></td>
+<td>判据原本判的是<strong>中点误差</strong>；改成区间长度后判据严一倍，误差界由 $tol$ 收到 $tol/2$，同样 $tol$ 会多迭代一轮</td>
+<td><code>while (b - a) / 2 &gt; tol:</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>&lt; 0</code> 写成 <code>&gt; 0</code></td>
+<td>$f(a)f(c)&gt;0$ 表示两端同号、根<strong>不在</strong> $[a,c]$，此时令 $b=c$ 就把含根的一半丢掉了，越算越偏</td>
+<td><code>if f(a) * f(c) &lt; 0:</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>实测后果</strong>（$f=x-\cos x$、$[0,1]$、$tol=10^{-6}$、真根 0.7390851332）：正确版 19 轮得 0.7390852；此题版本 <strong>20 轮</strong>返回 <strong>0.0000004768</strong>，误差 $7.4\times10^{-1}$——「正常退出、结果错到底」，是这类题最典型的陷阱。</p>
+<h6 id="463-b6">4.6.3 模拟题 B（6 分，仿卷二：系数/边界型）</h6>
+<blockquote>
+<p>下面 Python 代码意图实现二分法，含恰好三处关键缺陷。请标出所在行号，说明错误原因并写出修正语句。</p>
+</blockquote>
+<pre><code class="language-python">1  def bisection(f, a, b, tol=1e-6):
+2      if f(a) * f(b) &gt;= 0:
+3          raise ValueError(&quot;端点需异号&quot;)
+4      while (b - a) / 2 &gt; tol:
+5          c = a + b / 2
+6          if f(a) * f(c) &lt; 0:
+7              b = c
+8          else:
+9              a = c
+10     return a + b
+</code></pre>
+<p><strong>标准答案</strong></p>
+<table>
+<thead>
+<tr>
+<th>行号</th>
+<th>错误</th>
+<th>原因</th>
+<th>修正语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>运算符优先级：<code>a + b / 2</code></td>
+<td>先算 <code>b/2</code> 再与 <code>a</code> 相加；$a\neq0$ 后中点会落到区间外（如 $[0.5,1]$ 时 $c=1$），区间不再收窄 → <strong>死循环</strong></td>
+<td><code>c = (a + b) / 2</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td>返回 <code>a + b</code></td>
+<td>忘除 2，返回值约为根的 2 倍（端点误差被放大），且不再是中点</td>
+<td><code>return (a + b) / 2</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>只有区间判据、无步数上限（缺失型）</td>
+<td>第 5 行一旦写错就无限循环，程序既不退出也不报错，无法发现</td>
+<td>改 <code>for _ in range(max_iter):</code>，并返回 <code>(root, k, converged)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键提醒</strong>：这三处会互相掩盖——第 5 行导致卡死，第 10 行的「两倍」根本跑不到，第 4 行让程序永远不会告诉你出事了。<strong>考场若给了运行结果“程序不结束”，就是这条链。</strong></p>
+<h6 id="464">4.6.4 二分专属症状反查</h6>
+<table>
+<thead>
+<tr>
+<th>看到的症状</th>
+<th>缺陷</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结果 ≈ 左端点 $a$ 或 ≈ 右端点 $b$（如 0.0000005、0.9999990）</td>
+<td>第 6 行符号方向反 / 两支互换 / 只更新一支</td>
+</tr>
+<tr>
+<td>结果正好是正确值的 2 倍</td>
+<td>第 10 行 <code>return</code> 忘除 2</td>
+</tr>
+<tr>
+<td>迭代次数比手算多一轮</td>
+<td>第 4 行判据漏 <code>/2</code></td>
+</tr>
+<tr>
+<td>程序卡死、区间长度不再变小</td>
+<td>第 5 行中点写错（<code>a+b/2</code>）、只更新一支、无 <code>max_iter</code></td>
+</tr>
+<tr>
+<td>一调用就 <code>ValueError</code></td>
+<td>第 2 行被改成 <code>&gt; 0</code>（正常异号区间误报）</td>
+</tr>
+</tbody>
+</table>
+<h6 id="465">4.6.5 若题目问「至少二分多少次」</h6>
+<p>教材公式（梳理册第 7 页）：</p>
+<div class="math-block">n \ge \log_2\frac{b-a}{\varepsilon} - 1</div>
+<p>由 $\lvert x_n-x^*\rvert\le\dfrac{b-a}{2^{n+1}}\le\varepsilon$ 反解而来，<strong>向上取整</strong>。</p>
+<p>校验：课件《总结-复习》例题 $f(x)=x^3-x-1$、$[1,2]$、要求 $\lvert\cdot\rvert&lt;10^{-4}$：</p>
+<div class="math-block">n \ge \log_2\frac{1}{10^{-4}}-1 = 13.29-1 = 12.29 \Rightarrow n = 13</div>
+<p>与课件写的「继续二分到 $k=13$，得 $x^*\approx1.3247$（误差 $&lt;10^{-4}$）」完全一致——<strong>这条公式可以直接背，考场问次数就套它</strong>。</p>
 <h4 id="5">5. 两套卷答案速查（自测对答案用）</h4>
 <table>
 <thead>
