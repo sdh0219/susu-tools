@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -88,7 +119,7 @@
 </blockquote>
 <hr />
 <h3 id="5">课程总览（5 讲框架）</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>讲</th>
@@ -98,32 +129,32 @@
 </thead>
 <tbody>
 <tr>
-<td>第1讲</td>
-<td>绪论</td>
-<td>科技论文概述、学位论文概述、文献检索的意义、学术道德规范的意义</td>
+<td data-label="讲">第1讲</td>
+<td data-label="主题">绪论</td>
+<td data-label="核心内容">科技论文概述、学位论文概述、文献检索的意义、学术道德规范的意义</td>
 </tr>
 <tr>
-<td>第2讲</td>
-<td>科技论文写作</td>
-<td>选题；结构（题名/署名/摘要/关键词/引言/正文/结论/致谢/参考文献/附录）；表达方式与注意事项</td>
+<td data-label="讲">第2讲</td>
+<td data-label="主题">科技论文写作</td>
+<td data-label="核心内容">选题；结构（题名/署名/摘要/关键词/引言/正文/结论/致谢/参考文献/附录）；表达方式与注意事项</td>
 </tr>
 <tr>
-<td>第3讲</td>
-<td>学位论文写作</td>
-<td>选题与开题报告；组成结构与写作要求；表达方式</td>
+<td data-label="讲">第3讲</td>
+<td data-label="主题">学位论文写作</td>
+<td data-label="核心内容">选题与开题报告；组成结构与写作要求；表达方式</td>
 </tr>
 <tr>
-<td>第4讲</td>
-<td>文献检索</td>
-<td>检索类型；步骤、方法、途径；检索语言和工具</td>
+<td data-label="讲">第4讲</td>
+<td data-label="主题">文献检索</td>
+<td data-label="核心内容">检索类型；步骤、方法、途径；检索语言和工具</td>
 </tr>
 <tr>
-<td>第5讲</td>
-<td>学术道德规范</td>
-<td>规范内容及制度；学术不端行为及原因；规范建设途径</td>
+<td data-label="讲">第5讲</td>
+<td data-label="主题">学术道德规范</td>
+<td data-label="核心内容">规范内容及制度；学术不端行为及原因；规范建设途径</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h2 id="1">第 1 讲 绪论</h2>
 <h3 id="11">1.1 科技论文概述</h3>
@@ -385,7 +416,7 @@
 <li><strong>1984 年以后——新的发展时期</strong>（1984 年教育部下达《关于在高等学校开设文献检索与利用课的意见》；1985 年提出"<strong>逐步实现分层次连续教育</strong>"；1992 年 5 月原国家教委印发《文献检索课教学基本要求》；1996 年成立全国文献检索课教学指导小组；90 年代中期 700 多所高校开课、600 多种教材；1992 年 11 月《国家标准学科分类代码》将文献检索学列为独立三级学科；1988 年教育部规定 218 种专业须掌握文献检索基本方法）。</li>
 </ol>
 <h4 id="_14">检索类型三维度（易混）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>划分标准</th>
@@ -394,19 +425,19 @@
 </thead>
 <tbody>
 <tr>
-<td>按手段</td>
-<td>人工检索 / 非人工检索</td>
+<td data-label="划分标准">按手段</td>
+<td data-label="类型">人工检索 / 非人工检索</td>
 </tr>
 <tr>
-<td>按载体形式</td>
-<td>印刷型（纸张，便读便流传但存贮密度低、体积笨重）/ 机读型（磁性材料：文档、数据库、光盘；密度高、速度快、可更新但需设备、费用高）/ 声像型（录像带、唱片、录音带等；直观真切、形象生动）</td>
+<td data-label="划分标准">按载体形式</td>
+<td data-label="类型">印刷型（纸张，便读便流传但存贮密度低、体积笨重）/ 机读型（磁性材料：文档、数据库、光盘；密度高、速度快、可更新但需设备、费用高）/ 声像型（录像带、唱片、录音带等；直观真切、形象生动）</td>
 </tr>
 <tr>
-<td>按检出结果</td>
-<td><strong>书目检索</strong>（得到题名、作者、摘要、出处等线索信息）/ <strong>全文检索</strong>（直接得到全文或句子、章节、段落）/ <strong>引文检索</strong>（检出文献被引用情况，用于分析评价文献质量）</td>
+<td data-label="划分标准">按检出结果</td>
+<td data-label="类型"><strong>书目检索</strong>（得到题名、作者、摘要、出处等线索信息）/ <strong>全文检索</strong>（直接得到全文或句子、章节、段落）/ <strong>引文检索</strong>（检出文献被引用情况，用于分析评价文献质量）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="42">4.2 步骤、方法和途径</h3>
 <h4 id="4_3">步骤（4 步，简答）</h4>
 <p>①明确查找目的与要求 → ②选择检索工具 → ③确定检索途径和方法 → ④根据文献线索，查阅原始文献。</p>
@@ -476,7 +507,7 @@
 <li><strong>公开透明</strong>：在保守秘密及个人隐私前提下，将学术活动的内容、结果、程序、规则公之于众；正确处理公开透明与保守秘密的关系。</li>
 </ol>
 <h4 id="_18">相关制度时间线（论述/填空高频）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>时间</th>
@@ -485,63 +516,63 @@
 </thead>
 <tbody>
 <tr>
-<td>2004.8</td>
-<td>教育部颁布<strong>建国以来第一部</strong>《高等学校哲学社会科学研究学术规范（试行）》</td>
+<td data-label="时间">2004.8</td>
+<td data-label="制度">教育部颁布<strong>建国以来第一部</strong>《高等学校哲学社会科学研究学术规范（试行）》</td>
 </tr>
 <tr>
-<td>2007.1</td>
-<td>中国科协《科技工作者科学道德规范（试行）》</td>
+<td data-label="时间">2007.1</td>
+<td data-label="制度">中国科协《科技工作者科学道德规范（试行）》</td>
 </tr>
 <tr>
-<td>2008.7.1</td>
-<td>《科学技术进步法》施行：<strong>首次以法的形式明确建立科技人员学术诚信档案</strong></td>
+<td data-label="时间">2008.7.1</td>
+<td data-label="制度">《科学技术进步法》施行：<strong>首次以法的形式明确建立科技人员学术诚信档案</strong></td>
 </tr>
 <tr>
-<td>2009.3</td>
-<td>教育部《关于严肃处理高等学校学术不端行为的通知》：列举<strong>七种</strong>学术不端行为</td>
+<td data-label="时间">2009.3</td>
+<td data-label="制度">教育部《关于严肃处理高等学校学术不端行为的通知》：列举<strong>七种</strong>学术不端行为</td>
 </tr>
 <tr>
-<td>2010.2</td>
-<td>国务院学位委员会《关于在学位授予工作中加强学术道德和学术规范建设的意见》：必须严肃处理的舞弊作伪行为 4 种——①不正当手段获取成绩；②学位论文或在学期间发表学术论文存在学术不端；③<strong>购买或由他人代写学位论文</strong>；④其他学术舞弊作伪</td>
+<td data-label="时间">2010.2</td>
+<td data-label="制度">国务院学位委员会《关于在学位授予工作中加强学术道德和学术规范建设的意见》：必须严肃处理的舞弊作伪行为 4 种——①不正当手段获取成绩；②学位论文或在学期间发表学术论文存在学术不端；③<strong>购买或由他人代写学位论文</strong>；④其他学术舞弊作伪</td>
 </tr>
 <tr>
-<td>2012</td>
-<td>中国科协、教育部、中科院、社科院、工程院联合召开全国科学道德和学风建设宣讲工作会议："<strong>全覆盖、制度化、重实效</strong>"</td>
+<td data-label="时间">2012</td>
+<td data-label="制度">中国科协、教育部、中科院、社科院、工程院联合召开全国科学道德和学风建设宣讲工作会议："<strong>全覆盖、制度化、重实效</strong>"</td>
 </tr>
 <tr>
-<td>2016.7</td>
-<td>教育部《高等学校预防与处理学术不端行为办法》</td>
+<td data-label="时间">2016.7</td>
+<td data-label="制度">教育部《高等学校预防与处理学术不端行为办法》</td>
 </tr>
 <tr>
-<td>2018.5</td>
-<td>《关于进一步加强科研诚信建设的若干意见》：科研活动<strong>全流程诚信管理</strong>、科研诚信承诺制、科研诚信审核、深化科研评价制度改革、联合惩戒等</td>
+<td data-label="时间">2018.5</td>
+<td data-label="制度">《关于进一步加强科研诚信建设的若干意见》：科研活动<strong>全流程诚信管理</strong>、科研诚信承诺制、科研诚信审核、深化科研评价制度改革、联合惩戒等</td>
 </tr>
 <tr>
-<td>2019.10</td>
-<td>科技部等多部委《科研诚信案件调查处理规则（试行）》</td>
+<td data-label="时间">2019.10</td>
+<td data-label="制度">科技部等多部委《科研诚信案件调查处理规则（试行）》</td>
 </tr>
 <tr>
-<td>2020.7</td>
-<td>科技部《关于进一步压实国家科技计划任务承担单位科研作风学风和科研诚信主体责任的通知》</td>
+<td data-label="时间">2020.7</td>
+<td data-label="制度">科技部《关于进一步压实国家科技计划任务承担单位科研作风学风和科研诚信主体责任的通知》</td>
 </tr>
 <tr>
-<td>2025</td>
-<td>《科研诚信案件调查处理规则》修订：<strong>增加买卖实验研究数据、无实质学术贡献署名、重复发表等 7 种科研失信行为</strong>；查处论文买卖、代写、代投第三方机构；弄虚作假获得科技伦理审查批准等属于科研失信</td>
+<td data-label="时间">2025</td>
+<td data-label="制度">《科研诚信案件调查处理规则》修订：<strong>增加买卖实验研究数据、无实质学术贡献署名、重复发表等 7 种科研失信行为</strong>；查处论文买卖、代写、代投第三方机构；弄虚作假获得科技伦理审查批准等属于科研失信</td>
 </tr>
 <tr>
-<td><strong>2026.5</strong></td>
-<td>教育部《关于加强高等学校科研诚信建设和学术不端治理的指导意见》：<strong>高校是学术不端行为预防与处理的主体，党政主要负责人是第一责任人</strong>；将科研诚信和科技伦理教育纳入人才培养方案，在学生入学、奖励评优、研究生推免等关键节点开展专门学术规范教育，扣好"<strong>第一粒扣子</strong>"；对"论文代写买卖""有组织打招呼"等严重学术不端<strong>从严从重</strong>处理；高校网站开设学风建设专栏，公开调查处理结果且<strong>必须长期保留</strong></td>
+<td data-label="时间"><strong>2026.5</strong></td>
+<td data-label="制度">教育部《关于加强高等学校科研诚信建设和学术不端治理的指导意见》：<strong>高校是学术不端行为预防与处理的主体，党政主要负责人是第一责任人</strong>；将科研诚信和科技伦理教育纳入人才培养方案，在学生入学、奖励评优、研究生推免等关键节点开展专门学术规范教育，扣好"<strong>第一粒扣子</strong>"；对"论文代写买卖""有组织打招呼"等严重学术不端<strong>从严从重</strong>处理；高校网站开设学风建设专栏，公开调查处理结果且<strong>必须长期保留</strong></td>
 </tr>
 <tr>
-<td>2026</td>
-<td>中国社会科学院《人工智能辅助科研基本规范（试行）》：划定 <strong>10 条刚性"禁用红线"</strong>（严禁隐瞒虚报或不如实披露 AI 使用情况；严禁由 AI 完全替代科研工作；严禁利用 AI 实施洗稿、抄袭、剽窃等）。中国学位与研究生教育学会《研究生学位论文 AI 使用指南》：<strong>学位申请人是 AI 工具使用的第一责任人</strong>，指导教师负有指导与审查责任，<strong>核心论点和创新贡献必须由学位申请人自主提出并完成</strong></td>
+<td data-label="时间">2026</td>
+<td data-label="制度">中国社会科学院《人工智能辅助科研基本规范（试行）》：划定 <strong>10 条刚性"禁用红线"</strong>（严禁隐瞒虚报或不如实披露 AI 使用情况；严禁由 AI 完全替代科研工作；严禁利用 AI 实施洗稿、抄袭、剽窃等）。中国学位与研究生教育学会《研究生学位论文 AI 使用指南》：<strong>学位申请人是 AI 工具使用的第一责任人</strong>，指导教师负有指导与审查责任，<strong>核心论点和创新贡献必须由学位申请人自主提出并完成</strong></td>
 </tr>
 <tr>
-<td>—</td>
-<td>中科院《院士科学道德自律准则》（2001）、《科技工作者行为准则（试行）》（2002）</td>
+<td data-label="时间">—</td>
+<td data-label="制度">中科院《院士科学道德自律准则》（2001）、《科技工作者行为准则（试行）》（2002）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="52">5.2 学术不端行为及其原因</h3>
 <h4 id="_19">定义（名词解释）</h4>
 <ul>
@@ -549,7 +580,7 @@
 <li>中国定义含义更广。中国科协 2007 年定义："在科学研究和学术活动中的各种<strong>造假、抄袭、剽窃</strong>和其他违背科学共同体惯例的行为。"</li>
 </ul>
 <h4 id="7">主要表现形式（7 种 + 其他，必背）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>行为</th>
@@ -558,39 +589,39 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>捏造</strong></td>
-<td>凭主观臆测假造事实：编造杜撰数据或结果；虚假陈述（项目申请、求职提职、学位申请中虚报文章数引文数）；提供虚假证书证明；伪造专家签名</td>
+<td data-label="行为"><strong>捏造</strong></td>
+<td data-label="要点">凭主观臆测假造事实：编造杜撰数据或结果；虚假陈述（项目申请、求职提职、学位申请中虚报文章数引文数）；提供虚假证书证明；伪造专家签名</td>
 </tr>
 <tr>
-<td><strong>篡改</strong></td>
-<td>用作伪手段改动或曲解观点、数据：故意取舍实验数据、改动图片图像使之带误导性欺骗性</td>
+<td data-label="行为"><strong>篡改</strong></td>
+<td data-label="要点">用作伪手段改动或曲解观点、数据：故意取舍实验数据、改动图片图像使之带误导性欺骗性</td>
 </tr>
 <tr>
-<td><strong>剽窃抄袭</strong></td>
-<td>窃取别人作品：雇"枪手"；引用未公开成果不作注释；虽标注但引用部分构成自己作品的<strong>主要内容或实质内容</strong>；故意漏引错引</td>
+<td data-label="行为"><strong>剽窃抄袭</strong></td>
+<td data-label="要点">窃取别人作品：雇"枪手"；引用未公开成果不作注释；虽标注但引用部分构成自己作品的<strong>主要内容或实质内容</strong>；故意漏引错引</td>
 </tr>
 <tr>
-<td><strong>违反科研伦理</strong></td>
-<td>医学试验违反知情同意与知情选择，侵犯受试者人格隐私；虐待实验动物</td>
+<td data-label="行为"><strong>违反科研伦理</strong></td>
+<td data-label="要点">医学试验违反知情同意与知情选择，侵犯受试者人格隐私；虐待实验动物</td>
 </tr>
 <tr>
-<td><strong>一稿多投</strong></td>
-<td>违反再次投送期限，将<strong>同一作品、同一种语言</strong>向两个以上期刊社投稿</td>
+<td data-label="行为"><strong>一稿多投</strong></td>
+<td data-label="要点">违反再次投送期限，将<strong>同一作品、同一种语言</strong>向两个以上期刊社投稿</td>
 </tr>
 <tr>
-<td><strong>重复发表</strong></td>
-<td>将<strong>本质上相同的作品改头换面</strong>或分解为多篇再次登载</td>
+<td data-label="行为"><strong>重复发表</strong></td>
+<td data-label="要点">将<strong>本质上相同的作品改头换面</strong>或分解为多篇再次登载</td>
 </tr>
 <tr>
-<td><strong>不当署名</strong></td>
-<td>署名与学术贡献不符：将未做实质性贡献者署名；领导、资金提供者挂名</td>
+<td data-label="行为"><strong>不当署名</strong></td>
+<td data-label="要点">署名与学术贡献不符：将未做实质性贡献者署名；领导、资金提供者挂名</td>
 </tr>
 <tr>
-<td>其他</td>
-<td>虚报冒领科研经费；故意损坏强占扣压仪器设备数据；拖延审查评价；骗取科研奖励荣誉等</td>
+<td data-label="行为">其他</td>
+<td data-label="要点">虚报冒领科研经费；故意损坏强占扣压仪器设备数据；拖延审查评价；骗取科研奖励荣誉等</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4 id="_20">案例（可能考"举一个学术不端案例"）</h4>
 <ol>
 <li><strong>不当署名</strong>：上海松江中心医院李岩松——投稿前未获所有作者知情同意 → 撤稿、通报、取消课题申报资格 1 年等。</li>
@@ -635,7 +666,7 @@
 <li><strong>开题报告</strong>：开题者对研究课题的文字说明材料，向立项单位/导师及专家陈述课题概况，征求意见并评议是否批准选题。</li>
 </ol>
 <h3 id="b">B. 数字速记卡</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>数字</th>
@@ -644,99 +675,99 @@
 </thead>
 <tbody>
 <tr>
-<td>3 类</td>
-<td>GB/T 7713—1987 科技论文三分法（学位论文、学术论文、科学技术报告）</td>
+<td data-label="数字">3 类</td>
+<td data-label="内容">GB/T 7713—1987 科技论文三分法（学位论文、学术论文、科学技术报告）</td>
 </tr>
 <tr>
-<td>4 特点</td>
-<td>学术性、科学性、创新性、理论性</td>
+<td data-label="数字">4 特点</td>
+<td data-label="内容">学术性、科学性、创新性、理论性</td>
 </tr>
 <tr>
-<td>3 级</td>
-<td>学士（初步能力）/ 硕士（新见解、独立能力）/ 博士（创造性成果）</td>
+<td data-label="数字">3 级</td>
+<td data-label="内容">学士（初步能力）/ 硕士（新见解、独立能力）/ 博士（创造性成果）</td>
 </tr>
 <tr>
-<td>1980.2.12</td>
-<td>《学位条例》通过，1981.1.1 施行</td>
+<td data-label="数字">1980.2.12</td>
+<td data-label="内容">《学位条例》通过，1981.1.1 施行</td>
 </tr>
 <tr>
-<td>4 等级</td>
-<td>零次 / 一次 / 二次 / 三次文献</td>
+<td data-label="数字">4 等级</td>
+<td data-label="内容">零次 / 一次 / 二次 / 三次文献</td>
 </tr>
 <tr>
-<td>≤20 字</td>
-<td>题名一般不宜超过 20 字</td>
+<td data-label="数字">≤20 字</td>
+<td data-label="内容">题名一般不宜超过 20 字</td>
 </tr>
 <tr>
-<td>200~300 / 50~100 / 100~200 字</td>
-<td>报道性 / 指示性 / 报道—指示性摘要</td>
+<td data-label="数字">200~300 / 50~100 / 100~200 字</td>
+<td data-label="内容">报道性 / 指示性 / 报道—指示性摘要</td>
 </tr>
 <tr>
-<td>3~8 个</td>
-<td>关键词</td>
+<td data-label="数字">3~8 个</td>
+<td data-label="内容">关键词</td>
 </tr>
 <tr>
-<td>4 类</td>
-<td>摘要内容：目的、方法、结果、结论（重点结果结论）</td>
+<td data-label="数字">4 类</td>
+<td data-label="内容">摘要内容：目的、方法、结果、结论（重点结果结论）</td>
 </tr>
 <tr>
-<td>3 原则</td>
-<td>参考文献著录：最必要最新、公开发表、标准化格式</td>
+<td data-label="数字">3 原则</td>
+<td data-label="内容">参考文献著录：最必要最新、公开发表、标准化格式</td>
 </tr>
 <tr>
-<td>2 种</td>
-<td>著录方法：顺序编码制（国内期刊常用）、著者-出版年制</td>
+<td data-label="数字">2 种</td>
+<td data-label="内容">著录方法：顺序编码制（国内期刊常用）、著者-出版年制</td>
 </tr>
 <tr>
-<td>2025.12.2 / 2026.7.1</td>
-<td>GB/T 7714—2025 发布 / 实施</td>
+<td data-label="数字">2025.12.2 / 2026.7.1</td>
+<td data-label="内容">GB/T 7714—2025 发布 / 实施</td>
 </tr>
 <tr>
-<td>4 步</td>
-<td>检索步骤：目的要求→工具→途径方法→查阅原文</td>
+<td data-label="数字">4 步</td>
+<td data-label="内容">检索步骤：目的要求→工具→途径方法→查阅原文</td>
 </tr>
 <tr>
-<td>3+1 法</td>
-<td>直接法（顺查/倒查/抽查）+ 追溯法 + 循环法</td>
+<td data-label="数字">3+1 法</td>
+<td data-label="内容">直接法（顺查/倒查/抽查）+ 追溯法 + 循环法</td>
 </tr>
 <tr>
-<td>8 种</td>
-<td>检索途径：著者、题名、分类、主题、引文、序号、代码、专门项目</td>
+<td data-label="数字">8 种</td>
+<td data-label="内容">检索途径：著者、题名、分类、主题、引文、序号、代码、专门项目</td>
 </tr>
 <tr>
-<td>五大部类 22 大类</td>
-<td>《中国图书馆图书分类法》"五分法"</td>
+<td data-label="数字">五大部类 22 大类</td>
+<td data-label="内容">《中国图书馆图书分类法》"五分法"</td>
 </tr>
 <tr>
-<td>7 部分</td>
-<td>开题报告内容（题名、意义、研究现状、内容与方法、创新点、计划、参考文献）</td>
+<td data-label="数字">7 部分</td>
+<td data-label="内容">开题报告内容（题名、意义、研究现状、内容与方法、创新点、计划、参考文献）</td>
 </tr>
 <tr>
-<td>4 准则词</td>
-<td>学术道德基本准则：诚实守信、公平公正、公开透明</td>
+<td data-label="数字">4 准则词</td>
+<td data-label="内容">学术道德基本准则：诚实守信、公平公正、公开透明</td>
 </tr>
 <tr>
-<td>7 种</td>
-<td>主要学术不端行为：捏造、篡改、剽窃抄袭、违反科研伦理、一稿多投、重复发表、不当署名</td>
+<td data-label="数字">7 种</td>
+<td data-label="内容">主要学术不端行为：捏造、篡改、剽窃抄袭、违反科研伦理、一稿多投、重复发表、不当署名</td>
 </tr>
 <tr>
-<td>4 条</td>
-<td>学术不端原因：价值观扭曲（根本）、教育不到位（重要）、评价机制不完善（关联）、风险低成本高收益（直接诱因）</td>
+<td data-label="数字">4 条</td>
+<td data-label="内容">学术不端原因：价值观扭曲（根本）、教育不到位（重要）、评价机制不完善（关联）、风险低成本高收益（直接诱因）</td>
 </tr>
 <tr>
-<td>6 条</td>
-<td>学术道德建设途径</td>
+<td data-label="数字">6 条</td>
+<td data-label="内容">学术道德建设途径</td>
 </tr>
 <tr>
-<td>1884 / 1978 / 1999.6</td>
-<td>EI 创刊 / ISTP 创刊 / 中国知网始建</td>
+<td data-label="数字">1884 / 1978 / 1999.6</td>
+<td data-label="内容">EI 创刊 / ISTP 创刊 / 中国知网始建</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="c">C. 法规与事件时间线（一条线记牢）</h3>
 <p>1948 香农信息论 → 1961《著作权法》施行为 1991.6.1 → 1980《学位条例》→ 1984 教育部文献检索课文件 → 2004 首部高校社科研究学术规范 → 2007 科协科学道德规范 → 2008《科学技术进步法》诚信档案 → 2009 教育部七种不端通知 → 2010 学位授予舞弊处理意见 → 2012 宣讲"全覆盖制度化重实效" → 2016 高校预防处理学术不端办法 → 2018 科研诚信若干意见 → 2019 调查处理规则 → 2020 主体责任通知 → 2025 规则修订（+7 种失信）→ 2026.5 教育部指导意见（高校主体、第一责任人）→ 2026 AI 辅助科研规范（10 条红线）+ 学位论文 AI 使用指南。</p>
 <h3 id="d">D. 易混对比</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>对比</th>
@@ -745,55 +776,55 @@
 </thead>
 <tbody>
 <tr>
-<td>学术论文 vs 一般议论文</td>
-<td>内容的专业性、系统性（内容是辨别最重要标准）</td>
+<td data-label="对比">学术论文 vs 一般议论文</td>
+<td data-label="区别要点">内容的专业性、系统性（内容是辨别最重要标准）</td>
 </tr>
 <tr>
-<td>标准 vs 规范</td>
-<td>标准 = 国家法规（权威性、标准性、严肃性）；规范 = 部门团体规定建议（指导性、规范性、导向性）</td>
+<td data-label="对比">标准 vs 规范</td>
+<td data-label="区别要点">标准 = 国家法规（权威性、标准性、严肃性）；规范 = 部门团体规定建议（指导性、规范性、导向性）</td>
 </tr>
 <tr>
-<td>道德 vs 伦理</td>
-<td>道德 = 特定人群内的行为规范原则；伦理 = 超越特定人群被普遍接受的人格原则</td>
+<td data-label="对比">道德 vs 伦理</td>
+<td data-label="区别要点">道德 = 特定人群内的行为规范原则；伦理 = 超越特定人群被普遍接受的人格原则</td>
 </tr>
 <tr>
-<td>一次 vs 二次 vs 三次文献</td>
-<td>一次 = 原创成果；二次 = 加工成的检索工具；三次 = 分析综合的参考工具（百科、辞典）</td>
+<td data-label="对比">一次 vs 二次 vs 三次文献</td>
+<td data-label="区别要点">一次 = 原创成果；二次 = 加工成的检索工具；三次 = 分析综合的参考工具（百科、辞典）</td>
 </tr>
 <tr>
-<td>书目 vs 全文 vs 引文检索</td>
-<td>结果分别是：线索信息 / 全文内容 / 被引用情况</td>
+<td data-label="对比">书目 vs 全文 vs 引文检索</td>
+<td data-label="区别要点">结果分别是：线索信息 / 全文内容 / 被引用情况</td>
 </tr>
 <tr>
-<td>顺查 vs 倒查</td>
-<td>顺查 = 由远及近（系统全面）；倒查 = 由近及远（最快获得最新资料）</td>
+<td data-label="对比">顺查 vs 倒查</td>
+<td data-label="区别要点">顺查 = 由远及近（系统全面）；倒查 = 由近及远（最快获得最新资料）</td>
 </tr>
 <tr>
-<td>直接法 vs 间接法</td>
-<td>直接 = 用检索系统；间接（追溯）= 顺参考文献滚雪球</td>
+<td data-label="对比">直接法 vs 间接法</td>
+<td data-label="区别要点">直接 = 用检索系统；间接（追溯）= 顺参考文献滚雪球</td>
 </tr>
 <tr>
-<td>主题词 vs 自由词</td>
-<td>主题词规范化，自由词未规范化</td>
+<td data-label="对比">主题词 vs 自由词</td>
+<td data-label="区别要点">主题词规范化，自由词未规范化</td>
 </tr>
 <tr>
-<td>图名 vs 表名</td>
-<td>图名在下，表名在上；图表文字比正文小一号</td>
+<td data-label="对比">图名 vs 表名</td>
+<td data-label="区别要点">图名在下，表名在上；图表文字比正文小一号</td>
 </tr>
 <tr>
-<td>捏造 vs 篡改</td>
-<td>捏造 = 无中生有编造；篡改 = 改动曲解已有数据观点</td>
+<td data-label="对比">捏造 vs 篡改</td>
+<td data-label="区别要点">捏造 = 无中生有编造；篡改 = 改动曲解已有数据观点</td>
 </tr>
 <tr>
-<td>一稿多投 vs 重复发表</td>
-<td>一稿多投 = 同一作品投多家；重复发表 = 改头换面或拆分再发表</td>
+<td data-label="对比">一稿多投 vs 重复发表</td>
+<td data-label="区别要点">一稿多投 = 同一作品投多家；重复发表 = 改头换面或拆分再发表</td>
 </tr>
 <tr>
-<td>学术规范（广义）vs（狭义）</td>
-<td>广义 = 技术规范 + 道德规范；狭义 ≈ 学术道德</td>
+<td data-label="对比">学术规范（广义）vs（狭义）</td>
+<td data-label="区别要点">广义 = 技术规范 + 道德规范；狭义 ≈ 学术道德</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="e">E. 高频简答/论述清单（对照自测）</h3>
 <ol>
 <li>学术论文四大特点及内涵？（P1）</li>
@@ -816,6 +847,13 @@
 <hr />
 <p><em>整理日期：2026-11-07。课件内容如与教材有出入，以教材和老师课堂强调为准；第 5 讲中"东华大学条例"是课件举例，复习时重点记通用的国家制度与规范。</em></p></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -827,6 +865,7 @@
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   
 </body>
 </html>

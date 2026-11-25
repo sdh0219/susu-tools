@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -411,6 +442,13 @@
 <li><strong>为什么说"两个结合"是我们取得成功的最大法宝?</strong> → 前提契合、互相成就 → 道路根基/创新空间/文化主体性 → 呼应三个意味着之第三条(为世界提供全新选择)</li>
 </ol></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -422,6 +460,7 @@
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   
 </body>
 </html>

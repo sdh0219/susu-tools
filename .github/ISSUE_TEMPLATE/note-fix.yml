@@ -1,0 +1,47 @@
+name: 笔记纠错 / 补充投稿
+description: 笔记里有错、有缺、过时了，或者你想投一篇自己整理的资料
+title: "[笔记] "
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 是哪一页？
+      description: 填页面标题或链接地址
+      placeholder: 例如：数值计算 · 复习速查手册（/notes/numerical-computing-quickref.html）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 问题类型
+      options:
+        - 知识性错误（公式/答案/概念）
+        - 错别字或排版
+        - 内容缺失
+        - 已过时（法规/数据/课件更新）
+        - 我想投稿一篇新资料
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 具体说明
+      description: 错在哪、应该是什么。有依据（教材页码、课件截图、权威链接）更好，没有也没关系。
+      placeholder: |
+        原文：……
+        应为：……
+        依据：……
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 内容不含他人个人信息（学号、姓名、电话）
+          required: true
+        - label: 不是我擅自上传的老师课件 / 教材 PDF / 真题原卷
+          required: true

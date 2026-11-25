@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -88,7 +119,7 @@
 </blockquote>
 <hr />
 <h3 id="_2">一、学期小组案例分析报告 · 规则</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>项目</th>
@@ -97,27 +128,27 @@
 </thead>
 <tbody>
 <tr>
-<td>开始时间</td>
-<td>从第 2 次课开始小组做报告</td>
+<td data-label="项目">开始时间</td>
+<td data-label="要求">从第 2 次课开始小组做报告</td>
 </tr>
 <tr>
-<td>每次课容量</td>
-<td>3 个小组先报告 + 研讨</td>
+<td data-label="项目">每次课容量</td>
+<td data-label="要求">3 个小组先报告 + 研讨</td>
 </tr>
 <tr>
-<td>汇报形式</td>
-<td>每组选 1 名代表用 PPT 汇报</td>
+<td data-label="项目">汇报形式</td>
+<td data-label="要求">每组选 1 名代表用 PPT 汇报</td>
 </tr>
 <tr>
-<td>时长</td>
-<td>每组报告 5 分钟 + 研讨 5 分钟</td>
+<td data-label="项目">时长</td>
+<td data-label="要求">每组报告 5 分钟 + 研讨 5 分钟</td>
 </tr>
 <tr>
-<td>课前准备</td>
-<td>每次课前 10 分钟把 PPT 拷贝到教师电脑</td>
+<td data-label="项目">课前准备</td>
+<td data-label="要求">每次课前 10 分钟把 PPT 拷贝到教师电脑</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h3 id="_3">二、案例分析 · 选题清单</h3>
 <blockquote>
@@ -172,7 +203,7 @@
 <hr />
 <h3 id="_4">三、课程小论文 · 选题范围（课件节选）</h3>
 <h4 id="1_1">1. 关于"创新"本身</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>感兴趣的问题</th>
@@ -181,30 +212,30 @@
 </thead>
 <tbody>
 <tr>
-<td>我想做应急产品创新，应该选择什么样的企业就业？ ⭐</td>
-<td>应急行业企业研发人员成长环境研究</td>
+<td data-label="感兴趣的问题">我想做应急产品创新，应该选择什么样的企业就业？ ⭐</td>
+<td data-label="对应研究题目">应急行业企业研发人员成长环境研究</td>
 </tr>
 <tr>
-<td>优秀创新者的思维方式是怎样的？</td>
-<td>科技工作者的创新思维研究</td>
+<td data-label="感兴趣的问题">优秀创新者的思维方式是怎样的？</td>
+<td data-label="对应研究题目">科技工作者的创新思维研究</td>
 </tr>
 <tr>
-<td>什么样的高校管理制度能出创新成果？</td>
-<td>高校创新管理制度的效果（比较）研究</td>
+<td data-label="感兴趣的问题">什么样的高校管理制度能出创新成果？</td>
+<td data-label="对应研究题目">高校创新管理制度的效果（比较）研究</td>
 </tr>
 <tr>
-<td>研究生毕业论文选题选择与未来创业成长有没有关系？</td>
-<td>硕士研究生毕业论文选题创新性对创业行为的影响研究</td>
+<td data-label="感兴趣的问题">研究生毕业论文选题选择与未来创业成长有没有关系？</td>
+<td data-label="对应研究题目">硕士研究生毕业论文选题创新性对创业行为的影响研究</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>课件仅展示"1. 关于创新本身"的方向示例；其余方向（2. 创业相关等）以课堂课件为准，整理后补录于此。</p>
 </blockquote>
 <hr />
 <h3 id="5_1">四、怎么做：从选题到 5 分钟汇报</h3>
 <h4 id="41-5">4.1 报告骨架（5 分钟只能讲清一件事）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>环节</th>
@@ -214,37 +245,37 @@
 </thead>
 <tbody>
 <tr>
-<td>开场</td>
-<td>15s</td>
-<td>抛出研究问题："为什么XX的科研成果能变成畅销产品？"</td>
+<td data-label="环节">开场</td>
+<td data-label="时长">15s</td>
+<td data-label="内容">抛出研究问题："为什么XX的科研成果能变成畅销产品？"</td>
 </tr>
 <tr>
-<td>背景</td>
-<td>1min</td>
-<td>公司时间轴，只标 3 个关键节点</td>
+<td data-label="环节">背景</td>
+<td data-label="时长">1min</td>
+<td data-label="内容">公司时间轴，只标 3 个关键节点</td>
 </tr>
 <tr>
-<td>转折</td>
-<td>1.5min</td>
-<td>核心机制：讲 1 个最关键的转折点，不贪多</td>
+<td data-label="环节">转折</td>
+<td data-label="时长">1.5min</td>
+<td data-label="内容">核心机制：讲 1 个最关键的转折点，不贪多</td>
 </tr>
 <tr>
-<td>论证</td>
-<td>1.5min</td>
-<td>3 个支撑证据，各配 1 个数字或事实</td>
+<td data-label="环节">论证</td>
+<td data-label="时长">1.5min</td>
+<td data-label="内容">3 个支撑证据，各配 1 个数字或事实</td>
 </tr>
 <tr>
-<td>收尾</td>
-<td>30s</td>
-<td>一句话回答开头的问题 + 1 条对研究生的启示</td>
+<td data-label="环节">收尾</td>
+<td data-label="时长">30s</td>
+<td data-label="内容">一句话回答开头的问题 + 1 条对研究生的启示</td>
 </tr>
 <tr>
-<td>研讨</td>
-<td>备好</td>
-<td>预埋 1 个开放问题引导讨论</td>
+<td data-label="环节">研讨</td>
+<td data-label="时长">备好</td>
+<td data-label="内容">预埋 1 个开放问题引导讨论</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>三条铁律：<strong>用时间轴不用流水账、每个论点带一个数字、结尾必须回应开头的问句。</strong></p>
 <h4 id="42-25">4.2 推荐方案：辰安科技 ×「政府订单，是科研成果转化的台阶还是拐杖？」（源自课件 2.5）⭐</h4>
 <p>自拟题目说明：课件 2.5 原题（为什么有的科研成果变成了畅销的产品？）太宽、五分钟答不完，本组把它收窄成可检验的一句——政府订单是台阶还是拐杖——既回答原题，又给出自己的判断（台阶而非拐杖）。</p>
@@ -269,6 +300,13 @@
 <li><strong>小论文候选</strong>：应急行业企业研发人员成长环境研究 ⭐（本校背景 + 应急产品创新兴趣，双重契合）</li>
 </ul></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -280,6 +318,7 @@
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   
 </body>
 </html>

@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -88,7 +119,7 @@
 </blockquote>
 <hr />
 <h3 id="_2">一、考试信息</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>项目</th>
@@ -97,31 +128,31 @@
 </thead>
 <tbody>
 <tr>
-<td>课程</td>
-<td>研究生综合英语</td>
+<td data-label="项目">课程</td>
+<td data-label="内容">研究生综合英语</td>
 </tr>
 <tr>
-<td>学期</td>
-<td>2026-2027 学年第一学期</td>
+<td data-label="项目">学期</td>
+<td data-label="内容">2026-2027 学年第一学期</td>
 </tr>
 <tr>
-<td>考试时间</td>
-<td>100 分钟</td>
+<td data-label="项目">考试时间</td>
+<td data-label="内容">100 分钟</td>
 </tr>
 <tr>
-<td>考试方式</td>
-<td>笔试（闭卷）</td>
+<td data-label="项目">考试方式</td>
+<td data-label="内容">笔试（闭卷）</td>
 </tr>
 <tr>
-<td>考试范围</td>
-<td>《新探索研究生英语》（基础版）<strong>1–6 单元课文及课后练习</strong>（以教材为主，课外知识为辅）</td>
+<td data-label="项目">考试范围</td>
+<td data-label="内容">《新探索研究生英语》（基础版）<strong>1–6 单元课文及课后练习</strong>（以教材为主，课外知识为辅）</td>
 </tr>
 <tr>
-<td>⚠️ 例外</td>
-<td><strong>第 4 单元为自主学习内容，单独测试，不在本次考试范围</strong></td>
+<td data-label="项目">⚠️ 例外</td>
+<td data-label="内容"><strong>第 4 单元为自主学习内容，单独测试，不在本次考试范围</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>考试题型</strong>（大纲截图所示）：选择填空、词汇填空、阅读理解、段落匹配、英汉互译、英语写作</p>
 <p><strong>复习优先级</strong>：
 1. 🔴 <strong>U1、U2、U3、U5、U6</strong> —— 本次考试范围，逐单元过课文主旨 + 词汇 + 阅读技能
@@ -155,7 +186,7 @@
 <li><strong>文体</strong>：非正式（informal）——第二人称、反问句、缩略式；谚语 <em>You can't teach an old dog new tricks</em>（本性难移）。</li>
 </ul>
 <h5 id="u1">U1 核心词汇</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>AE1 词汇</th>
@@ -166,85 +197,85 @@
 </thead>
 <tbody>
 <tr>
-<td>affiliation</td>
-<td>归属、亲和</td>
-<td>correlation</td>
-<td>相关性</td>
+<td data-label="AE1 词汇">affiliation</td>
+<td data-label="释义">归属、亲和</td>
+<td data-label="AE2 词汇">correlation</td>
+<td data-label="释义">相关性</td>
 </tr>
 <tr>
-<td>ascribe (…to)</td>
-<td>归因于</td>
-<td>comprehensive</td>
-<td>全面的</td>
+<td data-label="AE1 词汇">ascribe (…to)</td>
+<td data-label="释义">归因于</td>
+<td data-label="AE2 词汇">comprehensive</td>
+<td data-label="释义">全面的</td>
 </tr>
 <tr>
-<td>categorize (…into)</td>
-<td>分类</td>
-<td>rate (v.)</td>
-<td>评定等级</td>
+<td data-label="AE1 词汇">categorize (…into)</td>
+<td data-label="释义">分类</td>
+<td data-label="AE2 词汇">rate (v.)</td>
+<td data-label="释义">评定等级</td>
 </tr>
 <tr>
-<td>consequence</td>
-<td>后果</td>
-<td>suggest</td>
-<td>表明</td>
+<td data-label="AE1 词汇">consequence</td>
+<td data-label="释义">后果</td>
+<td data-label="AE2 词汇">suggest</td>
+<td data-label="释义">表明</td>
 </tr>
 <tr>
-<td>foster</td>
-<td>培育、促进</td>
-<td>tempt</td>
-<td>引诱</td>
+<td data-label="AE1 词汇">foster</td>
+<td data-label="释义">培育、促进</td>
+<td data-label="AE2 词汇">tempt</td>
+<td data-label="释义">引诱</td>
 </tr>
 <tr>
-<td>multilingual</td>
-<td>多语的</td>
-<td>frustrated</td>
-<td>沮丧的</td>
+<td data-label="AE1 词汇">multilingual</td>
+<td data-label="释义">多语的</td>
+<td data-label="AE2 词汇">frustrated</td>
+<td data-label="释义">沮丧的</td>
 </tr>
 <tr>
-<td>rivalry</td>
-<td>竞争、对抗</td>
-<td>participant</td>
-<td>参与者</td>
+<td data-label="AE1 词汇">rivalry</td>
+<td data-label="释义">竞争、对抗</td>
+<td data-label="AE2 词汇">participant</td>
+<td data-label="释义">参与者</td>
 </tr>
 <tr>
-<td>trait</td>
-<td>特质</td>
-<td>co-worker</td>
-<td>同事</td>
+<td data-label="AE1 词汇">trait</td>
+<td data-label="释义">特质</td>
+<td data-label="AE2 词汇">co-worker</td>
+<td data-label="释义">同事</td>
 </tr>
 <tr>
-<td>sustain(ed)</td>
-<td>持续的</td>
-<td>scope</td>
-<td>范围</td>
+<td data-label="AE1 词汇">sustain(ed)</td>
+<td data-label="释义">持续的</td>
+<td data-label="AE2 词汇">scope</td>
+<td data-label="释义">范围</td>
 </tr>
 <tr>
-<td>sibling (rivalry)</td>
-<td>兄弟姐妹（手足之争）</td>
-<td>variable</td>
-<td>变量</td>
+<td data-label="AE1 词汇">sibling (rivalry)</td>
+<td data-label="释义">兄弟姐妹（手足之争）</td>
+<td data-label="AE2 词汇">variable</td>
+<td data-label="释义">变量</td>
 </tr>
 <tr>
-<td>confirm / confirmation bias</td>
-<td>证实 / 确认偏误</td>
-<td>outcome</td>
-<td>结果</td>
+<td data-label="AE1 词汇">confirm / confirmation bias</td>
+<td data-label="释义">证实 / 确认偏误</td>
+<td data-label="AE2 词汇">outcome</td>
+<td data-label="释义">结果</td>
 </tr>
 <tr>
-<td>stubborn(ness)</td>
-<td>固执</td>
-<td>procrastinate</td>
-<td>拖延</td>
+<td data-label="AE1 词汇">stubborn(ness)</td>
+<td data-label="释义">固执</td>
+<td data-label="AE2 词汇">procrastinate</td>
+<td data-label="释义">拖延</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>self-esteem</td>
-<td>自尊</td>
+<td data-label="AE1 词汇"></td>
+<td data-label="释义"></td>
+<td data-label="AE2 词汇">self-esteem</td>
+<td data-label="释义">自尊</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><strong>文化板块</strong>：仁义礼智信、温良恭俭让的英译（benevolence / righteousness / the proper conduct / practical wisdom / honesty, integrity…）；描述中国人国家身份的品质词：disciplined, patriotic, family-minded, industrious, innovative, virtuous, frugal, pragmatic, collectivism。</li>
 <li><strong>输出任务</strong>：设计介绍中国的海报（3-4 个代表性元素）；小组阅读报告 ≥200 词。</li>
@@ -273,7 +304,7 @@
 <li><strong>语言点</strong>：it's just that…（只不过）；If you agree with me – and I assume you do –（插入语 + do 替代）。</li>
 </ul>
 <h5 id="u2">U2 核心词汇</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>AE1 词汇</th>
@@ -284,73 +315,73 @@
 </thead>
 <tbody>
 <tr>
-<td>notion</td>
-<td>观念、理念</td>
-<td>entirely</td>
-<td>完全地</td>
+<td data-label="AE1 词汇">notion</td>
+<td data-label="释义">观念、理念</td>
+<td data-label="AE2 词汇">entirely</td>
+<td data-label="释义">完全地</td>
 </tr>
 <tr>
-<td>imitate</td>
-<td>模仿</td>
-<td>artistry</td>
-<td>艺术性</td>
+<td data-label="AE1 词汇">imitate</td>
+<td data-label="释义">模仿</td>
+<td data-label="AE2 词汇">artistry</td>
+<td data-label="释义">艺术性</td>
 </tr>
 <tr>
-<td>incident</td>
-<td>事件</td>
-<td>functional</td>
-<td>实用的</td>
+<td data-label="AE1 词汇">incident</td>
+<td data-label="释义">事件</td>
+<td data-label="AE2 词汇">functional</td>
+<td data-label="释义">实用的</td>
 </tr>
 <tr>
-<td>humility</td>
-<td>谦卑</td>
-<td>delicate</td>
-<td>精致的</td>
+<td data-label="AE1 词汇">humility</td>
+<td data-label="释义">谦卑</td>
+<td data-label="AE2 词汇">delicate</td>
+<td data-label="释义">精致的</td>
 </tr>
 <tr>
-<td>flaw</td>
-<td>缺陷</td>
-<td>romantic (notion)</td>
-<td>理想化的</td>
+<td data-label="AE1 词汇">flaw</td>
+<td data-label="释义">缺陷</td>
+<td data-label="AE2 词汇">romantic (notion)</td>
+<td data-label="释义">理想化的</td>
 </tr>
 <tr>
-<td>craftsman</td>
-<td>工匠</td>
-<td>objection</td>
-<td>反对意见</td>
+<td data-label="AE1 词汇">craftsman</td>
+<td data-label="释义">工匠</td>
+<td data-label="AE2 词汇">objection</td>
+<td data-label="释义">反对意见</td>
 </tr>
 <tr>
-<td>aesthetic</td>
-<td>审美（的）</td>
-<td>craftsmanship</td>
-<td>手艺、工艺</td>
+<td data-label="AE1 词汇">aesthetic</td>
+<td data-label="释义">审美（的）</td>
+<td data-label="AE2 词汇">craftsmanship</td>
+<td data-label="释义">手艺、工艺</td>
 </tr>
 <tr>
-<td>deliberately</td>
-<td>故意地</td>
-<td>marvels</td>
-<td>珍品、杰作</td>
+<td data-label="AE1 词汇">deliberately</td>
+<td data-label="释义">故意地</td>
+<td data-label="AE2 词汇">marvels</td>
+<td data-label="释义">珍品、杰作</td>
 </tr>
 <tr>
-<td>refer to</td>
-<td>指的是</td>
-<td>manifest</td>
-<td>显现</td>
+<td data-label="AE1 词汇">refer to</td>
+<td data-label="释义">指的是</td>
+<td data-label="AE2 词汇">manifest</td>
+<td data-label="释义">显现</td>
 </tr>
 <tr>
-<td>feature (v.)</td>
-<td>以……为特色</td>
-<td>plank(s)</td>
-<td>厚木板</td>
+<td data-label="AE1 词汇">feature (v.)</td>
+<td data-label="释义">以……为特色</td>
+<td data-label="AE2 词汇">plank(s)</td>
+<td data-label="释义">厚木板</td>
 </tr>
 <tr>
-<td>enhance</td>
-<td>增强</td>
-<td>handcrafts</td>
-<td>手工艺品</td>
+<td data-label="AE1 词汇">enhance</td>
+<td data-label="释义">增强</td>
+<td data-label="AE2 词汇">handcrafts</td>
+<td data-label="释义">手工艺品</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><strong>文化板块</strong>：kintsugi / wabi-sabi；中国陶瓷——ceramics, porcelain, celadon（青瓷）, kiln（窑）, <strong>五大名窑</strong>（汝 Ru、官 Guan、哥 Ge、钧 Jun、定 Ding）, Jingdezhen（景德镇）, blue-and-white porcelain（青花瓷）, Tang Sancai（唐三彩）；《我在故宫修文物》；"张良进履"故事。</li>
 <li><strong>输出任务</strong>：设计调查问卷（大学生对修复中国古物的态度）；课堂辩论（是否把地租给 Mayflower：for / against / judges）。</li>
@@ -374,7 +405,7 @@
 <li><strong>思维技能</strong>：<strong>Evaluating evidence（评估证据）</strong>三标准：Is the evidence reliable / relevant / sufficient?</li>
 </ul>
 <h5 id="u3">U3 核心词汇</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>AE1 词汇</th>
@@ -385,79 +416,79 @@
 </thead>
 <tbody>
 <tr>
-<td>contaminate</td>
-<td>污染</td>
-<td>catastrophic</td>
-<td>灾难性的</td>
+<td data-label="AE1 词汇">contaminate</td>
+<td data-label="释义">污染</td>
+<td data-label="AE2 词汇">catastrophic</td>
+<td data-label="释义">灾难性的</td>
 </tr>
 <tr>
-<td>deposit</td>
-<td>沉积</td>
-<td>closure</td>
-<td>关闭</td>
+<td data-label="AE1 词汇">deposit</td>
+<td data-label="释义">沉积</td>
+<td data-label="AE2 词汇">closure</td>
+<td data-label="释义">关闭</td>
 </tr>
 <tr>
-<td>evidence</td>
-<td>证据</td>
-<td>demography</td>
-<td>人口学</td>
+<td data-label="AE1 词汇">evidence</td>
+<td data-label="释义">证据</td>
+<td data-label="AE2 词汇">demography</td>
+<td data-label="释义">人口学</td>
 </tr>
 <tr>
-<td>pandemic</td>
-<td>大流行病</td>
-<td>detrimental (to)</td>
-<td>有害的</td>
+<td data-label="AE1 词汇">pandemic</td>
+<td data-label="释义">大流行病</td>
+<td data-label="AE2 词汇">detrimental (to)</td>
+<td data-label="释义">有害的</td>
 </tr>
 <tr>
-<td>procedure</td>
-<td>程序</td>
-<td>diminish</td>
-<td>减少、削弱</td>
+<td data-label="AE1 词汇">procedure</td>
+<td data-label="释义">程序</td>
+<td data-label="AE2 词汇">diminish</td>
+<td data-label="释义">减少、削弱</td>
 </tr>
 <tr>
-<td>propagate</td>
-<td>传播、宣传</td>
-<td>pharmaceutical</td>
-<td>制药的</td>
+<td data-label="AE1 词汇">propagate</td>
+<td data-label="释义">传播、宣传</td>
+<td data-label="AE2 词汇">pharmaceutical</td>
+<td data-label="释义">制药的</td>
 </tr>
 <tr>
-<td>survive</td>
-<td>存活</td>
-<td>predominantly</td>
-<td>主要地</td>
+<td data-label="AE1 词汇">survive</td>
+<td data-label="释义">存活</td>
+<td data-label="AE2 词汇">predominantly</td>
+<td data-label="释义">主要地</td>
 </tr>
 <tr>
-<td>transmit</td>
-<td>传播（疾病）</td>
-<td>vaccine</td>
-<td>疫苗</td>
+<td data-label="AE1 词汇">transmit</td>
+<td data-label="释义">传播（疾病）</td>
+<td data-label="AE2 词汇">vaccine</td>
+<td data-label="释义">疫苗</td>
 </tr>
 <tr>
-<td>outbreak</td>
-<td>（疫情）暴发</td>
-<td>expenditure</td>
-<td>开支</td>
+<td data-label="AE1 词汇">outbreak</td>
+<td data-label="释义">（疫情）暴发</td>
+<td data-label="AE2 词汇">expenditure</td>
+<td data-label="释义">开支</td>
 </tr>
 <tr>
-<td>convinced</td>
-<td>确信的</td>
-<td>It is estimated that…</td>
-<td>据估计</td>
+<td data-label="AE1 词汇">convinced</td>
+<td data-label="释义">确信的</td>
+<td data-label="AE2 词汇">It is estimated that…</td>
+<td data-label="释义">据估计</td>
 </tr>
 <tr>
-<td>significant</td>
-<td>显著的</td>
-<td>campaign</td>
-<td>宣传活动</td>
+<td data-label="AE1 词汇">significant</td>
+<td data-label="释义">显著的</td>
+<td data-label="AE2 词汇">campaign</td>
+<td data-label="释义">宣传活动</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>consequence</td>
-<td>后果</td>
+<td data-label="AE1 词汇"></td>
+<td data-label="释义"></td>
+<td data-label="AE2 词汇">consequence</td>
+<td data-label="释义">后果</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><strong>短语</strong>：take…into account；a case in point（一个很好的例证）；with a view to doing；have access to；in the region of（大约）；days off sick（病假）；year on year（同比）。</li>
 <li><strong>文化板块（中医药）★</strong>：five organs 五脏（heart/liver/spleen/lung/kidney）、decoction 汤药、acupuncture and moxibustion 针灸、meridian 经络、qi/vital energy 气、Yin-Yang and Five Elements 阴阳五行、artemisinin 青蒿素、Tai Chi 太极、Wu Qin Xi 五禽戏、Qingfei Paidu Tang 清肺排毒汤。</li>
@@ -493,7 +524,7 @@
 <li><strong>课文结构</strong>：Introduction → Explanation → Solution → Case study（4 段）。</li>
 </ul>
 <h5 id="u5">U5 核心词汇</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>AE1 词汇</th>
@@ -504,79 +535,79 @@
 </thead>
 <tbody>
 <tr>
-<td>initiative</td>
-<td>倡议、举措</td>
-<td>recruit</td>
-<td>招聘</td>
+<td data-label="AE1 词汇">initiative</td>
+<td data-label="释义">倡议、举措</td>
+<td data-label="AE2 词汇">recruit</td>
+<td data-label="释义">招聘</td>
 </tr>
 <tr>
-<td>corporate</td>
-<td>公司的</td>
-<td>conduct (n.)</td>
-<td>行为</td>
+<td data-label="AE1 词汇">corporate</td>
+<td data-label="释义">公司的</td>
+<td data-label="AE2 词汇">conduct (n.)</td>
+<td data-label="释义">行为</td>
 </tr>
 <tr>
-<td>institute</td>
-<td>机构</td>
-<td>intention</td>
-<td>意图</td>
+<td data-label="AE1 词汇">institute</td>
+<td data-label="释义">机构</td>
+<td data-label="AE2 词汇">intention</td>
+<td data-label="释义">意图</td>
 </tr>
 <tr>
-<td>illegal</td>
-<td>非法的</td>
-<td>issue (v.)</td>
-<td>发布、发放</td>
+<td data-label="AE1 词汇">illegal</td>
+<td data-label="释义">非法的</td>
+<td data-label="AE2 词汇">issue (v.)</td>
+<td data-label="释义">发布、发放</td>
 </tr>
 <tr>
-<td>ultimately</td>
-<td>最终</td>
-<td>declare</td>
-<td>申报</td>
+<td data-label="AE1 词汇">ultimately</td>
+<td data-label="释义">最终</td>
+<td data-label="AE2 词汇">declare</td>
+<td data-label="释义">申报</td>
 </tr>
 <tr>
-<td>provision</td>
-<td>提供、条款</td>
-<td>clause</td>
-<td>条款</td>
+<td data-label="AE1 词汇">provision</td>
+<td data-label="释义">提供、条款</td>
+<td data-label="AE2 词汇">clause</td>
+<td data-label="释义">条款</td>
 </tr>
 <tr>
-<td>evasion</td>
-<td>逃避</td>
-<td>state (v.)</td>
-<td>声明</td>
+<td data-label="AE1 词汇">evasion</td>
+<td data-label="释义">逃避</td>
+<td data-label="AE2 词汇">state (v.)</td>
+<td data-label="释义">声明</td>
 </tr>
 <tr>
-<td>representative</td>
-<td>代表</td>
-<td>misdemeanor</td>
-<td>不端行为</td>
+<td data-label="AE1 词汇">representative</td>
+<td data-label="释义">代表</td>
+<td data-label="AE2 词汇">misdemeanor</td>
+<td data-label="释义">不端行为</td>
 </tr>
 <tr>
-<td>regulation(s)</td>
-<td>法规</td>
-<td>convict(ed)</td>
-<td>定罪</td>
+<td data-label="AE1 词汇">regulation(s)</td>
+<td data-label="释义">法规</td>
+<td data-label="AE2 词汇">convict(ed)</td>
+<td data-label="释义">定罪</td>
 </tr>
 <tr>
-<td>violation</td>
-<td>违反</td>
-<td>evade (taxes)</td>
-<td>逃税</td>
+<td data-label="AE1 词汇">violation</td>
+<td data-label="释义">违反</td>
+<td data-label="AE2 词汇">evade (taxes)</td>
+<td data-label="释义">逃税</td>
 </tr>
 <tr>
-<td>ethical</td>
-<td>伦理的</td>
-<td>substantial penalties</td>
-<td>重大处罚</td>
+<td data-label="AE1 词汇">ethical</td>
+<td data-label="释义">伦理的</td>
+<td data-label="AE2 词汇">substantial penalties</td>
+<td data-label="释义">重大处罚</td>
 </tr>
 <tr>
-<td>controversial</td>
-<td>有争议的</td>
-<td>hinder</td>
-<td>阻碍</td>
+<td data-label="AE1 词汇">controversial</td>
+<td data-label="释义">有争议的</td>
+<td data-label="AE2 词汇">hinder</td>
+<td data-label="释义">阻碍</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><strong>汉译英短语（Warming-up）★</strong>：legal institutes 法律机构 / written rules and regulations 书面规章 / keep the social order 维护社会秩序 / maintain peace and justice 维护和平正义 / enforce a punishment 执行惩罚 / ethical principles 伦理原则 / ethical codes 伦理规范 / break the laws 违法 / legal obligations 法律义务。</li>
 <li><strong>职场短语</strong>：a code of conduct 行为准则 / employee handbook 员工手册 / misuse of company time 滥用公司时间 / lie on one's résumé 简历造假 / comply with 遵守 / run the risk of being sued 冒被诉风险 / WFH（work from home）居家办公。</li>
@@ -606,7 +637,7 @@
 <li><strong>语言点</strong>：not without（双重否定表肯定）；weigh A against B 权衡；place/put…at risk 使……处于危险；down the line（以后）；such…that…；keep pace with（跟上）。</li>
 </ul>
 <h5 id="u6">U6 核心词汇</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>AE1 词汇</th>
@@ -617,85 +648,85 @@
 </thead>
 <tbody>
 <tr>
-<td>tackle</td>
-<td>应对、解决</td>
-<td>effectively</td>
-<td>有效地</td>
+<td data-label="AE1 词汇">tackle</td>
+<td data-label="释义">应对、解决</td>
+<td data-label="AE2 词汇">effectively</td>
+<td data-label="释义">有效地</td>
 </tr>
 <tr>
-<td>devastating</td>
-<td>毁灭性的</td>
-<td>contribute (to)</td>
-<td>促成、贡献</td>
+<td data-label="AE1 词汇">devastating</td>
+<td data-label="释义">毁灭性的</td>
+<td data-label="AE2 词汇">contribute (to)</td>
+<td data-label="释义">促成、贡献</td>
 </tr>
 <tr>
-<td>revolutionary</td>
-<td>革命性的</td>
-<td>deteriorate</td>
-<td>恶化</td>
+<td data-label="AE1 词汇">revolutionary</td>
+<td data-label="释义">革命性的</td>
+<td data-label="AE2 词汇">deteriorate</td>
+<td data-label="释义">恶化</td>
 </tr>
 <tr>
-<td>obsolete</td>
-<td>过时的</td>
-<td>increasingly</td>
-<td>日益</td>
+<td data-label="AE1 词汇">obsolete</td>
+<td data-label="释义">过时的</td>
+<td data-label="AE2 词汇">increasingly</td>
+<td data-label="释义">日益</td>
 </tr>
 <tr>
-<td>filter</td>
-<td>过滤</td>
-<td>imminent</td>
-<td>迫近的</td>
+<td data-label="AE1 词汇">filter</td>
+<td data-label="释义">过滤</td>
+<td data-label="AE2 词汇">imminent</td>
+<td data-label="释义">迫近的</td>
 </tr>
 <tr>
-<td>particle</td>
-<td>粒子</td>
-<td>arguably</td>
-<td>可谓、按理说</td>
+<td data-label="AE1 词汇">particle</td>
+<td data-label="释义">粒子</td>
+<td data-label="AE2 词汇">arguably</td>
+<td data-label="释义">可谓、按理说</td>
 </tr>
 <tr>
-<td>property</td>
-<td>特性</td>
-<td>potential</td>
-<td>潜力/潜在的</td>
+<td data-label="AE1 词汇">property</td>
+<td data-label="释义">特性</td>
+<td data-label="AE2 词汇">potential</td>
+<td data-label="释义">潜力/潜在的</td>
 </tr>
 <tr>
-<td>efficiency</td>
-<td>效率</td>
-<td>assess / evaluation</td>
-<td>评估</td>
+<td data-label="AE1 词汇">efficiency</td>
+<td data-label="释义">效率</td>
+<td data-label="AE2 词汇">assess / evaluation</td>
+<td data-label="释义">评估</td>
 </tr>
 <tr>
-<td>biodegradable</td>
-<td>生物降解的</td>
-<td>stagnant</td>
-<td>停滞的</td>
+<td data-label="AE1 词汇">biodegradable</td>
+<td data-label="释义">生物降解的</td>
+<td data-label="AE2 词汇">stagnant</td>
+<td data-label="释义">停滞的</td>
 </tr>
 <tr>
-<td>persistent</td>
-<td>长期残留的</td>
-<td>eliminate(d)</td>
-<td>淘汰</td>
+<td data-label="AE1 词汇">persistent</td>
+<td data-label="释义">长期残留的</td>
+<td data-label="AE2 词汇">eliminate(d)</td>
+<td data-label="释义">淘汰</td>
 </tr>
 <tr>
-<td>accumulation</td>
-<td>聚积</td>
-<td>automation</td>
-<td>自动化</td>
+<td data-label="AE1 词汇">accumulation</td>
+<td data-label="释义">聚积</td>
+<td data-label="AE2 词汇">automation</td>
+<td data-label="释义">自动化</td>
 </tr>
 <tr>
-<td>predecessor</td>
-<td>前身</td>
-<td>manipulation</td>
-<td>操纵</td>
+<td data-label="AE1 词汇">predecessor</td>
+<td data-label="释义">前身</td>
+<td data-label="AE2 词汇">manipulation</td>
+<td data-label="释义">操纵</td>
 </tr>
 <tr>
-<td>in its infancy</td>
-<td>尚处初期</td>
-<td>fraud / theft</td>
-<td>欺诈 / 盗窃</td>
+<td data-label="AE1 词汇">in its infancy</td>
+<td data-label="释义">尚处初期</td>
+<td data-label="AE2 词汇">fraud / theft</td>
+<td data-label="释义">欺诈 / 盗窃</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><strong>科技术语</strong>：graphene 石墨烯 / graphite 石墨 / patent 专利 / ultra-thin antenna 超薄天线 / terabit 太比特 / graphene oxide 氧化石墨烯 / desalinate seawater 海水淡化 / tumor 肿瘤 / sensor 传感器。</li>
 <li><strong>文化板块（中国科创）★</strong>：Chang'e-5 lunar mission 嫦娥五号 / Fendouzhe 奋斗者号载人深潜器 / FAST 中国天眼（300+ pulsars 脉冲星）/ hybrid rice 杂交水稻 / high-speed rail 高铁 / BeiDou 北斗 / 5G / IoT 物联网 / Jiuzhang 九章量子计算原型机。</li>
@@ -703,7 +734,7 @@
 </ul>
 <hr />
 <h3 id="_4">三、阅读技能速查表（"段落匹配 / 阅读理解"直接相关）</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>单元</th>
@@ -713,77 +744,77 @@
 </thead>
 <tbody>
 <tr>
-<td>U1-AE1</td>
-<td>识别分类 classification</td>
-<td>first, second, in addition, finally, to begin with, some…other…</td>
+<td data-label="单元">U1-AE1</td>
+<td data-label="技能">识别分类 classification</td>
+<td data-label="关键信号词">first, second, in addition, finally, to begin with, some…other…</td>
 </tr>
 <tr>
-<td>U1-AE2</td>
-<td>识别替代词 substitution words</td>
-<td>one(s), other(s), do/does/did, so, not</td>
+<td data-label="单元">U1-AE2</td>
+<td data-label="技能">识别替代词 substitution words</td>
+<td data-label="关键信号词">one(s), other(s), do/does/did, so, not</td>
 </tr>
 <tr>
-<td>U2-AE1</td>
-<td>语篇内释义 internal paraphrasing</td>
-<td>同义词 / 同根词 / 句式改写</td>
+<td data-label="单元">U2-AE1</td>
+<td data-label="技能">语篇内释义 internal paraphrasing</td>
+<td data-label="关键信号词">同义词 / 同根词 / 句式改写</td>
 </tr>
 <tr>
-<td>U2-AE2</td>
-<td>举例说明 exemplification</td>
-<td>such as, for example, to illustrate, namely, like</td>
+<td data-label="单元">U2-AE2</td>
+<td data-label="技能">举例说明 exemplification</td>
+<td data-label="关键信号词">such as, for example, to illustrate, namely, like</td>
 </tr>
 <tr>
-<td>U3-AE1</td>
-<td>段落结构 paragraph structures</td>
-<td>assertion+refutation / proposition+support / cause+effect</td>
+<td data-label="单元">U3-AE1</td>
+<td data-label="技能">段落结构 paragraph structures</td>
+<td data-label="关键信号词">assertion+refutation / proposition+support / cause+effect</td>
 </tr>
 <tr>
-<td>U3-AE2</td>
-<td>句子功能 sentence functions</td>
-<td>defining / speculating / classifying / reporting / naming</td>
+<td data-label="单元">U3-AE2</td>
+<td data-label="技能">句子功能 sentence functions</td>
+<td data-label="关键信号词">defining / speculating / classifying / reporting / naming</td>
 </tr>
 <tr>
-<td>U4-AE1</td>
-<td>观点支撑 support for opinions</td>
-<td>because, since, due to; for instance; 数据; 专家引言</td>
+<td data-label="单元">U4-AE1</td>
+<td data-label="技能">观点支撑 support for opinions</td>
+<td data-label="关键信号词">because, since, due to; for instance; 数据; 专家引言</td>
 </tr>
 <tr>
-<td>U4-AE2</td>
-<td>语境猜词 vocabulary in context</td>
-<td>synonym / antonym / example / general meaning</td>
+<td data-label="单元">U4-AE2</td>
+<td data-label="技能">语境猜词 vocabulary in context</td>
+<td data-label="关键信号词">synonym / antonym / example / general meaning</td>
 </tr>
 <tr>
-<td>U5-AE1</td>
-<td>查读 scanning</td>
-<td>定位 name/number/date/concept</td>
+<td data-label="单元">U5-AE1</td>
+<td data-label="技能">查读 scanning</td>
+<td data-label="关键信号词">定位 name/number/date/concept</td>
 </tr>
 <tr>
-<td>U5-AE2</td>
-<td>概要阅读 summarizing</td>
-<td>标题 → 首尾句 → 反复关键词 → 笔记</td>
+<td data-label="单元">U5-AE2</td>
+<td data-label="技能">概要阅读 summarizing</td>
+<td data-label="关键信号词">标题 → 首尾句 → 反复关键词 → 笔记</td>
 </tr>
 <tr>
-<td>U5-AE2</td>
-<td>评估诉诸权威</td>
-<td>false/unqualified authority; unnamed authority; against consensus</td>
+<td data-label="单元">U5-AE2</td>
+<td data-label="技能">评估诉诸权威</td>
+<td data-label="关键信号词">false/unqualified authority; unnamed authority; against consensus</td>
 </tr>
 <tr>
-<td>U6-AE1</td>
-<td>识别结论 conclusions</td>
-<td>therefore, consequently, in conclusion, as a result</td>
+<td data-label="单元">U6-AE1</td>
+<td data-label="技能">识别结论 conclusions</td>
+<td data-label="关键信号词">therefore, consequently, in conclusion, as a result</td>
 </tr>
 <tr>
-<td>U6-AE2</td>
-<td>识别预测 predictions</td>
-<td>will/would; must&gt;can&gt;might; stance markers</td>
+<td data-label="单元">U6-AE2</td>
+<td data-label="技能">识别预测 predictions</td>
+<td data-label="关键信号词">will/would; must&gt;can&gt;might; stance markers</td>
 </tr>
 <tr>
-<td>U6-AE2</td>
-<td>评估假设 assumptions</td>
-<td>未证明即信以为真的前提</td>
+<td data-label="单元">U6-AE2</td>
+<td data-label="技能">评估假设 assumptions</td>
+<td data-label="关键信号词">未证明即信以为真的前提</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h3 id="_5">四、全册词汇大总表（"选择填空 / 词汇填空"主攻）</h3>
 <blockquote>
@@ -819,7 +850,7 @@
 <hr />
 <h3 id="_7">七、英语写作备考（各单元输出任务模板）</h3>
 <p>考试作文最可能来自 Mini-project / Writing task 的变体，准备好以下框架：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>任务</th>
@@ -828,23 +859,23 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>介绍类 presentation</strong>（U1 海报 / U3 中医 / U6 科创）</td>
-<td>① 定义 what it is → ② 起源与发展 origin and development → ③ 意义/好处 benefits and significance → 建议结尾 call for attention</td>
+<td data-label="任务"><strong>介绍类 presentation</strong>（U1 海报 / U3 中医 / U6 科创）</td>
+<td data-label="框架">① 定义 what it is → ② 起源与发展 origin and development → ③ 意义/好处 benefits and significance → 建议结尾 call for attention</td>
 </tr>
 <tr>
-<td><strong>建议书 proposal</strong>（≥150 词，U4 非遗 / U5 职场伦理）</td>
-<td>① Introduction：选定对象+理由 → ② Body：挑战 challenges + 解决方案 solutions（reward / role model / supervision / training / communication）→ ③ Conclusion</td>
+<td data-label="任务"><strong>建议书 proposal</strong>（≥150 词，U4 非遗 / U5 职场伦理）</td>
+<td data-label="框架">① Introduction：选定对象+理由 → ② Body：挑战 challenges + 解决方案 solutions（reward / role model / supervision / training / communication）→ ③ Conclusion</td>
 </tr>
 <tr>
-<td><strong>研究报告 report</strong>（≥150-200 词，U1 人格 / U3 疾病）</td>
-<td>① 研究对象与来源 → ② key findings → ③ 对生活/学习的启示 implications；记得附 APA 参考文献</td>
+<td data-label="任务"><strong>研究报告 report</strong>（≥150-200 词，U1 人格 / U3 疾病）</td>
+<td data-label="框架">① 研究对象与来源 → ② key findings → ③ 对生活/学习的启示 implications；记得附 APA 参考文献</td>
 </tr>
 <tr>
-<td><strong>辩论/观点</strong>（U2 手工 vs 机器）</td>
-<td>观点 + 信号词（as one example, to illustrate）+ 相关证据（避免 flawed argument：不空喊、不攻击对方、证据相关）</td>
+<td data-label="任务"><strong>辩论/观点</strong>（U2 手工 vs 机器）</td>
+<td data-label="框架">观点 + 信号词（as one example, to illustrate）+ 相关证据（避免 flawed argument：不空喊、不攻击对方、证据相关）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>写作通用提醒</strong>：用 hedging language（might / be likely to）避免武断；用 there be / 被动语态体现学术语体；结论用 therefore / in conclusion 标出；预测用 will / must / might 分级。</p>
 <hr />
 <h3 id="checklist">八、考前冲刺 checklist</h3>
@@ -861,6 +892,13 @@
 <hr />
 <p><em>本大纲基于 12 份课件逐页提取整理，词汇与技能点忠实于课件原文；题型分值以老师发布的大纲正式文件为准。</em></p></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -872,6 +910,7 @@
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   
 </body>
 </html>

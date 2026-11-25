@@ -2143,3 +2143,225 @@ input, textarea {
   color: var(--el, var(--genshin-gold));
   font-size: 0.72rem;
 }
+
+/* ═══════════ 共建页 ═══════════ */
+.contribute-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.contribute-h2 {
+  font-size: 1.35rem;
+  margin: 46px 0 18px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contribute-h2::before {
+  content: "";
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+}
+
+.contribute-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.contribute-card {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contribute-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-purple);
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.contribute-icon {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.contribute-card h3 {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.contribute-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0 0 14px;
+  flex: 1;
+}
+
+.contribute-go {
+  font-size: 0.85rem;
+  color: var(--accent-purple);
+  font-weight: 600;
+}
+
+.contribute-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.contribute-step {
+  padding: 20px 22px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.step-num {
+  font-family: Consolas, 'JetBrains Mono', monospace;
+  font-size: 1.45rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contribute-step h3 {
+  font-size: 1rem;
+  margin: 6px 0;
+  color: var(--text-primary);
+}
+
+.contribute-step p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.contribute-step code {
+  font-family: Consolas, 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 0 5px;
+  color: var(--accent-orange);
+}
+
+.contribute-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: -8px 0 14px;
+}
+
+.contributors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.contributor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 78px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.contributor img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.contributor:hover img {
+  border-color: var(--accent-purple);
+  transform: scale(1.06);
+}
+
+.contributor span {
+  max-width: 78px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.contributors-loading {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.contributors-loading a {
+  color: var(--accent-blue);
+}
+
+.contribute-rules {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.contribute-rules li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+/* ═══════════ 笔记页 / 随笔页 评论区 ═══════════ */
+.note-comments {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+}
+
+.note-comments h2 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.note-comments-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 18px;
+  line-height: 1.7;
+}
+
+.note-comments-hint a {
+  color: var(--accent-blue);
+}
+
+#comments {
+  min-height: 120px;
+}
+
+@media (max-width: 480px) {
+  .contribute-card { padding: 18px; }
+  .contribute-h2 { font-size: 1.2rem; margin-top: 36px; }
+  .contributor { width: 68px; }
+  .contributor img { width: 48px; height: 48px; }
+  .note-comments { margin-top: 36px; padding-top: 24px; }
+}

@@ -151,7 +151,37 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -168,6 +198,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -194,6 +225,13 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       {{TOC}}
       <div class="essay-body">{{BODY}}</div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -205,6 +243,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   {{HEAD_EXTRA}}
 </body>
 </html>
@@ -249,15 +288,54 @@ def demote_headings(body_html: str) -> str:
     return re.sub(r"(</?h)([1-5])(?=[\s>])", lambda m: m.group(1) + str(int(m.group(2)) + 1), body_html)
 
 
+def wrap_tables(body_html: str) -> str:
+    """表格适配：包进 .table-scroll，并给每个 <td> 注入 data-label（表头文字）。
+
+    为什么：窄屏下表格无论 table-layout 怎么设，长内容（代码/公式）都会把表格撑出
+    容器或被裁掉且滚不动。拿到 data-label 后，移动端可以用 CSS 把每行渲染成
+    「字段名：值」的卡片，彻底避免横向溢出，也保留"哪一列是什么"的语义。"""
+    def label_rows(table_inner: str) -> str:
+        heads = [re.sub(r"<[^>]+>", "", h).strip()
+                 for h in re.findall(r"<th[^>]*>(.*?)</th>", table_inner, re.S | re.I)]
+        if not heads:
+            return table_inner
+
+        def tr_repl(m: "re.Match[str]") -> str:
+            idx = [0]
+
+            def td_repl(cm: "re.Match[str]") -> str:
+                i = idx[0]
+                idx[0] += 1
+                open_tag = cm.group(1)
+                if i >= len(heads) or "data-label" in open_tag:
+                    return cm.group(0)
+                new_open = open_tag[:-1] + ' data-label="%s">' % html.escape(heads[i], quote=True)
+                return new_open + cm.group(2) + cm.group(3)
+
+            return re.sub(r"(<td[^>]*>)(.*?)(</td>)", td_repl, m.group(0), flags=re.S | re.I)
+
+        return re.sub(r"<tr[^>]*>.*?</tr>", tr_repl, table_inner, flags=re.S | re.I)
+
+    def table_repl(m: "re.Match[str]") -> str:
+        open_tag, inner, close = m.group(1), m.group(2), m.group(3)
+        inner = label_rows(inner)
+        # 清掉全空行（源 md 里常见的占位空行），否则移动端会渲染出一张空卡片
+        inner = re.sub(r"<tr[^>]*>(?:\s*<td[^>]*>\s*</td>)+\s*</tr>", "", inner, flags=re.I)
+        return '<div class="table-scroll">' + open_tag + inner + close + "</div>"
+
+    return re.sub(r"(<table[^>]*>)(.*?)(</table>)", table_repl, body_html, flags=re.S | re.I)
+
+
 KATEX_HEAD_EXTRA = (
-    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">\n'
-    '  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>\n'
-    '  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>\n'
+    # 自托管：CDN 不稳时会「JS 到了 CSS 没到」，原生 MathML 副本裸露撑破移动端布局
+    '<link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">\n'
+    '  <script defer src="/assets/vendor/katex/katex.min.js"></script>\n'
+    '  <script defer src="/assets/vendor/katex/auto-render.min.js"></script>\n'
     '  <script>'
     'document.addEventListener("DOMContentLoaded", function () {'
     'try { renderMathInElement(document.querySelector(".essay-body"), {'
     'delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]'
-    '}); } catch (e) { /* KaTeX 加载失败时公式保持原文卡片 */ }'
+    '}); } catch (e) { /* 渲染失败时公式保持原文 */ }'
     '});</script>'
 )
 
@@ -345,6 +423,7 @@ def build_one(note: dict, source_dir: Path, out_dir: Path, stats: dict) -> dict:
 
     body = restore_math(body, math_stash)
     body = demote_headings(body)
+    body = wrap_tables(body)
     body = rewrite_anchors(body, stats)
 
     head_extra = KATEX_HEAD_EXTRA if math_stash else ""

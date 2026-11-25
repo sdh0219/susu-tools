@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -80,7 +111,7 @@
         <div class="essay-title-wrap"><h2>数值计算复习速查手册</h2>
         <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 62 分钟</span></div></div>
       </div>
-      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li><a href="#_2">一、两类方法各自关注什么</a></li><li><a href="#_3">二、求解方程类：收敛判据 + 收敛阶</a><ul><li><a href="#a-1">表 A-1 非线性方程求根</a></li><li><a href="#a-2">表 A-2 线性方程组迭代法</a></li><li><a href="#a-3">表 A-3 常微分方程数值解</a></li><li><a href="#p">收敛阶 p 怎么求</a></li></ul></li><li><a href="#_4">三、逼近函数类：余项 / 误差阶 / 精度</a><ul><li><a href="#b-1">表 B-1 插值与拟合</a></li><li><a href="#b-2">表 B-2 数值积分</a></li><li><a href="#_5">误差与精度怎么了解（通用口径）</a></li></ul></li><li><a href="#_6">四、五个计算题的做题模板 + 真题演练</a><ul><li><a href="#0">0. 考场通用答题规范</a></li><li><a href="#1-newton">1. 牛顿迭代法（Newton）</a></li><li><a href="#2-ludoolittle">2. LU（Doolittle）分解法</a></li></ul></li><li><a href="#u3323">&amp;gt; 注：本题 u₃₃=−23 是负主元，分解照样成立，不必怀疑算错。</a><ul><li><a href="#3">3. 牛顿插值法（差商）</a></li><li><a href="#4">4. 复化辛普森法</a></li></ul></li><li><a href="#h025">&amp;gt; 同型题的差别只在被积函数，四等分与 h=0.25 完全一样，可直接照模板套。</a><ul><li><a href="#5-">5. 改进欧拉法（预估-校正）</a></li><li><a href="#6-60">6. 五方法通用检查清单（交卷前 60 秒）</a></li></ul></li><li><a href="#_7">五、选择题 / 判断题 / 辨析题 / 纠错题 · 两套卷归并</a><ul><li><a href="#1-12">1. 选择题（12 题，按考点合并）</a></li><li><a href="#2-20">2. 判断题（20 题，按章归并）</a></li><li><a href="#3-6">3. 综合辨析题（6 题，两套高度同型）</a></li><li><a href="#4-2">4. 算法纠错题（2 题，均为课件代码同型）</a></li><li><a href="#5">5. 两套卷答案速查（自测对答案用）</a></li><li><a href="#6-5">6. 四类题型的通用打法（前 5 节怎么用）</a></li></ul></li><li><a href="#_8">六、一句话速记</a></li></ul></nav>
+      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li><a href="#_2">一、两类方法各自关注什么</a></li><li><a href="#_3">二、求解方程类：收敛判据 + 收敛阶</a><ul><li><a href="#a-1">表 A-1　非线性方程求根</a></li><li><a href="#a-2">表 A-2　线性方程组迭代法</a></li><li><a href="#a-3">表 A-3　常微分方程数值解</a></li><li><a href="#p">收敛阶 p 怎么求</a></li></ul></li><li><a href="#_4">三、逼近函数类：余项 / 误差阶 / 精度</a><ul><li><a href="#b-1">表 B-1　插值与拟合</a></li><li><a href="#b-2">表 B-2　数值积分</a></li><li><a href="#_5">误差与精度怎么了解（通用口径）</a></li></ul></li><li><a href="#_6">四、五个计算题的做题模板 + 真题演练</a><ul><li><a href="#0">0. 考场通用答题规范</a></li><li><a href="#1-newton">1. 牛顿迭代法（Newton）</a></li><li><a href="#2-ludoolittle">2. LU（Doolittle）分解法</a></li></ul></li><li><a href="#u3323">&amp;gt; 注：本题 u₃₃=−23 是负主元，分解照样成立，不必怀疑算错。</a><ul><li><a href="#3">3. 牛顿插值法（差商）</a></li><li><a href="#4">4. 复化辛普森法</a></li></ul></li><li><a href="#h025">&amp;gt; 同型题的差别只在被积函数，四等分与 h=0.25 完全一样，可直接照模板套。</a><ul><li><a href="#5-">5. 改进欧拉法（预估-校正）</a></li><li><a href="#6-60">6. 五方法通用检查清单（交卷前 60 秒）</a></li></ul></li><li><a href="#_7">五、选择题 / 判断题 / 辨析题 / 纠错题 · 两套卷归并</a><ul><li><a href="#1-12">1. 选择题（12 题，按考点合并）</a></li><li><a href="#2-20">2. 判断题（20 题，按章归并）</a></li><li><a href="#3-6">3. 综合辨析题（6 题，两套高度同型）</a></li><li><a href="#4-2">4. 算法纠错题（2 题，均为课件代码同型）</a></li><li><a href="#5">5. 两套卷答案速查（自测对答案用）</a></li><li><a href="#6-5">6. 四类题型的通用打法（前 5 节怎么用）</a></li></ul></li><li><a href="#_8">六、一句话速记</a></li></ul></nav>
       <div class="essay-body"><h2 id="_1">数值计算复习速查手册</h2>
 <blockquote>
 <p>口径与《数值计算实验与数学建模-复习思维导图.md》一致。
@@ -89,7 +120,7 @@
 </blockquote>
 <hr />
 <h3 id="_2">一、两类方法各自关注什么</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>大类</th>
@@ -99,24 +130,20 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>求解方程</strong>（求根、解方程组、解 ODE）</td>
-<td>迭代<strong>收不收敛</strong>？收敛<strong>多快</strong>？</td>
-<td>收敛判据 + 收敛阶 p</td>
+<td data-label="大类"><strong>求解方程</strong>（求根、解方程组、解 ODE）</td>
+<td data-label="核心问题">迭代<strong>收不收敛</strong>？收敛<strong>多快</strong>？</td>
+<td data-label="主要看什么">收敛判据 + 收敛阶 p</td>
 </tr>
 <tr>
-<td><strong>逼近函数</strong>（插值、拟合、积分）</td>
-<td>近似结果<strong>离真值多近</strong>？</td>
-<td>余项、误差阶 $O(h^p)$、代数精度</td>
+<td data-label="大类"><strong>逼近函数</strong>（插值、拟合、积分）</td>
+<td data-label="核心问题">近似结果<strong>离真值多近</strong>？</td>
+<td data-label="主要看什么">余项、误差阶 $O(h^p)$、代数精度</td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
+
 </tbody>
-</table>
+</table></div>
 <p>五个必考计算题的归属：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>计算题方法</th>
@@ -126,36 +153,36 @@
 </thead>
 <tbody>
 <tr>
-<td>牛顿迭代法</td>
-<td>求解方程 · 非线性求根</td>
-<td>收敛（f′≠0 + 初值靠近根）、收敛阶 2</td>
+<td data-label="计算题方法">牛顿迭代法</td>
+<td data-label="归属大类">求解方程 · 非线性求根</td>
+<td data-label="该关注什么">收敛（f′≠0 + 初值靠近根）、收敛阶 2</td>
 </tr>
 <tr>
-<td>LU 分解法</td>
-<td>求解方程 · 线性方程组直接法</td>
-<td>不谈迭代收敛；看数值稳定与条件数</td>
+<td data-label="计算题方法">LU 分解法</td>
+<td data-label="归属大类">求解方程 · 线性方程组直接法</td>
+<td data-label="该关注什么">不谈迭代收敛；看数值稳定与条件数</td>
 </tr>
 <tr>
-<td>牛顿插值法</td>
-<td>逼近函数 · 插值</td>
-<td>余项、误差随节点加密的变化</td>
+<td data-label="计算题方法">牛顿插值法</td>
+<td data-label="归属大类">逼近函数 · 插值</td>
+<td data-label="该关注什么">余项、误差随节点加密的变化</td>
 </tr>
 <tr>
-<td>复化辛普森法</td>
-<td>逼近函数 · 数值积分</td>
-<td>代数精度 3、误差阶 $O(h^4)$</td>
+<td data-label="计算题方法">复化辛普森法</td>
+<td data-label="归属大类">逼近函数 · 数值积分</td>
+<td data-label="该关注什么">代数精度 3、误差阶 $O(h^4)$</td>
 </tr>
 <tr>
-<td>改进欧拉法</td>
-<td>求解方程 · 常微分方程</td>
-<td>相容 + 稳定 ⇒ 收敛，方法阶 p=2</td>
+<td data-label="计算题方法">改进欧拉法</td>
+<td data-label="归属大类">求解方程 · 常微分方程</td>
+<td data-label="该关注什么">相容 + 稳定 ⇒ 收敛，方法阶 p=2</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h3 id="_3">二、求解方程类：收敛判据 + 收敛阶</h3>
 <h4 id="a-1">表 A-1　非线性方程求根</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -166,39 +193,39 @@
 </thead>
 <tbody>
 <tr>
-<td>二分法</td>
-<td>f 连续且 <strong>$f(a)f(b)&lt;0$</strong> ⇒ 必定收敛</td>
-<td><strong>1</strong>（线性）</td>
-<td>区间长度 $(b-a)/2^n$，取中点的误差界 $(b-a)/2^{n+1}$；慢，但最稳妥，不能求复根、偶重根</td>
+<td data-label="方法">二分法</td>
+<td data-label="怎么判断收敛">f 连续且 <strong>$f(a)f(b)&lt;0$</strong> ⇒ 必定收敛</td>
+<td data-label="收敛阶 p"><strong>1</strong>（线性）</td>
+<td data-label="关键条件 / 备注">区间长度 $(b-a)/2^n$，取中点的误差界 $(b-a)/2^{n+1}$；慢，但最稳妥，不能求复根、偶重根</td>
 </tr>
 <tr>
-<td>不动点迭代</td>
-<td>局部：<strong>$\lvert\varphi'(x^*)\rvert&lt;1$</strong>；全局：压缩映射（连续可导、$\lvert\varphi'\rvert\le L&lt;1$、映入自身）</td>
-<td><strong>1</strong>（线性），收敛因子 $\lvert\varphi'(x^*)\rvert$</td>
-<td>若 $\varphi'(x^*)=0$ 且二阶导非零 → <strong>$p=2$</strong></td>
+<td data-label="方法">不动点迭代</td>
+<td data-label="怎么判断收敛">局部：<strong>$\lvert\varphi'(x^*)\rvert&lt;1$</strong>；全局：压缩映射（连续可导、$\lvert\varphi'\rvert\le L&lt;1$、映入自身）</td>
+<td data-label="收敛阶 p"><strong>1</strong>（线性），收敛因子 $\lvert\varphi'(x^*)\rvert$</td>
+<td data-label="关键条件 / 备注">若 $\varphi'(x^<em>)=0$ 且二阶导非零 → </em><em>$p=2$</em>*</td>
 </tr>
 <tr>
-<td>牛顿法</td>
-<td>单根 <strong>f′(x*)≠0</strong>，初值落在根的邻域内 ⇒ 局部收敛</td>
-<td><strong>2</strong>（平方）；重根退化为 <strong>1</strong></td>
-<td>需算导数、初值敏感；重根要按重数 m 修正</td>
+<td data-label="方法">牛顿法</td>
+<td data-label="怎么判断收敛">单根 <strong>f′(x*)≠0</strong>，初值落在根的邻域内 ⇒ 局部收敛</td>
+<td data-label="收敛阶 p"><strong>2</strong>（平方）；重根退化为 <strong>1</strong></td>
+<td data-label="关键条件 / 备注">需算导数、初值敏感；重根要按重数 m 修正</td>
 </tr>
 <tr>
-<td>弦截法（割线）</td>
-<td>两个较好初值</td>
-<td><strong>≈1.618</strong>（超线性）</td>
-<td>用差商代替导数，免求 f′</td>
+<td data-label="方法">弦截法（割线）</td>
+<td data-label="怎么判断收敛">两个较好初值</td>
+<td data-label="收敛阶 p"><strong>≈1.618</strong>（超线性）</td>
+<td data-label="关键条件 / 备注">用差商代替导数，免求 f′</td>
 </tr>
 <tr>
-<td>Aitken / Steffensen</td>
-<td>原序列线性收敛即可加速</td>
-<td>加速后可达 <strong>2</strong></td>
-<td>提速明显，受舍入误差影响</td>
+<td data-label="方法">Aitken / Steffensen</td>
+<td data-label="怎么判断收敛">原序列线性收敛即可加速</td>
+<td data-label="收敛阶 p">加速后可达 <strong>2</strong></td>
+<td data-label="关键条件 / 备注">提速明显，受舍入误差影响</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4 id="a-2">表 A-2　线性方程组迭代法</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -209,30 +236,30 @@
 </thead>
 <tbody>
 <tr>
-<td>Jacobi</td>
-<td><strong>$\rho(B_J)&lt;1$</strong>，与初值无关</td>
-<td>A 严格对角占优 ⇒ 收敛</td>
-<td>全程用旧值，可并行；对称正定<strong>不保证</strong>它收敛</td>
+<td data-label="方法">Jacobi</td>
+<td data-label="收敛判据（充要）"><strong>$\rho(B_J)&lt;1$</strong>，与初值无关</td>
+<td data-label="充分条件">A 严格对角占优 ⇒ 收敛</td>
+<td data-label="备注">全程用旧值，可并行；对称正定<strong>不保证</strong>它收敛</td>
 </tr>
 <tr>
-<td>Gauss-Seidel</td>
-<td><strong>$\rho(B_{GS})&lt;1$</strong></td>
-<td>严格对角占优；<strong>对称正定</strong> ⇒ 收敛</td>
-<td>用本步新值，串行，通常更快（有反例）</td>
+<td data-label="方法">Gauss-Seidel</td>
+<td data-label="收敛判据（充要）"><strong>$\rho(B_{GS})&lt;1$</strong></td>
+<td data-label="充分条件">严格对角占优；<strong>对称正定</strong> ⇒ 收敛</td>
+<td data-label="备注">用本步新值，串行，通常更快（有反例）</td>
 </tr>
 <tr>
-<td>SOR 超松弛</td>
-<td><strong>$\rho(B_\omega)&lt;1$</strong></td>
-<td>对称正定且 <strong>$0&lt;\omega&lt;2$</strong> ⇒ 收敛</td>
-<td>ω=1 即 GS；最优 ω 需试算，选好可大幅加速</td>
+<td data-label="方法">SOR 超松弛</td>
+<td data-label="收敛判据（充要）"><strong>$\rho(B_\omega)&lt;1$</strong></td>
+<td data-label="充分条件">对称正定且 <strong>$0&lt;\omega&lt;2$</strong> ⇒ 收敛</td>
+<td data-label="备注">ω=1 即 GS；最优 ω 需试算，选好可大幅加速</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>直接法（高斯消元、LU 分解）<strong>不谈迭代收敛</strong>：不计舍入误差时有限步得精确解；它关注的是<strong>数值稳定</strong>（是否选主元）和<strong>条件数</strong>（是否病态）。</p>
 </blockquote>
 <h4 id="a-3">表 A-3　常微分方程数值解</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -243,37 +270,37 @@
 </thead>
 <tbody>
 <tr>
-<td>显式欧拉</td>
-<td>相容 + 稳定 ⇒ 收敛</td>
-<td><strong>1</strong>，整体 O(h)</td>
-<td>稳定域很小</td>
+<td data-label="方法">显式欧拉</td>
+<td data-label="收敛判据">相容 + 稳定 ⇒ 收敛</td>
+<td data-label="方法阶 p（整体误差）"><strong>1</strong>，整体 O(h)</td>
+<td data-label="稳定性">稳定域很小</td>
 </tr>
 <tr>
-<td>后退欧拉（隐式）</td>
-<td>相容 + 稳定 ⇒ 收敛</td>
-<td><strong>1</strong>，整体 O(h)</td>
-<td><strong>A 稳定</strong>，刚性可用</td>
+<td data-label="方法">后退欧拉（隐式）</td>
+<td data-label="收敛判据">相容 + 稳定 ⇒ 收敛</td>
+<td data-label="方法阶 p（整体误差）"><strong>1</strong>，整体 O(h)</td>
+<td data-label="稳定性"><strong>A 稳定</strong>，刚性可用</td>
 </tr>
 <tr>
-<td>梯形法</td>
-<td>相容 + 稳定 ⇒ 收敛</td>
-<td><strong>2</strong>，整体 $O(h^2)$</td>
-<td>A 稳定</td>
+<td data-label="方法">梯形法</td>
+<td data-label="收敛判据">相容 + 稳定 ⇒ 收敛</td>
+<td data-label="方法阶 p（整体误差）"><strong>2</strong>，整体 $O(h^2)$</td>
+<td data-label="稳定性">A 稳定</td>
 </tr>
 <tr>
-<td>改进欧拉</td>
-<td>相容 + 稳定 ⇒ 收敛</td>
-<td><strong>2</strong>，整体 $O(h^2)$</td>
-<td>稳定域较小</td>
+<td data-label="方法">改进欧拉</td>
+<td data-label="收敛判据">相容 + 稳定 ⇒ 收敛</td>
+<td data-label="方法阶 p（整体误差）"><strong>2</strong>，整体 $O(h^2)$</td>
+<td data-label="稳定性">稳定域较小</td>
 </tr>
 <tr>
-<td>RK4</td>
-<td>相容 + 稳定 ⇒ 收敛</td>
-<td><strong>4</strong>，整体 $O(h^4)$</td>
-<td>稳定域中等，通用首选</td>
+<td data-label="方法">RK4</td>
+<td data-label="收敛判据">相容 + 稳定 ⇒ 收敛</td>
+<td data-label="方法阶 p（整体误差）"><strong>4</strong>，整体 $O(h^4)$</td>
+<td data-label="稳定性">稳定域中等，通用首选</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>ODE 不看"迭代是否收敛到根"，而是看<strong>格式是否相容 + 数值是否稳定</strong>，两者兼备才收敛；再用方法阶 p 衡量精度。</p>
 </blockquote>
@@ -296,7 +323,7 @@
 <hr />
 <h3 id="_4">三、逼近函数类：余项 / 误差阶 / 精度</h3>
 <h4 id="b-1">表 B-1　插值与拟合</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -307,51 +334,51 @@
 </thead>
 <tbody>
 <tr>
-<td>拉格朗日插值</td>
-<td>$f^{(n+1)}(\xi)/(n+1)!\times\omega_{n+1}(x)$</td>
-<td>随节点数定次数</td>
-<td>高次等距节点有 <strong>Runge 振荡</strong>风险</td>
+<td data-label="方法">拉格朗日插值</td>
+<td data-label="余项 / 误差">$f^{(n+1)}(\xi)/(n+1)!\times\omega_{n+1}(x)$</td>
+<td data-label="误差阶（步长 h）">随节点数定次数</td>
+<td data-label="精度看点">高次等距节点有 <strong>Runge 振荡</strong>风险</td>
 </tr>
 <tr>
-<td>牛顿插值</td>
-<td>与拉格朗日同形（差商逐项累加）</td>
-<td>同上</td>
-<td>便于逐次加密节点</td>
+<td data-label="方法">牛顿插值</td>
+<td data-label="余项 / 误差">与拉格朗日同形（差商逐项累加）</td>
+<td data-label="误差阶（步长 h）">同上</td>
+<td data-label="精度看点">便于逐次加密节点</td>
 </tr>
 <tr>
-<td>Hermite 插值</td>
-<td>$f^{(2n+2)}(\xi)/(2n+2)!\times\omega^2$</td>
-<td>—</td>
-<td>同时匹配函数值与导数</td>
+<td data-label="方法">Hermite 插值</td>
+<td data-label="余项 / 误差">$f^{(2n+2)}(\xi)/(2n+2)!\times\omega^2$</td>
+<td data-label="误差阶（步长 h）">—</td>
+<td data-label="精度看点">同时匹配函数值与导数</td>
 </tr>
 <tr>
-<td>分段线性</td>
-<td>线性拼接</td>
-<td><strong>$O(h^2)$</strong></td>
-<td>简单稳定，节点处导数不连续</td>
+<td data-label="方法">分段线性</td>
+<td data-label="余项 / 误差">线性拼接</td>
+<td data-label="误差阶（步长 h）"><strong>$O(h^2)$</strong></td>
+<td data-label="精度看点">简单稳定，节点处导数不连续</td>
 </tr>
 <tr>
-<td>分段三次 Hermite</td>
-<td>低次拼接</td>
-<td><strong>$O(h^4)$</strong></td>
-<td>一阶导数连续</td>
+<td data-label="方法">分段三次 Hermite</td>
+<td data-label="余项 / 误差">低次拼接</td>
+<td data-label="误差阶（步长 h）"><strong>$O(h^4)$</strong></td>
+<td data-label="精度看点">一阶导数连续</td>
 </tr>
 <tr>
-<td>三次样条</td>
-<td>三弯矩方程 + 追赶法</td>
-<td><strong>$O(h^4)$</strong>，二阶光滑</td>
-<td>曲线平顺，工程制图常用</td>
+<td data-label="方法">三次样条</td>
+<td data-label="余项 / 误差">三弯矩方程 + 追赶法</td>
+<td data-label="误差阶（步长 h）"><strong>$O(h^4)$</strong>，二阶光滑</td>
+<td data-label="精度看点">曲线平顺，工程制图常用</td>
 </tr>
 <tr>
-<td>最小二乘拟合</td>
-<td>不逐点穿过，看残差平方和</td>
-<td>—</td>
-<td>含噪声数据只逼近趋势</td>
+<td data-label="方法">最小二乘拟合</td>
+<td data-label="余项 / 误差">不逐点穿过，看残差平方和</td>
+<td data-label="误差阶（步长 h）">—</td>
+<td data-label="精度看点">含噪声数据只逼近趋势</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4 id="b-2">表 B-2　数值积分</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -363,42 +390,42 @@
 </thead>
 <tbody>
 <tr>
-<td>复化梯形</td>
-<td><strong>$O(h^2)$</strong></td>
-<td>约 <strong>1/4</strong></td>
-<td>1 次</td>
-<td>系数比 1:1</td>
+<td data-label="方法">复化梯形</td>
+<td data-label="误差阶"><strong>$O(h^2)$</strong></td>
+<td data-label="步长减半后误差">约 <strong>1/4</strong></td>
+<td data-label="代数精度">1 次</td>
+<td data-label="备注">系数比 1:1</td>
 </tr>
 <tr>
-<td>复化辛普森</td>
-<td><strong>$O(h^4)$</strong></td>
-<td>约 <strong>1/16</strong></td>
-<td>3 次</td>
-<td>必须偶数等分，奇 4 偶 2，系数 h/3</td>
+<td data-label="方法">复化辛普森</td>
+<td data-label="误差阶"><strong>$O(h^4)$</strong></td>
+<td data-label="步长减半后误差">约 <strong>1/16</strong></td>
+<td data-label="代数精度">3 次</td>
+<td data-label="备注">必须偶数等分，奇 4 偶 2，系数 h/3</td>
 </tr>
 <tr>
-<td>柯特斯</td>
-<td>$O(h^6)$</td>
-<td>—</td>
-<td>5 次</td>
-<td>n≥8 系数出负，不稳定</td>
+<td data-label="方法">柯特斯</td>
+<td data-label="误差阶">$O(h^6)$</td>
+<td data-label="步长减半后误差">—</td>
+<td data-label="代数精度">5 次</td>
+<td data-label="备注">n≥8 系数出负，不稳定</td>
 </tr>
 <tr>
-<td>龙贝格</td>
-<td>外推加速，阶逐步提高</td>
-<td>—</td>
-<td>逐次升高</td>
-<td>需函数光滑、高精度</td>
+<td data-label="方法">龙贝格</td>
+<td data-label="误差阶">外推加速，阶逐步提高</td>
+<td data-label="步长减半后误差">—</td>
+<td data-label="代数精度">逐次升高</td>
+<td data-label="备注">需函数光滑、高精度</td>
 </tr>
 <tr>
-<td>高斯求积</td>
-<td>节点少、精度高</td>
-<td>—</td>
-<td><strong>2n−1</strong> 次</td>
-<td>适合函数求值昂贵</td>
+<td data-label="方法">高斯求积</td>
+<td data-label="误差阶">节点少、精度高</td>
+<td data-label="步长减半后误差">—</td>
+<td data-label="代数精度"><strong>2n−1</strong> 次</td>
+<td data-label="备注">适合函数求值昂贵</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4 id="_5">误差与精度怎么了解（通用口径）</h4>
 <p><strong>1. 两类误差先分清</strong></p>
 <ul>
@@ -424,7 +451,7 @@
 <p>只考这五个方法的计算：牛顿迭代法、LU（Doolittle）分解法、牛顿插值法、复化辛普森法、改进欧拉法。每节给「做题模板 → 扣分点 → 真题完整演算 → 同型真题」四块。</p>
 </blockquote>
 <h4 id="0">0. 考场通用答题规范</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>环节</th>
@@ -433,31 +460,31 @@
 </thead>
 <tbody>
 <tr>
-<td>抄已知</td>
-<td>先把 f(x)、初值、步长、等分数、保留位数写在卷面上，后面算错也能拿步骤分</td>
+<td data-label="环节">抄已知</td>
+<td data-label="要求">先把 f(x)、初值、步长、等分数、保留位数写在卷面上，后面算错也能拿步骤分</td>
 </tr>
 <tr>
-<td>写公式</td>
-<td>每道题先写出所用迭代式 / 公式，再代数字</td>
+<td data-label="环节">写公式</td>
+<td data-label="要求">每道题先写出所用迭代式 / 公式，再代数字</td>
 </tr>
 <tr>
-<td>分步算</td>
-<td>一步一行，中间值比题目要求多留 2 位小数</td>
+<td data-label="环节">分步算</td>
+<td data-label="要求">一步一行，中间值比题目要求多留 2 位小数</td>
 </tr>
 <tr>
-<td>修约</td>
-<td>只在最后一步按题目要求保留位数，中间不提前舍入</td>
+<td data-label="环节">修约</td>
+<td data-label="要求">只在最后一步按题目要求保留位数，中间不提前舍入</td>
 </tr>
 <tr>
-<td>核验</td>
-<td>插值代回节点、方程组代回原式、积分与精确值比误差</td>
+<td data-label="环节">核验</td>
+<td data-label="要求">插值代回节点、方程组代回原式、积分与精确值比误差</td>
 </tr>
 <tr>
-<td>答句</td>
-<td>明确写出「所求量为 …」，带单位或位数说明</td>
+<td data-label="环节">答句</td>
+<td data-label="要求">明确写出「所求量为 …」，带单位或位数说明</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr />
 <h4 id="1-newton">1. 牛顿迭代法（Newton）</h4>
 <p><strong>题型长相</strong>：给出 f(x)=0 和初值 x₀，要求「求 x₁、x₂」「迭代两次」，或再加一问「判近似根有几位有效数字」。</p>
@@ -529,7 +556,7 @@
 <li><strong>抄 A 和 b</strong>，写成矩阵块，标清行号。</li>
 <li><strong>分解 A=LU</strong>：L 是单位下三角（对角全 1），U 是上三角。按下面顺序交替推进，不要跳步：</li>
 </ol>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>轮次</th>
@@ -539,32 +566,32 @@
 </thead>
 <tbody>
 <tr>
-<td>①</td>
-<td>U 第 1 行</td>
-<td>u₁ⱼ = a₁ⱼ</td>
+<td data-label="轮次">①</td>
+<td data-label="算什么">U 第 1 行</td>
+<td data-label="公式">u₁ⱼ = a₁ⱼ</td>
 </tr>
 <tr>
-<td>②</td>
-<td>L 第 1 列</td>
-<td>lᵢ₁ = aᵢ₁/u₁₁</td>
+<td data-label="轮次">②</td>
+<td data-label="算什么">L 第 1 列</td>
+<td data-label="公式">lᵢ₁ = aᵢ₁/u₁₁</td>
 </tr>
 <tr>
-<td>③</td>
-<td>U 第 2 行</td>
-<td>u₂ⱼ = a₂ⱼ − l₂₁u₁ⱼ</td>
+<td data-label="轮次">③</td>
+<td data-label="算什么">U 第 2 行</td>
+<td data-label="公式">u₂ⱼ = a₂ⱼ − l₂₁u₁ⱼ</td>
 </tr>
 <tr>
-<td>④</td>
-<td>L 第 2 列</td>
-<td>lᵢ₂ = (aᵢ₂ − lᵢ₁u₁₂)/u₂₂</td>
+<td data-label="轮次">④</td>
+<td data-label="算什么">L 第 2 列</td>
+<td data-label="公式">lᵢ₂ = (aᵢ₂ − lᵢ₁u₁₂)/u₂₂</td>
 </tr>
 <tr>
-<td>⑤</td>
-<td>u₃₃</td>
-<td>u₃₃ = a₃₃ − l₃₁u₁₃ − l₃₂u₂₃</td>
+<td data-label="轮次">⑤</td>
+<td data-label="算什么">u₃₃</td>
+<td data-label="公式">u₃₃ = a₃₃ − l₃₁u₁₃ − l₃₂u₂₃</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>通式：</p>
 <div class="math-block">u_{ij}=a_{ij}-\sum_{k=1}^{i-1}l_{ik}u_{kj}\ (i\le j),\qquad
 l_{ij}=\frac{a_{ij}-\sum_{k=1}^{j-1}l_{ik}u_{kj}}{u_{jj}}\ (i&gt;j)</div>
@@ -633,7 +660,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <li><strong>列节点表</strong>，按 x 从小到大排序（没排序就先排，否则差商全错）。</li>
 <li><strong>造差商表</strong>（上三角，只在有值处填）：</li>
 </ol>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>$x_i$</th>
@@ -644,25 +671,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>x₀</td>
-<td>y₀</td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">x₀</td>
+<td data-label="$f(x_i)$">y₀</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>x₁</td>
-<td>y₁</td>
-<td>f[x₀,x₁]=(y₁−y₀)/(x₁−x₀)</td>
-<td></td>
+<td data-label="$x_i$">x₁</td>
+<td data-label="$f(x_i)$">y₁</td>
+<td data-label="一阶差商">f[x₀,x₁]=(y₁−y₀)/(x₁−x₀)</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>x₂</td>
-<td>y₂</td>
-<td>f[x₁,x₂]=(y₂−y₁)/(x₂−x₁)</td>
-<td>f[x₀,x₁,x₂]=(f[x₁,x₂]−f[x₀,x₁])/(x₂−x₀)</td>
+<td data-label="$x_i$">x₂</td>
+<td data-label="$f(x_i)$">y₂</td>
+<td data-label="一阶差商">f[x₁,x₂]=(y₂−y₁)/(x₂−x₁)</td>
+<td data-label="二阶差商">f[x₀,x₁,x₂]=(f[x₁,x₂]−f[x₀,x₁])/(x₂−x₀)</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ol start="3">
 <li><strong>取系数</strong>：取差商表「最上一行」那条斜线，即 f[x₀]、f[x₀,x₁]、f[x₀,x₁,x₂]。</li>
 <li><strong>写多项式</strong>（逐项乘上前面所有因子）：</li>
@@ -682,7 +709,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <p><strong>真题演练（练习题一 · 计算第 3 题）</strong></p>
 <p>题目：沉降监测数据 t（月）=0、1、2，w（mm）=3、5、9。（1）用 Newton 差商公式构造二次插值多项式；（2）求 t=1.5 时的沉降量。</p>
 <p><strong>第一步：差商表</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>t</th>
@@ -693,25 +720,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>3</td>
-<td></td>
-<td></td>
+<td data-label="t">0</td>
+<td data-label="w">3</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>1</td>
-<td>5</td>
-<td>(5−3)/(1−0)=2</td>
-<td></td>
+<td data-label="t">1</td>
+<td data-label="w">5</td>
+<td data-label="一阶差商">(5−3)/(1−0)=2</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>2</td>
-<td>9</td>
-<td>(9−5)/(2−1)=4</td>
-<td>(4−2)/(2−0)=1</td>
+<td data-label="t">2</td>
+<td data-label="w">9</td>
+<td data-label="一阶差商">(9−5)/(2−1)=4</td>
+<td data-label="二阶差商">(4−2)/(2−0)=1</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>系数：f[0]=3，f[0,1]=2，f[0,1,2]=1。</p>
 <p><strong>第二步：写多项式</strong></p>
 <div class="math-block">N_2(t)=3+2t+1\cdot t(t-1)=t^2+t+3</div>
@@ -738,7 +765,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <li><strong>系数只取每列最上面那一个</strong>：f[x₀]、f[x₀,x₁]、f[x₀,x₁,x₂]、f[x₀,x₁,x₂,x₃]…… 表里其余格子都是中间量，不用写进多项式。</li>
 </ol>
 <p><strong>n+1 个点的通用表骨架</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>$x_i$</th>
@@ -751,53 +778,53 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>x₀</td>
-<td>f₀</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">x₀</td>
+<td data-label="$f(x_i)$">f₀</td>
+<td data-label="一阶"></td>
+<td data-label="二阶"></td>
+<td data-label="三阶"></td>
+<td data-label="四阶"></td>
 </tr>
 <tr>
-<td>x₁</td>
-<td>f₁</td>
-<td>f[x₀,x₁]</td>
-<td></td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">x₁</td>
+<td data-label="$f(x_i)$">f₁</td>
+<td data-label="一阶">f[x₀,x₁]</td>
+<td data-label="二阶"></td>
+<td data-label="三阶"></td>
+<td data-label="四阶"></td>
 </tr>
 <tr>
-<td>x₂</td>
-<td>f₂</td>
-<td>f[x₁,x₂]</td>
-<td>f[x₀,x₁,x₂]</td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">x₂</td>
+<td data-label="$f(x_i)$">f₂</td>
+<td data-label="一阶">f[x₁,x₂]</td>
+<td data-label="二阶">f[x₀,x₁,x₂]</td>
+<td data-label="三阶"></td>
+<td data-label="四阶"></td>
 </tr>
 <tr>
-<td>x₃</td>
-<td>f₃</td>
-<td>f[x₂,x₃]</td>
-<td>f[x₁,x₂,x₃]</td>
-<td>f[x₀,x₁,x₂,x₃]</td>
-<td></td>
+<td data-label="$x_i$">x₃</td>
+<td data-label="$f(x_i)$">f₃</td>
+<td data-label="一阶">f[x₂,x₃]</td>
+<td data-label="二阶">f[x₁,x₂,x₃]</td>
+<td data-label="三阶">f[x₀,x₁,x₂,x₃]</td>
+<td data-label="四阶"></td>
 </tr>
 <tr>
-<td>x₄</td>
-<td>f₄</td>
-<td>f[x₃,x₄]</td>
-<td>f[x₂,x₃,x₄]</td>
-<td>f[x₁,x₂,x₃,x₄]</td>
-<td>f[x₀,x₁,x₂,x₃,x₄]</td>
+<td data-label="$x_i$">x₄</td>
+<td data-label="$f(x_i)$">f₄</td>
+<td data-label="一阶">f[x₃,x₄]</td>
+<td data-label="二阶">f[x₂,x₃,x₄]</td>
+<td data-label="三阶">f[x₁,x₂,x₃,x₄]</td>
+<td data-label="四阶">f[x₀,x₁,x₂,x₃,x₄]</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>看表就知道：<strong>每往右一列，分母就多跨一格</strong>。二阶那列的分母是 x₂−x₀，三阶是 x₃−x₀，四阶是 x₄−x₀。</p>
 </blockquote>
 <p><strong>4 个点完整演算（三阶）</strong></p>
 <p>数据：x=0、1、2、3，y=2、4、8、16。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>$x_i$</th>
@@ -809,35 +836,35 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>2</td>
-<td></td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">0</td>
+<td data-label="$f(x_i)$">2</td>
+<td data-label="一阶"></td>
+<td data-label="二阶"></td>
+<td data-label="三阶"></td>
 </tr>
 <tr>
-<td>1</td>
-<td>4</td>
-<td>(4−2)/1=2</td>
-<td></td>
-<td></td>
+<td data-label="$x_i$">1</td>
+<td data-label="$f(x_i)$">4</td>
+<td data-label="一阶">(4−2)/1=2</td>
+<td data-label="二阶"></td>
+<td data-label="三阶"></td>
 </tr>
 <tr>
-<td>2</td>
-<td>8</td>
-<td>(8−4)/1=4</td>
-<td>(4−2)/(2−0)=1</td>
-<td></td>
+<td data-label="$x_i$">2</td>
+<td data-label="$f(x_i)$">8</td>
+<td data-label="一阶">(8−4)/1=4</td>
+<td data-label="二阶">(4−2)/(2−0)=1</td>
+<td data-label="三阶"></td>
 </tr>
 <tr>
-<td>3</td>
-<td>16</td>
-<td>(16−8)/1=8</td>
-<td>(8−4)/(3−1)=2</td>
-<td>(2−1)/(3−0)=1/3</td>
+<td data-label="$x_i$">3</td>
+<td data-label="$f(x_i)$">16</td>
+<td data-label="一阶">(16−8)/1=8</td>
+<td data-label="二阶">(8−4)/(3−1)=2</td>
+<td data-label="三阶">(2−1)/(3−0)=1/3</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>逐格看分母：一阶全是 1（跨一格）；二阶是 2（跨两格 x₂−x₀）；三阶是 3（跨三格 x₃−x₀）。</p>
 <p>系数取最上层斜线：2、2、1、1/3。</p>
 <div class="math-block">N_3(x)=2+2x+1\cdot x(x-1)+\frac{1}{3}x(x-1)(x-2)</div>
@@ -891,7 +918,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <p>题目：计算 I=∫₀¹ 1/(1+x²) dx，将 [0,1] 四等分（2 个 Simpson 单元），用复化 Simpson 求近似值（保留 5 位小数），与精确值 π/4 比较绝对误差。</p>
 <p><strong>第一步：步长与节点</strong></p>
 <p>h=0.25，节点 0、0.25、0.5、0.75、1。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>x</th>
@@ -904,15 +931,15 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>f=1/(1+x²)</td>
-<td>1</td>
-<td>0.94117647</td>
-<td>0.8</td>
-<td>0.64</td>
-<td>0.5</td>
+<td data-label="x">f=1/(1+x²)</td>
+<td data-label="0">1</td>
+<td data-label="0.25">0.94117647</td>
+<td data-label="0.5">0.8</td>
+<td data-label="0.75">0.64</td>
+<td data-label="1">0.5</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>第二步：加权</strong></p>
 <div class="math-block">S=\frac{0.25}{3}\Big[1+0.5+4(0.94117647+0.64)+2\times0.8\Big]</div>
 <p>括号内：1+0.5=1.5；4×1.58117647=6.32470588；2×0.8=1.6；合计 9.42470588。
@@ -946,7 +973,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <ol start="3">
 <li><strong>表格化记录</strong>（每步 7 列，照这个填不会漏）：</li>
 </ol>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>步</th>
@@ -960,25 +987,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>x₀</td>
-<td>y₀</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td data-label="步">0</td>
+<td data-label="$x_n$">x₀</td>
+<td data-label="$y_n$">y₀</td>
+<td data-label="$f_n=f(x_n,y_n)$"></td>
+<td data-label="预估 $\hat y_{n+1}=y_n+hf_n$"></td>
+<td data-label="$\hat f=f(x_{n+1},\hat y_{n+1})$"></td>
+<td data-label="校正 $y_{n+1}=y_n+\frac{h}{2}(f_n+\hat f)$"></td>
 </tr>
 <tr>
-<td>1</td>
-<td>x₁</td>
-<td>↑由上一行投下来</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td data-label="步">1</td>
+<td data-label="$x_n$">x₁</td>
+<td data-label="$y_n$">↑由上一行投下来</td>
+<td data-label="$f_n=f(x_n,y_n)$"></td>
+<td data-label="预估 $\hat y_{n+1}=y_n+hf_n$"></td>
+<td data-label="$\hat f=f(x_{n+1},\hat y_{n+1})$"></td>
+<td data-label="校正 $y_{n+1}=y_n+\frac{h}{2}(f_n+\hat f)$"></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ol start="4">
 <li><strong>逐步推进</strong>：上一行的校正值就是下一步的 $y_n$，接着算 $f_n$。</li>
 <li><strong>收尾</strong>：给了精确解就算绝对误差；同时说明这是二阶方法、误差阶 O(h²)。</li>
@@ -1026,7 +1053,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </blockquote>
 <hr />
 <h4 id="6-60">6. 五方法通用检查清单（交卷前 60 秒）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>检查项</th>
@@ -1039,47 +1066,47 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>先写公式再代数</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
+<td data-label="检查项">先写公式再代数</td>
+<td data-label="牛顿">✓</td>
+<td data-label="LU">✓</td>
+<td data-label="牛顿插值">✓</td>
+<td data-label="复化辛普森">✓</td>
+<td data-label="改进欧拉">✓</td>
 </tr>
 <tr>
-<td>中间值多留 2 位、最后修约</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
+<td data-label="检查项">中间值多留 2 位、最后修约</td>
+<td data-label="牛顿">✓</td>
+<td data-label="LU">✓</td>
+<td data-label="牛顿插值">✓</td>
+<td data-label="复化辛普森">✓</td>
+<td data-label="改进欧拉">✓</td>
 </tr>
 <tr>
-<td>是否漏中间步骤（跳步失分）</td>
-<td>漏 f′</td>
-<td>漏前代</td>
-<td>漏差商表</td>
-<td>漏节点表</td>
-<td>漏预估</td>
+<td data-label="检查项">是否漏中间步骤（跳步失分）</td>
+<td data-label="牛顿">漏 f′</td>
+<td data-label="LU">漏前代</td>
+<td data-label="牛顿插值">漏差商表</td>
+<td data-label="复化辛普森">漏节点表</td>
+<td data-label="改进欧拉">漏预估</td>
 </tr>
 <tr>
-<td>能否核验</td>
-<td>代回 f(x₂)≈0</td>
-<td>代回原方程</td>
-<td>代回 3 个节点</td>
-<td>与精确值比</td>
-<td>与精确解比</td>
+<td data-label="检查项">能否核验</td>
+<td data-label="牛顿">代回 f(x₂)≈0</td>
+<td data-label="LU">代回原方程</td>
+<td data-label="牛顿插值">代回 3 个节点</td>
+<td data-label="复化辛普森">与精确值比</td>
+<td data-label="改进欧拉">与精确解比</td>
 </tr>
 <tr>
-<td>答句是否完整</td>
-<td>位数/有效数字</td>
-<td>三个分量都写</td>
-<td>多项式+数值</td>
-<td>数值+误差</td>
-<td>数值+单位</td>
+<td data-label="检查项">答句是否完整</td>
+<td data-label="牛顿">位数/有效数字</td>
+<td data-label="LU">三个分量都写</td>
+<td data-label="牛顿插值">多项式+数值</td>
+<td data-label="复化辛普森">数值+误差</td>
+<td data-label="改进欧拉">数值+单位</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>时间分配建议</strong>（按 5 道计算题算）：牛顿 8 分钟、LU 12 分钟、插值 8 分钟、辛普森 8 分钟、改进欧拉 8 分钟，共约 45 分钟，留 10 分钟核验。</p>
 <p><strong>最容易丢分的三个共性</strong></p>
 <ol>
@@ -1093,7 +1120,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <p>五个计算法已在第四部分；本节把两套卷的其余题型按<strong>考点</strong>归并，只留结论与坑点，需要看完整题干时回查《练习题-详细答案解析.md》。</p>
 </blockquote>
 <h4 id="1-12">1. 选择题（12 题，按考点合并）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>考点</th>
@@ -1105,81 +1132,81 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>有效数字</td>
-<td>第 1 题（$\pi$ 的 3.1416 与 3.141）</td>
-<td>第 1 题（$\ln2$ 的 0.6931 与 0.693）</td>
-<td>C / B</td>
-<td>位数由误差限所在数位定，不是看写出了几位</td>
+<td data-label="考点">有效数字</td>
+<td data-label="卷一">第 1 题（$\pi$ 的 3.1416 与 3.141）</td>
+<td data-label="卷二">第 1 题（$\ln2$ 的 0.6931 与 0.693）</td>
+<td data-label="答案">C / B</td>
+<td data-label="结论 / 坑点">位数由误差限所在数位定，不是看写出了几位</td>
 </tr>
 <tr>
-<td>牛顿收敛阶</td>
-<td>第 3 题</td>
-<td>—</td>
-<td>B</td>
-<td>单根<strong>局部至少平方</strong>；不是线性、不是全局、每步要算 $f$ 与 $f'$ 两个量</td>
+<td data-label="考点">牛顿收敛阶</td>
+<td data-label="卷一">第 3 题</td>
+<td data-label="卷二">—</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">单根<strong>局部至少平方</strong>；不是线性、不是全局、每步要算 $f$ 与 $f'$ 两个量</td>
 </tr>
 <tr>
-<td>弦截收敛阶</td>
-<td>—</td>
-<td>第 3 题</td>
-<td>B</td>
-<td>≈1.618，别填 2</td>
+<td data-label="考点">弦截收敛阶</td>
+<td data-label="卷一">—</td>
+<td data-label="卷二">第 3 题</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">≈1.618，别填 2</td>
 </tr>
 <tr>
-<td>Jacobi 充分条件</td>
-<td>第 2 题</td>
-<td>—</td>
-<td>B</td>
-<td>严格对角占优；对称正定<strong>只保证 GS</strong></td>
+<td data-label="考点">Jacobi 充分条件</td>
+<td data-label="卷一">第 2 题</td>
+<td data-label="卷二">—</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">严格对角占优；对称正定<strong>只保证 GS</strong></td>
 </tr>
 <tr>
-<td>Doolittle 条件</td>
-<td>—</td>
-<td>第 2 题</td>
-<td>A</td>
-<td>各阶顺序主子式均非零</td>
+<td data-label="考点">Doolittle 条件</td>
+<td data-label="卷一">—</td>
+<td data-label="卷二">第 2 题</td>
+<td data-label="答案">A</td>
+<td data-label="结论 / 坑点">各阶顺序主子式均非零</td>
 </tr>
 <tr>
-<td>列主元目的</td>
-<td>—</td>
-<td>第 4 题</td>
-<td>B</td>
-<td>避免小主元放大误差；不减运算量、不改对称性、不降条件数</td>
+<td data-label="考点">列主元目的</td>
+<td data-label="卷一">—</td>
+<td data-label="卷二">第 4 题</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">避免小主元放大误差；不减运算量、不改对称性、不降条件数</td>
 </tr>
 <tr>
-<td>Runge 现象</td>
-<td>第 4 题</td>
-<td>—</td>
-<td>B</td>
-<td>高次等距振荡 → 分段低次 / 样条</td>
+<td data-label="考点">Runge 现象</td>
+<td data-label="卷一">第 4 题</td>
+<td data-label="卷二">—</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">高次等距振荡 → 分段低次 / 样条</td>
 </tr>
 <tr>
-<td>复化梯形误差阶</td>
-<td>第 5 题</td>
-<td>—</td>
-<td>B</td>
-<td>$O(h^2)$，步长减半误差约 1/4</td>
+<td data-label="考点">复化梯形误差阶</td>
+<td data-label="卷一">第 5 题</td>
+<td data-label="卷二">—</td>
+<td data-label="答案">B</td>
+<td data-label="结论 / 坑点">$O(h^2)$，步长减半误差约 1/4</td>
 </tr>
 <tr>
-<td>Simpson 代数精度</td>
-<td>—</td>
-<td>第 5 题</td>
-<td>C</td>
-<td>3 次（虽然只用了 3 个点）</td>
+<td data-label="考点">Simpson 代数精度</td>
+<td data-label="卷一">—</td>
+<td data-label="卷二">第 5 题</td>
+<td data-label="答案">C</td>
+<td data-label="结论 / 坑点">3 次（虽然只用了 3 个点）</td>
 </tr>
 <tr>
-<td>改进欧拉</td>
-<td>第 6 题</td>
-<td>第 6 题</td>
-<td>B / B</td>
-<td>整体 $O(h^2)$；每步调用 $f$ <strong>2 次</strong></td>
+<td data-label="考点">改进欧拉</td>
+<td data-label="卷一">第 6 题</td>
+<td data-label="卷二">第 6 题</td>
+<td data-label="答案">B / B</td>
+<td data-label="结论 / 坑点">整体 $O(h^2)$；每步调用 $f$ <strong>2 次</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>共同套路</strong>：选择题 = 一个正确结论 + 三个「常见误解」。记住右列坑点比背题干更管用。</p>
 <h4 id="2-20">2. 判断题（20 题，按章归并）</h4>
 <h5 id="21-4">2.1 误差与数值稳定（4 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1190,33 +1217,33 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>相近数相减损失有效数字，应尽量避免</td>
-<td>一·1</td>
-<td>√</td>
-<td>吃尾数</td>
+<td data-label="命题">相近数相减损失有效数字，应尽量避免</td>
+<td data-label="卷">一·1</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">吃尾数</td>
 </tr>
 <tr>
-<td>cond($A$) 很小 ⇒ 方程组病态</td>
-<td>一·2</td>
-<td>×</td>
-<td>说反了，大才病态</td>
+<td data-label="命题">cond($A$) 很小 ⇒ 方程组病态</td>
+<td data-label="卷">一·2</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">说反了，大才病态</td>
 </tr>
 <tr>
-<td>除以绝对值很小的数会放大误差</td>
-<td>二·1</td>
-<td>√</td>
-<td>与上一条并列的稳定准则</td>
+<td data-label="命题">除以绝对值很小的数会放大误差</td>
+<td data-label="卷">二·1</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">与上一条并列的稳定准则</td>
 </tr>
 <tr>
-<td>cond($A$)&gt;1 就一定病态、求解必然不稳定</td>
-<td>二·2</td>
-<td>×</td>
-<td>要看是否<strong>远大于</strong> 1</td>
+<td data-label="命题">cond($A$)&gt;1 就一定病态、求解必然不稳定</td>
+<td data-label="卷">二·2</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">要看是否<strong>远大于</strong> 1</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="22-5">2.2 非线性方程求根（5 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1227,39 +1254,39 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>$\lvert g'(x)\rvert\le L&lt;1$ ⇒ 不动点迭代局部收敛</td>
-<td>一·3</td>
-<td>√</td>
-<td>压缩映射，$L$ 越小越快</td>
+<td data-label="命题">$\lvert g'(x)\rvert\le L&lt;1$ ⇒ 不动点迭代局部收敛</td>
+<td data-label="卷">一·3</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">压缩映射，$L$ 越小越快</td>
 </tr>
 <tr>
-<td>二分法误差按 $(b-a)/2^{n+1}$ 减小</td>
-<td>一·9</td>
-<td>√</td>
-<td>前提：连续 + 端点异号</td>
+<td data-label="命题">二分法误差按 $(b-a)/2^{n+1}$ 减小</td>
+<td data-label="卷">一·9</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">前提：连续 + 端点异号</td>
 </tr>
 <tr>
-<td>弦截法单根附近二阶收敛</td>
-<td>一·10</td>
-<td>×</td>
-<td>是 1.618</td>
+<td data-label="命题">弦截法单根附近二阶收敛</td>
+<td data-label="卷">一·10</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">是 1.618</td>
 </tr>
 <tr>
-<td>重根直接用标准 Newton 仍平方收敛</td>
-<td>二·3</td>
-<td>×</td>
-<td>退化为线性，要按重数 $m$ 修正</td>
+<td data-label="命题">重根直接用标准 Newton 仍平方收敛</td>
+<td data-label="卷">二·3</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">退化为线性，要按重数 $m$ 修正</td>
 </tr>
 <tr>
-<td>二分法速度与初始含根区间无关</td>
-<td>二·8</td>
-<td>×</td>
-<td>误差界含 $(b-a)$，区间越大越慢</td>
+<td data-label="命题">二分法速度与初始含根区间无关</td>
+<td data-label="卷">二·8</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">误差界含 $(b-a)$，区间越大越慢</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="23-2">2.3 线性方程组（2 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1270,21 +1297,21 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>行列式非零就能不选主元顺利算完且误差一定小</td>
-<td>一·4</td>
-<td>×</td>
-<td>小主元会放大误差，需列主元</td>
+<td data-label="命题">行列式非零就能不选主元顺利算完且误差一定小</td>
+<td data-label="卷">一·4</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">小主元会放大误差，需列主元</td>
 </tr>
 <tr>
-<td>$\rho(M)&lt;1$ 是迭代收敛的充要条件</td>
-<td>二·10</td>
-<td>√</td>
-<td>与初值无关；对角占优等只是充分条件</td>
+<td data-label="命题">$\rho(M)&lt;1$ 是迭代收敛的充要条件</td>
+<td data-label="卷">二·10</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">与初值无关；对角占优等只是充分条件</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="24-3">2.4 插值（3 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1295,27 +1322,27 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>拉格朗日基函数 $l_i(x_j)=\delta_{ij}$（节点处 1、其余 0）</td>
-<td>一·5</td>
-<td>√</td>
-<td>基函数定义</td>
+<td data-label="命题">拉格朗日基函数 $l_i(x_j)=\delta_{ij}$（节点处 1、其余 0）</td>
+<td data-label="卷">一·5</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">基函数定义</td>
 </tr>
 <tr>
-<td>节点重合也一定存在唯一的 $n$ 次插值多项式</td>
-<td>二·4</td>
-<td>×</td>
-<td>节点必须<strong>互异</strong>，重合要用 Hermite</td>
+<td data-label="命题">节点重合也一定存在唯一的 $n$ 次插值多项式</td>
+<td data-label="卷">二·4</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">节点必须<strong>互异</strong>，重合要用 Hermite</td>
 </tr>
 <tr>
-<td>两点三次 Hermite 四条约束 ⇒ 最高四次多项式</td>
-<td>二·7</td>
-<td>×</td>
-<td>次数是 $2n+1=3$</td>
+<td data-label="命题">两点三次 Hermite 四条约束 ⇒ 最高四次多项式</td>
+<td data-label="卷">二·7</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">次数是 $2n+1=3$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="25-4">2.5 数值积分（4 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1326,33 +1353,33 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>$m$ 次代数精度 ⇒ 对 $\le m$ 次多项式精确</td>
-<td>一·6</td>
-<td>√</td>
-<td>定义本身</td>
+<td data-label="命题">$m$ 次代数精度 ⇒ 对 $\le m$ 次多项式精确</td>
+<td data-label="卷">一·6</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">定义本身</td>
 </tr>
 <tr>
-<td>复化 Simpson 一定比同步长梯形精确</td>
-<td>一·7</td>
-<td>×</td>
-<td>还看函数光滑性</td>
+<td data-label="命题">复化 Simpson 一定比同步长梯形精确</td>
+<td data-label="卷">一·7</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">还看函数光滑性</td>
 </tr>
 <tr>
-<td>梯形代数精度为 2</td>
-<td>二·5</td>
-<td>×</td>
-<td>是 1</td>
+<td data-label="命题">梯形代数精度为 2</td>
+<td data-label="卷">二·5</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">是 1</td>
 </tr>
 <tr>
-<td>所有求积公式都是插值型</td>
-<td>二·9</td>
-<td>×</td>
-<td>看系数是否来自基函数积分；高斯求积反而是插值型</td>
+<td data-label="命题">所有求积公式都是插值型</td>
+<td data-label="卷">二·9</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">看系数是否来自基函数积分；高斯求积反而是插值型</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="26-2">2.6 常微分方程（2 条）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>命题</th>
@@ -1363,22 +1390,22 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>显式欧拉无条件稳定，刚性方程可放大步长</td>
-<td>一·8</td>
-<td>×</td>
-<td>条件稳定，大步长会发散</td>
+<td data-label="命题">显式欧拉无条件稳定，刚性方程可放大步长</td>
+<td data-label="卷">一·8</td>
+<td data-label="答案">×</td>
+<td data-label="一句话">条件稳定，大步长会发散</td>
 </tr>
 <tr>
-<td>隐式欧拉 A-稳定，刚性方程步长不受稳定性限制</td>
-<td>二·6</td>
-<td>√</td>
-<td>代价是每步要解隐式方程</td>
+<td data-label="命题">隐式欧拉 A-稳定，刚性方程步长不受稳定性限制</td>
+<td data-label="卷">二·6</td>
+<td data-label="答案">√</td>
+<td data-label="一句话">代价是每步要解隐式方程</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>判断题总体分布</strong>：20 条里对 8 条、错 12 条。错项集中在三种钩子——<strong>说反</strong>（病态判据）、<strong>绝对化</strong>（「一定」「无条件」「必然」）、<strong>记混阶数</strong>（弦截 2 阶、梯形精度 2、Hermite 四次）。看到这三类表述先警惕。</p>
 <h4 id="3-6">3. 综合辨析题（6 题，两套高度同型）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>场景</th>
@@ -1389,43 +1416,43 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>21 个含噪监测点做 21 次 Lagrange 精确通过</td>
-<td>一·1</td>
-<td>不恰当</td>
-<td>噪声被当信号，引发 Runge 振荡；改分段低次 / 样条 / 最小二乘拟合</td>
+<td data-label="场景">21 个含噪监测点做 21 次 Lagrange 精确通过</td>
+<td data-label="卷">一·1</td>
+<td data-label="判定">不恰当</td>
+<td data-label="依据 / 正确做法">噪声被当信号，引发 Runge 振荡；改分段低次 / 样条 / 最小二乘拟合</td>
 </tr>
 <tr>
-<td>同一刚度矩阵、上百工况，先 LU 分解，再多轮前代回代</td>
-<td>一·2</td>
-<td>恰当</td>
-<td>分解一次、回代多次，省掉重复消元</td>
+<td data-label="场景">同一刚度矩阵、上百工况，先 LU 分解，再多轮前代回代</td>
+<td data-label="卷">一·2</td>
+<td data-label="判定">恰当</td>
+<td data-label="依据 / 正确做法">分解一次、回代多次，省掉重复消元</td>
 </tr>
 <tr>
-<td>光滑函数只有离散测值，用复化 Simpson</td>
-<td>一·3</td>
-<td>恰当</td>
-<td>$O(h^4)$、系数全正；须偶数等分</td>
+<td data-label="场景">光滑函数只有离散测值，用复化 Simpson</td>
+<td data-label="卷">一·3</td>
+<td data-label="判定">恰当</td>
+<td data-label="依据 / 正确做法">$O(h^4)$、系数全正；须偶数等分</td>
 </tr>
 <tr>
-<td>50 个含噪监测点做 49 次 Lagrange</td>
-<td>二·1</td>
-<td>不恰当</td>
-<td>与卷一第 1 题同型：含噪宜拟合不宜插值</td>
+<td data-label="场景">50 个含噪监测点做 49 次 Lagrange</td>
+<td data-label="卷">二·1</td>
+<td data-label="判定">不恰当</td>
+<td data-label="依据 / 正确做法">与卷一第 1 题同型：含噪宜拟合不宜插值</td>
 </tr>
 <tr>
-<td>同一管网系数矩阵、多工况反复求解，先 LU</td>
-<td>二·2</td>
-<td>恰当</td>
-<td>与卷一第 2 题同型</td>
+<td data-label="场景">同一管网系数矩阵、多工况反复求解，先 LU</td>
+<td data-label="卷">二·2</td>
+<td data-label="判定">恰当</td>
+<td data-label="依据 / 正确做法">与卷一第 2 题同型</td>
 </tr>
 <tr>
-<td>刚性方程为了省时间用大步长显式 Euler</td>
-<td>二·3</td>
-<td>不恰当</td>
-<td>越出稳定域会发散；应隐式 / A-稳定格式</td>
+<td data-label="场景">刚性方程为了省时间用大步长显式 Euler</td>
+<td data-label="卷">二·3</td>
+<td data-label="判定">不恰当</td>
+<td data-label="依据 / 正确做法">越出稳定域会发散；应隐式 / A-稳定格式</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>三段式答题</strong>：判定 → 依据（方法适用条件）→ 正确做法。只写「不恰当」不给依据，基本不得分。</p>
 <p><strong>三个判别信号（考场直接套）</strong>：</p>
 <ol>
@@ -1435,7 +1462,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </ol>
 <h4 id="4-2">4. 算法纠错题（2 题，均为课件代码同型）</h4>
 <h5 id="41-newtonraphson3">4.1 Newton–Raphson（卷一，3 处缺陷）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>缺陷</th>
@@ -1446,27 +1473,27 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>导数近零判断放在除法之后</td>
-<td>8、9</td>
-<td>先算 $f/f'$ 再判，除零已经发生</td>
-<td>先判 $\lvert f'\rvert$ 是否近零，近零则终止</td>
+<td data-label="缺陷">导数近零判断放在除法之后</td>
+<td data-label="行号">8、9</td>
+<td data-label="问题">先算 $f/f'$ 再判，除零已经发生</td>
+<td data-label="改法">先判 $\lvert f'\rvert$ 是否近零，近零则终止</td>
 </tr>
 <tr>
-<td>近零时 <code>continue</code></td>
-<td>10</td>
-<td>$x$ 不更新，一路空转到上限</td>
-<td>抛异常或返回失败状态</td>
+<td data-label="缺陷">近零时 <code>continue</code></td>
+<td data-label="行号">10</td>
+<td data-label="问题">$x$ 不更新，一路空转到上限</td>
+<td data-label="改法">抛异常或返回失败状态</td>
 </tr>
 <tr>
-<td>收敛判据单一</td>
-<td>6</td>
-<td>只看残差，且无步数保护</td>
-<td>残差 + 相邻迭代差双判据，返回次数与状态</td>
+<td data-label="缺陷">收敛判据单一</td>
+<td data-label="行号">6</td>
+<td data-label="问题">只看残差，且无步数保护</td>
+<td data-label="改法">残差 + 相邻迭代差双判据，返回次数与状态</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="42-simpson3">4.2 复化 Simpson（卷二，3 处缺陷）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>缺陷</th>
@@ -1477,25 +1504,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>奇偶系数写反</td>
-<td>6–9</td>
-<td>偶数点给 4、奇数点给 2</td>
-<td>奇数点系数 4、偶数点系数 2</td>
+<td data-label="缺陷">奇偶系数写反</td>
+<td data-label="行号">6–9</td>
+<td data-label="问题">偶数点给 4、奇数点给 2</td>
+<td data-label="改法">奇数点系数 4、偶数点系数 2</td>
 </tr>
 <tr>
-<td>循环范围混入端点</td>
-<td>4</td>
-<td>又单独加 $f(b)$，端点算两次</td>
-<td>内部点到 $2m-1$，用 <code>range(1, 2*m)</code></td>
+<td data-label="缺陷">循环范围混入端点</td>
+<td data-label="行号">4</td>
+<td data-label="问题">又单独加 $f(b)$，端点算两次</td>
+<td data-label="改法">内部点到 $2m-1$，用 <code>range(1, 2*m)</code></td>
 </tr>
 <tr>
-<td>求积系数错误</td>
-<td>11</td>
-<td>写成 $h/6$</td>
-<td>复化应为 $h/3$</td>
+<td data-label="缺陷">求积系数错误</td>
+<td data-label="行号">11</td>
+<td data-label="问题">写成 $h/6$</td>
+<td data-label="改法">复化应为 $h/3$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="43-6">4.3 纠错题通用检查清单（6 条，任何代码题都按这个顺序扫）</h5>
 <ol>
 <li><strong>除法前</strong>有没有判除数近零；</li>
@@ -1514,7 +1541,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <p>两套卷的纠错题都是「把课件代码改坏 3 处，让你找回来」。所以最快的解法不是凭空审代码，而是<strong>先认出这是哪段课件代码</strong>，再按课件原写法逐项对照。下面按「数值错」和「健壮性缺失」两类分开列。</p>
 </blockquote>
 <h6 id="441">4.4.1 一改就错（数值层面）</h6>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>算法</th>
@@ -1525,81 +1552,81 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>二分</td>
-<td><code>while (b - a) / 2 &gt; tol</code></td>
-<td><code>while b - a &gt; tol</code></td>
-<td>漏掉 <code>/2</code>：判据<strong>严了一倍</strong>（误差界由 tol 收紧到 tol/2），同样 tol 会<strong>多</strong>迭代一轮，结果数值略有不同</td>
+<td data-label="算法">二分</td>
+<td data-label="课件原写法"><code>while (b - a) / 2 &gt; tol</code></td>
+<td data-label="被改坏后"><code>while b - a &gt; tol</code></td>
+<td data-label="后果">漏掉 <code>/2</code>：判据<strong>严了一倍</strong>（误差界由 tol 收紧到 tol/2），同样 tol 会<strong>多</strong>迭代一轮，结果数值略有不同</td>
 </tr>
 <tr>
-<td>二分</td>
-<td><code>if f(a)*f(c) &lt; 0: b = c else: a = c</code></td>
-<td><code>if f(a)*f(c) &gt; 0: b = c</code></td>
-<td>区间收到不含根的一侧，越算越偏</td>
+<td data-label="算法">二分</td>
+<td data-label="课件原写法"><code>if f(a)*f(c) &lt; 0: b = c else: a = c</code></td>
+<td data-label="被改坏后"><code>if f(a)*f(c) &gt; 0: b = c</code></td>
+<td data-label="后果">区间收到不含根的一侧，越算越偏</td>
 </tr>
 <tr>
-<td>高斯消去</td>
-<td><code>f = aug[r,c] / aug[c,c]</code></td>
-<td><code>f = aug[c,c] / aug[r,c]</code></td>
-<td>消元因子取成倒数，整行消元失效</td>
+<td data-label="算法">高斯消去</td>
+<td data-label="课件原写法"><code>f = aug[r,c] / aug[c,c]</code></td>
+<td data-label="被改坏后"><code>f = aug[c,c] / aug[r,c]</code></td>
+<td data-label="后果">消元因子取成倒数，整行消元失效</td>
 </tr>
 <tr>
-<td>高斯消去</td>
-<td><code>aug[r] -= f * aug[c]</code></td>
-<td><code>aug[r,c] -= f * aug[c,c]</code></td>
-<td>只改了主元位置一个数，其余元素没消</td>
+<td data-label="算法">高斯消去</td>
+<td data-label="课件原写法"><code>aug[r] -= f * aug[c]</code></td>
+<td data-label="被改坏后"><code>aug[r,c] -= f * aug[c,c]</code></td>
+<td data-label="后果">只改了主元位置一个数，其余元素没消</td>
 </tr>
 <tr>
-<td>高斯消去回代</td>
-<td><code>(aug[i,-1] - aug[i,i+1:] @ x[i+1:]) / aug[i,i]</code></td>
-<td><code>(aug[i,-1] - aug[i,:] @ x) / aug[i,i]</code></td>
-<td>对角项被重复计入，回代值偏小</td>
+<td data-label="算法">高斯消去回代</td>
+<td data-label="课件原写法"><code>(aug[i,-1] - aug[i,i+1:] @ x[i+1:]) / aug[i,i]</code></td>
+<td data-label="被改坏后"><code>(aug[i,-1] - aug[i,:] @ x) / aug[i,i]</code></td>
+<td data-label="后果">对角项被重复计入，回代值偏小</td>
 </tr>
 <tr>
-<td>列主元</td>
-<td><code>max_row = k + np.argmax(np.abs(Ab[k:, k]))</code></td>
-<td>漏掉 <code>k +</code></td>
-<td>索引落在切片内，交换到错误的行</td>
+<td data-label="算法">列主元</td>
+<td data-label="课件原写法"><code>max_row = k + np.argmax(np.abs(Ab[k:, k]))</code></td>
+<td data-label="被改坏后">漏掉 <code>k +</code></td>
+<td data-label="后果">索引落在切片内，交换到错误的行</td>
 </tr>
 <tr>
-<td>列主元</td>
-<td><code>Ab[[k, max_row]] = Ab[[max_row, k]]</code></td>
-<td><code>Ab[k] = Ab[max_row]</code></td>
-<td>这是覆盖不是交换，第 k 行被冲掉</td>
+<td data-label="算法">列主元</td>
+<td data-label="课件原写法"><code>Ab[[k, max_row]] = Ab[[max_row, k]]</code></td>
+<td data-label="被改坏后"><code>Ab[k] = Ab[max_row]</code></td>
+<td data-label="后果">这是覆盖不是交换，第 k 行被冲掉</td>
 </tr>
 <tr>
-<td>Jacobi</td>
-<td><code>s</code> 的两段都用旧 <code>x</code></td>
-<td>前半段换成 <code>x_new[:i]</code></td>
-<td>用了新值，退化成 Gauss-Seidel</td>
+<td data-label="算法">Jacobi</td>
+<td data-label="课件原写法"><code>s</code> 的两段都用旧 <code>x</code></td>
+<td data-label="被改坏后">前半段换成 <code>x_new[:i]</code></td>
+<td data-label="后果">用了新值，退化成 Gauss-Seidel</td>
 </tr>
 <tr>
-<td>Jacobi</td>
-<td><code>x_new[i] = (b[i]-s) / A[i,i]</code></td>
-<td><code>x[i] = (b[i]-s) / A[i,i]</code></td>
-<td>原地更新，后面的 i 读到已改的新值</td>
+<td data-label="算法">Jacobi</td>
+<td data-label="课件原写法"><code>x_new[i] = (b[i]-s) / A[i,i]</code></td>
+<td data-label="被改坏后"><code>x[i] = (b[i]-s) / A[i,i]</code></td>
+<td data-label="后果">原地更新，后面的 i 读到已改的新值</td>
 </tr>
 <tr>
-<td>Gauss-Seidel</td>
-<td><code>x_new = x.copy()</code></td>
-<td><code>np.zeros_like(x)</code></td>
-<td><code>x[i+1:]</code> 全变 0，旧值信息丢失</td>
+<td data-label="算法">Gauss-Seidel</td>
+<td data-label="课件原写法"><code>x_new = x.copy()</code></td>
+<td data-label="被改坏后"><code>np.zeros_like(x)</code></td>
+<td data-label="后果"><code>x[i+1:]</code> 全变 0，旧值信息丢失</td>
 </tr>
 <tr>
-<td>Gauss-Seidel</td>
-<td><code>s</code> = 新的前半段 + 旧的后半段</td>
-<td>两段都用 <code>x</code></td>
-<td>新值没用上，退化为 Jacobi</td>
+<td data-label="算法">Gauss-Seidel</td>
+<td data-label="课件原写法"><code>s</code> = 新的前半段 + 旧的后半段</td>
+<td data-label="被改坏后">两段都用 <code>x</code></td>
+<td data-label="后果">新值没用上，退化为 Jacobi</td>
 </tr>
 <tr>
-<td>Newton</td>
-<td><code>x_new = x - f(x) / f_prime(x)</code></td>
-<td><code>x - f_prime(x) / f(x)</code></td>
-<td>公式颠倒，迭代直接发散</td>
+<td data-label="算法">Newton</td>
+<td data-label="课件原写法"><code>x_new = x - f(x) / f_prime(x)</code></td>
+<td data-label="被改坏后"><code>x - f_prime(x) / f(x)</code></td>
+<td data-label="后果">公式颠倒，迭代直接发散</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h6 id="442">4.4.2 课件本身就不健壮（考卷可能让你补上）</h6>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>算法</th>
@@ -1609,32 +1636,32 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>二分</td>
-<td>没有 <code>max_iter</code> 上限，只有 <code>while</code> 循环</td>
-<td>加迭代计数或 <code>for _ in range(max_iter)</code></td>
+<td data-label="算法">二分</td>
+<td data-label="课件缺什么">没有 <code>max_iter</code> 上限，只有 <code>while</code> 循环</td>
+<td data-label="补法">加迭代计数或 <code>for _ in range(max_iter)</code></td>
 </tr>
 <tr>
-<td>高斯消去</td>
-<td>不选主元、不判零主元</td>
-<td>加列主元交换，并 <code>if abs(Ab[k,k]) &lt; 1e-12: raise</code></td>
+<td data-label="算法">高斯消去</td>
+<td data-label="课件缺什么">不选主元、不判零主元</td>
+<td data-label="补法">加列主元交换，并 <code>if abs(Ab[k,k]) &lt; 1e-12: raise</code></td>
 </tr>
 <tr>
-<td>Jacobi / GS</td>
-<td>未判 <code>A[i,i]</code> 是否近零</td>
-<td>循环内先判，近零则报错终止</td>
+<td data-label="算法">Jacobi / GS</td>
+<td data-label="课件缺什么">未判 <code>A[i,i]</code> 是否近零</td>
+<td data-label="补法">循环内先判，近零则报错终止</td>
 </tr>
 <tr>
-<td>Jacobi / GS</td>
-<td>只返回 <code>(x, 次数)</code>，分不清收敛还是超步数</td>
-<td>返回 <code>(x, k, converged)</code> 或抛异常</td>
+<td data-label="算法">Jacobi / GS</td>
+<td data-label="课件缺什么">只返回 <code>(x, 次数)</code>，分不清收敛还是超步数</td>
+<td data-label="补法">返回 <code>(x, k, converged)</code> 或抛异常</td>
 </tr>
 <tr>
-<td>Newton</td>
-<td>循环外漏了 <code>return x</code></td>
-<td>循环后补 <code>return x</code>，否则 100 步不收敛时返回 <code>None</code></td>
+<td data-label="算法">Newton</td>
+<td data-label="课件缺什么">循环外漏了 <code>return x</code></td>
+<td data-label="补法">循环后补 <code>return x</code>，否则 100 步不收敛时返回 <code>None</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h6 id="443">4.4.3 三句话记住</h6>
 <ol>
 <li><strong>数值错只出在三处</strong>：方向（新旧值用反）、下标（起止差一）、系数（乘除颠倒或倍数错）。</li>
@@ -1646,7 +1673,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <p>4.3 说「查什么」，4.4 说「错法长什么样」。这一节补最后一块：<strong>每种错法算出来的数字坏成什么级别</strong>。下面每个数字都是照被改坏的写法真跑出来的，症状可以直接背，考场对号入座。</p>
 </blockquote>
 <p><strong>例 1（对清单 2 · 循环边界漏端点）</strong> 复化梯形算 $\int_0^1 x^2\,dx$，$n=4$，真值 $1/3=0.333333$。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>写法</th>
@@ -1656,25 +1683,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>正确：中段 <code>range(1, n)</code>，两端各给 0.5 权重</td>
-<td><strong>0.34375</strong></td>
-<td>正常截断误差 $1.0\times10^{-2}$</td>
+<td data-label="写法">正确：中段 <code>range(1, n)</code>，两端各给 0.5 权重</td>
+<td data-label="结果"><strong>0.34375</strong></td>
+<td data-label="后果">正常截断误差 $1.0\times10^{-2}$</td>
 </tr>
 <tr>
-<td>错：中段写成 <code>range(1, n)</code> 却漏了 $f(x_n)$</td>
-<td><strong>0.21875</strong></td>
-<td>少算 <strong>36.4%</strong></td>
+<td data-label="写法">错：中段写成 <code>range(1, n)</code> 却漏了 $f(x_n)$</td>
+<td data-label="结果"><strong>0.21875</strong></td>
+<td data-label="后果">少算 <strong>36.4%</strong></td>
 </tr>
 <tr>
-<td>错：右端点被当中段算（权重 1 而非 0.5）</td>
-<td><strong>0.46875</strong></td>
-<td>多算 <strong>36.4%</strong></td>
+<td data-label="写法">错：右端点被当中段算（权重 1 而非 0.5）</td>
+<td data-label="结果"><strong>0.46875</strong></td>
+<td data-label="后果">多算 <strong>36.4%</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>端点权重只有 0.5，所以漏端点或端点加错，误差就固定在「一截」上——<strong>结果比正确值小三成左右，先怀疑端点</strong>。</p>
 <p><strong>例 2（对清单 1 · 除法前不判零）</strong> 解方程组 $10^{-16}x+y=1$、$x+y=2$，真解 $(1,\ 1)$。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>写法</th>
@@ -1684,20 +1711,20 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>不选主元，直接消元</td>
-<td><strong>$(2.220446,\ 1.0)$</strong></td>
-<td>完全错</td>
+<td data-label="写法">不选主元，直接消元</td>
+<td data-label="解出"><strong>$(2.220446,\ 1.0)$</strong></td>
+<td data-label="后果">完全错</td>
 </tr>
 <tr>
-<td>部分选主元（换行）</td>
-<td><strong>$(1.0,\ 1.0)$</strong></td>
-<td>正确</td>
+<td data-label="写法">部分选主元（换行）</td>
+<td data-label="解出"><strong>$(1.0,\ 1.0)$</strong></td>
+<td data-label="后果">正确</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>机制：消元因子 $f=1/10^{-16}=10^{16}$。浮点里 $10^{16}\cdot10^{-16}$ 并不精确等于 1，而是 $1+2\times10^{-16}$，这点残差除以 $10^{-16}$ 后放大成 $2.22$。<strong>小数当除数，舍入误差被放大 $10^{16}$ 倍</strong>——这就是「不判零、不选主元」的真实代价。</p>
 <p><strong>例 3（对清单 3 · 系数与公式不对应）</strong> 复化辛普森算 $\int_0^1 x^3\,dx$，$n=4$，真值 $0.25$。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>权重序列</th>
@@ -1707,25 +1734,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>正确 1-4-2-4-1</td>
-<td><strong>0.25</strong></td>
-<td>精确（三次以内辛普森无误差）</td>
+<td data-label="权重序列">正确 1-4-2-4-1</td>
+<td data-label="结果"><strong>0.25</strong></td>
+<td data-label="后果">精确（三次以内辛普森无误差）</td>
 </tr>
 <tr>
-<td>错成 1-2-4-2-1</td>
-<td><strong>0.197917</strong></td>
-<td>相对误差 20.8%</td>
+<td data-label="权重序列">错成 1-2-4-2-1</td>
+<td data-label="结果"><strong>0.197917</strong></td>
+<td data-label="后果">相对误差 20.8%</td>
 </tr>
 <tr>
-<td>错成全 4</td>
-<td><strong>0.520833</strong></td>
-<td>相对误差 108%</td>
+<td data-label="权重序列">错成全 4</td>
+<td data-label="结果"><strong>0.520833</strong></td>
+<td data-label="后果">相对误差 108%</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>这一条有个硬判据：<strong>辛普森对三次以内多项式本应精确</strong>。所以题目若给的是三次函数、结果却有百分级偏差，不用推，直接认定权重或倍数写错。</p>
 <p><strong>例 4（对清单 4 · 整体倍数）</strong> 同一梯形公式，真值 0.333333。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>写法</th>
@@ -1735,20 +1762,20 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>$h/2$（正确）</td>
-<td>0.34375</td>
-<td>正常</td>
+<td data-label="写法">$h/2$（正确）</td>
+<td data-label="结果">0.34375</td>
+<td data-label="后果">正常</td>
 </tr>
 <tr>
-<td>$h$（错）</td>
-<td><strong>0.6875</strong></td>
-<td><strong>正好两倍</strong></td>
+<td data-label="写法">$h$（错）</td>
+<td data-label="结果"><strong>0.6875</strong></td>
+<td data-label="后果"><strong>正好两倍</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>倍数是整数倍关系（2 倍、1/2、$h/3$ 写成 $h/6$），最好抓。</p>
 <p><strong>例 5（对清单 5、6 · 判据单一 + 无步数保护）</strong> 牛顿法求 $\arctan x=0$，$x_0=2$：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>$k$</th>
@@ -1758,39 +1785,39 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>−3.535744</td>
-<td>5.5e+00</td>
+<td data-label="$k$">1</td>
+<td data-label="$x_k$">−3.535744</td>
+<td data-label="相邻差">5.5e+00</td>
 </tr>
 <tr>
-<td>2</td>
-<td>13.950959</td>
-<td>1.7e+01</td>
+<td data-label="$k$">2</td>
+<td data-label="$x_k$">13.950959</td>
+<td data-label="相邻差">1.7e+01</td>
 </tr>
 <tr>
-<td>3</td>
-<td>−279.344067</td>
-<td>2.9e+02</td>
+<td data-label="$k$">3</td>
+<td data-label="$x_k$">−279.344067</td>
+<td data-label="相邻差">2.9e+02</td>
 </tr>
 <tr>
-<td>4</td>
-<td>122016.998918</td>
-<td>1.2e+05</td>
+<td data-label="$k$">4</td>
+<td data-label="$x_k$">122016.998918</td>
+<td data-label="相邻差">1.2e+05</td>
 </tr>
 <tr>
-<td>6</td>
-<td><strong>8.59e+20</strong></td>
-<td>8.6e+20</td>
+<td data-label="$k$">6</td>
+<td data-label="$x_k$"><strong>8.59e+20</strong></td>
+<td data-label="相邻差">8.6e+20</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>发散时相邻差<strong>越来越大</strong>，<code>while |x_k − x_{k−1}| &gt; tol</code> 永远不满足 → 没有 <code>max_iter</code> 就是死循环。换安全起点 $x_0=1$，四步收敛：$-0.570796\to0.116860\to-0.001061\to0.000000$。</p>
 <blockquote>
 <p>记法：牛顿法的安全起点条件之一是 $|x_0|$ 不太大；$\arctan x$ 的临界约 1.39，超过就振荡发散。</p>
 </blockquote>
 <p><strong>例 6（对 4.4.1 最阴险的两行，用第四部分第 2 题的 $A$、$b$）</strong></p>
 <p>原方程取第四部分第 2 题（LU 分解）那组：$A$ 为 $(2,1,1;2,4,3;4,-1,4)$、$b=(5,13,6)^T$，真解 $(1,\ 2,\ 1)$。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>改坏方式</th>
@@ -1800,20 +1827,20 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td><code>aug[r] -= f * aug[c]</code> 改成只改 <code>aug[r,c]</code></td>
-<td><strong>$(0.6875,\ 2.125,\ 1.5)$</strong></td>
-<td>三个数都在 0~2 之间，看着「挺像答案」，只能靠回代 $Ax=b$ 才能发现</td>
+<td data-label="改坏方式"><code>aug[r] -= f * aug[c]</code> 改成只改 <code>aug[r,c]</code></td>
+<td data-label="算出来"><strong>$(0.6875,\ 2.125,\ 1.5)$</strong></td>
+<td data-label="后果">三个数都在 0~2 之间，看着「挺像答案」，只能靠回代 $Ax=b$ 才能发现</td>
 </tr>
 <tr>
-<td>回代用 <code>aug[i,:] @ x</code>（含自身项）</td>
-<td><strong>$(0.6667,\ 1.6667,\ 0)$</strong></td>
-<td>对角项被重复减一遍，<strong>回代值统一偏小</strong>，末尾甚至算出 0</td>
+<td data-label="改坏方式">回代用 <code>aug[i,:] @ x</code>（含自身项）</td>
+<td data-label="算出来"><strong>$(0.6667,\ 1.6667,\ 0)$</strong></td>
+<td data-label="后果">对角项被重复减一遍，<strong>回代值统一偏小</strong>，末尾甚至算出 0</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>第一条是全表最危险的错法：它不产生巨数、不产生两倍关系，只让解「整体偏一点」。<strong>凡是"每个分量都偏一点、方向一致"，就去查是不是整行没消。</strong></p>
 <h5 id="451">4.5.1 症状反查表（考场拿到题先看结果形态）</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>看到的症状</th>
@@ -1823,52 +1850,52 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>结果正好是正确值的 2 倍 / 一半</td>
-<td>整体倍数（$h$ vs $h/2$、$h/3$ vs $h/6$）</td>
-<td>清单 4</td>
+<td data-label="看到的症状">结果正好是正确值的 2 倍 / 一半</td>
+<td data-label="先怀疑">整体倍数（$h$ vs $h/2$、$h/3$ vs $h/6$）</td>
+<td data-label="对应">清单 4</td>
 </tr>
 <tr>
-<td>结果比正确值小约三成</td>
-<td>漏端点 / 端点权重给成 1</td>
-<td>清单 2</td>
+<td data-label="看到的症状">结果比正确值小约三成</td>
+<td data-label="先怀疑">漏端点 / 端点权重给成 1</td>
+<td data-label="对应">清单 2</td>
 </tr>
 <tr>
-<td>本该精确的积分却有百分级偏差</td>
-<td>奇偶系数、权重序列抄错</td>
-<td>清单 3</td>
+<td data-label="看到的症状">本该精确的积分却有百分级偏差</td>
+<td data-label="先怀疑">奇偶系数、权重序列抄错</td>
+<td data-label="对应">清单 3</td>
 </tr>
 <tr>
-<td>出现 $10^{8}$ 以上巨数，或解「离谱但不报错」</td>
-<td>除了接近 0 的数、未选主元</td>
-<td>清单 1</td>
+<td data-label="看到的症状">出现 $10^{8}$ 以上巨数，或解「离谱但不报错」</td>
+<td data-label="先怀疑">除了接近 0 的数、未选主元</td>
+<td data-label="对应">清单 1</td>
 </tr>
 <tr>
-<td>迭代值爆炸、相邻差越来越大</td>
-<td>判据写反 + 没有 <code>max_iter</code></td>
-<td>清单 5、6</td>
+<td data-label="看到的症状">迭代值爆炸、相邻差越来越大</td>
+<td data-label="先怀疑">判据写反 + 没有 <code>max_iter</code></td>
+<td data-label="对应">清单 5、6</td>
 </tr>
 <tr>
-<td>各分量都偏一点、量级却正常</td>
-<td>整行没消（只改了主元格）</td>
-<td>4.4.1</td>
+<td data-label="看到的症状">各分量都偏一点、量级却正常</td>
+<td data-label="先怀疑">整行没消（只改了主元格）</td>
+<td data-label="对应">4.4.1</td>
 </tr>
 <tr>
-<td>回代结果统一偏小、末尾出现 0</td>
-<td>回代下标从 $i$ 开始（应 $i+1$）</td>
-<td>4.4.1</td>
+<td data-label="看到的症状">回代结果统一偏小、末尾出现 0</td>
+<td data-label="先怀疑">回代下标从 $i$ 开始（应 $i+1$）</td>
+<td data-label="对应">4.4.1</td>
 </tr>
 <tr>
-<td>迭代次数比预期少一轮</td>
-<td>二分判据 $(b-a)/2$ 漏了 $/2$</td>
-<td>4.4.1</td>
+<td data-label="看到的症状">迭代次数比预期少一轮</td>
+<td data-label="先怀疑">二分判据 $(b-a)/2$ 漏了 $/2$</td>
+<td data-label="对应">4.4.1</td>
 </tr>
 <tr>
-<td>解向量符号或顺序颠倒</td>
-<td>列主元交换写成覆盖、漏掉 <code>k +</code></td>
-<td>4.4.1</td>
+<td data-label="看到的症状">解向量符号或顺序颠倒</td>
+<td data-label="先怀疑">列主元交换写成覆盖、漏掉 <code>k +</code></td>
+<td data-label="对应">4.4.1</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>用法：<strong>题里若附了运行结果，先对这张表锁定 1–2 处，剩下按 6.4 的四查逐行比原写法；题里没附结果，就直接按 6.4 走。</strong> 纠错题本质不是审代码，是「比原写法 + 认症状」。</p>
 <h5 id="46">4.6 二分法纠错专项（课件原码 + 两套卷格式）</h5>
 <blockquote>
@@ -1887,7 +1914,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 10     return (a + b) / 2
 </code></pre>
 <p>每行对应的公式：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>行</th>
@@ -1896,31 +1923,31 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>2–3</td>
-<td>前提：连续 + 端点异号 $f(a)f(b)&lt;0$，不满足直接报错（教材写 <code>&gt;= 0</code> 才严谨）</td>
+<td data-label="行">2–3</td>
+<td data-label="对应">前提：连续 + 端点异号 $f(a)f(b)&lt;0$，不满足直接报错（教材写 <code>&gt;= 0</code> 才严谨）</td>
 </tr>
 <tr>
-<td>4</td>
-<td>停机判据用<strong>中点误差界</strong> $\frac{b-a}{2}$，与理论界 $\lvert x_n-x^*\rvert\le\frac{b-a}{2^{n+1}}$ 一致</td>
+<td data-label="行">4</td>
+<td data-label="对应">停机判据用<strong>中点误差界</strong> $\frac{b-a}{2}$，与理论界 $\lvert x_n-x^*\rvert\le\frac{b-a}{2^{n+1}}$ 一致</td>
 </tr>
 <tr>
-<td>5</td>
-<td>Step 1：取中点</td>
+<td data-label="行">5</td>
+<td data-label="对应">Step 1：取中点</td>
 </tr>
 <tr>
-<td>6–7</td>
-<td>Step 3：$f(a)f(c)&lt;0$ ⇒ 根在 $[a,c]$ ⇒ <strong>$b=c$</strong></td>
+<td data-label="行">6–7</td>
+<td data-label="对应">Step 3：$f(a)f(c)&lt;0$ ⇒ 根在 $[a,c]$ ⇒ <strong>$b=c$</strong></td>
 </tr>
 <tr>
-<td>8–9</td>
-<td>Step 4：否则根在 $[c,b]$ ⇒ <strong>$a=c$</strong></td>
+<td data-label="行">8–9</td>
+<td data-label="对应">Step 4：否则根在 $[c,b]$ ⇒ <strong>$a=c$</strong></td>
 </tr>
 <tr>
-<td>10</td>
-<td>返回<strong>中点</strong>，误差界才是上面那个 $2^{n+1}$</td>
+<td data-label="行">10</td>
+<td data-label="对应">返回<strong>中点</strong>，误差界才是上面那个 $2^{n+1}$</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>课件这版的短板</strong>：只有 <code>while</code>、没有 <code>max_iter</code>，也不返回迭代次数与收敛状态 → 属 4.4.2 的「缺失型」。</p>
 <h6 id="462-a6">4.6.2 模拟题 A（6 分，仿卷一：逻辑与健壮型）</h6>
 <blockquote>
@@ -1938,7 +1965,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 10     return (a + b) / 2
 </code></pre>
 <p><strong>标准答案</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>行号</th>
@@ -1949,25 +1976,25 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>2</td>
-<td><code>&gt;</code> 应为 <code>&gt;=</code></td>
-<td>前提是「必须严格异号」。写成 <code>&gt;</code> 时，端点恰为根（$f(a)f(b)=0$）不报错，程序仍在根已被排除的区间里二分</td>
-<td><code>if f(a) * f(b) &gt;= 0:</code></td>
+<td data-label="行号">2</td>
+<td data-label="错误"><code>&gt;</code> 应为 <code>&gt;=</code></td>
+<td data-label="原因">前提是「必须严格异号」。写成 <code>&gt;</code> 时，端点恰为根（$f(a)f(b)=0$）不报错，程序仍在根已被排除的区间里二分</td>
+<td data-label="修正语句"><code>if f(a) * f(b) &gt;= 0:</code></td>
 </tr>
 <tr>
-<td>4</td>
-<td>漏 <code>/ 2</code></td>
-<td>判据原本判的是<strong>中点误差</strong>；改成区间长度后判据严一倍，误差界由 $tol$ 收到 $tol/2$，同样 $tol$ 会多迭代一轮</td>
-<td><code>while (b - a) / 2 &gt; tol:</code></td>
+<td data-label="行号">4</td>
+<td data-label="错误">漏 <code>/ 2</code></td>
+<td data-label="原因">判据原本判的是<strong>中点误差</strong>；改成区间长度后判据严一倍，误差界由 $tol$ 收到 $tol/2$，同样 $tol$ 会多迭代一轮</td>
+<td data-label="修正语句"><code>while (b - a) / 2 &gt; tol:</code></td>
 </tr>
 <tr>
-<td>6</td>
-<td><code>&lt; 0</code> 写成 <code>&gt; 0</code></td>
-<td>$f(a)f(c)&gt;0$ 表示两端同号、根<strong>不在</strong> $[a,c]$，此时令 $b=c$ 就把含根的一半丢掉了，越算越偏</td>
-<td><code>if f(a) * f(c) &lt; 0:</code></td>
+<td data-label="行号">6</td>
+<td data-label="错误"><code>&lt; 0</code> 写成 <code>&gt; 0</code></td>
+<td data-label="原因">$f(a)f(c)&gt;0$ 表示两端同号、根<strong>不在</strong> $[a,c]$，此时令 $b=c$ 就把含根的一半丢掉了，越算越偏</td>
+<td data-label="修正语句"><code>if f(a) * f(c) &lt; 0:</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>实测后果</strong>（$f=x-\cos x$、$[0,1]$、$tol=10^{-6}$、真根 0.7390851332）：正确版 19 轮得 0.7390852；此题版本 <strong>20 轮</strong>返回 <strong>0.0000004768</strong>，误差 $7.4\times10^{-1}$——「正常退出、结果错到底」，是这类题最典型的陷阱。</p>
 <h6 id="463-b6">4.6.3 模拟题 B（6 分，仿卷二：系数/边界型）</h6>
 <blockquote>
@@ -1985,7 +2012,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 10     return a + b
 </code></pre>
 <p><strong>标准答案</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>行号</th>
@@ -1996,28 +2023,28 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>5</td>
-<td>运算符优先级：<code>a + b / 2</code></td>
-<td>先算 <code>b/2</code> 再与 <code>a</code> 相加；$a\neq0$ 后中点会落到区间外（如 $[0.5,1]$ 时 $c=1$），区间不再收窄 → <strong>死循环</strong></td>
-<td><code>c = (a + b) / 2</code></td>
+<td data-label="行号">5</td>
+<td data-label="错误">运算符优先级：<code>a + b / 2</code></td>
+<td data-label="原因">先算 <code>b/2</code> 再与 <code>a</code> 相加；$a\neq0$ 后中点会落到区间外（如 $[0.5,1]$ 时 $c=1$），区间不再收窄 → <strong>死循环</strong></td>
+<td data-label="修正语句"><code>c = (a + b) / 2</code></td>
 </tr>
 <tr>
-<td>10</td>
-<td>返回 <code>a + b</code></td>
-<td>忘除 2，返回值约为根的 2 倍（端点误差被放大），且不再是中点</td>
-<td><code>return (a + b) / 2</code></td>
+<td data-label="行号">10</td>
+<td data-label="错误">返回 <code>a + b</code></td>
+<td data-label="原因">忘除 2，返回值约为根的 2 倍（端点误差被放大），且不再是中点</td>
+<td data-label="修正语句"><code>return (a + b) / 2</code></td>
 </tr>
 <tr>
-<td>4</td>
-<td>只有区间判据、无步数上限（缺失型）</td>
-<td>第 5 行一旦写错就无限循环，程序既不退出也不报错，无法发现</td>
-<td>改 <code>for _ in range(max_iter):</code>，并返回 <code>(root, k, converged)</code></td>
+<td data-label="行号">4</td>
+<td data-label="错误">只有区间判据、无步数上限（缺失型）</td>
+<td data-label="原因">第 5 行一旦写错就无限循环，程序既不退出也不报错，无法发现</td>
+<td data-label="修正语句">改 <code>for _ in range(max_iter):</code>，并返回 <code>(root, k, converged)</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>关键提醒</strong>：这三处会互相掩盖——第 5 行导致卡死，第 10 行的「两倍」根本跑不到，第 4 行让程序永远不会告诉你出事了。<strong>考场若给了运行结果“程序不结束”，就是这条链。</strong></p>
 <h6 id="464">4.6.4 二分专属症状反查</h6>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>看到的症状</th>
@@ -2026,36 +2053,36 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>结果 ≈ 左端点 $a$ 或 ≈ 右端点 $b$（如 0.0000005、0.9999990）</td>
-<td>第 6 行符号方向反 / 两支互换 / 只更新一支</td>
+<td data-label="看到的症状">结果 ≈ 左端点 $a$ 或 ≈ 右端点 $b$（如 0.0000005、0.9999990）</td>
+<td data-label="缺陷">第 6 行符号方向反 / 两支互换 / 只更新一支</td>
 </tr>
 <tr>
-<td>结果正好是正确值的 2 倍</td>
-<td>第 10 行 <code>return</code> 忘除 2</td>
+<td data-label="看到的症状">结果正好是正确值的 2 倍</td>
+<td data-label="缺陷">第 10 行 <code>return</code> 忘除 2</td>
 </tr>
 <tr>
-<td>迭代次数比手算多一轮</td>
-<td>第 4 行判据漏 <code>/2</code></td>
+<td data-label="看到的症状">迭代次数比手算多一轮</td>
+<td data-label="缺陷">第 4 行判据漏 <code>/2</code></td>
 </tr>
 <tr>
-<td>程序卡死、区间长度不再变小</td>
-<td>第 5 行中点写错（<code>a+b/2</code>）、只更新一支、无 <code>max_iter</code></td>
+<td data-label="看到的症状">程序卡死、区间长度不再变小</td>
+<td data-label="缺陷">第 5 行中点写错（<code>a+b/2</code>）、只更新一支、无 <code>max_iter</code></td>
 </tr>
 <tr>
-<td>一调用就 <code>ValueError</code></td>
-<td>第 2 行被改成 <code>&gt; 0</code>（正常异号区间误报）</td>
+<td data-label="看到的症状">一调用就 <code>ValueError</code></td>
+<td data-label="缺陷">第 2 行被改成 <code>&gt; 0</code>（正常异号区间误报）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h6 id="465">4.6.5 若题目问「至少二分多少次」</h6>
 <p>教材公式（梳理册第 7 页）：</p>
 <div class="math-block">n \ge \log_2\frac{b-a}{\varepsilon} - 1</div>
-<p>由 $\lvert x_n-x^*\rvert\le\dfrac{b-a}{2^{n+1}}\le\varepsilon$ 反解而来，<strong>向上取整</strong>。</p>
+<p>由 $\lvert x_n-x^<em>\rvert\le\dfrac{b-a}{2^{n+1}}\le\varepsilon$ 反解而来，</em><em>向上取整</em>*。</p>
 <p>校验：课件《总结-复习》例题 $f(x)=x^3-x-1$、$[1,2]$、要求 $\lvert\cdot\rvert&lt;10^{-4}$：</p>
 <div class="math-block">n \ge \log_2\frac{1}{10^{-4}}-1 = 13.29-1 = 12.29 \Rightarrow n = 13</div>
-<p>与课件写的「继续二分到 $k=13$，得 $x^*\approx1.3247$（误差 $&lt;10^{-4}$）」完全一致——<strong>这条公式可以直接背，考场问次数就套它</strong>。</p>
+<p>与课件写的「继续二分到 $k=13$，得 $x^<em>\approx1.3247$（误差 $&lt;10^{-4}$）」完全一致——</em><em>这条公式可以直接背，考场问次数就套它</em>*。</p>
 <h4 id="5">5. 两套卷答案速查（自测对答案用）</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>题型</th>
@@ -2065,22 +2092,22 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>选择</td>
-<td>1.C　2.B　3.B　4.B　5.B　6.B</td>
-<td>1.B　2.A　3.B　4.B　5.C　6.B</td>
+<td data-label="题型">选择</td>
+<td data-label="练习题（一）">1.C　2.B　3.B　4.B　5.B　6.B</td>
+<td data-label="练习题（二）">1.B　2.A　3.B　4.B　5.C　6.B</td>
 </tr>
 <tr>
-<td>判断</td>
-<td>1.√　2.×　3.√　4.×　5.√　6.√　7.×　8.×　9.√　10.×</td>
-<td>1.√　2.×　3.×　4.×　5.×　6.√　7.×　8.×　9.×　10.√</td>
+<td data-label="题型">判断</td>
+<td data-label="练习题（一）">1.√　2.×　3.√　4.×　5.√　6.√　7.×　8.×　9.√　10.×</td>
+<td data-label="练习题（二）">1.√　2.×　3.×　4.×　5.×　6.√　7.×　8.×　9.×　10.√</td>
 </tr>
 <tr>
-<td>辨析</td>
-<td>1.不恰当　2.恰当　3.恰当</td>
-<td>1.不恰当　2.恰当　3.不恰当</td>
+<td data-label="题型">辨析</td>
+<td data-label="练习题（一）">1.不恰当　2.恰当　3.恰当</td>
+<td data-label="练习题（二）">1.不恰当　2.恰当　3.不恰当</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>计算题答案与完整过程见第四部分各节的「答」，此处不重复。</p>
 </blockquote>
@@ -2096,7 +2123,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <li><strong>二选一时取弱命题</strong>：数学里弱命题更容易为真——「局部」比「全局」稳、「至少」比「恰好」稳、「某些情形」比「任何情形」稳。</li>
 </ol>
 <p><strong>干扰项四大设计套路</strong>（认出来可直接排除）：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>套路</th>
@@ -2106,27 +2133,27 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>偷换适用对象</td>
-<td>「A 对称正定 ⇒ Jacobi 收敛」（卷一选 2 的 A 项）</td>
-<td>条件只对某一方法成立，被挪到另一个方法上</td>
+<td data-label="套路">偷换适用对象</td>
+<td data-label="卷内实例">「A 对称正定 ⇒ Jacobi 收敛」（卷一选 2 的 A 项）</td>
+<td data-label="识别方法">条件只对某一方法成立，被挪到另一个方法上</td>
 </tr>
 <tr>
-<td>相邻阶数错位</td>
-<td>弦截填 2 阶（卷二选 3 的 C 项）、梯形填代数精度 2（卷二判 5）</td>
-<td>把 p 与 p±1、方法与本该更高的方法互换</td>
+<td data-label="套路">相邻阶数错位</td>
+<td data-label="卷内实例">弦截填 2 阶（卷二选 3 的 C 项）、梯形填代数精度 2（卷二判 5）</td>
+<td data-label="识别方法">把 p 与 p±1、方法与本该更高的方法互换</td>
 </tr>
 <tr>
-<td>混淆措施目的</td>
-<td>列主元「减少运算次数」（卷二选 4 的 A 项）</td>
-<td>稳定性措施被说成效率措施或结构改造</td>
+<td data-label="套路">混淆措施目的</td>
+<td data-label="卷内实例">列主元「减少运算次数」（卷二选 4 的 A 项）</td>
+<td data-label="识别方法">稳定性措施被说成效率措施或结构改造</td>
 </tr>
 <tr>
-<td>方向反转</td>
-<td>cond 小 ⇒ 病态（卷一判 2）</td>
-<td>大小、正反、进退颠倒</td>
+<td data-label="套路">方向反转</td>
+<td data-label="卷内实例">cond 小 ⇒ 病态（卷一判 2）</td>
+<td data-label="识别方法">大小、正反、进退颠倒</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h5 id="62">6.2 判断题：三步判定</h5>
 <ol>
 <li><strong>拆主语与条件</strong>：说的是谁对谁，前提是什么（「对任何函数」「只要…就」「不管…都」重点盯）；</li>
@@ -2137,7 +2164,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <h5 id="63">6.3 辨析题：三段式 + 三把分叉</h5>
 <p>答题骨架：<strong>判定（恰当/不恰当）→ 依据（这个方法的前提条件）→ 正确做法（该换用什么）</strong>，三句缺一扣分。</p>
 <p>三把分叉，场景一出现就按这个判：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>场景特征</th>
@@ -2148,29 +2175,29 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>数据含噪声 + 要求精确通过每个点</td>
-<td>不恰当</td>
-<td>噪声被当信号，高次插值振荡</td>
-<td>分段低次 / 样条 / 最小二乘拟合</td>
+<td data-label="场景特征">数据含噪声 + 要求精确通过每个点</td>
+<td data-label="判定">不恰当</td>
+<td data-label="依据一句话">噪声被当信号，高次插值振荡</td>
+<td data-label="正确做法">分段低次 / 样条 / 最小二乘拟合</td>
 </tr>
 <tr>
-<td>同一矩阵 + 多组右端反复求解</td>
-<td>恰当</td>
-<td>分解一次、回代多次</td>
-<td>保留 LU，别每次重新消元</td>
+<td data-label="场景特征">同一矩阵 + 多组右端反复求解</td>
+<td data-label="判定">恰当</td>
+<td data-label="依据一句话">分解一次、回代多次</td>
+<td data-label="正确做法">保留 LU，别每次重新消元</td>
 </tr>
 <tr>
-<td>刚性方程 + 放大步长省时间</td>
-<td>不恰当</td>
-<td>显式格式条件稳定，越出稳定域发散</td>
-<td>隐式 / A-稳定格式</td>
+<td data-label="场景特征">刚性方程 + 放大步长省时间</td>
+<td data-label="判定">不恰当</td>
+<td data-label="依据一句话">显式格式条件稳定，越出稳定域发散</td>
+<td data-label="正确做法">隐式 / A-稳定格式</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>判「恰当」的题不能只写「合适」，必须写出它<strong>省了什么</strong>（省掉每次重新消元）或<strong>买到了什么</strong>（$O(h^4)$ 精度、系数全正稳定）。</p>
 <h5 id="64">6.4 纠错题：四查顺序</h5>
 <p>按「会算错 → 不会算错」排序，先抓致命错：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>顺序</th>
@@ -2180,30 +2207,30 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>① 系数</td>
-<td>奇偶系数、整体倍数</td>
-<td>辛普森偶数点给了 4、$h/6$ 应为 $h/3$</td>
+<td data-label="顺序">① 系数</td>
+<td data-label="查什么">奇偶系数、整体倍数</td>
+<td data-label="卷内实例">辛普森偶数点给了 4、$h/6$ 应为 $h/3$</td>
 </tr>
 <tr>
-<td>② 边界</td>
-<td>端点是否重复、循环开闭</td>
-<td><code>range(1, 2*m)</code> 已含 $b$，又单独加 $f(b)$</td>
+<td data-label="顺序">② 边界</td>
+<td data-label="查什么">端点是否重复、循环开闭</td>
+<td data-label="卷内实例"><code>range(1, 2*m)</code> 已含 $b$，又单独加 $f(b)$</td>
 </tr>
 <tr>
-<td>③ 判零 / 定义域</td>
-<td>除法、开方、对数</td>
-<td>先算 $f/f'$ 再判导数近零，除零已发生</td>
+<td data-label="顺序">③ 判零 / 定义域</td>
+<td data-label="查什么">除法、开方、对数</td>
+<td data-label="卷内实例">先算 $f/f'$ 再判导数近零，除零已发生</td>
 </tr>
 <tr>
-<td>④ 保护与返回</td>
-<td>判据数量、步数上限、状态</td>
-<td><code>continue</code> 空转、只判残差不判步长</td>
+<td data-label="顺序">④ 保护与返回</td>
+<td data-label="查什么">判据数量、步数上限、状态</td>
+<td data-label="卷内实例"><code>continue</code> 空转、只判残差不判步长</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>答法三件套缺一不可：<strong>行号 + 原因 + 改法</strong>；改法最好直接写成可替换的那一行代码，别只写「应改为正确写法」。</p>
 <h5 id="65">6.5 答题时间与给分点</h5>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>题型</th>
@@ -2213,27 +2240,27 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </thead>
 <tbody>
 <tr>
-<td>选择</td>
-<td>每题 ≤ 1 分钟</td>
-<td>只要结论，别在卷面推导</td>
+<td data-label="题型">选择</td>
+<td data-label="建议用时">每题 ≤ 1 分钟</td>
+<td data-label="关键给分点">只要结论，别在卷面推导</td>
 </tr>
 <tr>
-<td>判断</td>
-<td>每题 ≤ 30 秒</td>
-<td>写 √/× 即可，不必解释</td>
+<td data-label="题型">判断</td>
+<td data-label="建议用时">每题 ≤ 30 秒</td>
+<td data-label="关键给分点">写 √/× 即可，不必解释</td>
 </tr>
 <tr>
-<td>辨析</td>
-<td>每题 3–4 分钟</td>
-<td>判定 + 依据 + 做法，三句齐全</td>
+<td data-label="题型">辨析</td>
+<td data-label="建议用时">每题 3–4 分钟</td>
+<td data-label="关键给分点">判定 + 依据 + 做法，三句齐全</td>
 </tr>
 <tr>
-<td>纠错</td>
-<td>每题 5–6 分钟</td>
-<td>行号、原因、改法三件套</td>
+<td data-label="题型">纠错</td>
+<td data-label="建议用时">每题 5–6 分钟</td>
+<td data-label="关键给分点">行号、原因、改法三件套</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>一句话收口：<strong>选择靠认套路，判断靠找钩子，辨析靠三句话，纠错靠四查顺序。</strong></p>
 </blockquote>
@@ -2244,6 +2271,13 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 <li><strong>阶数对照</strong>：二分 / 不动点 / 重根牛顿 = 1；弦截 ≈ 1.618；单根牛顿 = 2；分段线性 / 复化梯形 = $O(h^2)$；分段三次 / 样条 / 复化辛普森 / RK4 = $O(h^4)$。</li>
 </ul></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -2255,9 +2289,10 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {try { renderMathInElement(document.querySelector(".essay-body"), {delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]}); } catch (e) { /* KaTeX 加载失败时公式保持原文卡片 */ }});</script>
+  <script defer src="/assets/js/comments.js"></script>
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <script defer src="/assets/vendor/katex/katex.min.js"></script>
+  <script defer src="/assets/vendor/katex/auto-render.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {try { renderMathInElement(document.querySelector(".essay-body"), {delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]}); } catch (e) { /* 渲染失败时公式保持原文 */ }});</script>
 </body>
 </html>

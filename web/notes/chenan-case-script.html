@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -89,7 +120,7 @@
 </blockquote>
 <hr />
 <h3 id="_2">〇、课前准备清单（作业要求逐条对应）</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>要求</th>
@@ -99,27 +130,27 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>课前 10 分钟把 PPT 拷到教师电脑</strong></td>
-<td>U 盘双备份（PPTX + MP4），到场第一件事拷贝，并试播视频 10 秒确认有声音</td>
-<td>苏登辉</td>
+<td data-label="要求"><strong>课前 10 分钟把 PPT 拷到教师电脑</strong></td>
+<td data-label="准备动作">U 盘双备份（PPTX + MP4），到场第一件事拷贝，并试播视频 10 秒确认有声音</td>
+<td data-label="负责人">苏登辉</td>
 </tr>
 <tr>
-<td>每组 1 名代表用 PPT 汇报</td>
-<td>苏登辉主讲；讲稿每段独立成段，可拆给组员接力</td>
-<td>队长确认</td>
+<td data-label="要求">每组 1 名代表用 PPT 汇报</td>
+<td data-label="准备动作">苏登辉主讲；讲稿每段独立成段，可拆给组员接力</td>
+<td data-label="负责人">队长确认</td>
 </tr>
 <tr>
-<td>报告 5 分钟 + 研讨 5 分钟</td>
-<td>视频严格 55 秒；口头部分按本稿 ⏱ 计时，超时先砍附一</td>
-<td>苏登辉</td>
+<td data-label="要求">报告 5 分钟 + 研讨 5 分钟</td>
+<td data-label="准备动作">视频严格 55 秒；口头部分按本稿 ⏱ 计时，超时先砍附一</td>
+<td data-label="负责人">苏登辉</td>
 </tr>
 <tr>
-<td>排练</td>
-<td>完整计时过 3 遍，误差 ±5 秒；第 3 遍录像回看</td>
-<td>全组旁听 1 遍</td>
+<td data-label="要求">排练</td>
+<td data-label="准备动作">完整计时过 3 遍，误差 ±5 秒；第 3 遍录像回看</td>
+<td data-label="负责人">全组旁听 1 遍</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>设备检查：视频文件 <code>小组汇报开场视频-辰安科技.mp4</code> 与 PPT 放同一文件夹；教师电脑无声音就外接小音箱；翻页笔提前试。</p>
 <hr />
 <h3 id="63-000103">一、开场白 + 钩子视频（63 秒，⏱ 0:00–1:03）</h3>
@@ -187,7 +218,7 @@
 <li>S6 的“实验室给不了三样东西——真实工况数据、事故复盘验证、可复制的标准流程”（省 6 秒）</li>
 </ol>
 <h3 id="qa">附二、研讨环节 Q&amp;A 预案</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>可能被问</th>
@@ -196,33 +227,33 @@
 </thead>
 <tbody>
 <tr>
-<td>数据哪来的？</td>
-<td>三类来源：公司 2026-10-12 定增发行结果公告（28.85%、20.64%）；清华大学安全科学学院 2026-03-06 公开材料（1240 起预警、事故率降 60%、排查效率提 70%）；同花顺 F10（历史沿革、股东结构）</td>
+<td data-label="可能被问">数据哪来的？</td>
+<td data-label="回答口径">三类来源：公司 2026-10-12 定增发行结果公告（28.85%、20.64%）；清华大学安全科学学院 2026-03-06 公开材料（1240 起预警、事故率降 60%、排查效率提 70%）；同花顺 F10（历史沿革、股东结构）</td>
 </tr>
 <tr>
-<td>公司赚钱吗？</td>
-<td>不赚。2026 年中期营业收入 5.77 亿元，归母净利润 -5894 万元。所以我们的判断是“台阶不是拐杖”，但台阶不等于登顶——场景打开和盈利能力是两件事</td>
+<td data-label="可能被问">公司赚钱吗？</td>
+<td data-label="回答口径">不赚。2026 年中期营业收入 5.77 亿元，归母净利润 -5894 万元。所以我们的判断是“台阶不是拐杖”，但台阶不等于登顶——场景打开和盈利能力是两件事</td>
 </tr>
 <tr>
-<td>中国电信现在还是股东吗？</td>
-<td>是，战略股东。2026 年 10 月定增后，中国电信投资及一致行动人持股降至 20.64%，合肥国投 28.85% 成为控股股东</td>
+<td data-label="可能被问">中国电信现在还是股东吗？</td>
+<td data-label="回答口径">是，战略股东。2026 年 10 月定增后，中国电信投资及一致行动人持股降至 20.64%，合肥国投 28.85% 成为控股股东</td>
 </tr>
 <tr>
-<td>为什么不选海康威视？</td>
-<td>海康创新故事更强，但应急属性弱；我们的方向是应急行业，辰安一鱼两吃</td>
+<td data-label="可能被问">为什么不选海康威视？</td>
+<td data-label="回答口径">海康创新故事更强，但应急属性弱；我们的方向是应急行业，辰安一鱼两吃</td>
 </tr>
 <tr>
-<td>三个机制哪个最重要？</td>
-<td>场景闭环——真实场景数据是应急行业区别于其他行业的核心变量；但没有前两个，第三个也不成立，所以是必要条件组而非排序</td>
+<td data-label="可能被问">三个机制哪个最重要？</td>
+<td data-label="回答口径">场景闭环——真实场景数据是应急行业区别于其他行业的核心变量；但没有前两个，第三个也不成立，所以是必要条件组而非排序</td>
 </tr>
 <tr>
-<td>PPT 上说的“小论文接力”是什么？</td>
-<td>我们组长的个人小论文《应急行业企业研发人员成长环境研究》，把这三个机制拆成可测量的变量，本案例是它的实证样本</td>
+<td data-label="可能被问">PPT 上说的“小论文接力”是什么？</td>
+<td data-label="回答口径">我们组长的个人小论文《应急行业企业研发人员成长环境研究》，把这三个机制拆成可测量的变量，本案例是它的实证样本</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="_4">附三、作业要求自查（对照课件规则）</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>作业要求</th>
@@ -231,33 +262,33 @@
 </thead>
 <tbody>
 <tr>
-<td>选一个公司、回答一个问题（题目自拟）</td>
-<td>辰安科技 × 自拟问题“政府订单是台阶还是拐杖”（源出课件 2.5）✅</td>
+<td data-label="作业要求">选一个公司、回答一个问题（题目自拟）</td>
+<td data-label="本组落实">辰安科技 × 自拟问题“政府订单是台阶还是拐杖”（源出课件 2.5）✅</td>
 </tr>
 <tr>
-<td>每组 1 名代表用 PPT 汇报</td>
-<td>苏登辉（队长）✅</td>
+<td data-label="作业要求">每组 1 名代表用 PPT 汇报</td>
+<td data-label="本组落实">苏登辉（队长）✅</td>
 </tr>
 <tr>
-<td>报告 5 分钟</td>
-<td>开场 8s + 视频 55s + 口头 237s = 300s ✅</td>
+<td data-label="作业要求">报告 5 分钟</td>
+<td data-label="本组落实">开场 8s + 视频 55s + 口头 237s = 300s ✅</td>
 </tr>
 <tr>
-<td>时间轴不用流水账、每论点带数字、结尾回应开头问句</td>
-<td>S3 四节点（2005.11 / 2015-17 / 2016.07 / 2026.10）/ 60%·1240 起·28.85% / S8 回应 ✅</td>
+<td data-label="作业要求">时间轴不用流水账、每论点带数字、结尾回应开头问句</td>
+<td data-label="本组落实">S3 四节点（2005.11 / 2015-17 / 2016.07 / 2026.10）/ 60%·1240 起·28.85% / S8 回应 ✅</td>
 </tr>
 <tr>
-<td>预埋 1 个开放研讨问题</td>
-<td>S9 ✅</td>
+<td data-label="作业要求">预埋 1 个开放研讨问题</td>
+<td data-label="本组落实">S9 ✅</td>
 </tr>
 <tr>
-<td>课前 10 分钟拷 PPT 到教师电脑</td>
-<td>准备清单第 1 条 ✅</td>
+<td data-label="作业要求">课前 10 分钟拷 PPT 到教师电脑</td>
+<td data-label="本组落实">准备清单第 1 条 ✅</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="_5">附四、时间分配总表（排练时按此核对）</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>段</th>
@@ -268,68 +299,75 @@
 </thead>
 <tbody>
 <tr>
-<td>开场</td>
-<td>问候 + 播放视频</td>
-<td>8 + 55</td>
-<td>1:03</td>
+<td data-label="段">开场</td>
+<td data-label="内容">问候 + 播放视频</td>
+<td data-label="时长">8 + 55</td>
+<td data-label="累计">1:03</td>
 </tr>
 <tr>
-<td>S1</td>
-<td>封面：收窄问题</td>
-<td>18</td>
-<td>1:21</td>
+<td data-label="段">S1</td>
+<td data-label="内容">封面：收窄问题</td>
+<td data-label="时长">18</td>
+<td data-label="累计">1:21</td>
 </tr>
 <tr>
-<td>S2</td>
-<td>为什么是辰安</td>
-<td>25</td>
-<td>1:46</td>
+<td data-label="段">S2</td>
+<td data-label="内容">为什么是辰安</td>
+<td data-label="时长">25</td>
+<td data-label="累计">1:46</td>
 </tr>
 <tr>
-<td>S3</td>
-<td>时间轴四节点</td>
-<td>42</td>
-<td>2:28</td>
+<td data-label="段">S3</td>
+<td data-label="内容">时间轴四节点</td>
+<td data-label="时长">42</td>
+<td data-label="累计">2:28</td>
 </tr>
 <tr>
-<td>S4</td>
-<td>死亡之谷</td>
-<td>20</td>
-<td>2:48</td>
+<td data-label="段">S4</td>
+<td data-label="内容">死亡之谷</td>
+<td data-label="时长">20</td>
+<td data-label="累计">2:48</td>
 </tr>
 <tr>
-<td>S5</td>
-<td>需求锚定</td>
-<td>26</td>
-<td>3:14</td>
+<td data-label="段">S5</td>
+<td data-label="内容">需求锚定</td>
+<td data-label="时长">26</td>
+<td data-label="累计">3:14</td>
 </tr>
 <tr>
-<td>S6</td>
-<td>场景闭环</td>
-<td>32</td>
-<td>3:46</td>
+<td data-label="段">S6</td>
+<td data-label="内容">场景闭环</td>
+<td data-label="时长">32</td>
+<td data-label="累计">3:46</td>
 </tr>
 <tr>
-<td>S7</td>
-<td>资本接力</td>
-<td>30</td>
-<td>4:16</td>
+<td data-label="段">S7</td>
+<td data-label="内容">资本接力</td>
+<td data-label="时长">30</td>
+<td data-label="累计">4:16</td>
 </tr>
 <tr>
-<td>S8</td>
-<td>回答研究问题</td>
-<td>32</td>
-<td>4:48</td>
+<td data-label="段">S8</td>
+<td data-label="内容">回答研究问题</td>
+<td data-label="时长">32</td>
+<td data-label="累计">4:48</td>
 </tr>
 <tr>
-<td>S9</td>
-<td>研讨引导 + 致谢</td>
-<td>12</td>
-<td>5:00</td>
+<td data-label="段">S9</td>
+<td data-label="内容">研讨引导 + 致谢</td>
+<td data-label="时长">12</td>
+<td data-label="累计">5:00</td>
 </tr>
 </tbody>
-</table></div>
+</table></div></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -341,6 +379,7 @@
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
   
 </body>
 </html>

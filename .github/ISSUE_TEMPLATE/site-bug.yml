@@ -1,0 +1,49 @@
+name: 站点点 bug
+description: 页面错位、手机上裂开、按钮点不动、链接 404
+title: "[Bug] "
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 出问题的页面
+      placeholder: 例如：自习室 /study.html
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 现象
+      description: 你看到什么、期望看到什么
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: 设备
+      options:
+        - 手机（Android）
+        - 手机（iPhone）
+        - 平板
+        - 电脑（Windows）
+        - 电脑（macOS）
+        - 其他
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: 浏览器与版本（可选）
+      placeholder: 例如：Chrome 138 / Safari 18
+    validations:
+      required: false
+
+  - type: textarea
+    id: shot
+    attributes:
+      label: 截图（可选）
+      description: 直接把截图拖进这个输入框
+    validations:
+      required: false

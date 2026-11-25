@@ -40,7 +40,37 @@
     .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
     .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
     .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
-    .essay-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 16px; font-size: .9rem; }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
     .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
     .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
     .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
@@ -57,6 +87,7 @@
       <li><a href="/study.html" class="active">自习室</a></li>
       <li><a href="/gallery.html">画廊</a></li>
       <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
       <li><a href="/index.html#about">关于</a></li>
       <li><a href="/index.html#contact">联系</a></li>
     </ul>
@@ -78,9 +109,9 @@
       <div class="essay-head">
         <span class="essay-num" aria-hidden="true">📖</span>
         <div class="essay-title-wrap"><h2>数值计算实验与数学建模 · 练习题详细答案解析</h2>
-        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 42 分钟</span></div></div>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 41 分钟</span></div></div>
       </div>
-      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li class="toc-l1"><a href="#_2">练习题（一）</a><ul><li><a href="#_3">一、选择题</a><ul><li><a href="#1">第 1 题（有效数字）</a></li><li><a href="#2-jacobi">第 2 题（Jacobi 迭代收敛条件）</a></li><li><a href="#3-newton">第 3 题（Newton 法收敛阶）</a></li><li><a href="#4-runge">第 4 题（Runge 现象）</a></li><li><a href="#5">第 5 题（复化梯形误差阶）</a></li><li><a href="#6">第 6 题（改进欧拉法精度）</a></li></ul></li><li><a href="#_4">二、判断题</a><ul><li><a href="#1_1">第 1 题</a></li><li><a href="#2">第 2 题</a></li><li><a href="#3">第 3 题</a></li><li><a href="#4">第 4 题</a></li><li><a href="#5_1">第 5 题</a></li><li><a href="#6_1">第 6 题</a></li><li><a href="#7">第 7 题</a></li><li><a href="#8">第 8 题</a></li><li><a href="#9">第 9 题</a></li><li><a href="#10">第 10 题</a></li></ul></li><li><a href="#_5">三、计算题</a><ul><li><a href="#1-newton">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_1">第 3 题（牛顿差商插值）</a></li><li><a href="#4_1">第 4 题（复化辛普森公式）</a></li><li><a href="#5_2">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_6">四、综合辨析题</a><ul><li><a href="#1_2">第 1 题</a></li><li><a href="#2_1">第 2 题</a></li><li><a href="#3_2">第 3 题</a></li></ul></li><li><a href="#newtonraphson">五、算法纠错题（Newton–Raphson）</a><ul><li><a href="#1-89">缺陷 1：近零判断位置颠倒（第 8、9 行）</a></li><li><a href="#2-continue-10">缺陷 2：近零时 continue 空转（第 10 行）</a></li><li><a href="#3-6">缺陷 3：收敛判据与健壮性不足（第 6 行）</a></li><li><a href="#_7">参考修正代码</a></li></ul></li><li><a href="#-">---</a></li></ul></li><li class="toc-l1"><a href="#_8">练习题（二）</a><ul><li><a href="#_9">一、选择题</a><ul><li><a href="#1_3">第 1 题（有效数字）</a></li><li><a href="#2-doolittle_1">第 2 题（Doolittle 分解条件）</a></li><li><a href="#3_3">第 3 题（弦截法收敛阶）</a></li><li><a href="#4_2">第 4 题（列主元目的）</a></li><li><a href="#5-simpson">第 5 题（Simpson 代数精度）</a></li><li><a href="#6_2">第 6 题（改进欧拉调用次数）</a></li></ul></li><li><a href="#_10">二、判断题</a><ul><li><a href="#1_4">第 1 题</a></li><li><a href="#2_2">第 2 题</a></li><li><a href="#3_4">第 3 题</a></li><li><a href="#4_3">第 4 题</a></li><li><a href="#5_3">第 5 题</a></li><li><a href="#6_3">第 6 题</a></li><li><a href="#7_1">第 7 题</a></li><li><a href="#8_1">第 8 题</a></li><li><a href="#9_1">第 9 题</a></li><li><a href="#10_1">第 10 题</a></li></ul></li><li><a href="#_11">三、计算题</a><ul><li><a href="#1-newton_1">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle_2">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_5">第 3 题（牛顿差商插值）</a></li><li><a href="#4_4">第 4 题（复化辛普森公式）</a></li><li><a href="#5_4">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_12">四、综合辨析题</a><ul><li><a href="#1_5">第 1 题</a></li><li><a href="#2_3">第 2 题</a></li><li><a href="#3_6">第 3 题</a></li></ul></li><li><a href="#simpson">五、算法纠错题（复化 Simpson）</a><ul><li><a href="#1-69">缺陷 1：奇偶系数写反（第 6–9 行）</a></li><li><a href="#2-4">缺陷 2：求和范围混入端点（第 4 行）</a></li><li><a href="#3-11">缺陷 3：求积系数错误（第 11 行）</a></li><li><a href="#_13">参考修正代码</a></li></ul></li><li><a href="#_14">附：两套卷答案速查表</a><ul><li><a href="#_15">练习题（一）</a></li><li><a href="#_16">练习题（二）</a></li></ul></li></ul></li></ul></nav>
+      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li class="toc-l1"><a href="#_2">练习题（一）</a><ul><li><a href="#_3">一、选择题</a><ul><li><a href="#1">第 1 题（有效数字）</a></li><li><a href="#2-jacobi">第 2 题（Jacobi 迭代收敛条件）</a></li><li><a href="#3-newton">第 3 题（Newton 法收敛阶）</a></li><li><a href="#4-runge">第 4 题（Runge 现象）</a></li><li><a href="#5">第 5 题（复化梯形误差阶）</a></li><li><a href="#6">第 6 题（改进欧拉法精度）</a></li></ul></li><li><a href="#_4">二、判断题</a><ul><li><a href="#1_1">第 1 题</a></li><li><a href="#2">第 2 题</a></li><li><a href="#3">第 3 题</a></li><li><a href="#4">第 4 题</a></li><li><a href="#5_1">第 5 题</a></li><li><a href="#6_1">第 6 题</a></li><li><a href="#7">第 7 题</a></li><li><a href="#8">第 8 题</a></li><li><a href="#9">第 9 题</a></li><li><a href="#10">第 10 题</a></li></ul></li><li><a href="#_5">三、计算题</a><ul><li><a href="#1-newton">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_1">第 3 题（牛顿差商插值）</a></li><li><a href="#4_1">第 4 题（复化辛普森公式）</a></li><li><a href="#5_2">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_6">四、综合辨析题</a><ul><li><a href="#1_2">第 1 题</a></li><li><a href="#2_1">第 2 题</a></li><li><a href="#3_2">第 3 题</a></li></ul></li><li><a href="#newtonraphson">五、算法纠错题（Newton–Raphson）</a><ul><li><a href="#1-89">缺陷 1：近零判断位置颠倒（第 8、9 行）</a></li><li><a href="#2-continue-10">缺陷 2：近零时 continue 空转（第 10 行）</a></li><li><a href="#3-6">缺陷 3：收敛判据与健壮性不足（第 6 行）</a></li><li><a href="#_7">参考修正代码</a></li></ul></li><li><a href="#-">---</a></li></ul></li><li class="toc-l1"><a href="#_8">练习题（二）</a><ul><li><a href="#_9">一、选择题</a><ul><li><a href="#1_3">第 1 题（有效数字）</a></li><li><a href="#2-doolittle_1">第 2 题（Doolittle 分解条件）</a></li><li><a href="#3_3">第 3 题（弦截法收敛阶）</a></li><li><a href="#4_2">第 4 题（列主元目的）</a></li><li><a href="#5-simpson">第 5 题（Simpson 代数精度）</a></li><li><a href="#6_2">第 6 题（改进欧拉调用次数）</a></li></ul></li><li><a href="#_10">二、判断题</a><ul><li><a href="#1_4">第 1 题</a></li><li><a href="#2_2">第 2 题</a></li><li><a href="#3_4">第 3 题</a></li><li><a href="#4_3">第 4 题</a></li><li><a href="#5_3">第 5 题</a></li><li><a href="#6_3">第 6 题</a></li><li><a href="#7_1">第 7 题</a></li><li><a href="#8_1">第 8 题</a></li><li><a href="#9_1">第 9 题</a></li><li><a href="#10_1">第 10 题</a></li></ul></li><li><a href="#_11">三、计算题</a><ul><li><a href="#1-newton_1">第 1 题（Newton 迭代法）</a></li><li><a href="#2-doolittle_2">第 2 题（Doolittle 分解法）</a></li><li><a href="#3_5">第 3 题（牛顿差商插值）</a></li><li><a href="#4_4">第 4 题（复化辛普森公式）</a></li><li><a href="#5_4">第 5 题（改进欧拉法）</a></li></ul></li><li><a href="#_12">四、综合辨析题</a><ul><li><a href="#1_5">第 1 题</a></li><li><a href="#2_3">第 2 题</a></li><li><a href="#3_6">第 3 题</a></li></ul></li><li><a href="#simpson">五、算法纠错题（复化 Simpson）</a><ul><li><a href="#1-69">缺陷 1：奇偶系数写反（第 6–9 行）</a></li><li><a href="#2-4">缺陷 2：求和范围混入端点（第 4 行）</a></li><li><a href="#3-11">缺陷 3：求积系数错误（第 11 行）</a></li><li><a href="#_13">参考修正代码</a></li></ul></li></ul></li></ul></nav>
       <div class="essay-body"><h2 id="_1">数值计算实验与数学建模 · 练习题详细答案解析</h2>
 <blockquote>
 <p>配套文件：<code>练习题.pdf</code>（练习题一、练习题二）。每题按 <strong>题目 → 答案 → 解析 → 知识点</strong> 编排；计算题给出完整分步演算，数值均已复核。
@@ -289,7 +320,7 @@
 <hr />
 <h4 id="3_1">第 3 题（牛顿差商插值）</h4>
 <p><strong>题目</strong>：沉降监测数据</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>t（月）</th>
@@ -300,16 +331,16 @@
 </thead>
 <tbody>
 <tr>
-<td>w（mm）</td>
-<td>3</td>
-<td>5</td>
-<td>9</td>
+<td data-label="t（月）">w（mm）</td>
+<td data-label="0">3</td>
+<td data-label="1">5</td>
+<td data-label="2">9</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>（1）用 Newton 差商公式构造过三点的二次插值多项式；（2）求 t=1.5 月时沉降量近似值。</p>
 <p><strong>第一步：构造差商表</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>t</th>
@@ -320,37 +351,37 @@
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>3</td>
-<td></td>
-<td></td>
+<td data-label="t">0</td>
+<td data-label="w">3</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>(5−3)/(1−0)=2</td>
-<td></td>
+<td data-label="t"></td>
+<td data-label="w"></td>
+<td data-label="一阶差商">(5−3)/(1−0)=2</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>1</td>
-<td>5</td>
-<td></td>
-<td>(4−2)/(2−0)=1</td>
+<td data-label="t">1</td>
+<td data-label="w">5</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商">(4−2)/(2−0)=1</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>(9−5)/(2−1)=4</td>
-<td></td>
+<td data-label="t"></td>
+<td data-label="w"></td>
+<td data-label="一阶差商">(9−5)/(2−1)=4</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>2</td>
-<td>9</td>
-<td></td>
-<td></td>
+<td data-label="t">2</td>
+<td data-label="w">9</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>第二步：Newton 二次插值多项式</strong></p>
 <div class="math-block">N_2(t)=w_0+w[0,1](t-0)+w[0,1,2](t-0)(t-1)</div>
 <div class="math-block">N_2(t)=3+2t+t(t-1)=t^2+t+3</div>
@@ -364,7 +395,7 @@
 <p><strong>题目</strong>：计算 I=∫₀¹ 1/(1+x²) dx。将区间 [0,1] 四等分（2 个 Simpson 单元），用复化 Simpson 公式计算近似值（保留 5 位小数），并与精确值 π/4 比较绝对误差。</p>
 <p><strong>第一步：步长与节点</strong></p>
 <p>4 等分为偶数份，共 5 个节点；h=(1−0)/4=0.25。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>x</th>
@@ -377,15 +408,15 @@
 </thead>
 <tbody>
 <tr>
-<td>f(x)=1/(1+x²)</td>
-<td>1</td>
-<td>0.94117647</td>
-<td>0.8</td>
-<td>0.64</td>
-<td>0.5</td>
+<td data-label="x">f(x)=1/(1+x²)</td>
+<td data-label="0">1</td>
+<td data-label="0.25">0.94117647</td>
+<td data-label="0.5">0.8</td>
+<td data-label="0.75">0.64</td>
+<td data-label="1">0.5</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>第二步：按系数加权</strong>（端点 1、奇数点 4、偶数点 2）</p>
 <div class="math-block">\begin{aligned}
 S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
@@ -684,7 +715,7 @@ S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
 <hr />
 <h4 id="3_5">第 3 题（牛顿差商插值）</h4>
 <p><strong>题目</strong>：监测数据</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>x</th>
@@ -695,16 +726,16 @@ S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
 </thead>
 <tbody>
 <tr>
-<td>y</td>
-<td>2</td>
-<td>4</td>
-<td>8</td>
+<td data-label="x">y</td>
+<td data-label="0">2</td>
+<td data-label="1">4</td>
+<td data-label="2">8</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>（1）用 Newton 差商公式构造二次插值多项式；（2）求 x=1.5 处渗压指标近似值。</p>
 <p><strong>差商表</strong>：</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>x</th>
@@ -715,37 +746,37 @@ S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>2</td>
-<td></td>
-<td></td>
+<td data-label="x">0</td>
+<td data-label="y">2</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>(4−2)/1=2</td>
-<td></td>
+<td data-label="x"></td>
+<td data-label="y"></td>
+<td data-label="一阶差商">(4−2)/1=2</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>1</td>
-<td>4</td>
-<td></td>
-<td>(4−2)/2=1</td>
+<td data-label="x">1</td>
+<td data-label="y">4</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商">(4−2)/2=1</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td>(8−4)/1=4</td>
-<td></td>
+<td data-label="x"></td>
+<td data-label="y"></td>
+<td data-label="一阶差商">(8−4)/1=4</td>
+<td data-label="二阶差商"></td>
 </tr>
 <tr>
-<td>2</td>
-<td>8</td>
-<td></td>
-<td></td>
+<td data-label="x">2</td>
+<td data-label="y">8</td>
+<td data-label="一阶差商"></td>
+<td data-label="二阶差商"></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>Newton 二次插值多项式</strong>：</p>
 <div class="math-block">N_2(x)=2+2x+x(x-1)=x^2+x+2</div>
 <p><strong>代入 x=1.5</strong>：</p>
@@ -757,7 +788,7 @@ S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
 <h4 id="4_4">第 4 题（复化辛普森公式）</h4>
 <p><strong>题目</strong>：估算 I=∫₀¹ 1/(1+x) dx。将区间 [0,1] 四等分（2 个 Simpson 单元），用复化 Simpson 公式计算近似值（保留 5 位小数），并与精确值 ln2≈0.69315 比较绝对误差。</p>
 <p><strong>步长与节点</strong>：h=0.25。</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr>
 <th>x</th>
@@ -770,15 +801,15 @@ S&amp;=\frac{h}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
 </thead>
 <tbody>
 <tr>
-<td>f(x)=1/(1+x)</td>
-<td>1</td>
-<td>0.8</td>
-<td>0.66666667</td>
-<td>0.57142857</td>
-<td>0.5</td>
+<td data-label="x">f(x)=1/(1+x)</td>
+<td data-label="0">1</td>
+<td data-label="0.25">0.8</td>
+<td data-label="0.5">0.66666667</td>
+<td data-label="0.75">0.57142857</td>
+<td data-label="1">0.5</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p>节点为 0, 0.25, 0.5, 0.75, 1；f(0.25)=1/1.25=0.8。</p>
 </blockquote>
@@ -885,95 +916,15 @@ S&amp;=\frac{0.25}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
     return s * h / 3                 # 整体乘 h/3
 </code></pre>
 <p><strong>知识点</strong>：复化辛普森三要点——偶数等分（2m 子区间、2m+1 节点）、奇 4 偶 2、系数 h/3；端点单独计入，不进内部求和循环。</p>
-<hr />
-<h3 id="_14">附：两套卷答案速查表</h3>
-<h4 id="_15">练习题（一）</h4>
-<table>
-<thead>
-<tr>
-<th>题型</th>
-<th>答案</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>选择</td>
-<td>1.C　2.B　3.B　4.B　5.B　6.B</td>
-</tr>
-<tr>
-<td>判断</td>
-<td>1.√　2.×　3.√　4.×　5.√　6.√　7.×　8.×　9.√　10.×</td>
-</tr>
-<tr>
-<td>计算 1</td>
-<td>x₁=1.8750，x₂=1.8610，4 位有效数字</td>
-</tr>
-<tr>
-<td>计算 2</td>
-<td>x₁=1，x₂=2，x₃=1</td>
-</tr>
-<tr>
-<td>计算 3</td>
-<td>N₂(t)=t²+t+3，N(1.5)=6.75</td>
-</tr>
-<tr>
-<td>计算 4</td>
-<td>I≈0.78539，误差 6.0×10⁻⁶</td>
-</tr>
-<tr>
-<td>计算 5</td>
-<td>T(0.2)≈92.8657，精确 92.8628</td>
-</tr>
-<tr>
-<td>辨析</td>
-<td>1.不恰当　2.恰当　3.恰当</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_16">练习题（二）</h4>
-<table>
-<thead>
-<tr>
-<th>题型</th>
-<th>答案</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>选择</td>
-<td>1.B　2.A　3.B　4.B　5.C　6.B</td>
-</tr>
-<tr>
-<td>判断</td>
-<td>1.√　2.×　3.×　4.×　5.×　6.√　7.×　8.×　9.×　10.√</td>
-</tr>
-<tr>
-<td>计算 1</td>
-<td>x₁=3.4545，x₂=3.1510</td>
-</tr>
-<tr>
-<td>计算 2</td>
-<td>t₁=1，t₂=2，t₃=3</td>
-</tr>
-<tr>
-<td>计算 3</td>
-<td>N₂(x)=x²+x+2，N(1.5)=5.75</td>
-</tr>
-<tr>
-<td>计算 4</td>
-<td>I≈0.69325，误差 1.07×10⁻⁴</td>
-</tr>
-<tr>
-<td>计算 5</td>
-<td>V(0.2)≈0.0975，精确 0.09754</td>
-</tr>
-<tr>
-<td>辨析</td>
-<td>1.不恰当　2.恰当　3.不恰当</td>
-</tr>
-</tbody>
-</table></div>
+<hr /></div>
     </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
   </div></section>
 
   </main>
@@ -985,9 +936,10 @@ S&amp;=\frac{0.25}{3}\big[f_0+f_4+4(f_1+f_3)+2f_2\big]\\
   <script defer src="/assets/js/starfield.js"></script>
   <script defer src="/assets/js/anime-ui.js"></script>
   <script defer src="/assets/js/extras.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {try { renderMathInElement(document.querySelector(".essay-body"), {delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]}); } catch (e) { /* KaTeX 加载失败时公式保持原文卡片 */ }});</script>
+  <script defer src="/assets/js/comments.js"></script>
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <script defer src="/assets/vendor/katex/katex.min.js"></script>
+  <script defer src="/assets/vendor/katex/auto-render.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {try { renderMathInElement(document.querySelector(".essay-body"), {delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }]}); } catch (e) { /* 渲染失败时公式保持原文 */ }});</script>
 </body>
 </html>

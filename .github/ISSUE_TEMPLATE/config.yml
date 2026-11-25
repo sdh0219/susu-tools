@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 讨论区（提问 / 闲聊 / 展示）
+    url: https://github.com/sdh0219/susu-tools/discussions
+    about: 不是具体错误、想聊点什么，去讨论区；笔记底下也能直接评论
+  - name: 📚 自习室
+    url: https://susu-2x9.pages.dev/study.html
+    about: 先看看已经整理了什么，避免重复提同一件事
