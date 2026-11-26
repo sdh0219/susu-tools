@@ -1,13 +1,13 @@
 {
   "items": [
-    { "file": "portrait.webp", "title": "站长立绘", "desc": "AI 生成 · 白发少年" },
-    { "file": "genshin-01-ganyu.webp", "title": "甘雨", "desc": "AI 生成 · 麒麟角的月海明珠" },
-    { "file": "genshin-02-keqing.webp", "title": "刻晴", "desc": "AI 生成 · 玉衡星 · 雷光疾行" },
-    { "file": "genshin-03-hutao.webp", "title": "胡桃", "desc": "AI 生成 · 往生堂七十七代堂主" },
-    { "file": "genshin-04-raiden.webp", "title": "雷电将军", "desc": "AI 生成 · 雷霆永恒的影" },
-    { "file": "genshin-05-ayaka.webp", "title": "神里绫华", "desc": "AI 生成 · 白鹭霜华" },
-    { "file": "genshin-06-nahida.webp", "title": "纳西妲", "desc": "AI 生成 · 小吉祥草王" },
-    { "file": "genshin-07-furina.webp", "title": "芙宁娜", "desc": "AI 生成 · 众水之国的女皇" },
-    { "file": "genshin-08-yae.webp", "title": "八重神子", "desc": "AI 生成 · 鸣神大社的宫司大人" }
+    { "file": "portrait.webp", "title": "站长立绘", "desc": "AI 辅助创作 · 白发少年，本站看板" },
+    { "file": "orig-01-sword.webp", "title": "雨夜剑士", "desc": "银发红瞳 · 霓虹雨幕里的冷冽" },
+    { "file": "orig-02-shrine.webp", "title": "黄昏巫女", "desc": "黑发红瞳 · 神社石阶与落樱" },
+    { "file": "orig-03-astrologer.webp", "title": "星象占卜师", "desc": "紫发金瞳 · 掌心托起一颗星" },
+    { "file": "orig-04-mechanic.webp", "title": "工坊机械师", "desc": "橙发琥珀瞳 · 齿轮与暖光" },
+    { "file": "orig-05-frost.webp", "title": "霜雪猎人", "desc": "浅蓝短发冰瞳 · 雪原与极光" },
+    { "file": "orig-06-tavern.webp", "title": "酒馆老板娘", "desc": "酒红长发 · 一盏暖灯两杯酒" },
+    { "file": "orig-07-librarian.webp", "title": "图书馆魔女", "desc": "紫发金丝镜 · 书页浮空" },
+    { "file": "orig-08-dancer.webp", "title": "沙漠旅人", "desc": "蜜棕卷发绿瞳 · 日落下的金丘" }
   ]
 }
