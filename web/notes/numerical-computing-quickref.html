@@ -109,7 +109,7 @@
       <div class="essay-head">
         <span class="essay-num" aria-hidden="true">📖</span>
         <div class="essay-title-wrap"><h2>数值计算复习速查手册</h2>
-        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 62 分钟</span></div></div>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 64 分钟</span></div></div>
       </div>
       <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li><a href="#_2">一、两类方法各自关注什么</a></li><li><a href="#_3">二、求解方程类：收敛判据 + 收敛阶</a><ul><li><a href="#a-1">表 A-1　非线性方程求根</a></li><li><a href="#a-2">表 A-2　线性方程组迭代法</a></li><li><a href="#a-3">表 A-3　常微分方程数值解</a></li><li><a href="#p">收敛阶 p 怎么求</a></li></ul></li><li><a href="#_4">三、逼近函数类：余项 / 误差阶 / 精度</a><ul><li><a href="#b-1">表 B-1　插值与拟合</a></li><li><a href="#b-2">表 B-2　数值积分</a></li><li><a href="#_5">误差与精度怎么了解（通用口径）</a></li></ul></li><li><a href="#_6">四、五个计算题的做题模板 + 真题演练</a><ul><li><a href="#0">0. 考场通用答题规范</a></li><li><a href="#1-newton">1. 牛顿迭代法（Newton）</a></li><li><a href="#2-ludoolittle">2. LU（Doolittle）分解法</a></li></ul></li><li><a href="#u3323">&amp;gt; 注：本题 u₃₃=−23 是负主元，分解照样成立，不必怀疑算错。</a><ul><li><a href="#3">3. 牛顿插值法（差商）</a></li><li><a href="#4">4. 复化辛普森法</a></li></ul></li><li><a href="#h025">&amp;gt; 同型题的差别只在被积函数，四等分与 h=0.25 完全一样，可直接照模板套。</a><ul><li><a href="#5-">5. 改进欧拉法（预估-校正）</a></li><li><a href="#6-60">6. 五方法通用检查清单（交卷前 60 秒）</a></li></ul></li><li><a href="#_7">五、选择题 / 判断题 / 辨析题 / 纠错题 · 两套卷归并</a><ul><li><a href="#1-12">1. 选择题（12 题，按考点合并）</a></li><li><a href="#2-20">2. 判断题（20 题，按章归并）</a></li><li><a href="#3-6">3. 综合辨析题（6 题，两套高度同型）</a></li><li><a href="#4-2">4. 算法纠错题（2 题，均为课件代码同型）</a></li><li><a href="#5">5. 两套卷答案速查（自测对答案用）</a></li><li><a href="#6-5">6. 四类题型的通用打法（前 5 节怎么用）</a></li></ul></li><li><a href="#_8">六、一句话速记</a></li></ul></nav>
       <div class="essay-body"><h2 id="_1">数值计算复习速查手册</h2>
@@ -424,6 +424,7 @@
 <td data-label="代数精度"><strong>2n−1</strong> 次</td>
 <td data-label="备注">适合函数求值昂贵</td>
 </tr>
+
 </tbody>
 </table></div>
 <h4 id="_5">误差与精度怎么了解（通用口径）</h4>
@@ -952,7 +953,7 @@ U=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;2\\0&amp;0&amp;4\end{bmatrix}</div>
 </ul>
 <p><strong>答</strong>：I≈<strong>0.78539</strong>，绝对误差约 6.0×10⁻⁶（符合 O(h⁴) 量级）。</p>
 <p><strong>同型真题（练习题二 · 计算第 4 题）</strong></p>
-<p>题目：I=∫₀¹ 1/(1+x) dx，四等分，h=0.25，与 ln2 比误差。</p>
+<p>题目：I=∫₀¹ 1/(1+x) dx，四等分，h=0.25，与 l'n2 比误差。</p>
 <ul>
 <li>节点值：1、0.8、0.66666667、0.57142857、0.5</li>
 <li>加权括号：1+0.5=1.5；4(0.8+0.57142857)=5.48571428；2×0.66666667=1.33333334；合计 8.31904762</li>

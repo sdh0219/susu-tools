@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>备用专题骨架（专题二 / 三 / 四 / 七） - 自习室 - Susu</title>
+  <meta name="description" content="Y_新时代中国特色社会主义理论与实践 · 复习笔记：备用专题骨架（专题二 / 三 / 四 / 七）。由 Susu 整理，考完也不删。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="备用专题骨架（专题二 / 三 / 四 / 七） - Susu 自习室">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/notes/socialism-backup-frames.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <meta property="og:description" content="Y_新时代中国特色社会主义理论与实践 · 复习笔记：备用专题骨架（专题二 / 三 / 四 / 七）。由 Susu 整理，考完也不删。">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/notes/socialism-backup-frames.html">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){document.documentElement.className+=' js';try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <style>
+    .note-toc { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 22px; margin: 20px 0 26px; }
+    .note-toc-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+    .note-toc ul { list-style: none; margin: 0; padding: 0; }
+    .note-toc ul ul { padding-left: 1.3em; margin-top: 4px; }
+    .note-toc li { margin-bottom: 5px; font-size: .92rem; }
+    .note-toc a { color: var(--text-secondary); }
+    .note-toc a:hover { color: var(--accent-purple); }
+    .note-toc .toc-l1 > a { color: var(--text-primary); font-weight: 600; }
+    .essay-body h2 { margin: 30px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+    .essay-body h3 { margin: 24px 0 10px; }
+    .essay-body h4 { margin: 18px 0 8px; }
+    .essay-body ul, .essay-body ol { margin: 0 0 14px 1.6em; }
+    .essay-body li { margin-bottom: 6px; color: var(--text-soft); font-size: .95rem; line-height: 1.85; }
+    .essay-body a { color: var(--accent-blue); }
+    .essay-body a:hover { text-decoration: underline; }
+    .essay-body strong { color: var(--text-primary); }
+    .essay-body blockquote { margin: 0 0 16px; padding: 10px 16px; border-left: 3px solid var(--accent-purple); background: var(--bg-secondary); border-radius: 0 8px 8px 0; color: var(--text-secondary); }
+    .essay-body blockquote p { font-size: .92rem; margin-bottom: 6px; }
+    .essay-body hr { border: 0; border-top: 1px solid var(--border-color); margin: 26px 0; }
+    .essay-body code { font-family: Consolas, 'JetBrains Mono', Menlo, monospace; font-size: .88em; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 1px 6px; color: var(--accent-orange); }
+    .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
+    .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
+    .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
+    .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
+    .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
+    @media (max-width: 768px) { .essay-body h2 { margin: 24px 0 12px; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主内容</a>
+  <nav class="nav" id="nav"><div class="container">
+    <a href="/index.html" class="nav-logo">Susu</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">首页</a></li>
+      <li><a href="/index.html#projects">作品</a></li>
+      <li><a href="/study.html" class="active">自习室</a></li>
+      <li><a href="/gallery.html">画廊</a></li>
+      <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
+      <li><a href="/index.html#about">关于</a></li>
+      <li><a href="/index.html#contact">联系</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    </div>
+  </div></nav>
+
+  <main id="main">
+  <section class="blog-hero"><div class="container"><div class="section-header">
+    <div class="section-tag">专题复习 · 备用骨架</div>
+    <h1 class="section-title">备用专题骨架（专题二 / 三 / 四 / 七）</h1>
+    <p class="section-desc">Y_新时代中国特色社会主义理论与实践 · 2026 秋 · <a href="/notes/socialism-backup-frames.md">下载 Markdown</a> · <a href="/study.html">← 返回自习室</a></p>
+  </div></div></section>
+
+  <section class="essays"><div class="container">
+    <article class="essay note-page">
+      <div class="essay-head">
+        <span class="essay-num" aria-hidden="true">📖</span>
+        <div class="essay-title-wrap"><h2>备用专题骨架（专题二 / 三 / 四 / 七）</h2>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 7 分钟</span></div></div>
+      </div>
+      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li class="toc-l1"><a href="#3">专题二 新时代中国特色社会主义经济建设（第 3 章）</a><ul><li><a href="#1">1. 定位句</a></li><li><a href="#2">2. 必背清单</a><ul><li><a href="#5">新发展理念（5 个）</a></li><li><a href="#_2">新发展格局</a></li><li><a href="#_3">高质量发展</a></li><li><a href="#_4">社会主义市场经济体制</a></li><li><a href="#_5">高水平对外开放</a></li><li><a href="#_6">教育、科技、人才</a></li></ul></li><li><a href="#3-400">3. 400 字骨架（可直接扩写）</a></li></ul></li><li class="toc-l1"><a href="#4">专题三 政治建设（第 4 章）</a><ul><li><a href="#_7">定位句</a></li><li><a href="#_8">三个分点</a></li><li><a href="#_9">关键词</a></li><li><a href="#_10">案例</a></li></ul></li><li class="toc-l1"><a href="#5_1">专题四 文化建设（第 5 章）</a><ul><li><a href="#_11">定位句</a></li><li><a href="#_12">三个分点</a></li><li><a href="#_13">关键词</a></li><li><a href="#_14">案例</a></li></ul></li><li class="toc-l1"><a href="#9">专题七 大国外交（第 9 章）</a><ul><li><a href="#_15">定位句</a></li><li><a href="#_16">三个分点</a></li><li><a href="#_17">关键词</a></li><li><a href="#_18">案例</a></li></ul></li><li class="toc-l1"><a href="#_19">万能兜底段（任何一题都能用）</a></li></ul></nav>
+      <div class="essay-body"><h2 id="_1">备用专题骨架（专题二 / 三 / 四 / 七）</h2>
+<blockquote>
+<p>用法：这四题不精背。每题记住"定位句 + 3 个分点 + 1 个案例"，考场上能写出 400–600 字即可。</p>
+</blockquote>
+<hr />
+<h2 id="3">专题二 新时代中国特色社会主义经济建设（第 3 章）</h2>
+<h3 id="1">1. 定位句</h3>
+<p><strong>高质量发展是全面建设社会主义现代化国家的首要任务。</strong> 习近平经济思想是新时代做好经济工作的根本遵循。</p>
+<h3 id="2">2. 必背清单</h3>
+<h4 id="5">新发展理念（5 个）</h4>
+<p><strong>创新、协调、绿色、开放、共享。</strong>
+- 创新是引领发展的第一动力；协调是内生特点；绿色是普遍形态；开放是必由之路；共享是根本目的。</p>
+<h4 id="_2">新发展格局</h4>
+<p><strong>以国内大循环为主体、国内国际双循环相互促进。</strong>
+- 不是封闭的国内循环，而是开放的国内国际双循环。
+- 把发展经济的着力点放在<strong>实体经济</strong>上。</p>
+<h4 id="_3">高质量发展</h4>
+<ul>
+<li>建设<strong>现代化经济体系</strong>。</li>
+<li>推动<strong>新质生产力</strong>发展：创新起主导作用，摆脱传统增长方式，具有高科技、高效能、高质量特征，特点是创新、关键在质优、本质是先进生产力。</li>
+<li>供给侧结构性改革是主线。</li>
+</ul>
+<h4 id="_4">社会主义市场经济体制</h4>
+<ul>
+<li>坚持<strong>"两个毫不动摇"</strong>：巩固和发展公有制经济，鼓励、支持、引导非公有制经济发展。</li>
+<li>充分发挥市场在资源配置中的决定性作用，更好发挥政府作用。</li>
+<li>激发市场主体活力，规范和引导资本健康发展。</li>
+</ul>
+<h4 id="_5">高水平对外开放</h4>
+<ul>
+<li>中国开放的大门只会越开越大。</li>
+<li>推动共建<strong>"一带一路"</strong>高质量发展。</li>
+<li>推动形成全面开放新格局。</li>
+</ul>
+<h4 id="_6">教育、科技、人才</h4>
+<ul>
+<li>教育、科技、人才是全面建设社会主义现代化国家的<strong>基础性、战略性支撑</strong>。</li>
+<li>加快实现<strong>高水平科技自立自强</strong>，坚决打赢关键核心技术攻坚战。</li>
+</ul>
+<h3 id="3-400">3. 400 字骨架（可直接扩写）</h3>
+<p>【破题】高质量发展是全面建设社会主义现代化国家的首要任务。推动高质量发展，必须完整、准确、全面贯彻新发展理念，加快构建新发展格局。</p>
+<p>【分点】第一，以新发展理念统领发展全局，把创新、协调、绿色、开放、共享贯穿经济社会发展全过程。第二，构建新发展格局，以国内大循环为主体、国内国际双循环相互促进，把发展经济的着力点放在实体经济上，建设现代化经济体系。第三，发展新质生产力，以科技创新推动产业创新，推动产业高端化、智能化、绿色化。第四，坚持"两个毫不动摇"，构建高水平社会主义市场经济体制，激发市场主体活力。第五，推进高水平对外开放，高质量共建"一带一路"。第六，强化教育、科技、人才的基础性战略性支撑，加快实现高水平科技自立自强。</p>
+<p>【专业】在地学与防灾领域，科技自立自强体现为地震监测预警、深地探测、灾害风险普查等关键技术的自主创新；能源资源安全、战略性矿产勘查也是实体经济和国家经济安全的重要支撑。</p>
+<p>【结尾】总之，必须坚持高质量发展这个首要任务，以新发展理念引领、以新发展格局支撑，为全面建设社会主义现代化国家奠定坚实物质技术基础。</p>
+<hr />
+<h2 id="4">专题三 政治建设（第 4 章）</h2>
+<h3 id="_7">定位句</h3>
+<p><strong>坚持党的领导、人民当家作主、依法治国有机统一</strong>，是中国特色社会主义政治发展道路的核心。</p>
+<h3 id="_8">三个分点</h3>
+<ol>
+<li><strong>三者有机统一</strong>：党的领导是根本保证，人民当家作主是本质特征，依法治国是基本方式。</li>
+<li><strong>全过程人民民主</strong>：是最广泛、最真实、最管用的民主；把选举民主与协商民主结合起来，贯通民主选举、民主协商、民主决策、民主管理、民主监督。</li>
+<li><strong>全面依法治国</strong>：在法治轨道上全面建设社会主义现代化国家；坚持依宪治国、依宪执政；坚持中国特色社会主义法治道路。</li>
+</ol>
+<h3 id="_9">关键词</h3>
+<p>人民代表大会制度（根本政治制度）；中国共产党领导的多党合作和政治协商制度、民族区域自治制度、基层群众自治制度（基本政治制度）；协商民主；爱国统一战线；基层民主。</p>
+<h3 id="_10">案例</h3>
+<p>基层立法联系点、"小院议事厅"、村民议事会——全过程人民民主的基层实践。</p>
+<hr />
+<h2 id="5_1">专题四 文化建设（第 5 章）</h2>
+<h3 id="_11">定位句</h3>
+<p><strong>坚持马克思主义在意识形态领域的指导地位，坚定中国特色社会主义文化自信，建设社会主义文化强国。</strong></p>
+<h3 id="_12">三个分点</h3>
+<ol>
+<li><strong>意识形态</strong>：坚持马克思主义指导地位；加快构建中国特色哲学社会科学；把互联网这个"最大变量"变成"最大增量"。</li>
+<li><strong>核心价值观</strong>：培育和践行社会主义核心价值观，强化教育引导、实践养成、制度保障，培养担当民族复兴大任的时代新人。</li>
+<li><strong>文化传承创新</strong>：坚持"两个结合"（把马克思主义基本原理同中国具体实际相结合、同中华优秀传统文化相结合）；把握中华文明突出特性（连续性、创新性、统一性、包容性、和平性）；建设中华民族现代文明。</li>
+</ol>
+<h3 id="_13">关键词</h3>
+<p>文化自信；社会主义文化强国；文化事业和文化产业；中华文明传播力影响力；中华民族现代文明。</p>
+<h3 id="_14">案例</h3>
+<p>中华优秀传统文化"创造性转化、创新性发展"；非遗保护；文化出海（如国产游戏、影视）。</p>
+<hr />
+<h2 id="9">专题七 大国外交（第 9 章）</h2>
+<h3 id="_15">定位句</h3>
+<p><strong>推动构建人类命运共同体</strong>，是新时代中国特色大国外交的总目标。</p>
+<h3 id="_16">三个分点</h3>
+<ol>
+<li><strong>人类命运共同体的丰富内涵</strong>：建设持久和平、普遍安全、共同繁荣、开放包容、清洁美丽的世界；坚持对话协商、共建共享、合作共赢、交流互鉴、绿色低碳。</li>
+<li><strong>新型国际关系</strong>：相互尊重、公平正义、合作共赢；反对冷战思维和零和博弈。</li>
+<li><strong>共建"一带一路"</strong>：政策沟通、设施联通、贸易畅通、资金融通、民心相通（"五通"）；高质量共建"一带一路"，打造国际合作新平台。</li>
+</ol>
+<h3 id="_17">关键词</h3>
+<p>全球发展倡议、全球安全倡议、全球文明倡议；共商共建共享；真正的多边主义；全人类共同价值。</p>
+<h3 id="_18">案例</h3>
+<p>"一带一路"标志性工程；国际减灾合作、气候治理（《巴黎协定》）；全球安全倡议下的合作。</p>
+<hr />
+<h2 id="_19">万能兜底段（任何一题都能用）</h2>
+<blockquote>
+<p>中国共产党领导是中国特色社会主义最本质的特征，是中国特色社会主义制度的最大优势。无论推进经济建设、政治建设、文化建设、社会建设、生态文明建设，还是国家安全、大国外交，都必须坚持党的全面领导，坚持以人民为中心，坚持中国特色社会主义道路。这是被历史和现实反复证明的根本结论。</p>
+</blockquote></div>
+    </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
+  </div></section>
+
+  </main>
+
+  <footer class="footer"><div class="container"><p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p></div></footer>
+
+  <script src="/assets/js/main.js"></script>
+  <script defer src="/assets/js/starfield.js"></script>
+  <script defer src="/assets/js/anime-ui.js"></script>
+  <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
+  
+</body>
+</html>

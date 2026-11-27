@@ -31,14 +31,46 @@ DEFAULT_OUT = REPO_ROOT / "web" / "notes"
 # slug / 课程名 —— 见任务说明
 NOTES = [
     {
-        "source": "新时代中国特色社会主义理论与实践研究/一周复习冲刺文档.md",
-        "slug": "socialism-theory-sprint",
+        "source": "新时代中国特色社会主义理论与实践研究/复习/00-选科策略与答题总纲.md",
+        "slug": "socialism-strategy",
         "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 总纲",
     },
     {
-        "source": "新时代中国特色社会主义理论与实践研究/以题代练题库.md",
-        "slug": "socialism-theory-question-bank",
+        "source": "新时代中国特色社会主义理论与实践研究/复习/01-专题一-中国式现代化.md",
+        "slug": "socialism-topic-1",
         "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 答题模板",
+    },
+    {
+        "source": "新时代中国特色社会主义理论与实践研究/复习/02-专题五-社会建设与生态文明.md",
+        "slug": "socialism-topic-5",
+        "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 答题模板",
+    },
+    {
+        "source": "新时代中国特色社会主义理论与实践研究/复习/03-专题六-总体国家安全观.md",
+        "slug": "socialism-topic-6",
+        "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 答题模板",
+    },
+    {
+        "source": "新时代中国特色社会主义理论与实践研究/复习/04-专题八-党的领导与自我革命.md",
+        "slug": "socialism-topic-8",
+        "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 答题模板",
+    },
+    {
+        "source": "新时代中国特色社会主义理论与实践研究/复习/05-速记卡-考前30分钟.md",
+        "slug": "socialism-cram-card",
+        "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 速记卡",
+    },
+    {
+        "source": "新时代中国特色社会主义理论与实践研究/复习/06-备用专题骨架.md",
+        "slug": "socialism-backup-frames",
+        "course": "Y_新时代中国特色社会主义理论与实践",
+        "tag": "专题复习 · 备用骨架",
     },
     {
         "source": "综合英语/综合英语期末复习大纲.md",
@@ -100,7 +132,16 @@ NOTES = [
 # 相对链接改写规则
 INTERNAL_LINK_MAP = {
     # 指向配套冲刺文档的相对链接 → 站内笔记页
-    "一周复习冲刺文档.md": "/notes/socialism-theory-sprint.html",
+    # 旧《一周冲刺复习计划》源稿已删，被 00-06 专题套件取代；旧链接改指新总纲
+    "一周复习冲刺文档.md": "/notes/socialism-strategy.html",
+    "00-选科策略与答题总纲.md": "/notes/socialism-strategy.html",
+    # 新时代专题复习套件（复习/ 目录七篇互链）
+    "01-专题一-中国式现代化.md": "/notes/socialism-topic-1.html",
+    "02-专题五-社会建设与生态文明.md": "/notes/socialism-topic-5.html",
+    "03-专题六-总体国家安全观.md": "/notes/socialism-topic-6.html",
+    "04-专题八-党的领导与自我革命.md": "/notes/socialism-topic-8.html",
+    "05-速记卡-考前30分钟.md": "/notes/socialism-cram-card.html",
+    "06-备用专题骨架.md": "/notes/socialism-backup-frames.html",
 }
 LOCAL_EXTS = (".md", ".txt", ".pdf", ".doc", ".docx", ".pptx")
 # markdown 输出的锚点都是 <a href="...">...</a> 形式
