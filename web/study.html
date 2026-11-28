@@ -53,36 +53,20 @@
       <div class="section-header">
         <div class="section-tag">课业存档</div>
         <h1 class="section-title">自习室</h1>
-        <p class="section-desc">复习资料、课程笔记、开源作业，都在这儿。考完也不删。</p>
-      </div>
-      <div class="tool-search">
-        <span class="search-icon">🔍</span>
-        <input type="search" id="studySearch" placeholder="搜课程、资料名或标签…" autocomplete="off" aria-label="搜索课程、资料名或标签">
-      </div>
-      <div class="tool-filters" id="studyFilters" role="group" aria-label="按类型筛选">
-        <button class="filter-btn active" data-type="all" aria-pressed="true">全部</button>
-        <button class="filter-btn" data-type="material" aria-pressed="false">复习资料</button>
-        <button class="filter-btn" data-type="notes" aria-pressed="false">课程笔记</button>
-        <button class="filter-btn" data-type="homework" aria-pressed="false">开源作业</button>
+        <p class="section-desc">按课程分类的复习资料、课程笔记与开源作业。考完也不删。</p>
       </div>
       <p class="study-count" id="studyCount" aria-live="polite"></p>
-      <div class="study-mindmap-cta">
-        <a class="btn btn-secondary" href="/mindmap.html">🧠 打开交互思维导图 →</a>
-      </div>
     </div>
   </section>
 
   <section class="study-section">
     <div class="container">
-      <h2 class="visually-hidden">资料列表</h2>
-      <div class="course-groups" id="studyGroups"></div>
-      <div class="no-results" id="studyEmpty">
-        <div class="emoji">🌙</div>
-        <h3>自习室还在布置</h3>
-        <p>资料整理好就陆续放上来。</p>
+      <h2 class="visually-hidden">课程列表</h2>
+      <div class="course-wall" id="courseWall">
+        <p class="contributors-loading">课程加载中…</p>
       </div>
       <noscript>
-        <p class="gallery-empty">资料列表由 JSON 动态渲染，需要启用 JavaScript；也可以直接打开 <a href="/assets/data/study.json">study.json</a> 查看。</p>
+        <p class="gallery-empty">课程列表由 JSON 动态渲染，需要启用 JavaScript；也可以直接打开 <a href="/assets/data/study.json">study.json</a> 查看。</p>
       </noscript>
     </div>
   </section>

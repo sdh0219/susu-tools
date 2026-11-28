@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岩矿鉴定 · 考试复习全解 - 自习室 - Susu</title>
+  <meta name="description" content="岩矿鉴定 · 复习笔记：岩矿鉴定 · 考试复习全解。由 Susu 整理，考完也不删。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="岩矿鉴定 · 考试复习全解 - Susu 自习室">
+  <meta property="og:url" content="https://susu-2x9.pages.dev/notes/rock-mineral-exam.html">
+  <meta property="og:image" content="https://susu-2x9.pages.dev/assets/img/og-cover.jpg">
+  <meta property="og:description" content="岩矿鉴定 · 复习笔记：岩矿鉴定 · 考试复习全解。由 Susu 整理，考完也不删。">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://susu-2x9.pages.dev/notes/rock-mineral-exam.html">
+  <link rel="alternate" type="application/rss+xml" title="工具随笔 RSS" href="https://susu-2x9.pages.dev/rss.xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <script>(function(){document.documentElement.className+=' js';try{var t=localStorage.getItem('susu-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+  <style>
+    .note-toc { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 22px; margin: 20px 0 26px; }
+    .note-toc-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+    .note-toc ul { list-style: none; margin: 0; padding: 0; }
+    .note-toc ul ul { padding-left: 1.3em; margin-top: 4px; }
+    .note-toc li { margin-bottom: 5px; font-size: .92rem; }
+    .note-toc a { color: var(--text-secondary); }
+    .note-toc a:hover { color: var(--accent-purple); }
+    .note-toc .toc-l1 > a { color: var(--text-primary); font-weight: 600; }
+    .essay-body h2 { margin: 30px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+    .essay-body h3 { margin: 24px 0 10px; }
+    .essay-body h4 { margin: 18px 0 8px; }
+    .essay-body ul, .essay-body ol { margin: 0 0 14px 1.6em; }
+    .essay-body li { margin-bottom: 6px; color: var(--text-soft); font-size: .95rem; line-height: 1.85; }
+    .essay-body a { color: var(--accent-blue); }
+    .essay-body a:hover { text-decoration: underline; }
+    .essay-body strong { color: var(--text-primary); }
+    .essay-body blockquote { margin: 0 0 16px; padding: 10px 16px; border-left: 3px solid var(--accent-purple); background: var(--bg-secondary); border-radius: 0 8px 8px 0; color: var(--text-secondary); }
+    .essay-body blockquote p { font-size: .92rem; margin-bottom: 6px; }
+    .essay-body hr { border: 0; border-top: 1px solid var(--border-color); margin: 26px 0; }
+    .essay-body code { font-family: Consolas, 'JetBrains Mono', Menlo, monospace; font-size: .88em; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 1px 6px; color: var(--accent-orange); }
+    .essay-body pre { background: #10131a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6; }
+    .essay-body pre code { background: none; border: 0; padding: 0; color: #d7dce5; font-size: .88rem; }
+    .essay-body .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 18px; margin: 0 0 16px; overflow-x: auto; text-align: center; font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif; font-size: 1rem; color: var(--text-primary); }
+    .essay-body table { display: table; min-width: 100%; border-collapse: collapse; margin: 0; font-size: .9rem; }
+    .essay-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 16px; border-radius: 10px; }
+    .essay-body .table-scroll table { margin: 0; }
+    /* 单元格允许任意断行：否则长代码/公式会把表格的 min-content 撑大，
+       表格被容器钳窄、内容溢出且外层滚动容器无法接管（实测 scrollWidth 不增长） */
+    .essay-body th, .essay-body td { overflow-wrap: anywhere; }
+    /* 长串（代码名、路径、无空格算式）任何位置可断：否则窄屏单行可撑到 600px+ */
+    .essay-body { overflow-wrap: anywhere; }
+    /* KaTeX CSS 万一加载失败：MathML 副本保持隐藏，避免双重渲染 + 撑宽页面 */
+    .katex-mathml { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 768px) {
+      /* 表格卡片化：每行变一张「字段名：值」卡片，不做横向滚动 */
+      .essay-body .table-scroll { overflow: visible; }
+      .essay-body table { display: block; min-width: 0; font-size: .85rem; }
+      .essay-body thead { display: none; }
+      .essay-body tbody, .essay-body tr, .essay-body td { display: block; }
+      .essay-body tr { border: 1px solid var(--border-color); border-radius: 10px;
+                       margin: 0 0 12px; padding: 4px 0; background: var(--bg-secondary); }
+      .essay-body td { border: 0; padding: 6px 12px; }
+      .essay-body td[data-label] { display: block; }
+      .essay-body td[data-label]::before { content: attr(data-label); display: block;
+                       color: var(--text-muted); font-size: .75rem; font-weight: 600;
+                       margin-bottom: 2px; letter-spacing: .02em; }
+      .essay-body td:first-child { font-weight: 600; color: var(--text-primary); font-size: .92rem; }
+      .essay-body td:first-child::before { display: none; }
+      /* 代码块换行而非横滚，保证窄屏也能看全 */
+      .essay-body pre { white-space: pre-wrap; word-break: break-word; }
+      .essay-body table code { white-space: normal; }
+      /* 行内公式超宽时自身滚动，不撑破布局 */
+      .essay-body .katex { max-width: 100%; overflow-x: auto; display: inline-block; vertical-align: middle; }
+    }
+    .essay-body th, .essay-body td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; vertical-align: top; }
+    .essay-body th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .essay-body tbody tr:nth-child(even) { background: rgba(128, 128, 128, 0.06); }
+    @media (max-width: 768px) { .essay-body h2 { margin: 24px 0 12px; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主内容</a>
+  <nav class="nav" id="nav"><div class="container">
+    <a href="/index.html" class="nav-logo">Susu</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">首页</a></li>
+      <li><a href="/index.html#projects">作品</a></li>
+      <li><a href="/study.html" class="active">自习室</a></li>
+      <li><a href="/gallery.html">画廊</a></li>
+      <li><a href="/blog.html">随笔</a></li>
+      <li><a href="/contribute.html">共建</a></li>
+      <li><a href="/index.html#about">关于</a></li>
+      <li><a href="/index.html#contact">联系</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">☀️</button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    </div>
+  </div></nav>
+
+  <main id="main">
+  <section class="blog-hero"><div class="container"><div class="section-header">
+    <div class="section-tag">课程笔记</div>
+    <h1 class="section-title">岩矿鉴定 · 考试复习全解</h1>
+    <p class="section-desc">岩矿鉴定 · 2026 秋 · <a href="/notes/rock-mineral-exam.md">下载 Markdown</a> · <a href="/study.html">← 返回自习室</a></p>
+  </div></div></section>
+
+  <section class="essays"><div class="container">
+    <article class="essay note-page">
+      <div class="essay-head">
+        <span class="essay-num" aria-hidden="true">📖</span>
+        <div class="essay-title-wrap"><h2>岩矿鉴定 · 考试复习全解</h2>
+        <div class="essay-meta"><span>2026 秋季学期</span><span>阅读约 20 分钟</span></div></div>
+      </div>
+      <nav class="note-toc" aria-label="本页目录"><div class="note-toc-title" aria-hidden="true">📑 本页目录</div><ul><li><a href="#127">第一部分 简答与论述（1—27）</a><ul><li><a href="#1">1. 十个摩氏硬度计矿物及对应的硬度 ★★★</a></li><li><a href="#2-6">2. 晶体的基本性质（6 个）及其含义 ★★★</a></li><li><a href="#3">3. 矿物单晶的形态如何描述 ★★</a></li><li><a href="#4">4. 矿物集合体的形态如何描述 ★★</a></li><li><a href="#5">5. 矿物的物理性质受哪些因素控制 ★★</a></li><li><a href="#6">6. 类质同象的概念、分类和举例 ★★★</a></li><li><a href="#7">7. 同质多象的概念，举例说明 ★★★</a></li><li><a href="#8">8. 矿物解理的概念及五个等级 ★★★</a></li><li><a href="#9">9. 矿物分类和命名的规则 ★★</a></li><li><a href="#10">10. 硫化物矿物大类的化学成分特征 ★★</a></li><li><a href="#11">11. 黄铁矿、黄铜矿、方铅矿、闪锌矿如何区分 ★★★</a></li><li><a href="#12">12. 方解石和石英如何区分 ★★★</a></li><li><a href="#13">13. 石墨、刚玉、石英、赤铁矿、磁铁矿、方解石的晶体化学式 ★★★</a></li><li><a href="#14">14. 硅酸盐矿物的硅氧骨干类型 ★★★</a></li><li><a href="#15">15. 角闪石和辉石如何区分 ★★★</a></li><li><a href="#16">16. 钾长石和斜长石如何区分 ★★</a></li><li><a href="#17">17. 层状硅酸盐矿物的结构单元层 ★</a></li><li><a href="#18-m90qap">18. 深成岩（M&amp;lt;90%）QAP 图解分类命名 ★★</a></li><li><a href="#19">19. 岩浆岩按化学成分分类 ★★★</a></li><li><a href="#20">20. 岩浆岩结构与沉积岩结构的区别 ★★★</a></li><li><a href="#21">21. 侵入岩与围岩的接触关系 ★★★</a></li><li><a href="#22">22. 岩浆产生的三个条件 ★★</a></li><li><a href="#23">23. 三种风化作用 ★★</a></li><li><a href="#24">24. 岩浆岩与沉积岩矿物组成的区别 ★★★</a></li><li><a href="#25">25. 野外如何区分岩浆岩和沉积岩 ★★★</a></li><li><a href="#26">26. 沉积岩的层面构造及其含义 ★★</a></li><li><a href="#27">27. 砂岩成分分类的三个端元 ★★</a></li></ul></li><li><a href="#4_1">第二部分 名词解释（4 个）</a></li><li><a href="#2">第三部分 读图题（2 张）</a></li></ul></nav>
+      <div class="essay-body"><h2 id="_1">岩矿鉴定 · 考试复习全解</h2>
+<blockquote>
+<p>按复习题目原顺序编排：27 条简答论述 + 4 个名词解释 + 2 张读图题。
+星级 = 考点热度：★★★ 必背 / ★★ 高频 / ★ 了解。
+表格化速记，考前可当清单过。配套：岩矿鉴定考试范围总结（教师划重点）。</p>
+</blockquote>
+<hr />
+<h3 id="127">第一部分 简答与论述（1—27）</h3>
+<h4 id="1">1. 十个摩氏硬度计矿物及对应的硬度 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>硬度</th>
+<th>矿物</th>
+<th>化学式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="硬度">1</td>
+<td data-label="矿物">滑石</td>
+<td data-label="化学式">Mg₃Si₄O₁₀₂</td>
+<td data-label="备注">最软，手感滑腻</td>
+</tr>
+<tr>
+<td data-label="硬度">2</td>
+<td data-label="矿物">石膏</td>
+<td data-label="化学式">CaSO₄·2H₂O</td>
+<td data-label="备注">指甲可刻（指甲 2.5）</td>
+</tr>
+<tr>
+<td data-label="硬度">3</td>
+<td data-label="矿物">方解石</td>
+<td data-label="化学式">CaCO₃</td>
+<td data-label="备注">铜币（3）可刻</td>
+</tr>
+<tr>
+<td data-label="硬度">4</td>
+<td data-label="矿物">萤石</td>
+<td data-label="化学式">CaF₂</td>
+<td data-label="备注">小刀易刻</td>
+</tr>
+<tr>
+<td data-label="硬度">5</td>
+<td data-label="矿物">磷灰石</td>
+<td data-label="化学式">Ca₅[PO₄]₃(F,Cl,OH)</td>
+<td data-label="备注">小刀可刻（小刀 5.5）</td>
+</tr>
+<tr>
+<td data-label="硬度">6</td>
+<td data-label="矿物">正长石</td>
+<td data-label="化学式">K[AlSi₃O₈]</td>
+<td data-label="备注">小刀刻不动，可刻玻璃</td>
+</tr>
+<tr>
+<td data-label="硬度">7</td>
+<td data-label="矿物">石英</td>
+<td data-label="化学式">SiO₂</td>
+<td data-label="备注">显著划伤玻璃</td>
+</tr>
+<tr>
+<td data-label="硬度">8</td>
+<td data-label="矿物">黄玉</td>
+<td data-label="化学式">Al₂SiO₄₂</td>
+<td data-label="备注">—</td>
+</tr>
+<tr>
+<td data-label="硬度">9</td>
+<td data-label="矿物">刚玉</td>
+<td data-label="化学式">Al₂O₃</td>
+<td data-label="备注">可刻石英</td>
+</tr>
+<tr>
+<td data-label="硬度">10</td>
+<td data-label="矿物">金刚石</td>
+<td data-label="化学式">C</td>
+<td data-label="备注">最硬，可刻刚玉</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>记忆钩子</strong>：前五种均为"小刀以下"，第 6 种起小刀刻不动。辅助硬度：指甲 2.5｜铜币 3｜小刀、玻璃 5.5｜钢锉 6.5——答题写出辅助硬度能加分。</p>
+<h4 id="2-6">2. 晶体的基本性质（6 个）及其含义 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>性质</th>
+<th>含义</th>
+<th>典型表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="性质">自限性（自范性）</td>
+<td data-label="含义">适宜条件下自发形成规则几何多面体外形</td>
+<td data-label="典型表现">岩盐立方体、石英六方柱、石榴子石菱形十二面体</td>
+</tr>
+<tr>
+<td data-label="性质">均一性</td>
+<td data-label="含义">同一晶体不同部位物理化学性质相同</td>
+<td data-label="典型表现">同一石英晶体各处密度、折射率一致</td>
+</tr>
+<tr>
+<td data-label="性质">异向性（各向异性）</td>
+<td data-label="含义">同一晶体不同方向上性质不同</td>
+<td data-label="典型表现">蓝晶石平行 c 轴硬度 4.5、垂直 6.5~7</td>
+</tr>
+<tr>
+<td data-label="性质">对称性</td>
+<td data-label="含义">相同部分在不同方向或位置有规律重复</td>
+<td data-label="典型表现">立方体 3 个四次轴、4 个三次轴</td>
+</tr>
+<tr>
+<td data-label="性质">最小内能性</td>
+<td data-label="含义">晶体比同成分非晶质体内能更小，能量最低</td>
+<td data-label="典型表现">玻璃加热析晶，晶体不会自发变玻璃</td>
+</tr>
+<tr>
+<td data-label="性质">稳定性</td>
+<td data-label="含义">给定条件下不易向其他状态转变</td>
+<td data-label="典型表现">石英常温常压长期稳定；蛋白石老化转玉髓</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>易错</strong>：最小内能性与稳定性是因果一体的两条（内能小是因、稳定是果），答题分两行写满六条不可合并；有规则外形不是晶体的定义，<strong>格子构造才是</strong>。</p>
+<h4 id="3">3. 矿物单晶的形态如何描述 ★★</h4>
+<p>描述必须按固定顺序说全五项，缺项扣分：</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说什么</th>
+<th>术语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="步骤">① 结晶习性</td>
+<td data-label="说什么">三维空间延长比例</td>
+<td data-label="术语">一向延长（柱/针/纤维）；二向延长（板/片/鳞片）；三向等长（粒状）</td>
+</tr>
+<tr>
+<td data-label="步骤">② 单形与聚形</td>
+<td data-label="说什么">一种晶面=单形；两种以上=聚形</td>
+<td data-label="术语">立方体、八面体、菱形十二面体等（共 47 种单形）</td>
+</tr>
+<tr>
+<td data-label="步骤">③ 晶面特征</td>
+<td data-label="说什么">晶面微细装饰，重要鉴定依据</td>
+<td data-label="术语">晶面条纹（石英柱面横纹、黄铁矿三组条纹）、蚀象、生长丘、双晶纹</td>
+</tr>
+<tr>
+<td data-label="步骤">④ 双晶</td>
+<td data-label="说什么">同种晶体规律连生</td>
+<td data-label="术语">接触双晶（石膏燕尾）、穿插双晶（萤石、十字石）、聚片双晶（斜长石）、卡氏双晶（正长石）</td>
+</tr>
+<tr>
+<td data-label="步骤">⑤ 大小与完整度</td>
+<td data-label="说什么">粒度与自形程度</td>
+<td data-label="术语">自形晶、半自形晶、他形晶</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>答题模板</strong>："××呈〔颜色〕，晶体为〔结晶习性〕，由〔单形/聚形〕组成，晶面见〔条纹/蚀象〕，可见〔双晶类型〕双晶，粒径约〔大小〕，为〔自形程度〕晶。"</p>
+<h4 id="4">4. 矿物集合体的形态如何描述 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>形态名称</th>
+<th>成因与例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="类型">显晶质集合体</td>
+<td data-label="形态名称">粒状、块状</td>
+<td data-label="成因与例">石英、方解石、橄榄岩中的橄榄石</td>
+</tr>
+<tr>
+<td data-label="类型">（肉眼可辨颗粒）</td>
+<td data-label="形态名称">柱状、针状、纤维状、放射状</td>
+<td data-label="成因与例">角闪石、辉石、纤维石膏、红柱石放射状</td>
+</tr>
+<tr>
+<td data-label="类型"></td>
+<td data-label="形态名称">片状、鳞片状、晶簇状</td>
+<td data-label="成因与例">云母、绿泥石、滑石；石英晶簇</td>
+</tr>
+<tr>
+<td data-label="类型">隐晶质/胶体集合体</td>
+<td data-label="形态名称">鲕状、豆状</td>
+<td data-label="成因与例">胶体同心凝聚；鲕状赤铁矿、鲕粒灰岩</td>
+</tr>
+<tr>
+<td data-label="类型">（肉眼不可辨颗粒）</td>
+<td data-label="形态名称">钟乳状、葡萄状、肾状</td>
+<td data-label="成因与例">胶体滴流沉淀；钟乳石、孔雀石</td>
+</tr>
+<tr>
+<td data-label="类型"></td>
+<td data-label="形态名称">结核状、土状、被膜状</td>
+<td data-label="成因与例">褐铁矿（土状/结核）、高岭石土状块体</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>区分</strong>：晶簇=共同基底丛生、游离端完好（开放空间自由生长）；块状=看不出个体界线（同时快速结晶或胶体固结）。</p>
+<h4 id="5">5. 矿物的物理性质受哪些因素控制 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>控制因素</th>
+<th>作用机制</th>
+<th>例证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="控制因素">化学成分</td>
+<td data-label="作用机制">元素种类、离子半径、电价、键型、类质同象混入物、色素离子</td>
+<td data-label="例证">含 Fe³⁺ 呈红褐（赤铁矿）；含 Cr³⁺ 呈翠绿（翡翠）</td>
+</tr>
+<tr>
+<td data-label="控制因素">晶体结构</td>
+<td data-label="作用机制">质点排列、配位数、键力分布</td>
+<td data-label="例证">金刚石与石墨同为 C，硬度 10 vs 1</td>
+</tr>
+<tr>
+<td data-label="控制因素">形成环境</td>
+<td data-label="作用机制">温度、压力、介质、氧化还原、后期蚀变</td>
+<td data-label="例证">黄铜矿暴露生斑状锖色；赤铁矿氧化带为红色</td>
+</tr>
+</tbody>
+</table></div>
+<p>一句话：<strong>成分是内因，结构是决定因素，环境是条件</strong>。</p>
+<h4 id="6">6. 类质同象的概念、分类和举例 ★★★</h4>
+<p><strong>概念</strong>：晶体结构中某种质点被性质相似的其它质点部分置换，而不改变晶体结构类型和化学键性质，仅使晶胞参数发生微小变化的现象。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>划分依据</th>
+<th>类型</th>
+<th>含义与实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="划分依据">按完全程度</td>
+<td data-label="类型">完全（连续）</td>
+<td data-label="含义与实例">任意比例互代：镁橄榄石—铁橄榄石；斜长石 Ab—An 系列</td>
+</tr>
+<tr>
+<td data-label="划分依据"></td>
+<td data-label="类型">不完全（有限）</td>
+<td data-label="含义与实例">有限互代：闪锌矿中 Fe²⁺ 替代 Zn²⁺ 一般 ≤20%</td>
+</tr>
+<tr>
+<td data-label="划分依据">按电价</td>
+<td data-label="类型">等价</td>
+<td data-label="含义与实例">Mg²⁺ ⇌ Fe²⁺</td>
+</tr>
+<tr>
+<td data-label="划分依据"></td>
+<td data-label="类型">异价</td>
+<td data-label="含义与实例">需耦合替代：斜长石 Na⁺+Si⁴⁺ ⇌ Ca²⁺+Al³⁺</td>
+</tr>
+<tr>
+<td data-label="划分依据">按替代方式</td>
+<td data-label="类型">正常 / 异常</td>
+<td data-label="含义与实例">直接替代 / 需空位补偿（磁铁矿 Fe²⁺/Fe³⁺ 混合价态）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>产生条件四判据</strong>：离子半径相近（差 &lt;15% 易完全类质同象）；电价平衡；化学键性质相似；外部条件（升温有利、增压不利）。</p>
+<h4 id="7">7. 同质多象的概念，举例说明 ★★★</h4>
+<p><strong>概念</strong>：同一化学成分在不同热力学条件下形成结构不同、性质也不同的晶体的现象。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>成分</th>
+<th>变体与条件</th>
+<th>性质差异</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="成分">C</td>
+<td data-label="变体与条件">金刚石（等轴，高温高压）／石墨（六方，低压高温）</td>
+<td data-label="性质差异">硬度 10 vs 1；绝缘 vs 导体</td>
+</tr>
+<tr>
+<td data-label="成分">CaCO₃</td>
+<td data-label="变体与条件">方解石（三方）／文石（斜方，高压低温）</td>
+<td data-label="性质差异">文石不稳定易转方解石</td>
+</tr>
+<tr>
+<td data-label="成分">SiO₂</td>
+<td data-label="变体与条件">α-石英（&lt;573℃）／β-石英（&gt;573℃）等</td>
+<td data-label="性质差异">573℃ 转变可作地质温度计</td>
+</tr>
+<tr>
+<td data-label="成分">Al₂SiO₅</td>
+<td data-label="变体与条件">红柱石（低压高温）／蓝晶石（高压低温）／矽线石</td>
+<td data-label="性质差异">著名变质相指示矿物</td>
+</tr>
+<tr>
+<td data-label="成分">K[AlSi₃O₈]</td>
+<td data-label="变体与条件">透长石（高温）／正长石／微斜长石（低温）</td>
+<td data-label="性质差异">有序—无序转变反映结晶温度</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>必考辨析</strong>：同质多象＝成分同、结构不同；类质同象＝结构同、成分不同——方向相反，答题写清"什么相同、什么不同"。</p>
+<h4 id="8">8. 矿物解理的概念及五个等级 ★★★</h4>
+<p><strong>概念</strong>：矿物受外力沿晶体内部一定结晶学方向裂开成光滑平面的性质；本质是沿结构中键力最弱的面网破裂。描述必须说全：组数 + 等级 + 组间夹角。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>等级</th>
+<th>特征</th>
+<th>典型矿物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="等级">① 极完全解理</td>
+<td data-label="特征">极易裂成薄片，面大平整</td>
+<td data-label="典型矿物">云母、石墨、绿泥石、滑石、辉钼矿</td>
+</tr>
+<tr>
+<td data-label="等级">② 完全解理</td>
+<td data-label="特征">易裂成规则块体，断口少见</td>
+<td data-label="典型矿物">方解石（三组菱面体）、方铅矿、萤石、岩盐</td>
+</tr>
+<tr>
+<td data-label="等级">③ 中等解理</td>
+<td data-label="特征">面较平整但不连续</td>
+<td data-label="典型矿物">辉石（两组 87°）、角闪石（124°）、长石</td>
+</tr>
+<tr>
+<td data-label="等级">④ 不完全解理</td>
+<td data-label="特征">面小不平，断口发育</td>
+<td data-label="典型矿物">磷灰石、绿柱石、锡石</td>
+</tr>
+<tr>
+<td data-label="等级">⑤ 极不完全解理</td>
+<td data-label="特征">晶面见不到解理面</td>
+<td data-label="典型矿物">石英（贝壳状断口）、石榴子石、磁铁矿、刚玉</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="9">9. 矿物分类和命名的规则 ★★</h4>
+<p><strong>分类（晶体化学，五大类）</strong>：① 自然元素（自然金、金刚石、石墨）；② 硫化物及类似化合物（黄铁矿、黄铜矿、方铅矿、闪锌矿）；③ 氧化物和氢氧化物（石英、刚玉、赤铁矿、磁铁矿）；④ 含氧盐——硅酸盐（占造岩矿物 90% 以上）、碳酸盐、硫酸盐、磷酸盐、钨酸盐；⑤ 卤化物（萤石、岩盐）。</p>
+<p>层级：大类 → 类 →（亚类）→ 族 →（亚族）→ <strong>种</strong>（基本单位）→（亚种/变种）。</p>
+<p><strong>命名五种依据</strong>：化学成分（黄铜矿）、物理性质（重晶石、滑石、金刚石）、形态（石榴子石、十字石）、产地（高岭石—江西高岭）、人名（章氏硼镁石）。</p>
+<h4 id="10">10. 硫化物矿物大类的化学成分特征 ★★</h4>
+<p>化学成分五条：阳离子为亲硫元素（Cu、Pb、Zn、Fe、Ni 等）；阴离子以 S²⁻ 为主；化学键以共价键为主（金属光泽、不透明、导电、密度大）；类质同象普遍且多为等价有限替代；是 Cu、Pb、Zn、Mo、Hg 的主要矿石来源。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>矿物</th>
+<th>晶体化学式</th>
+<th>鉴定特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="矿物">黄铁矿</td>
+<td data-label="晶体化学式">FeS₂</td>
+<td data-label="鉴定特征">浅铜黄、条痕绿黑、硬度 6~6.5、立方体三组条纹、无解理</td>
+</tr>
+<tr>
+<td data-label="矿物">黄铜矿</td>
+<td data-label="晶体化学式">CuFeS₂</td>
+<td data-label="鉴定特征">铜黄色（浓）、硬度 3.5~4、易生斑状锖色</td>
+</tr>
+<tr>
+<td data-label="矿物">方铅矿</td>
+<td data-label="晶体化学式">PbS</td>
+<td data-label="鉴定特征">铅灰、三组完全解理、硬度 2.5、密度 7.4~7.6</td>
+</tr>
+<tr>
+<td data-label="矿物">闪锌矿</td>
+<td data-label="晶体化学式">ZnS</td>
+<td data-label="鉴定特征">棕黑—红褐、六组完全解理、树脂光泽</td>
+</tr>
+<tr>
+<td data-label="矿物">辉钼矿</td>
+<td data-label="晶体化学式">MoS₂</td>
+<td data-label="鉴定特征">铅灰、硬度 1、极完全解理、片状挠性、污手</td>
+</tr>
+<tr>
+<td data-label="矿物">磁黄铁矿</td>
+<td data-label="晶体化学式">Fe₁₋ₓS</td>
+<td data-label="鉴定特征">古铜色、<strong>具磁性</strong>（区别于黄铁矿的关键）</td>
+</tr>
+<tr>
+<td data-label="矿物">辰砂</td>
+<td data-label="晶体化学式">HgS</td>
+<td data-label="鉴定特征">红色、密度 8.1、硬度 2~2.5</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="11">11. 黄铁矿、黄铜矿、方铅矿、闪锌矿如何区分 ★★★</h4>
+<p><strong>三步法</strong>：① 看颜色与条痕（铅灰+灰黑条痕→方铅矿；棕黑/红褐+浅黄条痕→闪锌矿；铜黄+绿黑条痕→黄铁矿或黄铜矿）；② 用硬度分开后两者（小刀刻不动 6~6.5→黄铁矿；小刀能刻 3.5~4→黄铜矿）；③ 用密度、解理、光泽复核。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>矿物</th>
+<th>颜色</th>
+<th>条痕</th>
+<th>硬度</th>
+<th>解理</th>
+<th>密度</th>
+<th>独有特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="矿物">黄铁矿</td>
+<td data-label="颜色">浅铜黄</td>
+<td data-label="条痕">绿黑</td>
+<td data-label="硬度">6~6.5</td>
+<td data-label="解理">无</td>
+<td data-label="密度">5.0</td>
+<td data-label="独有特征">立方体三组条纹</td>
+</tr>
+<tr>
+<td data-label="矿物">黄铜矿</td>
+<td data-label="颜色">铜黄（浓）</td>
+<td data-label="条痕">绿黑</td>
+<td data-label="硬度">3.5~4</td>
+<td data-label="解理">无</td>
+<td data-label="密度">4.2</td>
+<td data-label="独有特征">易生斑状锖色</td>
+</tr>
+<tr>
+<td data-label="矿物">方铅矿</td>
+<td data-label="颜色">铅灰</td>
+<td data-label="条痕">灰黑</td>
+<td data-label="硬度">2.5</td>
+<td data-label="解理">三组完全</td>
+<td data-label="密度">7.5</td>
+<td data-label="独有特征">手感极重、指甲可刻</td>
+</tr>
+<tr>
+<td data-label="矿物">闪锌矿</td>
+<td data-label="颜色">棕黑/红褐</td>
+<td data-label="条痕">浅黄</td>
+<td data-label="硬度">3.5~4</td>
+<td data-label="解理">六组完全</td>
+<td data-label="密度">4.0</td>
+<td data-label="独有特征">树脂光泽</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="12">12. 方解石和石英如何区分 ★★★</h4>
+<p><strong>最省时两步</strong>：先滴酸，再试硬度——起泡的是方解石，不起泡且能划玻璃的是石英。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>判据</th>
+<th>方解石</th>
+<th>石英</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="判据">化学试验</td>
+<td data-label="方解石">滴稀 HCl 剧烈起泡（CO₂）</td>
+<td data-label="石英">不起泡</td>
+</tr>
+<tr>
+<td data-label="判据">硬度</td>
+<td data-label="方解石">3，小刀极易刻划</td>
+<td data-label="石英">7，能划伤玻璃</td>
+</tr>
+<tr>
+<td data-label="判据">解理/断口</td>
+<td data-label="方解石">三组完全解理，菱面体小块</td>
+<td data-label="石英">无解理，贝壳状断口</td>
+</tr>
+<tr>
+<td data-label="判据">晶形</td>
+<td data-label="方解石">菱面体</td>
+<td data-label="石英">六方柱+菱面体聚形，柱面横纹</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="13">13. 石墨、刚玉、石英、赤铁矿、磁铁矿、方解石的晶体化学式 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>矿物</th>
+<th>化学式</th>
+<th>鉴定特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="矿物">石墨</td>
+<td data-label="化学式">C</td>
+<td data-label="鉴定特征">硬度 1、极完全解理、污手、良导体</td>
+</tr>
+<tr>
+<td data-label="矿物">刚玉</td>
+<td data-label="化学式">Al₂O₃</td>
+<td data-label="鉴定特征">硬度 9、密度 4.0、无解理但有裂理</td>
+</tr>
+<tr>
+<td data-label="矿物">石英</td>
+<td data-label="化学式">SiO₂</td>
+<td data-label="鉴定特征">硬度 7、无解理、贝壳状断口</td>
+</tr>
+<tr>
+<td data-label="矿物">赤铁矿</td>
+<td data-label="化学式">Fe₂O₃</td>
+<td data-label="鉴定特征">条痕樱红色（最可靠）、无磁性</td>
+</tr>
+<tr>
+<td data-label="矿物">磁铁矿</td>
+<td data-label="化学式">Fe₃O₄</td>
+<td data-label="鉴定特征"><strong>强磁性</strong>、条痕黑、密度 5.2</td>
+</tr>
+<tr>
+<td data-label="矿物">方解石</td>
+<td data-label="化学式">CaCO₃</td>
+<td data-label="鉴定特征">硬度 3、三组完全解理、遇稀 HCl 起泡</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>区分要点</strong>：赤铁矿与磁铁矿只差一个氧——磁铁矿强磁性、条痕黑；赤铁矿条痕樱红、无磁性。</p>
+<h4 id="14">14. 硅酸盐矿物的硅氧骨干类型 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>骨干形式</th>
+<th>Si:O</th>
+<th>形态特征</th>
+<th>代表矿物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="类型">岛状</td>
+<td data-label="骨干形式">[SiO₄]⁴⁻ 孤立四面体</td>
+<td data-label="Si:O">1:4</td>
+<td data-label="形态特征">三向等长；硬度高</td>
+<td data-label="代表矿物">橄榄石、石榴子石、锆石</td>
+</tr>
+<tr>
+<td data-label="类型">单链</td>
+<td data-label="骨干形式">[Si₂O₆]⁴⁻</td>
+<td data-label="Si:O">1:3</td>
+<td data-label="形态特征">柱状；两组中等解理（87°）</td>
+<td data-label="代表矿物">辉石族</td>
+</tr>
+<tr>
+<td data-label="类型">双链</td>
+<td data-label="骨干形式">[Si₄O₁₁]⁶⁻</td>
+<td data-label="Si:O">4:11</td>
+<td data-label="形态特征">长柱状；两组中等解理（124°）</td>
+<td data-label="代表矿物">角闪石族</td>
+</tr>
+<tr>
+<td data-label="类型">层状</td>
+<td data-label="骨干形式">[Si₄O₁₀]⁴⁻</td>
+<td data-label="Si:O">2:5</td>
+<td data-label="形态特征">片状；一组极完全解理；硬度低</td>
+<td data-label="代表矿物">云母族、滑石、高岭石</td>
+</tr>
+<tr>
+<td data-label="类型">架状</td>
+<td data-label="骨干形式">三维骨架（部分 Si→Al）</td>
+<td data-label="Si:O">1:2</td>
+<td data-label="形态特征">三向等长粒状；解理差</td>
+<td data-label="代表矿物">石英、长石族、沸石</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一条规律</strong>：骨干连接程度越高（岛→链→层→架），Si:O 越小；形态由粒状→柱状→片状→粒状；硬度密度总体下降。</p>
+<h4 id="15">15. 角闪石和辉石如何区分 ★★★</h4>
+<p><strong>记忆钩子</strong>："角闪石 124°，断面菱形像'角'；辉石 87°，断面近方像'砖'。"只看断面两组解理夹角即可定案。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>判据</th>
+<th>角闪石</th>
+<th>辉石</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="判据">解理交角</td>
+<td data-label="角闪石">两组 {110}，124°（56°）</td>
+<td data-label="辉石">两组 {110}，87°（93°）</td>
+</tr>
+<tr>
+<td data-label="判据">断面形状</td>
+<td data-label="角闪石">菱形/六边形</td>
+<td data-label="辉石">近正方形/八边形</td>
+</tr>
+<tr>
+<td data-label="判据">晶形</td>
+<td data-label="角闪石">长柱状、针状</td>
+<td data-label="辉石">短柱状、粒状</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="16">16. 钾长石和斜长石如何区分 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>判据</th>
+<th>钾长石</th>
+<th>斜长石</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="判据">颜色</td>
+<td data-label="钾长石">肉红色、浅黄白</td>
+<td data-label="斜长石">白色、灰白色</td>
+</tr>
+<tr>
+<td data-label="判据">双晶</td>
+<td data-label="钾长石">卡氏双晶；微斜长石格子双晶</td>
+<td data-label="斜长石"><strong>聚片双晶</strong>（钠长石律），平行条纹</td>
+</tr>
+<tr>
+<td data-label="判据">解理交角</td>
+<td data-label="钾长石">≈90°</td>
+<td data-label="斜长石">≈86°（94°）</td>
+</tr>
+<tr>
+<td data-label="判据">染色法</td>
+<td data-label="钾长石">HF 腐蚀后染成黄色</td>
+<td data-label="斜长石">不染色</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="17">17. 层状硅酸盐矿物的结构单元层 ★</h4>
+<p>由两种结构片叠置：硅氧四面体片（T 层）+ 铝（镁）氧八面体片（O 层）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>结构型</th>
+<th>叠置方式</th>
+<th>层间联结与代表矿物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="结构型">1:1 型（二层型）</td>
+<td data-label="叠置方式">T+O</td>
+<td data-label="层间联结与代表矿物">氢键相连、不膨胀：高岭石、蛇纹石</td>
+</tr>
+<tr>
+<td data-label="结构型">2:1 型（三层型）</td>
+<td data-label="叠置方式">T+O+T</td>
+<td data-label="层间联结与代表矿物">层间分子键+阳离子：云母（K⁺ 固定）、蒙脱石（可膨胀）、蛭石</td>
+</tr>
+<tr>
+<td data-label="结构型">2:1:1 型</td>
+<td data-label="叠置方式">T+O+T+氢氧镁石片</td>
+<td data-label="层间联结与代表矿物">电荷中和：绿泥石</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="18-m90qap">18. 深成岩（M&lt;90%）QAP 图解分类命名 ★★</h4>
+<p>三端元：Q=石英、A=碱性长石、P=斜长石，归一到 100%；M&lt;90% 用 QAP 图，M&gt;90% 属超镁铁质岩另用图。</p>
+<p><strong>命名三句话</strong>：① 先看 Q 定"区"；② 再看 A/(A+P) 定"名"（碱长→正长→二长→花岗闪长→英云闪长）；③ 暗色矿物 &gt;5% 加前缀。</p>
+<p><strong>五个举例</strong>：Q25%、A/(A+P)80%→正长花岗岩；Q30%、50%→二长花岗岩；Q22%、20%→花岗闪长岩；Q8%、95%→石英正长岩；Q2%、90%→正长岩。</p>
+<h4 id="19">19. 岩浆岩按化学成分分类 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>SiO₂</th>
+<th>喷出岩</th>
+<th>侵入岩（深成）</th>
+<th>主要矿物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="类型">超基性</td>
+<td data-label="SiO₂">&lt;45%</td>
+<td data-label="喷出岩">苦橄岩</td>
+<td data-label="侵入岩（深成）">橄榄岩、金伯利岩</td>
+<td data-label="主要矿物">橄榄石+辉石，无石英无长石</td>
+</tr>
+<tr>
+<td data-label="类型">基性</td>
+<td data-label="SiO₂">45~52%</td>
+<td data-label="喷出岩">玄武岩</td>
+<td data-label="侵入岩（深成）">辉长岩、斜长岩</td>
+<td data-label="主要矿物">基性斜长石+辉石</td>
+</tr>
+<tr>
+<td data-label="类型">中性</td>
+<td data-label="SiO₂">52~66%</td>
+<td data-label="喷出岩">安山岩</td>
+<td data-label="侵入岩（深成）">闪长岩、正长岩</td>
+<td data-label="主要矿物">中长石+角闪石</td>
+</tr>
+<tr>
+<td data-label="类型">酸性</td>
+<td data-label="SiO₂">&gt;66%</td>
+<td data-label="喷出岩">流纹岩</td>
+<td data-label="侵入岩（深成）">花岗岩</td>
+<td data-label="主要矿物">钾长石+酸性斜长石+石英</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="20">20. 岩浆岩结构与沉积岩结构的区别 ★★★</h4>
+<p>岩浆岩结构=高温熔体结晶产物（自形程度、粒度反映结晶条件）；沉积岩结构=搬运—沉积—成岩产物（粒度、分选、磨圆为特征）。</p>
+<p>岩浆岩典型结构：全晶质/半晶质/玻璃质；粗/中/细/隐晶质；斑状结构（斑晶+隐晶质基质，不同世代，浅成—喷出相）vs 似斑状结构（斑晶+显晶质基质，近同时结晶，深成相）；辉长、辉绿、文象、环带、反应边结构。</p>
+<p>沉积岩典型结构：碎屑结构、泥质结构、化学结构、生物结构、内碎屑结构。</p>
+<h4 id="21">21. 侵入岩与围岩的接触关系 ★★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+<th>判别标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="类型">侵入接触</td>
+<td data-label="含义">岩体晚于围岩，侵入其中</td>
+<td data-label="判别标志">围岩有接触变质带（烘烤边）；岩体有冷凝边、捕虏体；切穿围岩层理</td>
+</tr>
+<tr>
+<td data-label="类型">沉积接触</td>
+<td data-label="含义">岩体先形成，剥蚀后被沉积岩覆盖</td>
+<td data-label="判别标志">岩体顶面有古风化壳；上覆底部含岩体成分砾石（底砾岩）；上覆层理不受扰动</td>
+</tr>
+<tr>
+<td data-label="类型">断层接触</td>
+<td data-label="含义">以断层相接，先后不明</td>
+<td data-label="判别标志">断层破碎带、角砾岩、糜棱岩、擦痕</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>口诀</strong>："变质晕、冷凝边、捕虏体、切层脉 → 侵入接触；古风化壳、底砾岩、层理不扰动 → 沉积接触。"须四条证据综合判断。</p>
+<h4 id="22">22. 岩浆产生的三个条件 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>机制</th>
+<th>地质背景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="条件">① 温度升高</td>
+<td data-label="机制">超过岩石固相线</td>
+<td data-label="地质背景">地幔柱、热点；岩浆房烘烤</td>
+</tr>
+<tr>
+<td data-label="条件">② 压力降低（减压熔融）</td>
+<td data-label="机制">固相线温度降低，<strong>最主要机制</strong></td>
+<td data-label="地质背景">板块拉张、洋中脊、大陆裂谷</td>
+</tr>
+<tr>
+<td data-label="条件">③ 挥发分加入</td>
+<td data-label="机制">H₂O、CO₂ 降低熔点（水化熔融）</td>
+<td data-label="地质背景">俯冲带脱水，形成岛弧火山岩</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="23">23. 三种风化作用 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用方式</th>
+<th>产物</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="类型">物理风化</td>
+<td data-label="作用方式">温差胀缩、冰劈、盐类结晶撑裂、根劈</td>
+<td data-label="产物">岩石碎屑，成分不变</td>
+<td data-label="特征">只改变粒度；干旱高寒区为主</td>
+</tr>
+<tr>
+<td data-label="类型">化学风化</td>
+<td data-label="作用方式">溶解、水化、水解（长石→高岭石，最主要）、氧化</td>
+<td data-label="产物">黏土矿物、铁铝氧化物（红土）</td>
+<td data-label="特征">成分显著改变；湿热区最发育</td>
+</tr>
+<tr>
+<td data-label="类型">生物风化</td>
+<td data-label="作用方式">生物机械（根劈）+ 生物化学</td>
+<td data-label="产物">兼有碎屑与新生矿物，富集有机质</td>
+<td data-label="特征">加速前两类；土壤形成关键</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>易错</strong>：三种风化同时进行互相促进，不能截然分开——只是气候带主次不同。</p>
+<h4 id="24">24. 岩浆岩与沉积岩矿物组成的区别 ★★★</h4>
+<p>岩浆岩：高温、无水，原生造岩矿物（橄榄石、辉石、角闪石、基性斜长石）；沉积岩：低温、富水，稳定陆源碎屑+自生矿物（石英、黏土矿物、碳酸盐）。矿物的表生稳定性与鲍文反应系列相反——高温先结晶的矿物表生最不稳定；石英最稳定，故在沉积岩中大量富集。</p>
+<h4 id="25">25. 野外如何区分岩浆岩和沉积岩 ★★★</h4>
+<p><strong>野外操作顺序</strong>：先看产状与层理 → 再看结构（有无分选磨圆）→ 再看矿物组合 → 最后看与围岩接触关系。任何两步以上吻合即可定论；只看颜色最不可靠。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>判据</th>
+<th>岩浆岩</th>
+<th>沉积岩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="判据">产状</td>
+<td data-label="岩浆岩">块状地质体，切穿围岩</td>
+<td data-label="沉积岩">层状、似层状，层位稳定</td>
+</tr>
+<tr>
+<td data-label="判据">构造</td>
+<td data-label="岩浆岩">块状、流纹、气孔、枕状</td>
+<td data-label="沉积岩">层理为核心标志；波痕、泥裂</td>
+</tr>
+<tr>
+<td data-label="判据">结构</td>
+<td data-label="岩浆岩">结晶结构，无分选磨圆</td>
+<td data-label="沉积岩">碎屑结构，有分选磨圆，可有化石</td>
+</tr>
+<tr>
+<td data-label="判据">矿物</td>
+<td data-label="岩浆岩">高温矿物组合</td>
+<td data-label="沉积岩">低温稳定组合</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="26">26. 沉积岩的层面构造及其含义 ★★</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>构造</th>
+<th>成因</th>
+<th>指示意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="构造">波痕</td>
+<td data-label="成因">水流/波浪塑造的波状起伏</td>
+<td data-label="指示意义">浅水环境与古流向</td>
+</tr>
+<tr>
+<td data-label="构造">泥裂（干裂）</td>
+<td data-label="成因">泥质暴露失水收缩，V 形尖端向下</td>
+<td data-label="指示意义">暴露、干湿交替；可判别顶底面</td>
+</tr>
+<tr>
+<td data-label="构造">雨痕、冰雹痕</td>
+<td data-label="成因">打击泥质面留下凹坑</td>
+<td data-label="指示意义">暴露于大气、陆相环境</td>
+</tr>
+<tr>
+<td data-label="构造">冲刷面</td>
+<td data-label="成因">水流侵蚀形成的不规则面</td>
+<td data-label="指示意义">沉积间断、水动力突增</td>
+</tr>
+<tr>
+<td data-label="构造">叠层石</td>
+<td data-label="成因">蓝藻微生物捕获粘结的纹层状构造</td>
+<td data-label="指示意义">浅海潮坪、缺氧前寒武纪环境</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="27">27. 砂岩成分分类的三个端元 ★★</h4>
+<p>Q=石英（含燧石）、F=长石、L=岩屑，Q+F+L=100% 投点，按杂基含量区分净砂岩与杂砂岩。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>岩石名称</th>
+<th>成分条件</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="岩石名称">石英砂岩</td>
+<td data-label="成分条件">Q&gt;95%</td>
+<td data-label="含义">成分成熟度最高，长距离搬运反复淘洗</td>
+</tr>
+<tr>
+<td data-label="岩石名称">长石砂岩</td>
+<td data-label="成分条件">F&gt;25%，Q&lt;75%</td>
+<td data-label="含义">近源快速堆积，母岩多为花岗质</td>
+</tr>
+<tr>
+<td data-label="岩石名称">岩屑砂岩</td>
+<td data-label="成分条件">L&gt;25%，Q&lt;75%</td>
+<td data-label="含义">近源强烈侵蚀快速埋藏</td>
+</tr>
+<tr>
+<td data-label="岩石名称">杂砂岩</td>
+<td data-label="成分条件">杂基&gt;15%</td>
+<td data-label="含义">泥质基质支撑，浊流成因</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="4_1">第二部分 名词解释（4 个）</h3>
+<p><strong>Ⅰ 矿物</strong>：地壳或地幔中天然形成的、由地质作用促使的单质或化合物，具有相对固定的化学成分和确定的内部晶体结构，在一定物理化学条件下稳定存在。得分四关键词：天然产出 · 单质或化合物 · 成分相对固定 · 结构确定。</p>
+<p><strong>Ⅱ 晶体</strong>：内部质点在三维空间作有规律周期性重复排列的固体，即具有格子构造的固体。<strong>易错</strong>：不能用"有规则外形的固体"定义晶体——核心是格子构造。</p>
+<p><strong>Ⅲ 矿物的解理</strong>：沿晶体内部一定结晶学方向裂开成平面的性质；本质是特定方向上键力最弱。与断口的区别：解理沿固定方向、面平光滑、恒定不变；断口不依固定方向、面不平。</p>
+<p><strong>Ⅳ 岩石的斑状结构</strong>：较大矿物晶体（斑晶）散布在更细基质中，斑晶与基质分属不同世代（斑晶先结晶）。反映岩浆两阶段冷却。若基质为显晶质且近同时结晶，则称似斑状结构（深成相）——答题务必点出这一句对照。</p>
+<hr />
+<h3 id="2">第三部分 读图题（2 张）</h3>
+<p><strong>A 侵入体产状三维示意图</strong>：按"整合/不整合"指认岩体（岩基 &gt;100km²、岩株 &lt;100km²、岩盖蘑菇状、岩盆中央下凹、岩床顺层、岩墙切层、岩脉分叉）；答题四步=认图→指认→说演化→下结论。</p>
+<p><strong>B 鲍文反应系列与岩浆分异图</strong>：不连续系列（暗色矿物：橄榄石→辉石→角闪石→黑云母，每步结构改变，常见反应边结构）；连续系列（斜长石：钙长石→钠长石，结构不变成分连续变化，形成环带结构）；残余熔体（钾长石→白云母→石英）。答题要点：两系列并行温度同步下降；不连续改结构、连续改成分；用反应边/环带/文象结构作镜下证据。</p></div>
+    </article>
+
+    <section class="note-comments" aria-label="讨论与纠错">
+      <h2>💬 讨论与纠错</h2>
+      <p class="note-comments-hint">发现错误、有补充？评论区由 GitHub Discussions 驱动。
+        打不开就<a href="https://github.com/sdh0219/susu-tools/discussions" target="_blank" rel="noopener">直接去仓库讨论 →</a></p>
+      <div id="comments"></div>
+    </section>
+  </div></section>
+
+  </main>
+
+  <footer class="footer"><div class="container"><p>© 2026 Susu · 所有工具永久免费 · ＼(^o^)／</p></div></footer>
+
+  <script src="/assets/js/main.js"></script>
+  <script defer src="/assets/js/starfield.js"></script>
+  <script defer src="/assets/js/anime-ui.js"></script>
+  <script defer src="/assets/js/extras.js"></script>
+  <script defer src="/assets/js/comments.js"></script>
+  
+</body>
+</html>

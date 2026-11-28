@@ -113,6 +113,10 @@
   const MAP_FILES = {
     'numerical-computing': '/assets/mindmaps/numerical-computing.md',
     'academic-writing': '/assets/mindmaps/academic-writing.md',
+    'socialism-theory': '/assets/mindmaps/socialism-theory.md',
+    'innovation-entrepreneurship': '/assets/mindmaps/innovation-entrepreneurship.md',
+    'comprehensive-english': '/assets/mindmaps/comprehensive-english.md',
+    'rock-mineral-identification': '/assets/mindmaps/rock-mineral-identification.md',
   };
   function resolveMapFile(id) {
     return Object.prototype.hasOwnProperty.call(MAP_FILES, id) ? MAP_FILES[id] : null;

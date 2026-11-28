@@ -2415,3 +2415,98 @@ input, textarea {
   .contributor img { width: 48px; height: 48px; }
   .note-comments { margin-top: 36px; padding-top: 24px; }
 }
+
+/* ═══════════ 自习室课程墙 ═══════════ */
+.course-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.course-tile {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: var(--transition);
+  min-height: 150px;
+}
+
+.course-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-purple);
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.tile-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.tile-name {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+  line-height: 1.45;
+}
+
+.tile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.tile-count {
+  color: var(--accent-purple);
+  font-weight: 600;
+}
+
+.tile-empty-note {
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.course-tile--empty {
+  opacity: 0.62;
+}
+
+.course-tile--empty:hover {
+  transform: none;
+  border-color: var(--border-color);
+  background: var(--bg-card);
+  box-shadow: none;
+}
+
+.tile-arrow {
+  font-size: 0.85rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.course-tile--empty .tile-arrow {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.course-page-grid {
+  padding-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .course-wall { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .course-wall { grid-template-columns: 1fr; }
+  .course-tile { padding: 18px; min-height: 0; }
+}

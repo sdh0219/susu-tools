@@ -13,6 +13,34 @@
       "title": "论文写作 · 课程思维导图",
       "desc": "5 讲全覆盖：论文结构、文献检索、学术道德，星级=考点热度",
       "file": "/assets/mindmaps/academic-writing.md"
+    },
+    {
+      "id": "socialism-theory",
+      "course": "新时代中国特色社会主义理论与实践研究",
+      "title": "新时代 · 应试思维导图",
+      "desc": "8 选 4 应试策略：4 精背专题 + 备用骨架 + 考前速记",
+      "file": "/assets/mindmaps/socialism-theory.md"
+    },
+    {
+      "id": "innovation-entrepreneurship",
+      "course": "创新与创业",
+      "title": "创新与创业 · 课程思维导图",
+      "desc": "核心概念、死亡之谷、辰安三机制、小论文与报告要求",
+      "file": "/assets/mindmaps/innovation-entrepreneurship.md"
+    },
+    {
+      "id": "comprehensive-english",
+      "course": "研究生综合英语",
+      "title": "综合英语 · 期末复习导图",
+      "desc": "考点优先级、词汇、阅读匹配、翻译写作框架",
+      "file": "/assets/mindmaps/comprehensive-english.md"
+    },
+    {
+      "id": "rock-mineral-identification",
+      "course": "岩矿鉴定",
+      "title": "岩矿鉴定 · 考试复习导图",
+      "desc": "27 简答 + 4 名词 + 2 读图：矿物学、硅酸盐、岩浆岩沉积岩体系",
+      "file": "/assets/mindmaps/rock-mineral-identification.md"
     }
   ]
 }

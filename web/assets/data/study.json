@@ -9,7 +9,11 @@
       "file": "/notes/innovation-lesson1-intro.html",
       "format": "图文讲义",
       "date": "2026-11-15",
-      "tags": ["导论", "考核", "拜杜法案"]
+      "tags": [
+        "导论",
+        "考核",
+        "拜杜法案"
+      ]
     },
     {
       "type": "material",
@@ -20,7 +24,11 @@
       "file": "/notes/innovation-entrepreneurship-guide.html",
       "format": "图文讲义",
       "date": "2026-11-15",
-      "tags": ["案例分析", "小论文", "选题"]
+      "tags": [
+        "案例分析",
+        "小论文",
+        "选题"
+      ]
     },
     {
       "type": "material",
@@ -31,7 +39,11 @@
       "file": "/notes/socialism-strategy.html",
       "format": "图文讲义",
       "date": "2026-11-27",
-      "tags": ["论述题", "答题框架", "选科策略"]
+      "tags": [
+        "论述题",
+        "答题框架",
+        "选科策略"
+      ]
     },
     {
       "type": "notes",
@@ -42,7 +54,10 @@
       "file": "/notes/socialism-topic-1.html",
       "format": "答题模板",
       "date": "2026-11-27",
-      "tags": ["答题模板", "中国式现代化"]
+      "tags": [
+        "答题模板",
+        "中国式现代化"
+      ]
     },
     {
       "type": "notes",
@@ -53,7 +68,11 @@
       "file": "/notes/socialism-topic-5.html",
       "format": "答题模板",
       "date": "2026-11-27",
-      "tags": ["答题模板", "民生", "生态文明"]
+      "tags": [
+        "答题模板",
+        "民生",
+        "生态文明"
+      ]
     },
     {
       "type": "notes",
@@ -64,7 +83,26 @@
       "file": "/notes/socialism-topic-6.html",
       "format": "答题模板",
       "date": "2026-11-27",
-      "tags": ["答题模板", "国家安全观", "专业主场"]
+      "tags": [
+        "答题模板",
+        "国家安全观",
+        "专业主场"
+      ]
+    },
+    {
+      "type": "material",
+      "course": "岩矿鉴定",
+      "semester": "2026 秋",
+      "title": "考试复习全解",
+      "desc": "27 条简答论述 + 4 个名词解释 + 2 张读图题，表格化速记：矿物学基础、硅氧骨干、岩浆岩沉积岩体系。",
+      "file": "/notes/rock-mineral-exam.html",
+      "format": "图文讲义",
+      "date": "2026-11-28",
+      "tags": [
+        "矿物学",
+        "岩浆岩",
+        "沉积岩"
+      ]
     },
     {
       "type": "notes",
@@ -75,7 +113,10 @@
       "file": "/notes/socialism-topic-8.html",
       "format": "答题模板",
       "date": "2026-11-27",
-      "tags": ["答题模板", "自我革命"]
+      "tags": [
+        "答题模板",
+        "自我革命"
+      ]
     },
     {
       "type": "material",
@@ -86,7 +127,10 @@
       "file": "/notes/socialism-cram-card.html",
       "format": "速记卡",
       "date": "2026-11-27",
-      "tags": ["速记卡", "考前突击"]
+      "tags": [
+        "速记卡",
+        "考前突击"
+      ]
     },
     {
       "type": "notes",
@@ -97,7 +141,10 @@
       "file": "/notes/socialism-backup-frames.html",
       "format": "答题骨架",
       "date": "2026-11-27",
-      "tags": ["答题骨架", "兜底"]
+      "tags": [
+        "答题骨架",
+        "兜底"
+      ]
     },
     {
       "type": "material",
@@ -108,7 +155,10 @@
       "file": "/notes/comprehensive-english-outline.html",
       "format": "图文讲义",
       "date": "2026-11-08",
-      "tags": ["词汇", "阅读技能"]
+      "tags": [
+        "词汇",
+        "阅读技能"
+      ]
     },
     {
       "type": "material",
@@ -119,7 +169,10 @@
       "file": "/notes/numerical-computing-exercises.html",
       "format": "图文讲义",
       "date": "2026-11-12",
-      "tags": ["答案解析", "计算题"]
+      "tags": [
+        "答案解析",
+        "计算题"
+      ]
     },
     {
       "type": "notes",
@@ -130,7 +183,11 @@
       "file": "/notes/numerical-computing-quickref.html",
       "format": "图文讲义",
       "date": "2026-11-20",
-      "tags": ["速查", "收敛阶", "公式"]
+      "tags": [
+        "速查",
+        "收敛阶",
+        "公式"
+      ]
     },
     {
       "type": "notes",
@@ -141,7 +198,10 @@
       "file": "/mindmap.html?m=numerical-computing",
       "format": "交互导图",
       "date": "2026-11-12",
-      "tags": ["思维导图", "考点星级"]
+      "tags": [
+        "思维导图",
+        "考点星级"
+      ]
     },
     {
       "type": "homework",
@@ -152,7 +212,12 @@
       "file": "/notes/chenan-case-report.html",
       "format": "正文 + 讲稿 + PPT",
       "date": "2026-11-17",
-      "tags": ["辰安科技", "成果转化", "应急行业", "自拟选题"]
+      "tags": [
+        "辰安科技",
+        "成果转化",
+        "应急行业",
+        "自拟选题"
+      ]
     },
     {
       "type": "homework",
@@ -164,7 +229,11 @@
       "format": "在线幻灯片",
       "size": "9 页 · 1.6 MB",
       "date": "2026-11-17",
-      "tags": ["PPT", "辰安科技", "在线浏览"]
+      "tags": [
+        "PPT",
+        "辰安科技",
+        "在线浏览"
+      ]
     },
     {
       "type": "notes",
@@ -175,7 +244,10 @@
       "file": "/notes/academic-writing-summary.html",
       "format": "图文讲义",
       "date": "2026-11-11",
-      "tags": ["名词解释", "易混对比"]
+      "tags": [
+        "名词解释",
+        "易混对比"
+      ]
     },
     {
       "type": "notes",
@@ -186,7 +258,10 @@
       "file": "/mindmap.html?m=academic-writing",
       "format": "交互导图",
       "date": "2026-11-11",
-      "tags": ["思维导图", "全覆盖"]
+      "tags": [
+        "思维导图",
+        "全覆盖"
+      ]
     }
   ]
 }

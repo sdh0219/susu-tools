@@ -73,6 +73,11 @@ NOTES = [
         "tag": "专题复习 · 备用骨架",
     },
     {
+        "source": "岩矿鉴定/岩矿鉴定-考试复习全解.md",
+        "slug": "rock-mineral-exam",
+        "course": "岩矿鉴定",
+    },
+    {
         "source": "综合英语/综合英语期末复习大纲.md",
         "slug": "comprehensive-english-outline",
         "course": "Y_研究生综合英语",

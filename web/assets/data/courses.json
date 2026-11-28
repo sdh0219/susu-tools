@@ -1,0 +1,16 @@
+{
+  "courses": [
+    { "slug": "numerical-computing", "name": "数值计算实验与数学建模", "match": "Y_数值计算", "icon": "🧮", "term": "2026 秋", "mindmap": "/mindmap.html?m=numerical-computing" },
+    { "slug": "socialism-theory", "name": "新时代中国特色社会主义理论与实践研究", "match": "Y_新时代", "icon": "🚩", "term": "2026 秋", "mindmap": "/mindmap.html?m=socialism-theory" },
+    { "slug": "innovation-entrepreneurship", "name": "创新与创业", "match": "Y_*创新与创业", "icon": "💡", "term": "2026 秋", "mindmap": "/mindmap.html?m=innovation-entrepreneurship" },
+    { "slug": "academic-writing", "name": "论文写作与学术道德规范", "match": "Y_论文写作", "icon": "✍️", "term": "2026 秋", "mindmap": "/mindmap.html?m=academic-writing" },
+    { "slug": "comprehensive-english", "name": "综合英语", "match": "Y_研究生综合英语", "icon": "🔤", "term": "2026 秋", "mindmap": "/mindmap.html?m=comprehensive-english" },
+    { "slug": "geophysics-2", "name": "地球物理学原理与方法Ⅱ（重、磁、电、震）", "match": "", "icon": "🌍" },
+    { "slug": "rock-mineral-identification", "name": "岩矿鉴定", "match": "岩矿鉴定", "icon": "🪨", "term": "2026 秋", "mindmap": "/mindmap.html?m=rock-mineral-identification" },
+    { "slug": "engineering-ethics", "name": "工程伦理学", "match": "", "icon": "⚖️" },
+    { "slug": "mathematical-statistics", "name": "数理统计", "match": "", "icon": "📊" },
+    { "slug": "physical-geology", "name": "普通地质学", "match": "", "icon": "🏔️" },
+    { "slug": "active-fault-detection", "name": "活动断层探测技术与方法", "match": "", "icon": "🗺️" },
+    { "slug": "oral-english", "name": "英语口语", "match": "", "icon": "🗣️" }
+  ]
+}
