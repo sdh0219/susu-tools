@@ -3,8 +3,8 @@
    - giscus App 未安装/网络不通时，区块内保留「去仓库讨论」的兜底说明（HTML 里已写）
    - 跟随站点主题按钮实时切换评论区配色 */
 (function () {
-  /* ⚠️ 开关：giscus GitHub App 装到仓库后改成 true（见 docs/community.md） */
-  var ENABLED = false;
+  /* ⚠️ 开关：giscus GitHub App 已安装（2026-11-28），评论区启用 */
+  var ENABLED = true;
 
   var CFG = {
     repo: 'sdh0219/susu-tools',
